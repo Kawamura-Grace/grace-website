@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grace — PATISSERIE</title>
+  <meta name="description" content="美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。">
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
+  <meta property="og:title" content="Grace — PATISSERIE">
+  <meta property="og:description" content="美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Josefin+Sans:wght@200;300&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wasabi: #7B8B6F;
+      --dark-brown: #2C2421;
+      --gold: #B8956A;
+      --off-white: #F7F3EF;
+      --off-white-warm: #F0EBE4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color-scheme: light only;
+      background-color: #F7F3EF;
+    }
+
+    body {
+      background-color: var(--off-white);
+      color: var(--dark-brown);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* Decorative gold accent line */
+    .accent-line {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 0;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      animation: lineGrow 2s ease-out 0.5s forwards;
+      z-index: 1;
+    }
+
+    @keyframes lineGrow {
+      to { height: 80px; }
+    }
+
+    /* Bottom accent line */
+    .accent-line-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 0;
+      background: linear-gradient(to top, transparent, var(--gold), transparent);
+      animation: lineGrow 2s ease-out 0.8s forwards;
+      z-index: 1;
+    }
+
+    /* Main content */
+    .container {
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      animation: fadeIn 1.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Wordmark */
+    .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      letter-spacing: 0.08em;
+      color: var(--dark-brown);
+      margin-bottom: 0.15em;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: slideUp 1.4s ease-out 0.6s forwards;
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* PATISSERIE sub-copy */
+    .sub-copy {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 200;
+      font-size: clamp(0.6rem, 1.8vw, 0.85rem);
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideUp 1.4s ease-out 0.9s forwards;
+    }
+
+    /* Decorative separator */
+    .separator {
+      width: 40px;
+      height: 1px;
+      background-color: var(--gold);
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1.6s ease-out 1.2s forwards;
+    }
+
+    /* Brand philosophy */
+    .philosophy {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(0.8rem, 2.2vw, 1.05rem);
+      color: var(--dark-brown);
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideUp 1.4s ease-out 1.4s forwards;
+    }
+
+    /* Opening info */
+    .opening-info {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.55rem, 1.5vw, 0.72rem);
+      letter-spacing: 0.25em;
+      color: var(--wasabi);
+      margin-bottom: 0.6rem;
+      opacity: 0;
+      animation: fadeIn 1.4s ease-out 1.7s forwards;
+    }
+
+    .opening-location {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: clamp(0.65rem, 1.6vw, 0.78rem);
+      letter-spacing: 0.15em;
+      color: var(--dark-brown);
+      opacity: 0.6;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeIn 1.4s ease-out 1.9s forwards;
+    }
+
+    /* Instagram link */
+    .instagram-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--dark-brown);
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.6rem, 1.4vw, 0.72rem);
+      letter-spacing: 0.2em;
+      padding: 0.8rem 2rem;
+      border: 1px solid var(--gold);
+      transition: all 0.5s ease;
+      opacity: 0;
+      animation: fadeIn 1.4s ease-out 2.2s forwards;
+    }
+
+    .instagram-link:hover {
+      background-color: var(--gold);
+      color: var(--off-white);
+      border-color: var(--gold);
+    }
+
+    .instagram-link svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.4s ease;
+    }
+
+    .instagram-link:hover svg {
+      transform: scale(1.1);
+    }
+
+    /* Wasabi accent corners */
+    .corner {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      opacity: 0;
+      animation: fadeIn 2s ease-out 2.5s forwards;
+    }
+
+    .corner--tl {
+      top: 24px;
+      left: 24px;
+      border-top: 1px solid var(--wasabi);
+      border-left: 1px solid var(--wasabi);
+    }
+
+    .corner--tr {
+      top: 24px;
+      right: 24px;
+      border-top: 1px solid var(--wasabi);
+      border-right: 1px solid var(--wasabi);
+    }
+
+    .corner--bl {
+      bottom: 24px;
+      left: 24px;
+      border-bottom: 1px solid var(--wasabi);
+      border-left: 1px solid var(--wasabi);
+    }
+
+    .corner--br {
+      bottom: 24px;
+      right: 24px;
+      border-bottom: 1px solid var(--wasabi);
+      border-right: 1px solid var(--wasabi);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      .philosophy {
+        line-height: 2.4;
+        letter-spacing: 0.08em;
+      }
+
+      .corner {
+        width: 20px;
+        height: 20px;
+      }
+
+      .corner--tl, .corner--tr { top: 16px; }
+      .corner--bl, .corner--br { bottom: 16px; }
+      .corner--tl, .corner--bl { left: 16px; }
+      .corner--tr, .corner--br { right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="accent-line"></div>
+  <div class="accent-line-bottom"></div>
+
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <div class="container">
+    <h1 class="wordmark">Grace</h1>
+    <p class="sub-copy">Patisserie</p>
+
+    <div class="separator"></div>
+
+    <p class="philosophy">美しい暮らしには、お菓子がある。</p>
+
+    <p class="opening-info">AUTUMN 2026 — OPEN</p>
+    <p class="opening-location">愛知・春日井</p>
+
+    <a href="https://www.instagram.com/grace_lifestyle_dessert" target="_blank" rel="noopener noreferrer" class="instagram-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="5"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      INSTAGRAM
+    </a>
+  </div>
+
+</body>
+</html>
