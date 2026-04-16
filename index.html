@@ -10,6 +10,17 @@
   <meta property="og:title" content="Grace — PATISSERIE">
   <meta property="og:description" content="美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.grace-patisserie.jp/">
+  <meta property="og:image" content="https://www.grace-patisserie.jp/logo-horizontal.png">
+  <meta property="og:site_name" content="Grace Patisserie">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Grace — PATISSERIE">
+  <meta name="twitter:description" content="美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。">
+  <meta name="twitter:image" content="https://www.grace-patisserie.jp/logo-horizontal.png">
+  <link rel="canonical" href="https://www.grace-patisserie.jp/">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Josefin+Sans:wght@200;300&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
@@ -104,18 +115,15 @@
       to { opacity: 1; }
     }
 
-    /* Wordmark */
-    .wordmark {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      letter-spacing: 0.08em;
-      color: var(--dark-brown);
-      margin-bottom: 0.15em;
+    /* Logo image */
+    .logo-image {
+      width: clamp(180px, 35vw, 280px);
+      height: auto;
+      display: block;
+      margin: 0 auto 2.5rem;
       opacity: 0;
       transform: translateY(12px);
-      animation: slideUp 1.4s ease-out 0.6s forwards;
+      animation: slideUp 1.6s ease-out 0.6s forwards;
     }
 
     @keyframes slideUp {
@@ -123,20 +131,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    /* PATISSERIE sub-copy */
-    .sub-copy {
-      font-family: 'Josefin Sans', sans-serif;
-      font-weight: 200;
-      font-size: clamp(0.6rem, 1.8vw, 0.85rem);
-      letter-spacing: 0.35em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 3.5rem;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: slideUp 1.4s ease-out 0.9s forwards;
     }
 
     /* Decorative separator */
@@ -292,8 +286,8 @@
   <div class="corner corner--br"></div>
 
   <div class="container">
-    <h1 class="wordmark">Grace</h1>
-    <p class="sub-copy">Patisserie</p>
+    <h1 style="position:absolute;left:-9999px;">Grace Patisserie</h1>
+    <img src="logo-vertical.png" alt="Grace Patisserie" class="logo-image">
 
     <div class="separator"></div>
 
