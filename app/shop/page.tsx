@@ -74,11 +74,9 @@ export default async function ShopPage() {
                     </dd>
                   </div>
                   <div>
-                    
-                    <dd>
-
-
-                      </a>
+                    <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">TEL</dt>
+                    <dd className="font-noto-serif text-sm text-grace-text-secondary">
+                      未定（開業時に掲載予定）
                     </dd>
                   </div>
                   <div>
