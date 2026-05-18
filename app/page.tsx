@@ -53,7 +53,7 @@ export default async function HomePage() {
                   </div>
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">HOURS</dt>
-                    <dd>9:30 – 19:30　不定休（元旦のみ休業）</dd>
+                    <dd>9:30 – 19:30　不定休</dd>
                   </div>
                 </dl>
                 <Link

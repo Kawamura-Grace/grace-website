@@ -74,10 +74,10 @@ export default async function ShopPage() {
                     </dd>
                   </div>
                   <div>
-                    <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">TEL</dt>
+                    
                     <dd>
-                      <a href="tel:0000-00-0000" className="font-noto-serif text-sm text-grace-text-secondary hover:text-grace-brown transition-colors">
-                        000-0000-0000
+
+
                       </a>
                     </dd>
                   </div>
@@ -85,7 +85,7 @@ export default async function ShopPage() {
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">HOURS</dt>
                     <dd className="font-noto-serif text-sm text-grace-text-secondary">
                       9:30 – 19:30<br />
-                      <span className="text-grace-text-tertiary text-xs">不定休（元旦のみ休業、基本年中無休）</span>
+                      <span className="text-grace-text-tertiary text-xs">不定休</span>
                     </dd>
                   </div>
                   <div>
@@ -125,7 +125,7 @@ export default async function ShopPage() {
                   </tr>
                   <tr className="border-b border-grace-line">
                     <td className="py-3 pr-8 text-grace-text-secondary">定休日</td>
-                    <td className="py-3 text-grace-text-secondary">不定休（元旦のみ休業）</td>
+                    <td className="py-3 text-grace-text-secondary">不定休</td>
                   </tr>
                 </tbody>
               </table>

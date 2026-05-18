@@ -45,13 +45,13 @@ export default function ConceptPage() {
               美しい暮らしには、<br className="md:hidden" />お菓子がある。
             </h2>
             <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose tracking-wide">
-              日常の中に、小さな感動を。<br />
+              日常の中に、確かな豊かさを。<br />
               Grace Patisserieは、そう願ってお菓子を作ります。<br /><br />
-              朝のコーヒーに添える一口、大切な人への贈り物、<br />
-              ふと疲れた午後の、自分へのご褒美。<br /><br />
+              誰かを想う贈り物、大切な時間のしつらえ、<br />
+              朝の静かな一口、特別な日の記憶。<br /><br />
               お菓子はただの甘いものではなく、<br />
-              暮らしに彩りを与え、記憶に刻まれる、<br />
-              小さなけれど確かな豊かさだと私たちは信じています。
+              暮らしに深みをそえ、記憶に刻まれる、<br />
+              小さな、けれど確かな豊かさです。
             </p>
           </div>
         </section>
@@ -85,9 +85,9 @@ export default function ConceptPage() {
                   Dedicated<br />Handcraft
                 </h2>
                 <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-4">
-                  Graceのお菓子は、すべて少量ずつ手作りしています。
-                  工場の大量生産では生まれない、手仕事ならではの温度感と揺らぎが、
-                  食べる人の心に届くと信じているから。
+                  Graceのお菓子は、すべて少量ずつ、手で作っています。
+                  素材と向き合い、気候と対話しながら、その日だけの一皿を仕上げる。
+                  手が加わることで、お菓子に温度と揺らぎが生まれると信じているから。
                 </p>
                 <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose">
                   仕込みの前日から素材を整え、温度と湿度を見ながら、

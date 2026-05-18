@@ -72,7 +72,7 @@ export function Footer() {
               〒486-0844<br />
               愛知県春日井市<br />
               営業時間 9:30–19:30<br />
-              不定休（元旦のみ休業）
+              不定休
             </address>
             <div className="flex gap-4">
               <a
