@@ -1,0 +1,24 @@
+name: ISR Revalidate
+
+on:
+  schedule:
+    # 5分間隔でNotionの更新をHPに反映
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Revalidate all ISR paths
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "${{ secrets.SITE_URL }}/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}")
+          echo "HTTP status: $response"
+          if [ "$response" != "200" ]; then
+            echo "Revalidation failed with status $response"
+            exit 1
+          fi
+          echo "Revalidation succeeded"
