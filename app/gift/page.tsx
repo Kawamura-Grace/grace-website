@@ -65,6 +65,18 @@ export default function GiftPage() {
                 <span className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">PHOTO</span>
               </div>
             </div>
+
+            {/* WRAPPING直下CTA */}
+            <div className="mt-12 text-center">
+              <a
+                href="https://square.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-brown border border-grace-brown px-8 py-4 hover:bg-grace-brown hover:text-grace-offwhite transition-all duration-300"
+              >
+                ONLINE STORE でギフトを選ぶ →
+              </a>
+            </div>
           </div>
         </section>
 
