@@ -155,3 +155,161 @@ video {
   height: 1px;
   background-color: var(--grace-line);
 }
+
+/* ─── ティザーページ専用スタイル ─── */
+
+body:has(.teaser-container) {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--grace-offwhite);
+}
+
+/* グレインテクスチャ */
+body:has(.teaser-container)::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+}
+
+.accent-line,
+.accent-line-bottom {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, transparent, var(--grace-gold), transparent);
+  z-index: 1;
+}
+.accent-line        { top: 0;    animation: lineGrow 2s ease-out 0.5s forwards; }
+.accent-line-bottom { bottom: 0; background: linear-gradient(to top, transparent, var(--grace-gold), transparent); animation: lineGrow 2s ease-out 0.8s forwards; }
+
+@keyframes lineGrow { to { height: 80px; } }
+
+.corner {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  animation: fadeInTeaser 2s ease-out 2.5s forwards;
+}
+.corner--tl { top: 24px;    left: 24px;  border-top: 1px solid var(--grace-wasabi); border-left:  1px solid var(--grace-wasabi); }
+.corner--tr { top: 24px;    right: 24px; border-top: 1px solid var(--grace-wasabi); border-right: 1px solid var(--grace-wasabi); }
+.corner--bl { bottom: 24px; left: 24px;  border-bottom: 1px solid var(--grace-wasabi); border-left:  1px solid var(--grace-wasabi); }
+.corner--br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--grace-wasabi); border-right: 1px solid var(--grace-wasabi); }
+
+.teaser-container {
+  text-align: center;
+  padding: 2rem;
+  opacity: 0;
+  animation: fadeInTeaser 1.8s ease-out 0.3s forwards;
+}
+
+.teaser-logo {
+  width: clamp(180px, 35vw, 280px) !important;
+  height: auto !important;
+  margin: 0 auto 2.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: slideUpTeaser 1.6s ease-out 0.6s forwards;
+}
+
+.teaser-separator {
+  width: 40px;
+  height: 1px;
+  background-color: var(--grace-gold);
+  margin: 0 auto 2.5rem;
+  opacity: 0;
+  animation: fadeInTeaser 1.6s ease-out 1.2s forwards;
+}
+
+.teaser-philosophy {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: clamp(0.8rem, 2.2vw, 1.05rem);
+  letter-spacing: 0.12em;
+  line-height: 2.2;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideUpTeaser 1.4s ease-out 1.4s forwards;
+}
+
+.teaser-opening-info {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.55rem, 1.5vw, 0.72rem);
+  letter-spacing: 0.25em;
+  color: var(--grace-wasabi);
+  margin-bottom: 0.6rem;
+  opacity: 0;
+  animation: fadeInTeaser 1.4s ease-out 1.7s forwards;
+}
+
+.teaser-opening-location {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: clamp(0.65rem, 1.6vw, 0.78rem);
+  letter-spacing: 0.15em;
+  color: var(--grace-text-secondary);
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  animation: fadeInTeaser 1.4s ease-out 1.9s forwards;
+}
+
+.teaser-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--grace-brown);
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.6rem, 1.4vw, 0.72rem);
+  letter-spacing: 0.2em;
+  padding: 0.8rem 2rem;
+  border: 1px solid var(--grace-gold);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  opacity: 0;
+  animation: fadeInTeaser 1.4s ease-out 2.2s forwards;
+}
+.teaser-instagram:hover {
+  background-color: var(--grace-gold);
+  color: var(--grace-offwhite);
+}
+.teaser-instagram svg {
+  width: 14px;
+  height: 14px;
+}
+
+@keyframes fadeInTeaser  { to { opacity: 1; } }
+@keyframes slideUpTeaser { to { opacity: 1; transform: translateY(0); } }
+
+/* sr-only (スクリーンリーダー専用) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (max-width: 600px) {
+  .teaser-philosophy { letter-spacing: 0.08em; line-height: 2.4; }
+  .corner            { width: 20px; height: 20px; }
+  .corner--tl, .corner--tr { top: 16px; }
+  .corner--bl, .corner--br { bottom: 16px; }
+  .corner--tl, .corner--bl { left: 16px; }
+  .corner--tr, .corner--br { right: 16px; }
+}
