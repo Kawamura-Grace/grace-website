@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Google Fonts — next/font で最適化読み込みするため、このimportはローカル開発用 */
 /* 本番は app/layout.tsx の next/font/google で読み込む */
 
