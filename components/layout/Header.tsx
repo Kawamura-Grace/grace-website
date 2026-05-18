@@ -42,7 +42,7 @@ export function Header({ variant = 'solid' }: HeaderProps) {
               aria-label="メニューを開く"
               aria-expanded={isMenuOpen}
               className={cn(
-                'flex items-center justify-center p-2 transition-colors',
+                'relative z-10 flex items-center justify-center p-2 transition-colors',
                 isTransparent
                   ? 'text-grace-offwhite hover:text-grace-stone'
                   : 'text-grace-text-secondary hover:text-grace-brown',
@@ -57,7 +57,7 @@ export function Header({ variant = 'solid' }: HeaderProps) {
             <Link href="/" className="absolute left-1/2 -translate-x-1/2">
               <Image
                 src="/logo-horizontal.png"
-                alt="Grace Patisserie"
+                alt="Pâtisserie Grace"
                 width={120}
                 height={32}
                 className={cn('h-7 w-auto block transition-opacity', isTransparent && 'brightness-0 invert')}
@@ -72,7 +72,7 @@ export function Header({ variant = 'solid' }: HeaderProps) {
               rel="noopener noreferrer"
               aria-label="オンラインストア"
               className={cn(
-                'flex items-center justify-center p-2 transition-colors',
+                'relative z-10 flex items-center justify-center p-2 transition-colors',
                 isTransparent
                   ? 'text-grace-offwhite hover:text-grace-stone'
                   : 'text-grace-text-secondary hover:text-grace-brown',

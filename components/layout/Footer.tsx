@@ -27,7 +27,7 @@ export function Footer() {
           <div>
             <Image
               src="/logo-horizontal.png"
-              alt="Grace Patisserie"
+              alt="Pâtisserie Grace"
               width={160}
               height={40}
               className="mb-4"

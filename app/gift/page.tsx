@@ -27,7 +27,7 @@ export default function GiftPage() {
             <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
             <p className="font-noto-serif text-sm text-grace-stone leading-loose max-w-md mx-auto">
               大切な人への気持ちを、美しい贈り物に。<br />
-              Grace Patisserieの贈り物は、開ける瞬間から体験が始まります。
+              Pâtisserie Graceの贈り物は、開ける瞬間から体験が始まります。
             </p>
           </div>
         </section>

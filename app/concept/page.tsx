@@ -46,12 +46,10 @@ export default function ConceptPage() {
             </h2>
             <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose tracking-wide">
               日常の中に、確かな豊かさを。<br />
-              Grace Patisserieは、そう願ってお菓子を作ります。<br /><br />
-              誰かを想う贈り物、大切な時間のしつらえ、<br />
-              朝の静かな一口、特別な日の記憶。<br /><br />
+              Pâtisserie Graceは、そう願ってお菓子を作ります。<br /><br />
+              誰かを想う贈り物に、特別な日の記憶に。<br />
               お菓子はただの甘いものではなく、<br />
-              暮らしに深みをそえ、記憶に刻まれる、<br />
-              小さな、けれど確かな豊かさです。
+              暮らしに深みを添え、記憶に刻まれる豊かさです。
             </p>
           </div>
         </section>

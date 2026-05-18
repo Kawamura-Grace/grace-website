@@ -11,7 +11,7 @@ export function Hero() {
       <div className="relative z-10 text-center px-6">
         <Image
           src="/logo-vertical.png"
-          alt="Grace Patisserie"
+          alt="Pâtisserie Grace"
           width={200}
           height={140}
           className="mx-auto mb-8 brightness-0 invert opacity-90"

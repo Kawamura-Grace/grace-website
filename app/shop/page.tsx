@@ -62,7 +62,7 @@ export default async function ShopPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
               {/* 左: 店舗情報 */}
               <div>
-                <h2 className="font-cormorant italic text-3xl text-grace-brown mb-2">Grace Patisserie</h2>
+                <h2 className="font-cormorant italic text-3xl text-grace-brown mb-2">Pâtisserie Grace</h2>
                 <p className="font-noto-serif text-xs text-grace-text-tertiary tracking-widest mb-8">グレース パティスリー</p>
 
                 <dl className="space-y-6">
@@ -110,30 +110,6 @@ export default async function ShopPage() {
           </div>
         </section>
 
-        {/* ─── 営業時間詳細 ─── */}
-        <section className="section-padding bg-grace-cream">
-          <div className="container-content">
-            <div className="section-label mb-12">HOURS</div>
-            <div className="max-w-lg mx-auto">
-              <table className="w-full font-noto-serif text-sm text-grace-text-secondary">
-                <tbody>
-                  <tr className="border-b border-grace-line">
-                    <td className="py-3 pr-8 text-grace-text-secondary">営業時間</td>
-                    <td className="py-3 text-grace-brown">9:30 – 19:30</td>
-                  </tr>
-                  <tr className="border-b border-grace-line">
-                    <td className="py-3 pr-8 text-grace-text-secondary">定休日</td>
-                    <td className="py-3 text-grace-text-secondary">不定休</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p className="font-noto-sans text-[10px] tracking-wide text-grace-text-tertiary mt-4">
-                ※ 臨時休業や営業時間変更はInstagramおよびこのページにてお知らせします。
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* ─── Google Maps ─── */}
         <section className="bg-grace-offwhite">
           <div className="container-content py-0">
@@ -141,7 +117,7 @@ export default async function ShopPage() {
           </div>
           <div className="w-full aspect-video max-h-[480px]">
             <iframe
-              title="Grace Patisserie アクセスマップ"
+              title="Pâtisserie Grace アクセスマップ"
               src="https://maps.google.com/maps?q=愛知県春日井市&output=embed"
               width="100%"
               height="100%"
