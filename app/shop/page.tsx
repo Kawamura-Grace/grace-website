@@ -27,7 +27,7 @@ export default async function ShopPage() {
             <div className="container-content py-4">
               {alerts.map((alert) => (
                 <div key={alert.id} className="flex items-start gap-3">
-                  <svg className="w-4 h-4 text-grace-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <svg width="16" height="16" className="block flex-shrink-0 text-grace-gold mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
                     <line x1="12" y1="9" x2="12" y2="13"/>
                     <line x1="12" y1="17" x2="12.01" y2="17"/>
@@ -85,7 +85,7 @@ export default async function ShopPage() {
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">HOURS</dt>
                     <dd className="font-noto-serif text-sm text-grace-text-secondary">
                       9:30 – 19:30<br />
-                      <span className="text-grace-text-tertiary text-xs">火曜定休（祝日の場合は営業、翌水曜休）</span>
+                      <span className="text-grace-text-tertiary text-xs">不定休（元旦のみ休業、基本年中無休）</span>
                     </dd>
                   </div>
                   <div>
@@ -119,27 +119,18 @@ export default async function ShopPage() {
             <div className="max-w-lg mx-auto">
               <table className="w-full font-noto-serif text-sm text-grace-text-secondary">
                 <tbody>
-                  {[
-                    { day: '月曜日', time: '9:30 – 19:30' },
-                    { day: '火曜日', time: '定休日', closed: true },
-                    { day: '水曜日', time: '9:30 – 19:30' },
-                    { day: '木曜日', time: '9:30 – 19:30' },
-                    { day: '金曜日', time: '9:30 – 19:30' },
-                    { day: '土曜日', time: '9:30 – 19:30' },
-                    { day: '日曜日', time: '9:30 – 19:30' },
-                  ].map(({ day, time, closed }) => (
-                    <tr key={day} className="border-b border-grace-line">
-                      <td className="py-3 pr-8 text-grace-text-secondary">{day}</td>
-                      <td className={`py-3 ${closed ? 'text-grace-text-tertiary' : 'text-grace-brown'}`}>
-                        {time}
-                      </td>
-                    </tr>
-                  ))}
+                  <tr className="border-b border-grace-line">
+                    <td className="py-3 pr-8 text-grace-text-secondary">営業時間</td>
+                    <td className="py-3 text-grace-brown">9:30 – 19:30</td>
+                  </tr>
+                  <tr className="border-b border-grace-line">
+                    <td className="py-3 pr-8 text-grace-text-secondary">定休日</td>
+                    <td className="py-3 text-grace-text-secondary">不定休（元旦のみ休業）</td>
+                  </tr>
                 </tbody>
               </table>
               <p className="font-noto-sans text-[10px] tracking-wide text-grace-text-tertiary mt-4">
-                ※ 祝日は通常営業、翌水曜日が振替休日となります。<br />
-                ※ 臨時休業や営業時間変更はInstagramにてお知らせします。
+                ※ 臨時休業や営業時間変更はInstagramおよびこのページにてお知らせします。
               </p>
             </div>
           </div>

@@ -42,13 +42,13 @@ export function Header({ variant = 'solid' }: HeaderProps) {
               aria-label="メニューを開く"
               aria-expanded={isMenuOpen}
               className={cn(
-                'p-2 transition-colors',
+                'flex items-center justify-center p-2 transition-colors',
                 isTransparent
                   ? 'text-grace-offwhite hover:text-grace-stone'
                   : 'text-grace-text-secondary hover:text-grace-brown',
               )}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+              <svg width="20" height="20" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
                 <path d="M3 6h18M3 12h18M3 18h18"/>
               </svg>
             </button>
@@ -60,25 +60,25 @@ export function Header({ variant = 'solid' }: HeaderProps) {
                 alt="Grace Patisserie"
                 width={120}
                 height={32}
-                className={cn('h-7 w-auto transition-opacity', isTransparent && 'brightness-0 invert')}
+                className={cn('h-7 w-auto block transition-opacity', isTransparent && 'brightness-0 invert')}
                 priority
               />
             </Link>
 
-            {/* カート（Square Online） */}
+            {/* カート（Square Online）— ティザー期は非表示 */}
             <a
               href="https://square.site"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="オンラインストア"
               className={cn(
-                'p-2 transition-colors',
+                'flex items-center justify-center p-2 transition-colors',
                 isTransparent
                   ? 'text-grace-offwhite hover:text-grace-stone'
                   : 'text-grace-text-secondary hover:text-grace-brown',
               )}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg width="20" height="20" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
                 <line x1="3" y1="6" x2="21" y2="6"/>
                 <path d="M16 10a4 4 0 01-8 0"/>

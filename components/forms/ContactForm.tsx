@@ -80,7 +80,7 @@ export function ContactForm() {
     return (
       <div className="bg-grace-cream border border-grace-line p-12 text-center">
         <div className="w-8 h-8 border border-grace-wasabi rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg className="w-4 h-4 text-grace-wasabi" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg width="16" height="16" className="block flex-shrink-0 text-grace-wasabi" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>

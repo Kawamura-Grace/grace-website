@@ -136,42 +136,7 @@ export default function ConceptPage() {
           </div>
         </section>
 
-        {/* ─── FOUNDER MESSAGE ─── */}
-        <section className="section-padding bg-grace-offwhite">
-          <div className="container-content max-w-article mx-auto">
-            <div className="section-label mb-12">FOUNDER MESSAGE</div>
-            <div className="flex flex-col md:flex-row gap-12 items-start">
-              {/* 写真プレースホルダー */}
-              <div className="w-full md:w-48 flex-shrink-0 aspect-square bg-grace-cream flex items-center justify-center">
-                <span className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">PHOTO</span>
-              </div>
-              {/* メッセージ */}
-              <div>
-                <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-6">
-                  洋菓子の世界に入って20年。たくさんの方に「おいしい」と言っていただく中で、
-                  ずっと心に引っかかっていたことがありました。
-                  「なぜ、本当においしいお菓子は、こんなにも高くて遠いのだろう」と。
-                </p>
-                <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-6">
-                  Graceは、その問いへの私なりの答えです。
-                  妥協しない素材と手仕事を、でも届きやすい形で。
-                  地元・春日井から、暮らしの中のお菓子文化を育てていきたいと思っています。
-                </p>
-                <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-8">
-                  「美しい暮らしには、お菓子がある」——
-                  この言葉を、お客様と一緒に体現していきたい。
-                  Grace Patisserieを選んでくださる方の日常が、
-                  少しだけ豊かになることを願っています。
-                </p>
-                <div>
-                  <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">FOUNDER</p>
-                  <p className="font-noto-serif text-base text-grace-brown">河村 大輔</p>
-                  <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">株式会社Grace Foods</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* FOUNDER MESSAGE は非公開方針のため省略 */}
       </main>
       <Footer />
     </>
