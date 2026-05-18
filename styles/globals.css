@@ -1,0 +1,157 @@
+/* Google Fonts — next/font で最適化読み込みするため、このimportはローカル開発用 */
+/* 本番は app/layout.tsx の next/font/google で読み込む */
+
+:root {
+  /* 仕様書 2.1 カラートークン */
+
+  /* Primary */
+  --grace-wasabi:   #7B8B6F;
+  --grace-brown:    #2C2421;
+  --grace-gold:     #B8956A;
+  --grace-offwhite: #F7F3EF;
+
+  /* Extended */
+  --grace-cream:  #EFE9E0;
+  --grace-stone:  #DDD4C5;
+  --grace-shadow: rgba(44, 36, 33, 0.08);
+  --grace-line:   #E8E2DA;
+
+  /* Functional */
+  --grace-text-primary:   #2C2421;
+  --grace-text-secondary: #5F5E5A;
+  --grace-text-tertiary:  #888780;
+  --grace-bg-primary:     #FFFFFF;
+  --grace-bg-secondary:   #F7F3EF;
+  --grace-bg-dark:        #2C2421;
+}
+
+/* ─── リセット ─── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* ─── ベース ─── */
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* LCPのためにカラースキームを固定 */
+  color-scheme: light only;
+}
+
+body {
+  background-color: var(--grace-bg-primary);
+  color: var(--grace-text-primary);
+  /* 仕様書 2.2 本文フォント */
+  font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* ─── 見出し ─── */
+
+h1, h2, h3, h4, h5, h6 {
+  /* 仕様書 2.2 見出し（英）= Cormorant Garamond */
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* 和文見出しはクラスで上書き: font-noto-serif */
+
+/* ─── リンク ─── */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─── 画像 ─── */
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── スクロールバー（WebKit） ─── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--grace-offwhite);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--grace-stone);
+  border-radius: 3px;
+}
+
+/* ─── テキスト選択 ─── */
+
+::selection {
+  background-color: var(--grace-wasabi);
+  color: #fff;
+}
+
+/* ─── ユーティリティ ─── */
+
+/* セクション共通パディング */
+.section-padding {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+}
+
+/* コンテナー幅 (仕様書 2.5) */
+.container-content {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+@media (min-width: 1024px) {
+  .container-content {
+    padding-inline: 24px;
+  }
+}
+
+/* 記事本文幅 */
+.container-article {
+  max-width: 672px;
+  margin-inline: auto;
+}
+
+/* セクションラベル「━ LABEL ━」スタイル (設計書 2.2 Section.tsx) */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grace-text-tertiary);
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--grace-line);
+}
