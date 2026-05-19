@@ -4,7 +4,15 @@ export function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[600px] flex items-center justify-center overflow-hidden bg-grace-brown">
 
-      {/* 背景画像プレースホルダー（撮影後に差し替え） */}
+      {/* 背景画像（仮。撮影後に差し替え） */}
+      <Image
+        src="https://images.unsplash.com/photo-1691052252990-4cd1fdda73dc?w=1920&q=80&auto=format&fit=crop"
+        alt=""
+        fill
+        className="object-cover opacity-50"
+        priority
+        sizes="100vw"
+      />
       <div className="absolute inset-0 bg-gradient-to-b from-grace-brown/20 via-transparent to-grace-brown/60" />
 
       {/* コンテンツ */}

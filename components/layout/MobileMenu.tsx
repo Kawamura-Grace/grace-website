@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { label: 'Concept',      href: '/concept' },
   { label: 'Sweets',       href: '/sweets' },
   { label: 'Gift',         href: '/gift' },
-  { label: 'Journal',      href: '/journal' },
   { label: 'News',         href: '/news' },
   { label: 'Shop Info',    href: '/shop' },
   { label: 'Online Store', href: 'https://square.site', external: true },

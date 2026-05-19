@@ -1,5 +1,6 @@
 // ギフトページ — 静的コンテンツ
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Button } from '@/components/ui/Button'
@@ -9,7 +10,7 @@ export const revalidate = 86400 // 24時間
 
 export const metadata: Metadata = {
   title: 'Gift | Grace — PATISSERIE',
-  description: 'Grace Patisserieのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
+  description: 'Pâtisserie Graceのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
 }
 
 export default function GiftPage() {
@@ -60,9 +61,15 @@ export default function GiftPage() {
                   ))}
                 </ul>
               </div>
-              {/* 画像プレースホルダー */}
-              <div className="aspect-square bg-grace-cream flex items-center justify-center">
-                <span className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">PHOTO</span>
+              {/* 仮写真（撮影後差し替え） */}
+              <div className="relative aspect-square overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1592903297149-37fb25202dfa?w=800&q=80&auto=format&fit=crop"
+                  alt="Pâtisserie Grace ギフト包装"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
             </div>
 

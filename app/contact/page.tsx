@@ -6,7 +6,7 @@ import { ContactForm } from '@/components/forms/ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact | Grace — PATISSERIE',
-  description: 'Grace Patisserieへのお問い合わせ。取材・法人ギフト・卸・採用など各種お問い合わせはこちらから。',
+  description: 'Pâtisserie Graceへのお問い合わせ。取材・法人ギフト・卸・採用など各種お問い合わせはこちらから。',
 }
 
 export default function ContactPage() {
