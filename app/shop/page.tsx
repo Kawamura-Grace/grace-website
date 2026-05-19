@@ -10,7 +10,7 @@ export const revalidate = 1800 // 30分
 
 export const metadata: Metadata = {
   title: 'Shop Info | Grace — PATISSERIE',
-  description: 'Grace Patisserie の店舗情報。営業時間・アクセス・駐車場。愛知県春日井市。',
+  description: 'Pâtisserie Grace の店舗情報。営業時間・アクセス・駐車場。愛知県春日井市。',
 }
 
 export default async function ShopPage() {
@@ -62,8 +62,7 @@ export default async function ShopPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
               {/* 左: 店舗情報 */}
               <div>
-                <h2 className="font-cormorant italic text-3xl text-grace-brown mb-2">Pâtisserie Grace</h2>
-                <p className="font-noto-serif text-xs text-grace-text-tertiary tracking-widest mb-8">グレース パティスリー</p>
+                <h2 className="font-cormorant italic text-3xl text-grace-brown mb-8">Pâtisserie Grace</h2>
 
                 <dl className="space-y-6">
                   <div>
