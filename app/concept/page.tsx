@@ -70,6 +70,24 @@ export default function ConceptPage() {
           </div>
         </section>
 
+        {/* ─── A NOTE FROM GRACE ─── */}
+        <section className="section-padding bg-grace-offwhite">
+          <div className="container-content max-w-article mx-auto text-center">
+            <div className="section-label mb-12">A NOTE FROM GRACE</div>
+            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-8">
+              お菓子が、誰かの大切な日の横にいる。
+            </p>
+            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-10">
+              誕生日の朝、大事な人への手土産、何もない夜の自分へのご褒美。<br className="hidden md:block" />
+              そういう場面に、確かに美しいものを届けたい。<br className="hidden md:block" />
+              その思いだけを軸に、Graceは生まれました。
+            </p>
+            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose tracking-widest">
+              素材に誠実に。季節に正直に。来てくれた人に丁寧に。
+            </p>
+          </div>
+        </section>
+
         {/* ─── PRODUCT PHILOSOPHY ─── */}
         <section className="section-padding bg-grace-bg-dark">
           <div className="container-content">
