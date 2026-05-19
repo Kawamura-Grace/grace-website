@@ -20,7 +20,7 @@ export function ConceptExcerpt() {
           {KEYWORDS.map(word => (
             <span
               key={word}
-              className="font-noto-serif text-sm text-grace-wasabi border border-grace-wasabi/30 px-4 py-2"
+              className="font-noto-serif text-base text-grace-wasabi border border-grace-wasabi/30 px-4 py-2"
             >
               {word}
             </span>

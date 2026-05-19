@@ -77,7 +77,7 @@ export default function TermsPage() {
           <div className="container-content">
             <div className="max-w-article mx-auto">
               {/* イントロ */}
-              <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-10 pb-8 border-b border-grace-line">
+              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 pb-8 border-b border-grace-line">
                 特定商取引に関する法律第11条（通信販売についての広告）に基づき、以下の通り表示いたします。
               </p>
 
@@ -88,7 +88,7 @@ export default function TermsPage() {
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary md:pt-0.5 flex-shrink-0">
                       {label}
                     </dt>
-                    <dd className="font-noto-serif text-base text-grace-text-secondary leading-relaxed whitespace-pre-line">
+                    <dd className="font-noto-serif text-lg text-grace-text-secondary leading-relaxed whitespace-pre-line">
                       {value}
                     </dd>
                   </div>
@@ -97,11 +97,11 @@ export default function TermsPage() {
 
               {/* 備考 */}
               <div className="mt-12 pt-8 border-t border-grace-line">
-                <p className="font-noto-serif text-sm text-grace-text-tertiary leading-loose">
+                <p className="font-noto-serif text-base text-grace-text-tertiary leading-loose">
                   ※ 上記の内容は予告なく変更される場合があります。最新情報は本ページをご確認ください。<br />
                   ※ 事業者情報の詳細（電話番号・住所等）は、開業後に更新いたします。
                 </p>
-                <p className="font-noto-serif text-sm text-grace-text-tertiary mt-4 text-right">
+                <p className="font-noto-serif text-base text-grace-text-tertiary mt-4 text-right">
                   最終更新：2026年10月1日<br />
                   株式会社Grace Foods
                 </p>

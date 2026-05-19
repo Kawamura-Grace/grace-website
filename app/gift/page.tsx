@@ -26,7 +26,7 @@ export default function GiftPage() {
               Gift
             </h1>
             <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
-            <p className="font-noto-serif text-base text-grace-stone leading-loose max-w-md mx-auto">
+            <p className="font-noto-serif text-lg text-grace-stone leading-loose max-w-md mx-auto">
               大切な人への気持ちを、美しい贈り物に。<br />
               Pâtisserie Graceの贈り物は、開ける瞬間から体験が始まります。
             </p>
@@ -43,12 +43,12 @@ export default function GiftPage() {
                 <h2 className="font-cormorant italic text-4xl text-grace-brown mb-6">
                   Beautiful Packaging
                 </h2>
-                <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-6">
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-6">
                   Graceのギフトボックスは、受け取った瞬間の喜びを大切に設計しています。
                   落ち着いたトーンの化粧箱と、ブランドロゴをあしらった帯紙で、
                   そのままお渡しいただけるクオリティに仕上げています。
                 </p>
-                <ul className="space-y-3 font-noto-serif text-base text-grace-text-secondary">
+                <ul className="space-y-3 font-noto-serif text-lg text-grace-text-secondary">
                   {[
                     { label: '化粧箱', desc: 'ブランドカラーの上品なボックス。単品・詰め合わせ両対応' },
                     { label: '帯紙',   desc: 'Graceロゴ入り。季節・目的に応じたデザインをご用意' },
@@ -75,7 +75,7 @@ export default function GiftPage() {
 
             {/* WRAPPING直下CTA — 開業後に ONLINE STORE リンクへ差し替え */}
             <div className="mt-12 text-center">
-              <p className="font-noto-serif text-sm text-grace-text-tertiary mb-3">
+              <p className="font-noto-serif text-base text-grace-text-tertiary mb-3">
                 オンラインストアは2026年10月開業時にオープン予定です。
               </p>
               <a
@@ -99,11 +99,11 @@ export default function GiftPage() {
               <div className="bg-grace-offwhite p-8 border border-grace-line">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Noshi</h3>
                 <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">熨斗対応</p>
-                <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
                   御祝・御礼・粗品など、各種熨斗に対応しております。
                   ご注文時にご希望の表書きと名入れをお知らせください。
                 </p>
-                <ul className="mt-4 space-y-1 font-noto-serif text-sm text-grace-text-tertiary">
+                <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
                   <li>御祝・御礼・粗品・寸志</li>
                   <li>内祝・快気祝・引き出物</li>
                   <li>その他ご要望に対応可能</li>
@@ -113,12 +113,12 @@ export default function GiftPage() {
               <div className="bg-grace-offwhite p-8 border border-grace-line">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Message</h3>
                 <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">メッセージカード</p>
-                <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
                   Graceオリジナルのメッセージカードに、
                   お好きなメッセージを手書きでお入れします。
                   誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
                 </p>
-                <p className="mt-4 font-noto-serif text-sm text-grace-text-tertiary">
+                <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
                   文字数: 最大100文字程度<br />
                   ご注文時の備考欄にご記入ください
                 </p>
@@ -133,7 +133,7 @@ export default function GiftPage() {
             <div className="section-label mb-12">DELIVERY</div>
             <div className="max-w-2xl mx-auto">
               <h2 className="font-cormorant italic text-3xl text-grace-brown mb-6">Nationwide Delivery</h2>
-              <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
+              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-8">
                 オンラインストアでご購入いただいたギフト商品は、全国への配送に対応しています。
                 クール便・常温便どちらも対応。お日にちの指定も承りますので、
                 大切な記念日に合わせてお届けします。
@@ -147,7 +147,7 @@ export default function GiftPage() {
                 ].map(({ label, value }) => (
                   <div key={label} className="flex gap-4 py-3 border-b border-grace-line">
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary w-24 flex-shrink-0">{label}</dt>
-                    <dd className="font-noto-serif text-base text-grace-text-secondary">{value}</dd>
+                    <dd className="font-noto-serif text-lg text-grace-text-secondary">{value}</dd>
                   </div>
                 ))}
               </dl>
@@ -162,7 +162,7 @@ export default function GiftPage() {
             <h2 className="font-cormorant italic text-4xl text-grace-offwhite mb-6">
               For Corporate
             </h2>
-            <p className="font-noto-serif text-base text-grace-stone leading-loose mb-10 max-w-md mx-auto">
+            <p className="font-noto-serif text-lg text-grace-stone leading-loose mb-10 max-w-md mx-auto">
               大量注文・のし対応・個別包装など、法人様向けのギフトご相談を承ります。
               周年記念・お歳暮・催事などにぜひご活用ください。
             </p>
@@ -182,7 +182,7 @@ export default function GiftPage() {
             <h2 className="font-cormorant italic text-3xl text-grace-brown mb-6">
               Coming Soon
             </h2>
-            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-10 max-w-md mx-auto">
+            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 max-w-md mx-auto">
               オンラインストアは2026年10月の開業に合わせてオープン予定です。<br />
               Instagramで先行情報をお届けしています。
             </p>

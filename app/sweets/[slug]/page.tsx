@@ -131,7 +131,7 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   ].filter(({ text }) => text).map(({ label, text }) => (
                     <div key={label}>
                       <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">{label}</p>
-                      <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">{text}</p>
+                      <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">{text}</p>
                     </div>
                   ))}
                 </div>
@@ -143,7 +143,7 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   </Button>
                 ) : (
                   <div className="bg-grace-cream border border-grace-line p-4 text-center mb-3">
-                    <p className="font-noto-serif text-sm text-grace-text-secondary">
+                    <p className="font-noto-serif text-base text-grace-text-secondary">
                       この商品は店頭でのみご購入いただけます
                     </p>
                   </div>
@@ -156,7 +156,7 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   {product.ingredients && product.ingredients.length > 0 && (
                     <div>
                       <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">使用素材</dt>
-                      <dd className="font-noto-serif text-sm text-grace-text-secondary leading-relaxed">
+                      <dd className="font-noto-serif text-base text-grace-text-secondary leading-relaxed">
                         {product.ingredients.join('・')}
                       </dd>
                     </div>
@@ -164,7 +164,7 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   {product.allergens.length > 0 && (
                     <div>
                       <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">アレルゲン</dt>
-                      <dd className="font-noto-serif text-sm text-grace-text-secondary leading-relaxed">
+                      <dd className="font-noto-serif text-base text-grace-text-secondary leading-relaxed">
                         {product.allergens.join('・')}
                       </dd>
                     </div>
@@ -172,13 +172,13 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   {product.expiryDate && (
                     <div>
                       <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">賞味期限</dt>
-                      <dd className="font-noto-serif text-sm text-grace-text-secondary">{product.expiryDate}</dd>
+                      <dd className="font-noto-serif text-base text-grace-text-secondary">{product.expiryDate}</dd>
                     </div>
                   )}
                   {product.storageMethod && (
                     <div>
                       <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">保存方法</dt>
-                      <dd className="font-noto-serif text-sm text-grace-text-secondary">{product.storageMethod}</dd>
+                      <dd className="font-noto-serif text-base text-grace-text-secondary">{product.storageMethod}</dd>
                     </div>
                   )}
                 </dl>

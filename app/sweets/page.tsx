@@ -97,10 +97,10 @@ export default async function SweetsPage({ searchParams }: PageProps) {
             {products.length === 0 ? (
               // 空ステート（開業前）
               <div className="text-center py-24">
-                <p className="font-noto-serif text-base text-grace-text-tertiary mb-2">
+                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
                   商品は2026年10月の開業時より順次公開予定です。
                 </p>
-                <p className="font-noto-serif text-sm text-grace-text-tertiary mb-10">
+                <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
                   Instagramで開業前の最新情報をお届けしています。
                 </p>
                 <a
@@ -149,7 +149,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                       <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">
                         {product.category}
                       </p>
-                      <h2 className="font-noto-serif text-base text-grace-brown mb-1 group-hover:text-grace-text-secondary transition-colors">
+                      <h2 className="font-noto-serif text-lg text-grace-brown mb-1 group-hover:text-grace-text-secondary transition-colors">
                         {product.name}
                       </h2>
                       <p className="font-noto-sans text-xs text-grace-text-secondary">
@@ -169,7 +169,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
         <section className="section-padding bg-grace-cream">
           <div className="container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-4">GIFT</p>
-            <p className="font-noto-serif text-base text-grace-text-secondary mb-6">
+            <p className="font-noto-serif text-lg text-grace-text-secondary mb-6">
               贈り物にお使いの方は、ギフトページもご覧ください。
             </p>
             <a

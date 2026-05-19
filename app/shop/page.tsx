@@ -36,7 +36,7 @@ export default async function ShopPage() {
                     <span className="font-noto-sans text-[10px] tracking-widest text-grace-gold mr-3">
                       {formatDateJa(alert.publishedAt)}
                     </span>
-                    <span className="font-noto-serif text-base text-grace-brown">{alert.title}</span>
+                    <span className="font-noto-serif text-lg text-grace-brown">{alert.title}</span>
                   </div>
                 </div>
               ))}
@@ -67,20 +67,20 @@ export default async function ShopPage() {
                 <dl className="space-y-6">
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">ADDRESS</dt>
-                    <dd className="font-noto-serif text-base text-grace-text-secondary leading-relaxed">
+                    <dd className="font-noto-serif text-lg text-grace-text-secondary leading-relaxed">
                       〒486-0844<br />
                       愛知県春日井市
                     </dd>
                   </div>
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">TEL</dt>
-                    <dd className="font-noto-serif text-base text-grace-text-secondary">
+                    <dd className="font-noto-serif text-lg text-grace-text-secondary">
                       未定（開業時に掲載予定）
                     </dd>
                   </div>
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">HOURS</dt>
-                    <dd className="font-noto-serif text-base text-grace-text-secondary">
+                    <dd className="font-noto-serif text-lg text-grace-text-secondary">
                       9:30 – 19:30<br />
                       <span className="text-grace-text-tertiary text-xs">不定休</span>
                     </dd>
@@ -92,7 +92,7 @@ export default async function ShopPage() {
                         href="https://www.instagram.com/grace_lifestyle_dessert"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-noto-serif text-base text-grace-text-secondary hover:text-grace-brown transition-colors"
+                        className="font-noto-serif text-lg text-grace-text-secondary hover:text-grace-brown transition-colors"
                       >
                         @grace_lifestyle_dessert
                       </a>
@@ -136,14 +136,14 @@ export default async function ShopPage() {
               {/* 電車 */}
               <div>
                 <h3 className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">TRAIN</h3>
-                <p className="font-noto-serif text-base text-grace-text-secondary leading-relaxed">
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-relaxed">
                   詳細は開業時に公開予定です。
                 </p>
               </div>
               {/* 駐車場 */}
               <div>
                 <h3 className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">PARKING</h3>
-                <p className="font-noto-serif text-base text-grace-text-secondary leading-relaxed">
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-relaxed">
                   店舗前に駐車場あり。詳細は開業時に公開予定です。
                 </p>
               </div>
@@ -151,7 +151,7 @@ export default async function ShopPage() {
 
             {/* お問い合わせ誘導 */}
             <div className="mt-16 pt-12 border-t border-grace-line text-center">
-              <p className="font-noto-serif text-base text-grace-text-secondary mb-6">
+              <p className="font-noto-serif text-lg text-grace-text-secondary mb-6">
                 ご不明な点はお気軽にお問い合わせください
               </p>
               <Link

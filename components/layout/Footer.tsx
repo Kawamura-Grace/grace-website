@@ -31,7 +31,7 @@ export function Footer() {
               height={40}
               className="mb-4"
             />
-            <p className="font-noto-serif text-sm text-grace-text-tertiary leading-relaxed tracking-wide">
+            <p className="font-noto-serif text-base text-grace-text-tertiary leading-relaxed tracking-wide">
               美しい暮らしには、お菓子がある。
             </p>
           </div>
@@ -47,14 +47,14 @@ export function Footer() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-noto-serif text-sm text-grace-text-secondary hover:text-grace-brown transition-colors"
+                      className="font-noto-serif text-base text-grace-text-secondary hover:text-grace-brown transition-colors"
                     >
                       {label}
                     </a>
                   ) : (
                     <Link
                       href={href}
-                      className="font-noto-serif text-sm text-grace-text-secondary hover:text-grace-brown transition-colors"
+                      className="font-noto-serif text-base text-grace-text-secondary hover:text-grace-brown transition-colors"
                     >
                       {label}
                     </Link>
@@ -67,7 +67,7 @@ export function Footer() {
           {/* 店舗・SNS */}
           <div>
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">SHOP</p>
-            <address className="not-italic font-noto-serif text-sm text-grace-text-secondary leading-relaxed mb-6">
+            <address className="not-italic font-noto-serif text-base text-grace-text-secondary leading-relaxed mb-6">
               〒486-0844<br />
               愛知県春日井市<br />
               営業時間 9:30–19:30<br />

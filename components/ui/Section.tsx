@@ -34,7 +34,7 @@ export function Section({ id, label, title, titleJa, children, className, dark }
               </h2>
             )}
             {titleJa && (
-              <p className={cn('font-noto-serif text-base tracking-widest', dark ? 'text-grace-stone' : 'text-grace-text-secondary')}>
+              <p className={cn('font-noto-serif text-lg tracking-widest', dark ? 'text-grace-stone' : 'text-grace-text-secondary')}>
                 {titleJa}
               </p>
             )}

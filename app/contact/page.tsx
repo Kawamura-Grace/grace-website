@@ -28,11 +28,11 @@ export default function ContactPage() {
         {/* ─── リード文 ─── */}
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content max-w-article mx-auto">
-            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose text-center mb-2">
+            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose text-center mb-2">
               取材・法人ギフト・卸売・採用など、各種お問い合わせは<br className="hidden md:block" />
               下記フォームよりお送りください。
             </p>
-            <p className="font-noto-serif text-sm text-grace-text-tertiary leading-loose text-center mb-16">
+            <p className="font-noto-serif text-base text-grace-text-tertiary leading-loose text-center mb-16">
               3営業日以内にご返信いたします。
             </p>
 
