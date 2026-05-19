@@ -33,8 +33,7 @@ export default function ContactPage() {
               下記フォームよりお送りください。
             </p>
             <p className="font-noto-serif text-xs text-grace-text-tertiary leading-loose text-center mb-16">
-              3営業日以内にご返信いたします。<br />
-              お急ぎの場合はInstagramのDMからもお受けしております。
+              3営業日以内にご返信いたします。
             </p>
 
             {/* お問い合わせフォーム */}

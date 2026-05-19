@@ -12,7 +12,7 @@ export const revalidate = 1800 // 30分
 
 export const metadata: Metadata = {
   title: 'News | Grace — PATISSERIE',
-  description: 'Grace Patisserieのお知らせ。新商品・催事・臨時定休などの最新情報。',
+  description: 'Pâtisserie Graceのお知らせ。新商品・催事・臨時定休などの最新情報。',
 }
 
 // カテゴリのバッジスタイル
@@ -46,9 +46,15 @@ export default async function NewsPage() {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-sm text-grace-text-tertiary">
+                <p className="font-noto-serif text-sm text-grace-text-tertiary mb-8">
                   現在お知らせはありません。
                 </p>
+                <a
+                  href="/contact"
+                  className="inline-block font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"
+                >
+                  お問い合わせはこちら →
+                </a>
               </div>
             ) : (
               <ul className="max-w-article mx-auto divide-y divide-grace-line">

@@ -12,7 +12,7 @@ export const revalidate = 3600 // 1時間
 
 export const metadata: Metadata = {
   title: 'Sweets | Grace — PATISSERIE',
-  description: 'Grace Patisserieのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
+  description: 'Pâtisserie Graceのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
 }
 
 // カテゴリタブの定義
@@ -152,6 +152,21 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                 ))}
               </div>
             )}
+          </div>
+        </section>
+        {/* ─── ギフトCTA ─── */}
+        <section className="section-padding bg-grace-cream">
+          <div className="container-content text-center">
+            <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-4">GIFT</p>
+            <p className="font-noto-serif text-sm text-grace-text-secondary mb-6">
+              贈り物にお使いの方は、ギフトページもご覧ください。
+            </p>
+            <a
+              href="/gift"
+              className="inline-block font-noto-sans text-[10px] tracking-widest text-grace-offwhite bg-grace-brown px-8 py-3 hover:bg-grace-text-secondary transition-colors"
+            >
+              GIFT PAGE →
+            </a>
           </div>
         </section>
       </main>
