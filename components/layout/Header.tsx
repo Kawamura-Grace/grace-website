@@ -65,25 +65,8 @@ export function Header({ variant = 'solid' }: HeaderProps) {
               />
             </Link>
 
-            {/* カート（Square Online）— ティザー期は非表示 */}
-            <a
-              href="https://square.site"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="オンラインストア"
-              className={cn(
-                'relative z-10 flex items-center justify-center p-2 transition-colors',
-                isTransparent
-                  ? 'text-grace-offwhite hover:text-grace-stone'
-                  : 'text-grace-text-secondary hover:text-grace-brown',
-              )}
-            >
-              <svg width="20" height="20" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <path d="M16 10a4 4 0 01-8 0"/>
-              </svg>
-            </a>
+            {/* カート（開業後に復活予定）— ティザー期はレイアウト維持のため invisible */}
+            <div className="invisible w-10 h-10" aria-hidden="true" />
           </div>
         </div>
       </header>

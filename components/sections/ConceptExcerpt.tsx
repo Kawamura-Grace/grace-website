@@ -12,7 +12,7 @@ export function ConceptExcerpt() {
         </h2>
         <p className="font-noto-serif text-grace-text-secondary text-sm md:text-base leading-loose tracking-wide mb-10">
           厳選した素材と、丁寧な手仕事。<br />
-          お菓子は、日常に小さな豊かさをもたらすものだと私たちは信じています。
+          お菓子は、日常に小さな豊かさをもたらすものだと信じています。
         </p>
 
         {/* キーワード */}

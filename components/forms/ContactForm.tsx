@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils/cn'
 // ─── バリデーションスキーマ ───
 
 const schema = z.object({
-  category:  z.enum(['取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他'] as const),
+  category:  z.enum(['商品・ご来店について', 'ギフトご相談', '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他'] as const),
   name:      z.string().min(1, 'お名前を入力してください').max(50),
   company:   z.string().max(100).optional(),
   email:     z.string().email('正しいメールアドレスを入力してください'),
@@ -37,7 +37,7 @@ const inputBase = cn(
 const labelBase = 'block font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-2'
 
 const CATEGORIES: ContactCategory[] = [
-  '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他',
+  '商品・ご来店について', 'ギフトご相談', '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他',
 ]
 
 export function ContactForm() {
@@ -50,7 +50,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { category: 'その他' },
+    defaultValues: { category: '商品・ご来店について' },
   })
 
   const onSubmit = async (data: FormData) => {

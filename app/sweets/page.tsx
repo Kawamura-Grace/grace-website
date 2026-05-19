@@ -95,11 +95,22 @@ export default async function SweetsPage({ searchParams }: PageProps) {
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content">
             {products.length === 0 ? (
-              // 空ステート
+              // 空ステート（開業前）
               <div className="text-center py-24">
-                <p className="font-noto-serif text-sm text-grace-text-tertiary">
-                  現在このカテゴリの商品はありません。
+                <p className="font-noto-serif text-sm text-grace-text-tertiary mb-2">
+                  商品は2026年10月の開業時より順次公開予定です。
                 </p>
+                <p className="font-noto-serif text-xs text-grace-text-tertiary mb-10">
+                  Instagramで開業前の最新情報をお届けしています。
+                </p>
+                <a
+                  href="https://www.instagram.com/grace_lifestyle_dessert"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"
+                >
+                  @grace_lifestyle_dessert →
+                </a>
               </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">

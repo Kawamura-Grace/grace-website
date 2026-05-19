@@ -73,15 +73,18 @@ export default function GiftPage() {
               </div>
             </div>
 
-            {/* WRAPPING直下CTA */}
+            {/* WRAPPING直下CTA — 開業後に ONLINE STORE リンクへ差し替え */}
             <div className="mt-12 text-center">
+              <p className="font-noto-serif text-xs text-grace-text-tertiary mb-3">
+                オンラインストアは2026年10月開業時にオープン予定です。
+              </p>
               <a
-                href="https://square.site"
+                href="https://www.instagram.com/grace_lifestyle_dessert"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-brown border border-grace-brown px-8 py-4 hover:bg-grace-brown hover:text-grace-offwhite transition-all duration-300"
+                className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-4 hover:border-grace-brown hover:text-grace-brown transition-all duration-300"
               >
-                ONLINE STORE でギフトを選ぶ →
+                Instagram で最新情報を見る →
               </a>
             </div>
           </div>
@@ -172,20 +175,25 @@ export default function GiftPage() {
           </div>
         </section>
 
-        {/* ─── Online Store誘導 ─── */}
+        {/* ─── Online Store予告 — 開業後にEC誘導へ差し替え ─── */}
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-6">ONLINE STORE</p>
             <h2 className="font-cormorant italic text-3xl text-grace-brown mb-6">
-              Order Online
+              Coming Soon
             </h2>
             <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-10 max-w-md mx-auto">
-              オンラインストアではギフトセットや季節限定商品もご用意しています。
-              全国への配送・ギフトラッピング対応。
+              オンラインストアは2026年10月の開業に合わせてオープン予定です。<br />
+              Instagramで先行情報をお届けしています。
             </p>
-            <Button href="https://square.site" external variant="primary" size="lg">
-              ONLINE STORE →
-            </Button>
+            <a
+              href="https://www.instagram.com/grace_lifestyle_dessert"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-offwhite bg-grace-brown px-8 py-4 hover:bg-grace-text-secondary transition-colors"
+            >
+              Instagram をフォローする →
+            </a>
           </div>
         </section>
       </main>

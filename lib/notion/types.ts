@@ -9,7 +9,7 @@ export type JournalCategory = '素材の話' | '季節の話' | 'スタッフの
 export type NewsCategory = 'お知らせ' | '催事' | 'メディア掲載' | '臨時定休'
 export type NewsImportance = '高' | '中' | '低'
 
-export type ContactCategory = '取材' | '法人ギフト' | '卸' | '採用' | 'EC関連' | 'メディア掲載' | 'インフルエンサー提携' | 'その他'
+export type ContactCategory = '商品・ご来店について' | 'ギフトご相談' | '取材' | '法人ギフト' | '卸' | '採用' | 'EC関連' | 'メディア掲載' | 'インフルエンサー提携' | 'その他'
 export type ContactStatus = '未返信' | '対応中' | '完了' | '返信不要'
 
 export type SubscriberRoute = 'ティザー' | 'プレオープン' | 'オープン後・フッター'

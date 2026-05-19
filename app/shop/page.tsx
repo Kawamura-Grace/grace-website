@@ -136,17 +136,15 @@ export default async function ShopPage() {
               {/* 電車 */}
               <div>
                 <h3 className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">TRAIN</h3>
-                <ul className="space-y-3 font-noto-serif text-sm text-grace-text-secondary leading-relaxed">
-                  <li>JR中央線「春日井駅」より徒歩約XX分</li>
-                  <li>名鉄小牧線「味美駅」より徒歩約XX分</li>
-                </ul>
+                <p className="font-noto-serif text-sm text-grace-text-secondary leading-relaxed">
+                  詳細は開業時に公開予定です。
+                </p>
               </div>
               {/* 駐車場 */}
               <div>
                 <h3 className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">PARKING</h3>
                 <p className="font-noto-serif text-sm text-grace-text-secondary leading-relaxed">
-                  店舗横に駐車場あり（X台）<br />
-                  お買い物のお客様は無料でご利用いただけます。
+                  店舗前に駐車場あり。詳細は開業時に公開予定です。
                 </p>
               </div>
             </div>
