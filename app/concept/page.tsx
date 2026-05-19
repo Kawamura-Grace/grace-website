@@ -70,6 +70,39 @@ export default function ConceptPage() {
           </div>
         </section>
 
+        {/* ─── PRODUCT PHILOSOPHY ─── */}
+        <section className="section-padding bg-grace-bg-dark">
+          <div className="container-content">
+            <div className="section-label mb-12 text-grace-text-tertiary">PRODUCT PHILOSOPHY</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              {[
+                {
+                  label: '香り',
+                  en: 'Aroma',
+                  text: '見た目と同時に鼻に届く香り。バターの豊かさ、柑橘の清潔感、スパイスの奥行き。食べる前から始まる体験を大切にしています。',
+                },
+                {
+                  label: '食感',
+                  en: 'Texture',
+                  text: 'サクッとほろりと、もちもちとしっとり。口の中で変わりゆく食感のグラデーションが、一口を特別なものにします。',
+                },
+                {
+                  label: '余韻',
+                  en: 'Aftertaste',
+                  text: '食べ終わったあとも続く、あのおいしさ。しつこくなく、でも確かに残る余韻に、素材の純粋さが現れます。',
+                },
+              ].map(({ label, en, text }) => (
+                <div key={label} className="text-center">
+                  <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-2">{en}</p>
+                  <h3 className="font-noto-serif text-2xl text-grace-offwhite mb-4">{label}</h3>
+                  <div className="w-6 h-px bg-grace-gold mx-auto mb-6" />
+                  <p className="font-noto-serif text-xs text-grace-stone leading-loose">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ─── Sweets誘導 ─── */}
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content text-center">
