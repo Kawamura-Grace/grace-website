@@ -49,7 +49,7 @@ export default async function JournalPage({ searchParams }: PageProps) {
               Journal
             </h1>
             <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
-            <p className="font-noto-serif text-sm text-grace-stone leading-loose max-w-md mx-auto">
+            <p className="font-noto-serif text-base text-grace-stone leading-loose max-w-md mx-auto">
               素材のこと、季節のこと、つくり手のこと。<br />
               お菓子の向こう側にある、小さな物語。
             </p>
@@ -86,7 +86,7 @@ export default async function JournalPage({ searchParams }: PageProps) {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-sm text-grace-text-tertiary">
+                <p className="font-noto-serif text-base text-grace-text-tertiary">
                   現在この カテゴリの記事はありません。
                 </p>
               </div>
@@ -127,11 +127,11 @@ export default async function JournalPage({ searchParams }: PageProps) {
                           {formatDate(post.publishedAt)}
                         </time>
                       </div>
-                      <h2 className="font-noto-serif text-sm text-grace-brown leading-relaxed mb-2 group-hover:text-grace-text-secondary transition-colors">
+                      <h2 className="font-noto-serif text-base text-grace-brown leading-relaxed mb-2 group-hover:text-grace-text-secondary transition-colors">
                         {post.title}
                       </h2>
                       {post.summary && (
-                        <p className="font-noto-serif text-xs text-grace-text-tertiary leading-relaxed line-clamp-2">
+                        <p className="font-noto-serif text-sm text-grace-text-tertiary leading-relaxed line-clamp-2">
                           {post.summary}
                         </p>
                       )}

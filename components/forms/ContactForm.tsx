@@ -28,7 +28,7 @@ type FormData = z.infer<typeof schema>
 // ─── スタイル定数 ───
 
 const inputBase = cn(
-  'w-full font-noto-serif text-sm text-grace-brown bg-white',
+  'w-full font-noto-serif text-base text-grace-brown bg-white',
   'border border-grace-line px-4 py-3',
   'focus:outline-none focus:border-grace-brown transition-colors',
   'placeholder:text-grace-text-tertiary',
@@ -85,7 +85,7 @@ export function ContactForm() {
           </svg>
         </div>
         <h2 className="font-cormorant italic text-2xl text-grace-brown mb-4">Thank you</h2>
-        <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose">
+        <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
           お問い合わせありがとうございます。<br />
           3営業日以内にご返信いたします。
         </p>
@@ -221,7 +221,7 @@ export function ContactForm() {
               {...register('privacy')}
               className="mt-0.5 w-4 h-4 accent-grace-brown cursor-pointer flex-shrink-0"
             />
-            <span className="font-noto-serif text-xs text-grace-text-secondary leading-relaxed">
+            <span className="font-noto-serif text-sm text-grace-text-secondary leading-relaxed">
               <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-grace-brown transition-colors">
                 プライバシーポリシー
               </a>

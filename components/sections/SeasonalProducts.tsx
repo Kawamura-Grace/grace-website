@@ -43,7 +43,7 @@ export function SeasonalProducts({ products }: SeasonalProductsProps) {
             </div>
 
             {/* 商品情報 */}
-            <p className="font-noto-serif text-sm text-grace-brown mb-1 group-hover:text-grace-wasabi transition-colors">
+            <p className="font-noto-serif text-base text-grace-brown mb-1 group-hover:text-grace-wasabi transition-colors">
               {product.name}
             </p>
             <p className="font-noto-sans text-xs text-grace-text-tertiary">

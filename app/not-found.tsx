@@ -11,7 +11,7 @@ export default function NotFound() {
         <h1 className="font-cormorant italic text-4xl md:text-5xl text-grace-brown mb-4">
           Page Not Found
         </h1>
-        <p className="font-noto-serif text-sm text-grace-text-secondary mb-12 leading-relaxed">
+        <p className="font-noto-serif text-base text-grace-text-secondary mb-12 leading-relaxed">
           お探しのページは移動または削除されました。
         </p>
         <div className="flex flex-col sm:flex-row gap-4">

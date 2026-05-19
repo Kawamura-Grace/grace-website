@@ -35,7 +35,7 @@ export function JournalLatest({ posts }: JournalLatestProps) {
             </div>
 
             <Tag variant="wasabi" className="mb-2">{post.category}</Tag>
-            <h3 className="font-noto-serif text-sm text-grace-brown leading-relaxed mb-2 group-hover:text-grace-wasabi transition-colors">
+            <h3 className="font-noto-serif text-base text-grace-brown leading-relaxed mb-2 group-hover:text-grace-wasabi transition-colors">
               {post.title}
             </h3>
             <p className="font-noto-sans text-[10px] text-grace-text-tertiary tracking-wide">

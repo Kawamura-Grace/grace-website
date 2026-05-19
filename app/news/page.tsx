@@ -46,7 +46,7 @@ export default async function NewsPage() {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-sm text-grace-text-tertiary mb-8">
+                <p className="font-noto-serif text-base text-grace-text-tertiary mb-8">
                   現在お知らせはありません。
                 </p>
                 <a
@@ -76,7 +76,7 @@ export default async function NewsPage() {
                         <Tag variant={CATEGORY_VARIANTS[post.category]}>{post.category}</Tag>
                       </div>
                       {/* タイトル */}
-                      <h2 className="font-noto-serif text-sm text-grace-brown leading-relaxed group-hover:text-grace-text-secondary transition-colors flex-1">
+                      <h2 className="font-noto-serif text-base text-grace-brown leading-relaxed group-hover:text-grace-text-secondary transition-colors flex-1">
                         {post.title}
                       </h2>
                       {/* 矢印 */}

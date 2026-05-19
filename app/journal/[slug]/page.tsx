@@ -54,7 +54,7 @@ function renderBlock(block: BlockObjectResponse, index: number): React.ReactNode
       const text = getRichText(texts)
       if (!text) return <div key={index} className="h-4" />
       return (
-        <p key={index} className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-4">
+        <p key={index} className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
           {text}
         </p>
       )
@@ -90,7 +90,7 @@ function renderBlock(block: BlockObjectResponse, index: number): React.ReactNode
     case 'bulleted_list_item': {
       const texts = (block as any).bulleted_list_item?.rich_text ?? []
       return (
-        <li key={index} className="font-noto-serif text-sm text-grace-text-secondary leading-loose pl-2">
+        <li key={index} className="font-noto-serif text-base text-grace-text-secondary leading-loose pl-2">
           {getRichText(texts)}
         </li>
       )
@@ -99,7 +99,7 @@ function renderBlock(block: BlockObjectResponse, index: number): React.ReactNode
     case 'numbered_list_item': {
       const texts = (block as any).numbered_list_item?.rich_text ?? []
       return (
-        <li key={index} className="font-noto-serif text-sm text-grace-text-secondary leading-loose pl-2">
+        <li key={index} className="font-noto-serif text-base text-grace-text-secondary leading-loose pl-2">
           {getRichText(texts)}
         </li>
       )
@@ -109,7 +109,7 @@ function renderBlock(block: BlockObjectResponse, index: number): React.ReactNode
       const texts = (block as any).quote?.rich_text ?? []
       return (
         <blockquote key={index} className="border-l-2 border-grace-gold pl-6 my-6">
-          <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose italic">
+          <p className="font-noto-serif text-base text-grace-text-secondary leading-loose italic">
             {getRichText(texts)}
           </p>
         </blockquote>
@@ -258,7 +258,7 @@ export default async function JournalDetailPage({ params }: PageProps) {
                 {post.title}
               </h1>
               {post.summary && (
-                <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose">
+                <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
                   {post.summary}
                 </p>
               )}
@@ -293,7 +293,7 @@ export default async function JournalDetailPage({ params }: PageProps) {
               {blocks.length > 0 ? (
                 groupBlocks(blocks)
               ) : (
-                <p className="font-noto-serif text-sm text-grace-text-tertiary text-center py-12">
+                <p className="font-noto-serif text-base text-grace-text-tertiary text-center py-12">
                   記事の内容を準備中です。
                 </p>
               )}
@@ -328,7 +328,7 @@ export default async function JournalDetailPage({ params }: PageProps) {
                         </div>
                       )}
                     </div>
-                    <p className="font-noto-serif text-xs text-grace-brown group-hover:text-grace-text-secondary transition-colors">
+                    <p className="font-noto-serif text-sm text-grace-brown group-hover:text-grace-text-secondary transition-colors">
                       {product.name}
                     </p>
                     <p className="font-noto-sans text-[10px] text-grace-text-tertiary">

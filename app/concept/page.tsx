@@ -35,7 +35,7 @@ export default function ConceptPage() {
             <h2 className="font-noto-serif text-2xl md:text-3xl text-grace-brown leading-relaxed mb-10 tracking-widest">
               美しい暮らしには、<br />お菓子がある。
             </h2>
-            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose tracking-wide">
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose tracking-wide">
               贈り物に、特別な日に、何気ない朝に。<br />
               暮らしに深みを添えるお菓子を、ここで作ります。
             </p>
@@ -51,7 +51,7 @@ export default function ConceptPage() {
                 <h2 className="font-cormorant italic text-4xl md:text-5xl text-grace-brown mb-6 leading-tight">
                   Dedicated<br />Handcraft
                 </h2>
-                <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose">
+                <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
                   素材と向き合い、気候と対話しながら、その日だけの一皿を仕上げる。<br />
                   手が加わることで、お菓子に温度と揺らぎが生まれると信じているから。
                 </p>
@@ -74,15 +74,15 @@ export default function ConceptPage() {
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content max-w-article mx-auto text-center">
             <div className="section-label mb-12">A NOTE FROM GRACE</div>
-            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-8">
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
               お菓子が、誰かの大切な日の横にいる。
             </p>
-            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose mb-10">
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-10">
               誕生日の朝、大事な人への手土産、何もない夜の自分へのご褒美。<br className="hidden md:block" />
               そういう場面に、確かに美しいものを届けたい。<br className="hidden md:block" />
               その思いだけを軸に、Graceは生まれました。
             </p>
-            <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose tracking-widest">
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose tracking-widest">
               素材に誠実に。季節に正直に。来てくれた人に丁寧に。
             </p>
           </div>
@@ -114,7 +114,7 @@ export default function ConceptPage() {
                   <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-2">{en}</p>
                   <h3 className="font-noto-serif text-2xl text-grace-offwhite mb-4">{label}</h3>
                   <div className="w-6 h-px bg-grace-gold mx-auto mb-6" />
-                  <p className="font-noto-serif text-xs text-grace-stone leading-loose">{text}</p>
+                  <p className="font-noto-serif text-sm text-grace-stone leading-loose">{text}</p>
                 </div>
               ))}
             </div>

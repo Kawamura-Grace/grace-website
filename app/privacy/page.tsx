@@ -84,7 +84,7 @@ export default function PrivacyPage() {
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Privacy Policy
             </h1>
-            <p className="font-noto-serif text-sm text-grace-stone">プライバシーポリシー</p>
+            <p className="font-noto-serif text-base text-grace-stone">プライバシーポリシー</p>
             <div className="w-8 h-px bg-grace-gold mx-auto mt-8" />
           </div>
         </section>
@@ -95,11 +95,11 @@ export default function PrivacyPage() {
             <div className="max-w-article mx-auto">
               {/* イントロ */}
               <div className="mb-12 pb-8 border-b border-grace-line">
-                <p className="font-noto-serif text-sm text-grace-text-secondary leading-loose">
+                <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
                   株式会社Grace Foods（以下「当社」）は、当サイト（grace-patisserie.jp）およびオンラインストアの運営において、
                   お客様の個人情報の保護を重要な責務と認識し、以下のとおりプライバシーポリシーを定めます。
                 </p>
-                <p className="font-noto-serif text-xs text-grace-text-tertiary mt-4">
+                <p className="font-noto-serif text-sm text-grace-text-tertiary mt-4">
                   制定日：2026年10月1日
                 </p>
               </div>
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
                     <h2 className="font-noto-serif text-base text-grace-brown mb-4">
                       {article.title}
                     </h2>
-                    <div className="font-noto-serif text-sm text-grace-text-secondary leading-loose whitespace-pre-line">
+                    <div className="font-noto-serif text-base text-grace-text-secondary leading-loose whitespace-pre-line">
                       {article.content}
                     </div>
                   </div>
@@ -120,7 +120,7 @@ export default function PrivacyPage() {
 
               {/* 制定情報 */}
               <div className="mt-16 pt-8 border-t border-grace-line text-right">
-                <p className="font-noto-serif text-xs text-grace-text-tertiary">
+                <p className="font-noto-serif text-sm text-grace-text-tertiary">
                   制定：2026年10月1日<br />
                   株式会社Grace Foods
                 </p>

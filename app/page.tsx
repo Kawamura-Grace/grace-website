@@ -27,7 +27,7 @@ export default async function HomePage() {
       {/* ニュースティッカー */}
       {topNews && (
         <div className="bg-grace-wasabi text-grace-offwhite py-2 px-4 text-center">
-          <Link href={`/news/${topNews.slug}`} className="font-noto-serif text-xs tracking-wide hover:underline">
+          <Link href={`/news/${topNews.slug}`} className="font-noto-serif text-sm tracking-wide hover:underline">
             {formatDate(topNews.publishedAt)} — {topNews.title}
           </Link>
         </div>
@@ -46,7 +46,7 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="font-cormorant italic text-4xl text-grace-brown mb-6">Visit Us</h2>
-                <dl className="space-y-3 font-noto-serif text-sm text-grace-text-secondary">
+                <dl className="space-y-3 font-noto-serif text-base text-grace-text-secondary">
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">ADDRESS</dt>
                     <dd>〒486-0844 愛知県春日井市</dd>
