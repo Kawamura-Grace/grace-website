@@ -75,7 +75,7 @@ export function Footer() {
             </address>
             <div className="flex gap-4">
               <a
-                href="https://www.instagram.com/grace_lifestyle_dessert"
+                href="https://www.instagram.com/patisserie_grace_/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -85,16 +85,6 @@ export function Footer() {
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                   <circle cx="12" cy="12" r="5"/>
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                </svg>
-              </a>
-              <a
-                href="mailto:info@grace-patisserie.jp"
-                aria-label="メールで問い合わせ"
-                className="text-grace-text-tertiary hover:text-grace-brown transition-colors"
-              >
-                <svg width="16" height="16" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="2" y="4" width="20" height="16" rx="2"/>
-                  <path d="M2 7l10 7 10-7"/>
                 </svg>
               </a>
             </div>
