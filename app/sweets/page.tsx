@@ -104,12 +104,12 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                   Instagramで開業前の最新情報をお届けしています。
                 </p>
                 <a
-                  href="https://www.instagram.com/grace_lifestyle_dessert"
+                  href="https://www.instagram.com/patisserie_grace_/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"
                 >
-                  @grace_lifestyle_dessert →
+                  @patisserie_grace_ →
                 </a>
               </div>
             ) : (

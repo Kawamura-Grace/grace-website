@@ -89,12 +89,12 @@ export default async function ShopPage() {
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">INSTAGRAM</dt>
                     <dd>
                       <a
-                        href="https://www.instagram.com/grace_lifestyle_dessert"
+                        href="https://www.instagram.com/patisserie_grace_/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-noto-serif text-lg text-grace-text-secondary hover:text-grace-brown transition-colors"
                       >
-                        @grace_lifestyle_dessert
+                        @patisserie_grace_
                       </a>
                     </dd>
                   </div>
