@@ -59,8 +59,8 @@ export default function ConceptPage() {
               {/* 仮写真（撮影後差し替え） */}
               <div className="relative aspect-square overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800&q=80&auto=format&fit=crop"
-                  alt="Pâtisserie Grace の菓子"
+                  src="https://images.unsplash.com/photo-1593353994452-97b4560c50c2?w=800&q=80&auto=format&fit=crop"
+                  alt="Pâtisserie Grace のカヌレ"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
