@@ -6,7 +6,7 @@ export function Hero() {
 
       {/* 背景画像（仮。撮影後に差し替え） */}
       <Image
-        src="https://images.unsplash.com/photo-1627511758251-e3ab89a3dec3?w=1920&q=80&auto=format&fit=crop"
+        src="https://images.unsplash.com/photo-1691052252990-4cd1fdda73dc?w=1920&q=80&auto=format&fit=crop"
         alt=""
         fill
         className="object-cover opacity-50"
