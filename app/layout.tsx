@@ -29,12 +29,12 @@ const notoSans = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: 'Grace — PATISSERIE',
   description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
-  metadataBase: new URL('https://grace-patisserie.jp'),
+  metadataBase: new URL('https://www.grace-patisserie.jp'),
   openGraph: {
     title: 'Grace — PATISSERIE',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
     type: 'website',
-    url: 'https://grace-patisserie.jp',
+    url: 'https://www.grace-patisserie.jp',
     siteName: 'Grace Patisserie',
     images: [{ url: '/logo-horizontal.png' }],
   },
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     google: 'OSsOhnDrzCCf891qRWKkzn3OJ7IZxs754JID1oUS7M8',
   },
   alternates: {
-    canonical: 'https://grace-patisserie.jp',
+    canonical: 'https://www.grace-patisserie.jp',
   },
 }
 
