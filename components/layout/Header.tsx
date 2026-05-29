@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { MobileMenu } from './MobileMenu'
 import { cn } from '@/lib/utils/cn'
@@ -10,10 +11,10 @@ interface HeaderProps {
 }
 
 /**
- * ヘッダー — シネマティック案B
- * - ヒーロー上では transparent（スクロール60px以降は solid に切り替え）
- * - 左右分割レイアウト: コンセプト・スウィーツ ← テキストロゴ → ギフト・ショップ情報
- * - モバイルではハンバーガーメニューを維持
+ * ヘッダー — ハンバーガー + 中央ロゴスタイル
+ * - ヒーロー上では transparent（fixed）、スクロール60px以降は solid に切り替え
+ * - transparent 時: ロゴに brightness-0 invert を適用してホワイト表示
+ * - solid 時: 通常カラー表示
  */
 export function Header({ variant = 'solid' }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -41,100 +42,54 @@ export function Header({ variant = 'solid' }: HeaderProps) {
             : 'bg-grace-bg-primary/95 backdrop-blur-sm border-b border-grace-line',
         )}
       >
-        {/* デスクトップ: 左右分割ナビ */}
-        <div className="hidden md:flex items-center justify-between px-16 py-[34px]">
-          {/* 左ナビ */}
-          <nav className="flex gap-[38px]" aria-label="左ナビゲーション">
-            {[
-              { label: 'コンセプト', href: '/concept' },
-              { label: 'スウィーツ', href: '/sweets' },
-            ].map(({ label, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  'font-noto-serif text-[11px] tracking-[3px] transition-opacity hover:opacity-70',
-                  isTransparent ? 'text-grace-offwhite' : 'text-grace-brown',
-                )}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+        <div className="container-content">
+          <div className="flex items-center justify-between h-16">
 
-          {/* 中央テキストロゴ */}
-          <Link
-            href="/"
-            className={cn(
-              'font-cormorant italic text-[22px] tracking-[4px] transition-colors',
-              isTransparent ? 'text-grace-offwhite' : 'text-grace-brown',
-            )}
-            style={{ fontWeight: 300 }}
-          >
-            Grace
-          </Link>
-
-          {/* 右ナビ */}
-          <nav className="flex gap-[38px]" aria-label="右ナビゲーション">
-            {[
-              { label: 'ギフト', href: '/gift' },
-              { label: 'ショップ情報', href: '/shop' },
-            ].map(({ label, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  'font-noto-serif text-[11px] tracking-[3px] transition-opacity hover:opacity-70',
-                  isTransparent ? 'text-grace-offwhite' : 'text-grace-brown',
-                )}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* モバイル: ハンバーガー + テキストロゴ */}
-        <div className="flex md:hidden items-center justify-between h-16 px-4">
-          <button
-            onClick={() => setIsMenuOpen(true)}
-            aria-label="メニューを開く"
-            aria-expanded={isMenuOpen}
-            className={cn(
-              'relative z-10 flex items-center justify-center p-2 transition-colors',
-              isTransparent
-                ? 'text-grace-offwhite hover:text-grace-stone'
-                : 'text-grace-text-secondary hover:text-grace-brown',
-            )}
-          >
-            <svg
-              width="20"
-              height="20"
-              className="block flex-shrink-0"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              aria-hidden="true"
+            {/* ハンバーガーボタン */}
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              aria-label="メニューを開く"
+              aria-expanded={isMenuOpen}
+              className={cn(
+                'relative z-10 flex items-center justify-center p-2 transition-colors',
+                isTransparent
+                  ? 'text-grace-offwhite hover:text-grace-stone'
+                  : 'text-grace-text-secondary hover:text-grace-brown',
+              )}
             >
-              <path d="M3 6h18M3 12h18M3 18h18" />
-            </svg>
-          </button>
+              <svg
+                width="20"
+                height="20"
+                className="block flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M3 6h18M3 12h18M3 18h18" />
+              </svg>
+            </button>
 
-          <Link
-            href="/"
-            className={cn(
-              'font-cormorant italic text-xl tracking-[3px] transition-colors',
-              isTransparent ? 'text-grace-offwhite' : 'text-grace-brown',
-            )}
-            style={{ fontWeight: 300 }}
-          >
-            Grace
-          </Link>
+            {/* 中央ロゴ（logo-horizontal.png） */}
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+              <Image
+                src="/logo-horizontal.png"
+                alt="Pâtisserie Grace"
+                width={120}
+                height={32}
+                className={cn(
+                  'h-7 w-auto block transition-opacity',
+                  isTransparent && 'brightness-0 invert',
+                )}
+                priority
+              />
+            </Link>
 
-          {/* レイアウト維持用スペーサー */}
-          <div className="invisible w-10 h-10" aria-hidden="true" />
+            {/* レイアウト維持用スペーサー（ティザー期はカート非表示） */}
+            <div className="invisible w-10 h-10" aria-hidden="true" />
+          </div>
         </div>
       </header>
 

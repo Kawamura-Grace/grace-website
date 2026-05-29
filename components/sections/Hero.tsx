@@ -4,7 +4,7 @@ import Image from 'next/image'
  * Hero セクション — シネマティック案B
  * - 動画背景（/video/hero.mp4 プレースホルダー）
  * - 動画読み込み失敗時フォールバック: Unsplash 静止画
- * - テキストロゴ（Cormorant Garamond Italic）
+ * - 画像ロゴ（/logo-vertical.png、brightness-0 invert）
  * - ゴールドのセパレーター線
  * - タグライン（Noto Serif JP）
  * - SCROLLインジケーター
@@ -46,18 +46,20 @@ export function Hero() {
 
       {/* 中央コンテンツ */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
-        {/* テキストロゴ */}
-        <h1
-          className="font-cormorant italic text-grace-offwhite leading-none"
-          style={{ fontSize: '76px', letterSpacing: '6px', fontWeight: 300 }}
-        >
-          Pâtisserie Grace
-        </h1>
+        {/* 画像ロゴ（mainブランチのサイズ・スタイルを踏襲） */}
+        <Image
+          src="/logo-vertical.png"
+          alt="Pâtisserie Grace"
+          width={200}
+          height={140}
+          className="mx-auto mb-8 brightness-0 invert opacity-90"
+          priority
+        />
 
         {/* ゴールドのセパレーター線 */}
         <div
           className="bg-grace-gold"
-          style={{ width: '60px', height: '1px', margin: '34px auto' }}
+          style={{ width: '60px', height: '1px', margin: '0 auto 34px' }}
           aria-hidden="true"
         />
 
