@@ -1,39 +1,81 @@
+'use client'
+
 import Image from 'next/image'
 
+/**
+ * Hero セクション — シネマティック案B
+ * - 動画背景（/video/hero.mp4 プレースホルダー）
+ * - 動画読み込み失敗時フォールバック: Unsplash 静止画
+ * - テキストロゴ（Cormorant Garamond Italic）
+ * - ゴールドのセパレーター線
+ * - タグライン（Noto Serif JP）
+ * - SCROLLインジケーター
+ */
 export function Hero() {
   return (
-    <section className="relative h-[100svh] min-h-[600px] flex items-center justify-center overflow-hidden bg-grace-brown">
+    <section className="relative overflow-hidden bg-grace-brown" style={{ height: '820px' }}>
 
-      {/* 背景画像（仮。撮影後に差し替え） */}
-      <Image
-        src="https://images.unsplash.com/photo-1691052252990-4cd1fdda73dc?w=1920&q=80&auto=format&fit=crop"
-        alt=""
-        fill
-        className="object-cover opacity-50"
-        priority
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-grace-brown/20 via-transparent to-grace-brown/60" />
-
-      {/* コンテンツ */}
-      <div className="relative z-10 text-center px-6">
+      {/* 動画背景 */}
+      <video
+        src="/video/hero.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: 'brightness(0.7) contrast(1.05)' }}
+        aria-hidden="true"
+      >
+        {/* 動画が読み込めない場合のフォールバック */}
         <Image
-          src="/logo-vertical.png"
-          alt="Pâtisserie Grace"
-          width={200}
-          height={140}
-          className="mx-auto mb-8 brightness-0 invert opacity-90"
+          src="https://images.unsplash.com/photo-1612203985729-70726954388c?q=80&w=1920&auto=format&fit=crop"
+          alt=""
+          fill
+          className="object-cover"
           priority
+          sizes="100vw"
         />
-        <p className="font-noto-serif text-grace-offwhite/90 text-sm md:text-base tracking-[0.2em] leading-loose">
+      </video>
+
+      {/* グラデーションオーバーレイ */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, rgba(20,16,12,.55) 0%, rgba(20,16,12,.1) 35%, rgba(20,16,12,.15) 70%, rgba(20,16,12,.6) 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 中央コンテンツ */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
+        {/* テキストロゴ */}
+        <h1
+          className="font-cormorant italic text-grace-offwhite leading-none"
+          style={{ fontSize: '76px', letterSpacing: '6px', fontWeight: 300 }}
+        >
+          Pâtisserie Grace
+        </h1>
+
+        {/* ゴールドのセパレーター線 */}
+        <div
+          className="bg-grace-gold"
+          style={{ width: '60px', height: '1px', margin: '34px auto' }}
+          aria-hidden="true"
+        />
+
+        {/* タグライン */}
+        <p
+          className="font-noto-serif text-grace-offwhite"
+          style={{ fontSize: '22px', letterSpacing: '3px', fontWeight: 300, opacity: 0.95 }}
+        >
           美しい暮らしには、お菓子がある。
         </p>
       </div>
 
-      {/* スクロールインジケーター */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-grace-offwhite/50">
-        <span className="font-noto-sans text-[9px] tracking-widest">SCROLL</span>
-        <div className="w-px h-8 bg-grace-gold/50 animate-pulse" />
+      {/* SCROLLインジケーター */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-grace-offwhite/80">
+        <span className="font-noto-serif text-[9px] tracking-[3px]">SCROLL</span>
+        <span className="text-xl">↓</span>
       </div>
     </section>
   )

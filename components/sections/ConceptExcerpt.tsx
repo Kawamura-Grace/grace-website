@@ -1,39 +1,40 @@
 import Link from 'next/link'
-import { Section } from '@/components/ui/Section'
 
-const KEYWORDS = ['やさしさ', '余白', '季節', '香り', '素材', '手仕事', '豊かさ']
-
+/**
+ * コンセプト抜粋セクション — シネマティック案B
+ * - 背景: grace-brown（#2C2421）ダークブラウン
+ * - テキスト: grace-offwhite、Cormorant Garamond Italic、大きく中央揃え
+ * - サブテキスト: grace-gold（#B8956A）
+ * - パディングは大きく（220px相当 → py-[220px]）
+ */
 export function ConceptExcerpt() {
   return (
-    <Section label="CONCEPT" className="bg-grace-offwhite">
-      <div className="max-w-2xl mx-auto text-center">
-        <h2 className="font-cormorant italic text-4xl md:text-5xl text-grace-brown mb-8 leading-tight">
-          Philosophy
-        </h2>
-        <p className="font-noto-serif text-grace-text-secondary text-sm md:text-base leading-loose tracking-wide mb-10">
-          厳選した素材と、丁寧な手仕事。<br />
-          お菓子は、日常に小さな豊かさをもたらすものだと信じています。
-        </p>
+    <section className="bg-grace-brown text-center px-20 py-[140px] md:py-[220px]">
+      {/* メインコピー */}
+      <p
+        className="font-cormorant italic text-grace-offwhite leading-[1.8] tracking-[2px]"
+        style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 300 }}
+      >
+        静けさのなかに、<br />確かな歓びを。
+      </p>
 
-        {/* キーワード */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {KEYWORDS.map(word => (
-            <span
-              key={word}
-              className="font-noto-serif text-base text-grace-wasabi border border-grace-wasabi/30 px-4 py-2"
-            >
-              {word}
-            </span>
-          ))}
-        </div>
+      {/* サブテキスト */}
+      <span
+        className="block mt-10 font-noto-serif text-grace-gold tracking-[6px]"
+        style={{ fontSize: '13px', fontWeight: 300 }}
+      >
+        ひと皿の余白が、日々を整える
+      </span>
 
+      {/* コンセプトページへのリンク */}
+      <div className="mt-16">
         <Link
           href="/concept"
-          className="font-noto-sans text-[10px] tracking-widest text-grace-text-secondary hover:text-grace-brown transition-colors border-b border-grace-line pb-1"
+          className="font-noto-serif text-[10px] tracking-widest text-grace-offwhite/60 hover:text-grace-gold transition-colors border-b border-grace-offwhite/20 pb-1"
         >
           MORE ABOUT GRACE →
         </Link>
       </div>
-    </Section>
+    </section>
   )
 }
