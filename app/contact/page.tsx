@@ -1,5 +1,6 @@
 // お問い合わせページ — フォームはクライアントコンポーネントに分離
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ContactForm } from '@/components/forms/ContactForm'
@@ -15,8 +16,19 @@ export default function ContactPage() {
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
+          {/* 背景写真 */}
+          <Image
+            src="https://images.pexels.com/photos/2128027/pexels-photo-2128027.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/78" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">GET IN TOUCH</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Contact

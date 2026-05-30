@@ -1,7 +1,23 @@
+import Image from 'next/image'
+
 export function EcInvitation() {
   return (
-    <section className="bg-grace-bg-dark py-20 px-6">
-      <div className="max-w-2xl mx-auto text-center">
+    <section className="relative overflow-hidden bg-grace-bg-dark py-20 px-6">
+      {/* 背景写真: スマートフォン・SNSアイコン（暗いトーン） */}
+      <Image
+        src="https://images.pexels.com/photos/5678243/pexels-photo-5678243.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        alt=""
+        fill
+        className="object-cover opacity-20"
+        sizes="100vw"
+        crossOrigin="anonymous"
+        aria-hidden="true"
+      />
+      {/* ダークブラウンオーバーレイ */}
+      <div className="absolute inset-0 bg-grace-bg-dark/75" aria-hidden="true" />
+
+      {/* コンテンツ */}
+      <div className="relative z-10 max-w-2xl mx-auto text-center">
         <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-8">
           ━ FOLLOW US ━
         </p>

@@ -1,5 +1,6 @@
 // News一覧ページ — リスト表示
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -31,8 +32,19 @@ export default async function NewsPage() {
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
+          {/* 背景写真 */}
+          <Image
+            src="https://images.pexels.com/photos/8211309/pexels-photo-8211309.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">LATEST</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               News

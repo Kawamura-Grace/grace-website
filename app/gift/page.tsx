@@ -19,8 +19,19 @@ export default function GiftPage() {
       <Header />
       <main>
         {/* ─── ヒーロー見出し ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
+          {/* 背景写真: ギフトボックスとリボン */}
+          <Image
+            src="https://images.pexels.com/photos/1007533/pexels-photo-1007533.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">FOR SPECIAL MOMENTS</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Gift
@@ -156,8 +167,19 @@ export default function GiftPage() {
         </section>
 
         {/* ─── 法人ギフト → Contact誘導 ─── */}
-        <section className="section-padding bg-grace-bg-dark">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden section-padding bg-grace-bg-dark">
+          {/* 背景写真: 高級チョコレートギフトボックス */}
+          <Image
+            src="https://images.pexels.com/photos/7407255/pexels-photo-7407255.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/78" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">CORPORATE GIFT</p>
             <h2 className="font-cormorant italic text-4xl text-grace-offwhite mb-6">
               For Corporate
