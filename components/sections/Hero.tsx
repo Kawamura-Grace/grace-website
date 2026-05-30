@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 /**
  * Hero セクション — シネマティック案B
- * - 動画背景（/video/hero.mp4 プレースホルダー）
+ * - 動画背景（Pexels フリー動画: ID 7008566 / ドウをこねる製造シーン）
  * - 動画読み込み失敗時フォールバック: Unsplash 静止画
  * - 画像ロゴ（/logo-vertical.png、brightness-0 invert）
  * - ゴールドのセパレーター線
@@ -15,11 +15,12 @@ export function Hero() {
 
       {/* 動画背景 */}
       <video
-        src="/video/hero.mp4"
+        src="https://videos.pexels.com/video-files/7008566/7008566-hd_1920_1080_25fps.mp4"
         autoPlay
         muted
         loop
         playsInline
+        crossOrigin="anonymous"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: 'brightness(0.7) contrast(1.05)' }}
         aria-hidden="true"
