@@ -109,7 +109,7 @@ export default function ConceptPage() {
               {['やさしさ', '余白', '季節', '香り', '素材', '手仕事', '豊かさ'].map((word) => (
                 <span
                   key={word}
-                  className="font-noto-serif text-base text-grace-brown/70 border border-grace-brown/30 px-6 py-3 tracking-wider"
+                  className="font-noto-serif text-lg text-grace-brown/70 border border-grace-brown/30 px-8 py-4 tracking-wider"
                 >
                   {word}
                 </span>
