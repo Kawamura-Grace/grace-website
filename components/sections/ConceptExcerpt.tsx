@@ -25,8 +25,8 @@ const SLIDE_IMAGES = [
     alt: 'マカロン',
   },
   {
-    src: 'https://images.pexels.com/photos/5765/food-dessert-chocolate-cake.jpg?auto=compress&cs=tinysrgb&w=1200',
-    alt: 'パティスリーのお菓子',
+    src: 'https://images.pexels.com/photos/2144200/pexels-photo-2144200.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    alt: '焼き菓子',
   },
 ]
 
