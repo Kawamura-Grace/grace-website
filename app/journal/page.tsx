@@ -42,8 +42,8 @@ export default async function JournalPage({ searchParams }: PageProps) {
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
-          {/* 背景写真 */}
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
+          {/* 背景写真: パティスリーの素材・製造 */}
           <Image
             src="https://images.pexels.com/photos/3983674/pexels-photo-3983674.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt=""
@@ -52,9 +52,10 @@ export default async function JournalPage({ searchParams }: PageProps) {
             sizes="100vw"
             crossOrigin="anonymous"
             aria-hidden="true"
+            priority
           />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
-          <div className="relative z-10 container-content text-center">
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">STORIES</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Journal
@@ -97,9 +98,24 @@ export default async function JournalPage({ searchParams }: PageProps) {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-lg text-grace-text-tertiary">
-                  現在この カテゴリの記事はありません。
+                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
+                  {(!activeCategory || activeCategory === 'all')
+                    ? 'ジャーナルは2026年10月の開業にあわせて公開予定です。'
+                    : 'このカテゴリの記事はまだありません。'}
                 </p>
+                {(!activeCategory || activeCategory === 'all') && (
+                  <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
+                    素材・季節・製造の話を、開業前から少しずつお届けします。
+                  </p>
+                )}
+                <a
+                  href="https://www.instagram.com/patisserie_grace_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"
+                >
+                  @patisserie_grace_ →
+                </a>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

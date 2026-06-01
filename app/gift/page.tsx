@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 
 export const revalidate = 86400 // 24時間
@@ -19,7 +18,7 @@ export default function GiftPage() {
       <Header />
       <main>
         {/* ─── ヒーロー見出し ─── */}
-        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
           {/* 背景写真: ギフトボックスとリボン */}
           <Image
             src="https://images.pexels.com/photos/1007533/pexels-photo-1007533.jpeg?auto=compress&cs=tinysrgb&w=1920"
@@ -29,9 +28,10 @@ export default function GiftPage() {
             sizes="100vw"
             crossOrigin="anonymous"
             aria-hidden="true"
+            priority
           />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
-          <div className="relative z-10 container-content text-center">
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">FOR SPECIAL MOMENTS</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Gift

@@ -46,7 +46,7 @@ export default async function ShopPage() {
         )}
 
         {/* ─── ページヘッダー ─── */}
-        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
           {/* 背景写真: カフェ・ショップ内観 */}
           <Image
             src="https://images.pexels.com/photos/5198144/pexels-photo-5198144.jpeg?auto=compress&cs=tinysrgb&w=1920"
@@ -56,14 +56,18 @@ export default async function ShopPage() {
             sizes="100vw"
             crossOrigin="anonymous"
             aria-hidden="true"
+            priority
           />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
-          <div className="relative z-10 container-content text-center">
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">VISIT US</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Shop Info
             </h1>
-            <div className="w-8 h-px bg-grace-gold mx-auto" />
+            <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
+            <p className="font-noto-serif text-lg text-grace-stone leading-loose">
+              2026年10月、愛知県春日井市にオープン。
+            </p>
           </div>
         </section>
 
@@ -113,9 +117,16 @@ export default async function ShopPage() {
                 </dl>
               </div>
 
-              {/* 右: 店舗写真プレースホルダー */}
-              <div className="aspect-video bg-grace-cream flex items-center justify-center">
-                <span className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">SHOP PHOTO</span>
+              {/* 右: 店舗写真（仮素材 — 撮影後差し替え） */}
+              <div className="relative aspect-video overflow-hidden">
+                <Image
+                  src="https://images.pexels.com/photos/1855214/pexels-photo-1855214.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Pâtisserie Grace 店舗外観（仮）"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  crossOrigin="anonymous"
+                />
               </div>
             </div>
           </div>
@@ -129,13 +140,13 @@ export default async function ShopPage() {
           <div className="w-full aspect-video max-h-[480px]">
             <iframe
               title="Pâtisserie Grace アクセスマップ"
-              src="https://maps.google.com/maps?q=愛知県春日井市&output=embed"
+              src="https://maps.google.com/maps?q=%E6%98%A5%E6%97%A5%E4%BA%95%E5%B8%82%2C+%E6%84%9B%E7%9F%A5%E7%9C%8C&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              aria-label="店舗の地図"
+              aria-label="店舗の地図（春日井市）"
             />
           </div>
         </section>

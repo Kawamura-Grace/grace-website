@@ -18,8 +18,8 @@ export default function ConceptPage() {
       <Header />
       <main>
         {/* ─── ヒーロー ─── */}
-        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
-          {/* 背景写真: チョコレート菓子とコーヒー */}
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
+          {/* 背景写真: パティスリーの製造工程 */}
           <Image
             src="https://images.pexels.com/photos/2128027/pexels-photo-2128027.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt=""
@@ -28,14 +28,19 @@ export default function ConceptPage() {
             sizes="100vw"
             crossOrigin="anonymous"
             aria-hidden="true"
+            priority
           />
           <div className="absolute inset-0 bg-grace-bg-dark/70" aria-hidden="true" />
-          <div className="relative z-10 container-content text-center">
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">OUR STORY</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Concept
             </h1>
-            <div className="w-8 h-px bg-grace-gold mx-auto" />
+            <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
+            <p className="font-noto-serif text-lg text-grace-stone leading-loose max-w-md mx-auto">
+              美しいお菓子は、暮らしの余白に置かれた、
+              小さな幸福です。
+            </p>
           </div>
         </section>
 
@@ -81,20 +86,63 @@ export default function ConceptPage() {
           </div>
         </section>
 
-        {/* ─── A NOTE FROM GRACE ─── */}
+        {/* ─── GRACE CRUMB ─── */}
         <section className="section-padding bg-grace-offwhite">
+          <div className="container-content">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+              {/* 仮写真: カヌレのクローズアップ（撮影後差し替え） */}
+              <div className="relative aspect-square overflow-hidden order-last md:order-first">
+                <Image
+                  src="https://images.pexels.com/photos/1346155/pexels-photo-1346155.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Grace Crumb — Graceのお菓子のかけら"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  crossOrigin="anonymous"
+                />
+              </div>
+              <div>
+                <div className="section-label mb-8">GRACE CRUMB</div>
+                <h2 className="font-cormorant italic text-4xl md:text-5xl text-grace-brown mb-6 leading-tight">
+                  A Crumb of Grace
+                </h2>
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-6">
+                  「Grace Crumb（グレイス クランブル）」——
+                  それはお菓子が崩れた瞬間にこぼれる、小さなかけら。
+                </p>
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-6">
+                  お菓子の本当の豊かさは、完璧な見た目よりも、
+                  口に入れた瞬間にほろりと崩れるその一瞬にある。
+                  Graceは、その「クランブル」の瞬間に、すべてを込めます。
+                </p>
+                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                  食べた人の記憶に残る、
+                  小さくて確かな豊かさを届けたい。<br />
+                  その一心が、Graceというパティスリーの始まりです。
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── A NOTE FROM GRACE ─── */}
+        <section className="section-padding bg-grace-cream">
           <div className="container-content max-w-article mx-auto text-center">
             <div className="section-label mb-12">A NOTE FROM GRACE</div>
-            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-8">
-              お菓子が、誰かの大切な日の横にいる。
+            <p className="font-cormorant italic text-3xl md:text-4xl text-grace-brown leading-relaxed mb-10">
+              &ldquo;お菓子が、誰かの<br />大切な日の横にいる。&rdquo;
             </p>
-            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10">
+            <div className="w-6 h-px bg-grace-gold mx-auto mb-10" />
+            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-8">
               誕生日の朝、大事な人への手土産、何もない夜の自分へのご褒美。<br className="hidden md:block" />
               そういう場面に、確かに美しいものを届けたい。<br className="hidden md:block" />
               その思いだけを軸に、Graceは生まれました。
             </p>
-            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose tracking-widest">
+            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 tracking-widest">
               素材に誠実に。季節に正直に。来てくれた人に丁寧に。
+            </p>
+            <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">
+              Pâtisserie Grace / Daisuke Kawamura
             </p>
           </div>
         </section>
