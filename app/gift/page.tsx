@@ -107,31 +107,35 @@ export default function GiftPage() {
             <div className="section-label mb-12">NOSHI &amp; MESSAGE</div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
               {/* 熨斗 */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line h-full">
+              <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-4">熨斗</h3>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                  御祝・御礼・粗品など、各種熨斗に対応しております。
-                  ご注文時にご希望の表書きと名入れをお知らせください。
-                </p>
-                <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
-                  <li>御祝・御礼・粗品・寸志</li>
-                  <li>内祝・快気祝・引き出物</li>
-                  <li>その他ご要望に対応可能</li>
-                </ul>
+                <div className="flex-1">
+                  <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                    御祝・御礼・粗品など、各種熨斗に対応しております。
+                    ご注文時にご希望の表書きと名入れをお知らせください。
+                  </p>
+                  <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
+                    <li>御祝・御礼・粗品・寸志</li>
+                    <li>内祝・快気祝・引き出物</li>
+                    <li>その他ご要望に対応可能</li>
+                  </ul>
+                </div>
               </div>
               {/* メッセージカード */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line h-full">
+              <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Message</h3>
                 <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">メッセージカード</p>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                  Graceオリジナルのメッセージカードに、
-                  お好きなメッセージを手書きでお入れします。
-                  誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
-                </p>
-                <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
-                  文字数: 最大100文字程度<br />
-                  ご注文時の備考欄にご記入ください
-                </p>
+                <div className="flex-1">
+                  <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                    Graceオリジナルのメッセージカードに、
+                    お好きなメッセージを手書きでお入れします。
+                    誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
+                  </p>
+                  <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
+                    文字数: 最大100文字程度<br />
+                    ご注文時の備考欄にご記入ください
+                  </p>
+                </div>
               </div>
             </div>
           </div>
