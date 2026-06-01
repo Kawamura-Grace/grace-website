@@ -90,31 +90,26 @@ export default function ConceptPage() {
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content max-w-2xl mx-auto">
             <span
-              className="block font-noto-serif tracking-[6px] text-grace-brown/50 mb-8 text-center"
-              style={{ fontSize: '10px', letterSpacing: '0.4em' }}
+              className="block font-noto-sans tracking-[6px] text-grace-brown/50 mb-10 text-center text-[11px]"
             >
               CONCEPT
             </span>
             <h2
-              className="font-cormorant italic text-grace-brown leading-none mb-10 text-center"
-              style={{ fontSize: 'clamp(40px, 5vw, 60px)', fontWeight: 300 }}
+              className="font-cormorant italic text-grace-brown leading-none mb-10 text-center text-5xl md:text-6xl"
+              style={{ fontWeight: 300 }}
             >
               Philosophy
             </h2>
-            <p
-              className="font-noto-serif text-grace-brown/80 leading-[2] mb-10 text-center"
-              style={{ fontSize: '14px', fontWeight: 300 }}
-            >
+            <p className="font-noto-serif text-lg md:text-xl text-grace-brown/80 leading-[2.2] mb-12 text-center">
               厳選した素材と、丁寧な手仕事。<br />
               お菓子は、日常に小さな豊かさを<br />
               もたらすものだと信じています。
             </p>
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center">
               {['やさしさ', '余白', '季節', '香り', '素材', '手仕事', '豊かさ'].map((word) => (
                 <span
                   key={word}
-                  className="font-noto-serif text-grace-brown/70 border border-grace-brown/25 px-3 py-1"
-                  style={{ fontSize: '11px', letterSpacing: '0.1em' }}
+                  className="font-noto-serif text-sm text-grace-brown/70 border border-grace-brown/30 px-4 py-2 tracking-wider"
                 >
                   {word}
                 </span>

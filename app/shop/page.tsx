@@ -60,7 +60,7 @@ export default async function ShopPage() {
           />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center py-24">
-            <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">VISIT US</p>
+            <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">SHOP INFO</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Shop Info
             </h1>

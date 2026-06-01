@@ -105,9 +105,9 @@ export default function GiftPage() {
         <section className="section-padding bg-grace-cream">
           <div className="container-content">
             <div className="section-label mb-12">NOSHI &amp; MESSAGE</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
               {/* 熨斗 */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line">
+              <div className="bg-grace-offwhite p-8 border border-grace-line h-full">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-4">熨斗</h3>
                 <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
                   御祝・御礼・粗品など、各種熨斗に対応しております。
@@ -120,7 +120,7 @@ export default function GiftPage() {
                 </ul>
               </div>
               {/* メッセージカード */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line">
+              <div className="bg-grace-offwhite p-8 border border-grace-line h-full">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Message</h3>
                 <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">メッセージカード</p>
                 <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
