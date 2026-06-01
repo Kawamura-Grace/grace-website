@@ -45,7 +45,6 @@ export default async function HomePage() {
             <div className="section-label mb-8">SHOP INFO</div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="font-cormorant italic text-4xl text-grace-brown mb-6">店舗情報</h2>
                 <dl className="space-y-3 font-noto-serif text-lg text-grace-text-secondary">
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">ADDRESS</dt>
@@ -60,7 +59,7 @@ export default async function HomePage() {
                   href="/shop"
                   className="inline-block mt-8 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary hover:text-grace-brown transition-colors border-b border-grace-line pb-1"
                 >
-                  SHOP DETAIL →
+                  SHOP INFO →
                 </Link>
               </div>
               {/* 地図プレースホルダー */}
