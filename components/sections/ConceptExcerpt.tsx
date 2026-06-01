@@ -72,11 +72,11 @@ export function ConceptExcerpt() {
 
   return (
     <section
-      className="flex flex-col md:flex-row min-h-[600px]"
+      className="flex flex-col md:flex-row md:h-[600px]"
       style={{ backgroundColor: '#F7F3EF' }}
     >
-      {/* 左半分: スライドショー — absolute inset で h-full を確立、pt-8 pl-8 で余白 */}
-      <div className="relative w-full md:w-1/2 min-h-[320px] md:min-h-[600px]">
+      {/* 左半分: スライドショー — h-full で高さ確立、pt-8 pl-8 で余白 */}
+      <div className="relative w-full md:w-1/2 h-[320px] md:h-full">
         <div className="absolute inset-0 pt-8 pl-8">
           <div className="relative w-full h-full overflow-hidden">
             <Image
