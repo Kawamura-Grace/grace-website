@@ -86,64 +86,56 @@ export default function ConceptPage() {
           </div>
         </section>
 
-        {/* ─── GRACE CRUMB ─── */}
-        <section className="section-padding bg-grace-offwhite">
-          <div className="container-content">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-              {/* 仮写真: カヌレのクローズアップ（撮影後差し替え） */}
-              <div className="relative aspect-square overflow-hidden order-last md:order-first">
-                <Image
-                  src="https://images.pexels.com/photos/1346155/pexels-photo-1346155.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Grace Crumb — Graceのお菓子のかけら"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  crossOrigin="anonymous"
-                />
-              </div>
-              <div>
-                <div className="section-label mb-8">GRACE CRUMB</div>
-                <h2 className="font-cormorant italic text-4xl md:text-5xl text-grace-brown mb-6 leading-tight">
-                  A Crumb of Grace
-                </h2>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-6">
-                  「Grace Crumb（グレイス クランブル）」——
-                  それはお菓子が崩れた瞬間にこぼれる、小さなかけら。
-                </p>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-6">
-                  お菓子の本当の豊かさは、完璧な見た目よりも、
-                  口に入れた瞬間にほろりと崩れるその一瞬にある。
-                  Graceは、その「クランブル」の瞬間に、すべてを込めます。
-                </p>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                  食べた人の記憶に残る、
-                  小さくて確かな豊かさを届けたい。<br />
-                  その一心が、Graceというパティスリーの始まりです。
-                </p>
+        {/* ─── PHILOSOPHY（TOPページと共通の世界観） ─── */}
+        <section className="flex flex-col md:flex-row min-h-[600px] bg-grace-offwhite">
+          {/* 左半分: 画像 */}
+          <div className="relative w-full md:w-1/2 min-h-[320px] md:min-h-[600px]">
+            <Image
+              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1280&auto=format&fit=crop"
+              alt="Pâtisserie Grace のお菓子"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+          {/* 右半分: テキストコンテンツ */}
+          <div
+            className="w-full md:w-1/2 flex items-center justify-center px-10 md:px-16 py-16 md:py-20"
+            style={{ backgroundColor: '#F7F3EF' }}
+          >
+            <div className="max-w-[420px] w-full">
+              <span
+                className="block font-noto-serif tracking-[6px] text-grace-brown/50 mb-6"
+                style={{ fontSize: '10px', letterSpacing: '0.4em' }}
+              >
+                CONCEPT
+              </span>
+              <h2
+                className="font-cormorant italic text-grace-brown leading-none mb-8"
+                style={{ fontSize: 'clamp(40px, 5vw, 60px)', fontWeight: 300 }}
+              >
+                Philosophy
+              </h2>
+              <p
+                className="font-noto-serif text-grace-brown/80 leading-[2] mb-10"
+                style={{ fontSize: '14px', fontWeight: 300 }}
+              >
+                厳選した素材と、丁寧な手仕事。<br />
+                お菓子は、日常に小さな豊かさを<br />
+                もたらすものだと信じています。
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {['やさしさ', '余白', '季節', '香り', '素材', '手仕事', '豊かさ'].map((word) => (
+                  <span
+                    key={word}
+                    className="font-noto-serif text-grace-brown/70 border border-grace-brown/25 px-3 py-1"
+                    style={{ fontSize: '11px', letterSpacing: '0.1em' }}
+                  >
+                    {word}
+                  </span>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ─── A NOTE FROM GRACE ─── */}
-        <section className="section-padding bg-grace-cream">
-          <div className="container-content max-w-article mx-auto text-center">
-            <div className="section-label mb-12">A NOTE FROM GRACE</div>
-            <p className="font-cormorant italic text-3xl md:text-4xl text-grace-brown leading-relaxed mb-10">
-              &ldquo;お菓子が、誰かの<br />大切な日の横にいる。&rdquo;
-            </p>
-            <div className="w-6 h-px bg-grace-gold mx-auto mb-10" />
-            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-8">
-              誕生日の朝、大事な人への手土産、何もない夜の自分へのご褒美。<br className="hidden md:block" />
-              そういう場面に、確かに美しいものを届けたい。<br className="hidden md:block" />
-              その思いだけを軸に、Graceは生まれました。
-            </p>
-            <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 tracking-widest">
-              素材に誠実に。季節に正直に。来てくれた人に丁寧に。
-            </p>
-            <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">
-              Pâtisserie Grace / Daisuke Kawamura
-            </p>
           </div>
         </section>
 

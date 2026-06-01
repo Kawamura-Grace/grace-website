@@ -108,7 +108,7 @@ export default function GiftPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
               {/* 熨斗 */}
               <div className="bg-grace-offwhite p-8 border border-grace-line">
-                <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Noshi</h3>
+                <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">熨斗</h3>
                 <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">熨斗対応</p>
                 <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
                   御祝・御礼・粗品など、各種熨斗に対応しております。
