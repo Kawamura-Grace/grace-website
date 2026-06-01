@@ -8,7 +8,6 @@ import { EcInvitation } from '@/components/sections/EcInvitation'
 import { getSeasonalProducts } from '@/lib/notion/products'
 import { getLatestJournalPosts } from '@/lib/notion/journal'
 import { getTopNews } from '@/lib/notion/news'
-import Image from 'next/image'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils/date'
 
@@ -41,35 +40,22 @@ export default async function HomePage() {
         <JournalLatest posts={latestJournals} />
 
         {/* Shop Info */}
-        <section className="relative overflow-hidden bg-grace-bg-dark py-20 px-6">
-          {/* 背景写真: パティスリー外観・ショーケースイメージ（暗いトーン） */}
-          <Image
-            src="https://images.pexels.com/photos/3740429/pexels-photo-3740429.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            alt=""
-            fill
-            className="object-cover opacity-20"
-            sizes="100vw"
-            crossOrigin="anonymous"
-            aria-hidden="true"
-          />
-          {/* ダークブラウンオーバーレイ */}
-          <div className="absolute inset-0 bg-grace-bg-dark/75" aria-hidden="true" />
-
+        <section className="bg-grace-offwhite py-20 px-6">
           {/* コンテンツ */}
-          <div className="relative z-10 max-w-2xl mx-auto text-center">
-            <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="font-noto-sans text-[10px] tracking-widest text-grace-brown mb-8">
               ━ SHOP INFO ━
             </p>
-            <h2 className="font-cormorant italic text-4xl md:text-5xl text-grace-offwhite mb-6 leading-tight">
+            <h2 className="font-cormorant italic text-4xl md:text-5xl text-grace-brown mb-6 leading-tight">
               Pâtisserie Grace
             </h2>
-            <p className="font-noto-serif text-grace-stone text-sm leading-loose tracking-wide mb-10">
+            <p className="font-noto-serif text-grace-text-primary text-sm leading-loose tracking-wide mb-10">
               〒486-0844 愛知県春日井市朝宮町1-2-6<br />
               9:30 – 19:30　不定休
             </p>
             <Link
               href="/shop"
-              className="inline-flex items-center gap-3 font-noto-sans text-xs tracking-widest text-grace-offwhite border border-grace-gold px-8 py-4 hover:bg-grace-gold hover:text-grace-brown transition-all duration-500"
+              className="inline-flex items-center gap-3 font-noto-sans text-xs tracking-widest text-grace-brown border border-grace-brown px-8 py-4 hover:bg-grace-brown hover:text-grace-offwhite transition-all duration-500"
             >
               SHOP INFO →
             </Link>
