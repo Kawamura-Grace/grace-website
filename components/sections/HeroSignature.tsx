@@ -8,16 +8,16 @@ import { LogoDrawing } from '@/components/brand/LogoDrawing'
  *
  * レイアウト: 100svh / cream (#F7F3EF) 背景
  * アニメーション順序:
- *   1. LogoDrawing stroke-drawing (0.3s〜 / 2.2s で完了)
- *   2. ワードマーク「Grace」fade-in (delay 2.6s)
- *   3. 「PATISSERIE」fade-in (delay 3.0s)
- *   4. 縦書きタグライン (delay 3.4s)
- *   5. Scroll キュー (delay 4.0s)
+ *   1. LogoDrawing PNG fade-in (delay 0.3s / duration 0.8s → 完了 1.1s)
+ *   2. 縦書きタグライン fade-in (delay 1.4s)
+ *   3. Scroll キュー fade-in (delay 2.0s)
  *
  * LCP 対策:
- * - SVG インライン（画像 fetch なし）
- * - ヒーロー内に外部画像なし
+ * - LogoDrawing に priority prop → ロゴ PNG がプリロードされる
  * - フォントは next/font で preload 済み
+ *
+ * ワードマーク「Grace」と「PATISSERIE」は logo-vertical.png に含まれているため
+ * テキスト要素としての出力は行わない（二重表示防止）。
  */
 
 interface FadeItemProps {
@@ -31,7 +31,8 @@ function FadeItem({ delay, children, className = '', style = {} }: FadeItemProps
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    // prefers-reduced-motion: reduce の場合は即表示
+    // globals.css の prefers-reduced-motion: reduce で transition が 0.01ms になるが、
+    // JS タイマーも即時化してレイアウトシフトを防ぐ
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -65,44 +66,14 @@ export function HeroSignature() {
       style={{ minHeight: '100svh' }}
       aria-label="Pâtisserie Grace ヒーロー"
     >
-      {/* 中央コンテンツ */}
+      {/* 中央コンテンツ: ロゴ PNG のみ（Grace / PATISSERIE は PNG に内包） */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
-        {/* ロゴ線画（LCP対象: インライン SVG） */}
-        <LogoDrawing width={200} className="mx-auto mb-4" />
-
-        {/* ワードマーク Grace */}
-        <FadeItem delay={2.6}>
-          <h1
-            className="font-cormorant italic text-brown tracking-widest"
-            style={{
-              fontSize: 'clamp(44px,11vw,72px)',
-              fontWeight: 300,
-              lineHeight: 1,
-            }}
-          >
-            Grace
-          </h1>
-        </FadeItem>
-
-        {/* PATISSERIE */}
-        <FadeItem delay={3.0}>
-          <p
-            className="font-cormorant text-brown tracking-[0.4em]"
-            style={{
-              fontSize: 'clamp(10px,1.8vw,14px)',
-              fontWeight: 400,
-              marginTop: '6px',
-              letterSpacing: '0.4em',
-            }}
-          >
-            PATISSERIE
-          </p>
-        </FadeItem>
+        <LogoDrawing className="mx-auto" />
       </div>
 
       {/* 縦書きタグライン（右側） */}
       <FadeItem
-        delay={3.4}
+        delay={1.4}
         className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3"
         style={{}}
       >
@@ -132,7 +103,7 @@ export function HeroSignature() {
 
       {/* Scroll キュー */}
       <FadeItem
-        delay={4.0}
+        delay={2.0}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span
