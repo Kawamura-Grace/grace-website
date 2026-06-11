@@ -1,7 +1,6 @@
 'use client'
 
 import { useReveal, revealStyle } from '@/components/brand/useReveal'
-import { GoldButton } from '@/components/brand/Typography'
 
 /**
  * OnlineStoreBanner — Online Store 帯（1-7中）
@@ -47,9 +46,19 @@ export function OnlineStoreBanner() {
         </div>
 
         <div style={revealStyle(isVisible, 240, '0.8s')}>
-          <GoldButton href="/sweets" variant="outline">
+          {/* Online Store ボタン: Square ECサイトへ外部リンク */}
+          <a
+            href="https://square.site"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 font-cormorant italic border border-gold px-8 py-3 text-brown hover:bg-gold hover:text-brown transition-colors"
+            style={{
+              transitionDuration: '0.8s',
+              transitionTimingFunction: 'cubic-bezier(.22,1,.36,1)',
+            }}
+          >
             Shop Online
-          </GoldButton>
+          </a>
         </div>
       </div>
     </section>

@@ -139,7 +139,7 @@ export function GraceCrumb() {
               }}
             >
               写真には写らないものを、私たちは一番大切にしています。<br />
-              一口の最後にさっと立ち上がる、Grace だけの香り。
+              ひと口の最後にふわりと立ちのぼる、Graceだけの香り。
             </p>
           </div>
         </div>
@@ -170,16 +170,16 @@ export function GraceCrumb() {
               fontWeight: 400,
             }}
           >
-            福ふくバターを溶かした独自のクラムが、<br />
+            焦がしバターを纏わせた独自のクラムが、<br />
             <em
               style={{
                 fontStyle: 'normal',
                 color: '#B8956A',
               }}
             >
-              食べ終わったことの記憶
+              食べ終えたあとの記憶
             </em>
-            に静かに残ります。
+            に、静かに残ります。
           </p>
         </div>
       </div>

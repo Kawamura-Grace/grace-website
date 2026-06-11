@@ -75,7 +75,7 @@ export function Footer() {
             <p className="font-cormorant italic text-[10px] tracking-widest text-brown/40 mb-4">Shop</p>
             <address className="not-italic font-shippori text-sm text-brown/70 leading-relaxed mb-6">
               〒486-0844<br />
-              愛知県春日井市<br />
+              愛知県春日井市朝宮町1-2-6<br />
               営業時間 9:30–19:30<br />
               不定休
             </address>
@@ -96,11 +96,9 @@ export function Footer() {
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
                 </svg>
               </a>
-              {/* LINE */}
+              {/* TODO: LINE公式アカウントID確定後に設定 */}
               <a
-                href="https://line.me/R/ti/p/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
                 aria-label="LINE"
                 className="text-brown/50 hover:text-wasabi transition-colors"
                 style={{ transitionDuration: '0.8s' }}

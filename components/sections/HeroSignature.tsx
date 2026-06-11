@@ -7,32 +7,28 @@ import { LogoDrawing } from '@/components/brand/LogoDrawing'
  * HeroSignature — signature-v1 ヒーローセクション
  *
  * レイアウト: 100svh / cream (#F7F3EF) 背景
- * アニメーション順序:
- *   1. LogoDrawing PNG fade-in (delay 0.3s / duration 0.8s → 完了 1.1s)
- *   2. 縦書きタグライン fade-in (delay 1.4s)
- *   3. Scroll キュー fade-in (delay 2.0s)
  *
- * LCP 対策:
- * - LogoDrawing に priority prop → ロゴ PNG がプリロードされる
- * - フォントは next/font で preload 済み
- *
- * ワードマーク「Grace」と「PATISSERIE」は logo-vertical.png に含まれているため
- * テキスト要素としての出力は行わない（二重表示防止）。
+ * フェードインシーケンス:
+ *   1. SVG stroke-drawing (LogoDrawing): 0.3s〜2.2s
+ *   2. ワードマーク「Grace」:       opacity 0→1, delay 2.6s, duration 1.2s
+ *   3. サブタイトル「PÂTISSERIE」:  delay 3.0s, duration 1.2s
+ *   4. 縦書きタグライン:             delay 3.4s, duration 1.2s
+ *   5. Scroll キュー:               delay 4.0s, duration 1.2s
  */
 
 interface FadeItemProps {
-  delay: number
+  delay: number   // seconds
+  duration?: number // seconds（デフォルト 1.2s）
   children: React.ReactNode
   className?: string
   style?: React.CSSProperties
 }
 
-function FadeItem({ delay, children, className = '', style = {} }: FadeItemProps) {
+function FadeItem({ delay, duration = 1.2, children, className = '', style = {} }: FadeItemProps) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    // globals.css の prefers-reduced-motion: reduce で transition が 0.01ms になるが、
-    // JS タイマーも即時化してレイアウトシフトを防ぐ
+    // prefers-reduced-motion: reduce 時は即時表示
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -50,7 +46,7 @@ function FadeItem({ delay, children, className = '', style = {} }: FadeItemProps
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(12px)',
-        transition: `opacity 0.8s cubic-bezier(.22,1,.36,1), transform 0.8s cubic-bezier(.22,1,.36,1)`,
+        transition: `opacity ${duration}s cubic-bezier(.22,1,.36,1), transform ${duration}s cubic-bezier(.22,1,.36,1)`,
         ...style,
       }}
     >
@@ -66,16 +62,48 @@ export function HeroSignature() {
       style={{ minHeight: '100svh' }}
       aria-label="Pâtisserie Grace ヒーロー"
     >
-      {/* 中央コンテンツ: ロゴ PNG のみ（Grace / PATISSERIE は PNG に内包） */}
+      {/* 中央コンテンツ */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
-        <LogoDrawing className="mx-auto" />
+
+        {/* SVG stroke-drawing: 0.3s〜2.2s（LogoDrawing 内部で制御） */}
+        <LogoDrawing className="mx-auto mb-6" variant="animated" />
+
+        {/* ワードマーク「Grace」: delay 2.6s */}
+        <FadeItem delay={2.6} duration={1.2}>
+          <p
+            className="font-cormorant italic text-brown"
+            style={{
+              fontSize: 'clamp(32px,5vw,56px)',
+              fontWeight: 300,
+              letterSpacing: '0.06em',
+              lineHeight: 1,
+            }}
+          >
+            Grace
+          </p>
+        </FadeItem>
+
+        {/* サブタイトル「PÂTISSERIE」: delay 3.0s */}
+        <FadeItem delay={3.0} duration={1.2}>
+          <p
+            className="font-cormorant text-brown/60"
+            style={{
+              fontSize: 'clamp(9px,1.2vw,11px)',
+              letterSpacing: '0.38em',
+              fontWeight: 400,
+              marginTop: '6px',
+            }}
+          >
+            PÂTISSERIE
+          </p>
+        </FadeItem>
       </div>
 
-      {/* 縦書きタグライン（右側） */}
+      {/* 縦書きタグライン（右側）: delay 3.4s */}
       <FadeItem
-        delay={1.4}
+        delay={3.4}
+        duration={1.2}
         className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3"
-        style={{}}
       >
         <p
           className="font-shippori text-brown"
@@ -101,9 +129,10 @@ export function HeroSignature() {
         />
       </FadeItem>
 
-      {/* Scroll キュー */}
+      {/* Scroll キュー: delay 4.0s */}
       <FadeItem
-        delay={2.0}
+        delay={4.0}
+        duration={1.2}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span
