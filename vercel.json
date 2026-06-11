@@ -1,7 +1,1 @@
-{
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_MEDIA_MODE": "none"
-    }
-  }
-}
+{}
