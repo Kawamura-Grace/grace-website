@@ -10,7 +10,7 @@ interface NewsBarProps {
 }
 
 export function NewsBar({
-  text = '2026.10.01 — 春日井・春日野 グランドオープン',
+  text = '2026.10.01 — グランドオープン',
 }: NewsBarProps) {
   return (
     <div

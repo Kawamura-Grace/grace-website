@@ -18,21 +18,18 @@ const MOCK_PRODUCTS = [
     slug: 'cheesecake',
     name: 'Fromage Blanc',
     nameJa: 'チーズケーキ',
-    price: 380,
     href: '/sweets/cheesecake',
   },
   {
     slug: 'tart',
     name: 'Tarte de Saison',
     nameJa: '季節のタルト',
-    price: 420,
     href: '/sweets/tart',
   },
   {
     slug: 'financier',
     name: 'Financier',
     nameJa: 'フィナンシェ',
-    price: 220,
     href: '/sweets/financier',
   },
 ] as const
@@ -87,26 +84,18 @@ export function SeasonalSelectionV2() {
                 </div>
 
                 {/* 商品情報 */}
-                <div className="flex items-baseline justify-between px-1">
-                  <div>
-                    <p
-                      className="font-cormorant italic text-brown"
-                      style={{ fontSize: '18px', fontWeight: 300 }}
-                    >
-                      {product.name}
-                    </p>
-                    <p
-                      className="font-shippori text-brown/60"
-                      style={{ fontSize: '11px', marginTop: '2px', letterSpacing: '0.06em' }}
-                    >
-                      {product.nameJa}
-                    </p>
-                  </div>
+                <div className="px-1 mt-4">
                   <p
-                    className="font-cormorant italic text-gold"
-                    style={{ fontSize: '16px', fontWeight: 400 }}
+                    className="font-cormorant italic text-brown"
+                    style={{ fontSize: '18px', fontWeight: 300 }}
                   >
-                    ¥{product.price.toLocaleString()}
+                    {product.name}
+                  </p>
+                  <p
+                    className="font-shippori text-brown/60"
+                    style={{ fontSize: '11px', marginTop: '2px', letterSpacing: '0.06em' }}
+                  >
+                    {product.nameJa}
                   </p>
                 </div>
               </Link>
