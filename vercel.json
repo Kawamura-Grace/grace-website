@@ -1,0 +1,10 @@
+{
+  "env": {
+    "NEXT_PUBLIC_MEDIA_MODE": "none"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_MEDIA_MODE": "none"
+    }
+  }
+}

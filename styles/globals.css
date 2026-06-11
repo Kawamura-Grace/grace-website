@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── signature-v1 CSS変数 ─── */
+:root {
+  --font-shippori: var(--font-shippori, 'Noto Serif JP');
+  /* アクション言語: イージング・デュレーション共通値 */
+  --ease-brand: cubic-bezier(.22, 1, .36, 1);
+  --dur-normal: 0.8s;
+  --dur-slow:   1.2s;
+}
+
+/* prefers-reduced-motion: 全アニメーション無効化 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Shippori Mincho ユーティリティ ─── */
+.font-shippori {
+  font-family: var(--font-shippori, 'Noto Serif JP'), Georgia, serif;
+}
+
 /* Google Fonts — next/font で最適化読み込みするため、このimportはローカル開発用 */
 /* 本番は app/layout.tsx の next/font/google で読み込む */
 

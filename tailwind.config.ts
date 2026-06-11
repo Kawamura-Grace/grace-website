@@ -8,7 +8,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // 仕様書 2.1 カラートークン
+        // 仕様書 2.1 カラートークン（既存 grace-* プレフィックス維持）
         'grace-wasabi':         '#7B8B6F',
         'grace-brown':          '#2C2421',
         'grace-gold':           '#B8956A',
@@ -22,12 +22,20 @@ const config: Config = {
         'grace-bg-primary':     '#FFFFFF',
         'grace-bg-secondary':   '#F7F3EF',
         'grace-bg-dark':        '#2C2421',
+        // signature-v1 デザイントークン（短縮キー）
+        'wasabi':     '#7B8B6F',
+        'brown':      '#2C2421',
+        'gold':       '#B8956A',
+        'cream':      '#F7F3EF',
+        'cream-deep': '#EFE9E2',
       },
       fontFamily: {
         // 仕様書 2.2 タイポグラフィ
-        'cormorant': ['Cormorant Garamond', 'Georgia', 'serif'],
-        'noto-serif': ['"Noto Serif JP"', 'Georgia', 'serif'],
-        'noto-sans':  ['"Noto Sans JP"', 'sans-serif'],
+        'cormorant':      ['Cormorant Garamond', 'Georgia', 'serif'],
+        'noto-serif':     ['"Noto Serif JP"', 'Georgia', 'serif'],
+        'noto-sans':      ['"Noto Sans JP"', 'sans-serif'],
+        // signature-v1 追加
+        'shippori':       ['"Shippori Mincho"', '"Noto Serif JP"', 'Georgia', 'serif'],
       },
       spacing: {
         // 仕様書 2.3 スペーシングスケール

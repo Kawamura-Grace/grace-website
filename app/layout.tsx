@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
+import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP, Shippori_Mincho } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import '../styles/globals.css'
@@ -23,6 +23,14 @@ const notoSans = Noto_Sans_JP({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-noto-sans',
+  display: 'swap',
+})
+
+// signature-v1 追加フォント: 和文ミニマリスト
+const shipporiMincho = Shippori_Mincho({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-shippori',
   display: 'swap',
 })
 
@@ -63,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${notoSerif.variable} ${notoSans.variable}`}
+      className={`${cormorant.variable} ${notoSerif.variable} ${notoSans.variable} ${shipporiMincho.variable}`}
     >
       <body>
         {GA_ID && (
