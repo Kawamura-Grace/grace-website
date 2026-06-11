@@ -40,7 +40,7 @@ export function ShopInfoV2() {
             className="font-shippori text-brown/80 leading-loose mb-10"
             style={{ fontSize: '14px', letterSpacing: '0.06em' }}
           >
-            〒486-0844 愛知県春日井市朝宮町1-2-6<br />
+            〒486-0844 愛知県春日井市<br />
             9:30 – 19:30　不定休
           </p>
         </div>

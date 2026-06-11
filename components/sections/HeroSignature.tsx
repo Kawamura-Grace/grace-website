@@ -87,7 +87,7 @@ export function HeroSignature() {
             lineHeight: 1.6,
           }}
         >
-          美しく残るには、草木がいる。
+          美しい暮らしには、お菓子がある。
         </p>
         {/* gold 縦罫 56px */}
         <span
