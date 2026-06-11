@@ -62,7 +62,7 @@ function FadeItem({ delay, children, className = '', style = {} }: FadeItemProps
 export function HeroSignature() {
   return (
     <section
-      className="relative flex items-center justify-center overflow-hidden bg-cream"
+      className="relative w-full flex items-center justify-center overflow-hidden bg-cream"
       style={{ minHeight: '100svh' }}
       aria-label="Pâtisserie Grace ヒーロー"
     >
