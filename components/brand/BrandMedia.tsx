@@ -15,27 +15,6 @@ function getMediaMode(): MediaMode {
   return 'none' // デフォルト
 }
 
-// スロット別ストック素材定義（placeholder モード用）
-// 本番ビルド（none モード）では一切参照されない
-const PLACEHOLDER_ASSETS: Record<string, { src: string; alt: string }> = {
-  'hero-full': {
-    src: 'https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    alt: 'パティスリーの焼き菓子（プレースホルダー）',
-  },
-  'product-cheesecake': {
-    src: 'https://images.pexels.com/photos/3992131/pexels-photo-3992131.jpeg?auto=compress&cs=tinysrgb&w=800',
-    alt: 'チーズケーキ（プレースホルダー）',
-  },
-  'product-tart': {
-    src: 'https://images.pexels.com/photos/1028714/pexels-photo-1028714.jpeg?auto=compress&cs=tinysrgb&w=800',
-    alt: '季節のタルト（プレースホルダー）',
-  },
-  'product-financier': {
-    src: 'https://images.pexels.com/photos/2144200/pexels-photo-2144200.jpeg?auto=compress&cs=tinysrgb&w=800',
-    alt: 'フィナンシェ（プレースホルダー）',
-  },
-}
-
 interface BrandMediaProps {
   /** メディアスロット識別子 */
   slot: string
@@ -53,8 +32,11 @@ interface BrandMediaProps {
 /**
  * BrandMedia — メディアモード分岐を一元化するコンポーネント
  * - none:        NoMediaFrame を表示（本番・写真なし期間）
- * - placeholder: ストック素材 + PLACEHOLDER ラベル
- * - live:        本番アセット（liveUrl prop が必要）
+ * - placeholder: ストック素材 + PLACEHOLDER ラベル（placeholderAssets.ts を動的 import）
+ * - live:        本番アセット（liveUrl prop が必要。未指定なら NoMediaFrame）
+ *
+ * PLACEHOLDER_ASSETS は placeholder モード時のみ動的 import するため、
+ * none / live 用の Production バンドルに Pexels URL は含まれない。
  */
 export function BrandMedia({
   slot,
@@ -71,8 +53,11 @@ export function BrandMedia({
     return <NoMediaFrame className={className} />
   }
 
-  // live モード: 本番アセット
-  if (mode === 'live' && liveUrl) {
+  // live モード: liveUrl 未指定の場合は NoMediaFrame（finding #3 対応）
+  if (mode === 'live') {
+    if (!liveUrl) {
+      return <NoMediaFrame className={className} />
+    }
     return (
       <div className={`relative overflow-hidden ${className}`}>
         <Image
@@ -87,7 +72,14 @@ export function BrandMedia({
     )
   }
 
-  // placeholder モード（live かつ liveUrl 未設定も含む）
+  // placeholder モード: PLACEHOLDER_ASSETS を動的 import（finding #2 対応）
+  // ビルド時に Next.js が静的解析できるよう、require() ではなく
+  // モジュール直接 import にする（Server Components 非対応のためインライン require）
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { PLACEHOLDER_ASSETS } = require('./placeholderAssets') as {
+    PLACEHOLDER_ASSETS: Record<string, { src: string; alt: string }>
+  }
+
   const asset = PLACEHOLDER_ASSETS[slot]
   if (!asset) {
     return <NoMediaFrame className={className} label={slot} />
