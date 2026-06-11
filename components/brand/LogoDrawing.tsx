@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * LogoDrawing — 正式ロゴ（PNG）表示コンポーネント
  *
