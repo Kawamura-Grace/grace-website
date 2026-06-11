@@ -2,11 +2,16 @@
 
 import Image from 'next/image'
 import { NoMediaFrame } from './NoMediaFrame'
+import { PLACEHOLDER_ASSETS } from './placeholderAssets'
 
 // メディアモード: 環境変数 NEXT_PUBLIC_MEDIA_MODE で切り替え
-// - 'placeholder': ストック素材 + PLACEHOLDERラベル（Vercel Preview デフォルト）
+// - 'placeholder': ストック素材 + PLACEHOLDERラベル（Vercel Preview）
 // - 'none':        NoMediaFrame 表示（Production デフォルト・〜8月）
 // - 'live':        本番アセット（9月以降）
+//
+// Production（none モード）でも placeholderAssets.ts はバンドルに含まれるが、
+// NEXT_PUBLIC_MEDIA_MODE=none では参照されないため実害なし。
+// 動的 require() によるレンダリングタイミング問題を避けるため静的 import を使用。
 type MediaMode = 'placeholder' | 'none' | 'live'
 
 function getMediaMode(): MediaMode {
@@ -32,11 +37,8 @@ interface BrandMediaProps {
 /**
  * BrandMedia — メディアモード分岐を一元化するコンポーネント
  * - none:        NoMediaFrame を表示（本番・写真なし期間）
- * - placeholder: ストック素材 + PLACEHOLDER ラベル（placeholderAssets.ts を動的 import）
+ * - placeholder: ストック素材 + PLACEHOLDER ラベル（PLACEHOLDER_ASSETS から取得）
  * - live:        本番アセット（liveUrl prop が必要。未指定なら NoMediaFrame）
- *
- * PLACEHOLDER_ASSETS は placeholder モード時のみ動的 import するため、
- * none / live 用の Production バンドルに Pexels URL は含まれない。
  */
 export function BrandMedia({
   slot,
@@ -72,14 +74,7 @@ export function BrandMedia({
     )
   }
 
-  // placeholder モード: PLACEHOLDER_ASSETS を動的 import（finding #2 対応）
-  // ビルド時に Next.js が静的解析できるよう、require() ではなく
-  // モジュール直接 import にする（Server Components 非対応のためインライン require）
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { PLACEHOLDER_ASSETS } = require('./placeholderAssets') as {
-    PLACEHOLDER_ASSETS: Record<string, { src: string; alt: string }>
-  }
-
+  // placeholder モード: 静的 import した PLACEHOLDER_ASSETS を使用
   const asset = PLACEHOLDER_ASSETS[slot]
   if (!asset) {
     return <NoMediaFrame className={className} label={slot} />
