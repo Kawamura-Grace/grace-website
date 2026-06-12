@@ -1,8 +1,9 @@
-// 店舗情報ページ — 臨時定休アラートはNotionから取得
+// 店舗情報ページ — 臨時定休アラートはNotionから取得（環境変数設定時のみ）
 import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { getShopAlerts } from '@/lib/notion/news'
+import { isNotionConfigured } from '@/lib/notion/client'
 import { formatDateJa } from '@/lib/utils/date'
 import Link from 'next/link'
 
@@ -15,8 +16,10 @@ export const metadata: Metadata = {
 }
 
 export default async function ShopPage() {
-  // 臨時定休アラートを取得（失敗時は空配列）
-  const alerts = await getShopAlerts().catch(() => [])
+  // 臨時定休アラートを取得（NOTION_TOKEN未設定時はスキップして空配列）
+  const alerts = isNotionConfigured
+    ? await getShopAlerts().catch(() => [])
+    : []
 
   return (
     <>

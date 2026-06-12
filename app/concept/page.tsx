@@ -2,13 +2,13 @@
 
 // コンセプトページ — page.tsxのConceptセクションを全ページ版に拡張
 // デザインシステム: rise アニメーション・ボタニカルSVG・Label/Btn コンポーネントを page.tsx と統一
+// 注意: 'use client' コンポーネントでは dynamic エクスポートは無効（Next.js 14 仕様）。
+//       静的ビルドで問題ない（Notionデータ不要）ため、dynamic 宣言は不要。
 
 import { useEffect } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
-
-export const dynamic = 'force-dynamic'
 
 // ============ IntersectionObserver で .rise に .in を付与 ============
 function RiseObserver() {
