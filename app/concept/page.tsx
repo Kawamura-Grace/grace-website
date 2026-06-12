@@ -247,13 +247,17 @@ export default function ConceptPage() {
         {/* ===== 3. A NOTE FROM GRACE ===== */}
         <section
           style={{
-            padding: 'clamp(70px,9vw,120px) 24px',
-            maxWidth: '680px',
-            margin: '0 auto',
             borderTop: '1px solid color-mix(in srgb, var(--ink) 10%, var(--bg))',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 'clamp(36px,6vw,100px)',
+            padding: 'clamp(70px,9vw,120px) clamp(24px,5vw,80px)',
+            flexWrap: 'wrap',
           }}
         >
-          <div className="rise">
+          {/* テキスト */}
+          <div className="rise" style={{ maxWidth: '480px', flex: '1 1 300px' }}>
             <Label>A NOTE FROM GRACE</Label>
             <h2
               style={{
@@ -280,7 +284,6 @@ export default function ConceptPage() {
               そういう場面に、確かに美しいものを届けたい。
               その思いだけを軸に、Graceは生まれました。
             </p>
-            {/* タグライン */}
             <p
               style={{
                 marginTop: '40px',
@@ -293,6 +296,39 @@ export default function ConceptPage() {
             >
               素材に誠実に。季節に正直に。来てくれた人に丁寧に。
             </p>
+          </div>
+
+          {/* イメージ写真 */}
+          <div
+            className="rise"
+            data-d="2"
+            style={{
+              width: 'clamp(200px,26vw,340px)',
+              aspectRatio: '3 / 4',
+              flexShrink: 0,
+              overflow: 'hidden',
+            }}
+          >
+            <img
+              src="/images/note-from-grace.jpg"
+              alt="お菓子が、誰かの大切な日の横にいる — Grace"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              onError={(e) => {
+                const el = e.currentTarget
+                el.style.display = 'none'
+                const parent = el.parentElement
+                if (parent && !parent.querySelector('.img-placeholder')) {
+                  const ph = document.createElement('div')
+                  ph.className = 'img-placeholder'
+                  ph.style.cssText = 'width:100%;height:100%;background:color-mix(in srgb,var(--ink) 6%,var(--bg));display:flex;align-items:center;justify-content:center;'
+                  const txt = document.createElement('span')
+                  txt.style.cssText = 'font-size:11px;letter-spacing:.2em;color:color-mix(in srgb,var(--ink) 35%,var(--bg));font-family:Cormorant Garamond,Georgia,serif;font-style:italic'
+                  txt.textContent = 'PHOTO'
+                  ph.appendChild(txt)
+                  parent.appendChild(ph)
+                }
+              }}
+            />
           </div>
         </section>
 
