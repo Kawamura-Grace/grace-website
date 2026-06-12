@@ -293,21 +293,19 @@ function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
 }
 
 // ============ DEMOスイッチャー ============
-function DemoSwitcher({ currentPhase }: { currentPhase: Phase }) {
+function DemoSwitcher({
+  currentPhase,
+  onPhaseChange,
+}: {
+  currentPhase: Phase
+  onPhaseChange: (p: Phase | 'auto') => void
+}) {
   const [mode, setMode] = useState<'auto' | Phase>('auto')
 
   function handleClick(p: 'auto' | Phase) {
     setMode(p)
-    const targetPhase: Phase = p === 'auto'
-      ? (() => {
-          const t = new Date().getHours() * 60 + new Date().getMinutes()
-          if (t >= 360 && t < 660) return 'morning'
-          if (t >= 660 && t < 960) return 'day'
-          if (t >= 960 && t < 1170) return 'dusk'
-          return 'night'
-        })()
-      : p
-    document.documentElement.dataset.phase = targetPhase
+    // usePhase の setDemoPhase 経由でReact stateとCSSの両方を更新する
+    onPhaseChange(p)
   }
 
   const btns: Array<{ key: 'auto' | Phase; label: string }> = [
@@ -373,7 +371,7 @@ function DemoSwitcher({ currentPhase }: { currentPhase: Phase }) {
 
 // ============ メインページ ============
 export default function HomePage() {
-  const { phase } = usePhase()
+  const { phase, setDemoPhase } = usePhase()
   const phaseData = PHASES[phase]
   const [isOpen, setIsOpen] = useState(false)
 
@@ -1157,7 +1155,7 @@ export default function HomePage() {
       <Footer />
 
       {/* ===== 13. DEMOスイッチャー（右下固定） ===== */}
-      <DemoSwitcher currentPhase={phase} />
+      <DemoSwitcher currentPhase={phase} onPhaseChange={setDemoPhase} />
 
       {/* レスポンシブ */}
       <style>{`
