@@ -155,15 +155,15 @@ export default function ConceptPage() {
           </div>
         </section>
 
-        {/* ===== 2. CRAFTSMANSHIP（縦書きキャッチ + サイドテキスト） ===== */}
+        {/* ===== 2. CRAFTSMANSHIP（縦書きキャッチ + サイドテキスト + イメージ写真） ===== */}
         <section
           style={{
             minHeight: '78svh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 'clamp(36px,7vw,110px)',
-            padding: 'clamp(70px,9vw,120px) 24px',
+            gap: 'clamp(28px,5vw,80px)',
+            padding: 'clamp(70px,9vw,120px) clamp(24px,5vw,60px)',
             flexWrap: 'wrap',
           }}
         >
@@ -174,6 +174,7 @@ export default function ConceptPage() {
               display: 'flex',
               gap: 'clamp(22px,3.4vw,40px)',
               maxHeight: '62svh',
+              flexShrink: 0,
             }}
           >
             <p
@@ -183,19 +184,61 @@ export default function ConceptPage() {
                 lineHeight: 2.6,
                 fontSize: 'clamp(20px,3vw,27px)',
                 fontWeight: 500,
+                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
               }}
             >
-              CRAFTSMANSHIP
+              こだわりの素材と製法
             </p>
           </div>
 
           {/* サイドテキスト */}
-          <div className="rise" data-d="2" style={{ maxWidth: '340px' }}>
+          <div className="rise" data-d="2" style={{ maxWidth: '300px', flexShrink: 0 }}>
             <Label>Dedicated Handcraft</Label>
             <p style={{ marginTop: '24px', fontSize: '14px', lineHeight: 2.1 }}>
               素材と向き合い、気候と対話しながら、その日だけの一皿を仕上げる。
               手が加わることで、お菓子に温度と揺らぎが生まれると信じているから。
             </p>
+          </div>
+
+          {/* イメージ写真 */}
+          <div
+            className="rise"
+            data-d="3"
+            style={{
+              width: 'clamp(200px,28vw,360px)',
+              aspectRatio: '3 / 4',
+              flexShrink: 0,
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
+            {/* 写真ファイルを /public/images/craftsmanship.jpg に配置するだけで差し替え可 */}
+            <img
+              src="/images/craftsmanship.jpg"
+              alt="こだわりの素材と製法 — Grace"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block',
+              }}
+              onError={(e) => {
+                // 写真未配置時はプレースホルダーを表示
+                const el = e.currentTarget
+                el.style.display = 'none'
+                const parent = el.parentElement
+                if (parent && !parent.querySelector('.img-placeholder')) {
+                  const ph = document.createElement('div')
+                  ph.className = 'img-placeholder'
+                  ph.style.cssText = 'width:100%;height:100%;background:color-mix(in srgb,var(--ink) 6%,var(--bg));display:flex;align-items:center;justify-content:center;'
+                  const txt = document.createElement('span')
+                  txt.style.cssText = 'font-size:11px;letter-spacing:.2em;color:color-mix(in srgb,var(--ink) 35%,var(--bg));font-family:Cormorant Garamond,Georgia,serif;font-style:italic'
+                  txt.textContent = 'PHOTO'
+                  ph.appendChild(txt)
+                  parent.appendChild(ph)
+                }
+              }}
+            />
           </div>
         </section>
 
