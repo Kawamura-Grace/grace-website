@@ -185,13 +185,13 @@ export default function ConceptPage() {
                 fontWeight: 500,
               }}
             >
-              Dedicated Handcraft
+              CRAFTSMANSHIP
             </p>
           </div>
 
           {/* サイドテキスト */}
           <div className="rise" data-d="2" style={{ maxWidth: '340px' }}>
-            <Label>CRAFTSMANSHIP</Label>
+            <Label>Dedicated Handcraft</Label>
             <p style={{ marginTop: '24px', fontSize: '14px', lineHeight: 2.1 }}>
               素材と向き合い、気候と対話しながら、その日だけの一皿を仕上げる。
               手が加わることで、お菓子に温度と揺らぎが生まれると信じているから。
