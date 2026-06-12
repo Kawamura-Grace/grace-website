@@ -1,6 +1,6 @@
 'use client'
 
-// コンセプトページ — page.tsxのConceptセクションを全ページ版に拡張
+// コンセプトページ — 本番コピーに全面差し替え（2026-06-12）
 // デザインシステム: rise アニメーション・ボタニカルSVG・Label/Btn コンポーネントを page.tsx と統一
 // 注意: 'use client' コンポーネントでは dynamic エクスポートは無効（Next.js 14 仕様）。
 //       静的ビルドで問題ない（Notionデータ不要）ため、dynamic 宣言は不要。
@@ -110,7 +110,7 @@ export default function ConceptPage() {
 
       <main>
 
-        {/* ===== 1. ページヘッダー ===== */}
+        {/* ===== 1. OUR STORY ===== */}
         <section
           style={{
             minHeight: '56svh',
@@ -124,24 +124,51 @@ export default function ConceptPage() {
           }}
         >
           <div className="rise">
-            <Label center>Concept</Label>
-            <h1
+            {/* ラベル: OUR STORY / PHILOSOPHY */}
+            <Label center>OUR STORY</Label>
+            <p
               style={{
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 fontStyle: 'italic',
                 fontWeight: 300,
-                fontSize: 'clamp(38px,6vw,64px)',
-                letterSpacing: '0.08em',
-                marginTop: '24px',
-                lineHeight: 1.15,
+                fontSize: '11px',
+                letterSpacing: '0.38em',
+                color: 'color-mix(in srgb, #B8956A 65%, var(--bg))',
+                marginTop: '10px',
+                marginBottom: '28px',
               }}
             >
-              ブランド理念
+              PHILOSOPHY
+            </p>
+            <h1
+              style={{
+                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontWeight: 500,
+                fontSize: 'clamp(26px,4.4vw,46px)',
+                letterSpacing: '0.18em',
+                lineHeight: 1.7,
+              }}
+            >
+              美しい暮らしには、お菓子がある。
             </h1>
+            <p
+              style={{
+                marginTop: '32px',
+                fontSize: '14px',
+                lineHeight: 2.2,
+                letterSpacing: '0.1em',
+                color: 'color-mix(in srgb, var(--ink) 70%, var(--bg))',
+                maxWidth: '440px',
+                margin: '32px auto 0',
+              }}
+            >
+              贈り物に、特別な日に、何気ない朝に。<br />
+              暮らしに深みを添えるお菓子を、ここで作ります。
+            </p>
           </div>
         </section>
 
-        {/* ===== 2. メインコンセプト（縦書きキャッチ + サイドテキスト） ===== */}
+        {/* ===== 2. CRAFTSMANSHIP（縦書きキャッチ + サイドテキスト） ===== */}
         <section
           style={{
             minHeight: '78svh',
@@ -171,114 +198,77 @@ export default function ConceptPage() {
                 fontWeight: 500,
               }}
             >
-              香りは、時間とともに立ちのぼる。
+              Dedicated Handcraft
             </p>
           </div>
 
           {/* サイドテキスト */}
           <div className="rise" data-d="2" style={{ maxWidth: '340px' }}>
-            <Label>Concept</Label>
+            <Label>CRAFTSMANSHIP</Label>
             <p style={{ marginTop: '24px', fontSize: '14px', lineHeight: 2.1 }}>
-              焦がしバター、バニラ、柑橘、ハーブ。Graceのお菓子は、香りから設計します。
-              食べ終えたあとの余韻までが、ひとつの体験。
-            </p>
-            <p style={{ marginTop: '16px', fontSize: '14px', lineHeight: 2.1 }}>
-              かしこまった日のためではなく、いつもの暮らしのなかの、少し美しい時間のために。
-              日常にも、贈りものにも寄り添うパティスリーです。
+              素材と向き合い、気候と対話しながら、その日だけの一皿を仕上げる。
+              手が加わることで、お菓子に温度と揺らぎが生まれると信じているから。
             </p>
           </div>
         </section>
 
-        {/* ===== 3. 7つのキーワード ===== */}
-        <section
-          style={{
-            padding: 'clamp(50px,7vw,90px) 24px',
-            borderTop: '1px solid color-mix(in srgb, var(--ink) 10%, var(--bg))',
-            borderBottom: '1px solid color-mix(in srgb, var(--ink) 10%, var(--bg))',
-          }}
-        >
-          <div
-            className="rise"
-            style={{
-              maxWidth: '760px',
-              margin: '0 auto',
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 'clamp(12px,2vw,22px)',
-              justifyContent: 'center',
-            }}
-          >
-            {['やさしさ', '余白', '季節', '香り', '素材', '手仕事', '豊かさ'].map((word) => (
-              <span
-                key={word}
-                style={{
-                  fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
-                  fontSize: '14px',
-                  letterSpacing: '0.26em',
-                  color: 'color-mix(in srgb, var(--ink) 70%, var(--bg))',
-                  border: '1px solid color-mix(in srgb, var(--ink) 22%, var(--bg))',
-                  padding: '14px 28px',
-                  display: 'inline-block',
-                }}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-        </section>
+        <Sep motif="c-herb" />
 
-        {/* ===== 4. ブランドストーリー ===== */}
+        {/* ===== 3. A NOTE FROM GRACE ===== */}
         <section
           style={{
             padding: 'clamp(70px,9vw,120px) 24px',
             maxWidth: '680px',
             margin: '0 auto',
+            borderTop: '1px solid color-mix(in srgb, var(--ink) 10%, var(--bg))',
           }}
         >
           <div className="rise">
-            <Label>Brand Story</Label>
-            <p
+            <Label>A NOTE FROM GRACE</Label>
+            <h2
               style={{
-                marginTop: '36px',
-                fontSize: '15px',
-                lineHeight: 2.3,
-                letterSpacing: '0.08em',
+                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontWeight: 500,
+                fontSize: 'clamp(20px,3.2vw,30px)',
+                letterSpacing: '0.16em',
+                lineHeight: 1.8,
+                marginTop: '32px',
               }}
             >
-              パティスリー Graceは、2026年秋、愛知県春日井市に開業します。
-            </p>
+              お菓子が、誰かの大切な日の横にいる。
+            </h2>
             <p
               style={{
-                marginTop: '24px',
-                fontSize: '15px',
-                lineHeight: 2.3,
-                letterSpacing: '0.08em',
-                color: 'color-mix(in srgb, var(--ink) 75%, var(--bg))',
-              }}
-            >
-              お菓子は、食べるその瞬間だけでなく、一口目から立ちのぼる香り、
-              食べ終えたあとにふと思い出すあの余韻まで含めて、ひとつの体験です。
-              Graceのお菓子は、その余韻を設計することから始まります。
-            </p>
-            <p
-              style={{
-                marginTop: '24px',
+                marginTop: '32px',
                 fontSize: '15px',
                 lineHeight: 2.3,
                 letterSpacing: '0.08em',
                 color: 'color-mix(in srgb, var(--ink) 75%, var(--bg))',
               }}
             >
-              記念日だけのお菓子ではなく、いつもの暮らしに溶け込む、
-              「今日もGraceにしよう」と思ってもらえるような店でありたいと考えています。
+              誕生日の朝、大事な人への手土産、何もない夜の自分へのご褒美。
+              そういう場面に、確かに美しいものを届けたい。
+              その思いだけを軸に、Graceは生まれました。
+            </p>
+            {/* タグライン */}
+            <p
+              style={{
+                marginTop: '40px',
+                fontSize: '13px',
+                letterSpacing: '0.22em',
+                color: '#B8956A',
+                lineHeight: 2.2,
+                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+              }}
+            >
+              素材に誠実に。季節に正直に。来てくれた人に丁寧に。
             </p>
           </div>
         </section>
 
-        {/* ===== 5. ボタニカルセパレーター ===== */}
         <Sep motif="c-citrus" />
 
-        {/* ===== 6. 3つの柱 ===== */}
+        {/* ===== 4. PRODUCT PHILOSOPHY ===== */}
         <section
           style={{
             padding: 'clamp(60px,8vw,110px) clamp(24px,6vw,80px)',
@@ -289,7 +279,7 @@ export default function ConceptPage() {
             className="rise"
             style={{ textAlign: 'center', marginBottom: 'clamp(40px,5vw,72px)' }}
           >
-            <Label center>Our Values</Label>
+            <Label center>PRODUCT PHILOSOPHY</Label>
           </div>
           <div
             style={{
@@ -302,21 +292,21 @@ export default function ConceptPage() {
           >
             {[
               {
-                en: 'Aroma First',
-                ja: '香りから設計する',
-                text: 'バニラ、柑橘、ハーブ。素材の香りを最大限に引き出す製法で、一口目から余韻まで設計されたお菓子を作ります。',
+                en: 'Aroma',
+                ja: '香り',
+                text: '見た目と同時に鼻に届く香り。バターの豊かさ、柑橘の清潔感、スパイスの奥行き。食べる前から始まる体験を大切にしています。',
                 motif: 'c-vanilla',
               },
               {
-                en: 'Everyday Luxury',
-                ja: '日常に寄り添う',
-                text: '記念日だけでなく、何気ない日の豊かさのために。手に取りやすく、それでいて特別な一品を。',
+                en: 'Texture',
+                ja: '食感',
+                text: 'サクッとほろりと、もちもちとしっとり。口の中で変わりゆく食感のグラデーションが、一口を特別なものにします。',
                 motif: 'c-herb',
               },
               {
-                en: 'Craft & Ingredient',
-                ja: '手仕事と素材',
-                text: '機械ラインではなく、手仕事で丁寧に。厳選した素材と誠実な製法が、Graceの品質を支えています。',
+                en: 'Aftertaste',
+                ja: '余韻',
+                text: '食べ終わったあとも続く、あのおいしさ。しつこくなく、でも確かに残る余韻に、素材の純粋さが現れます。',
                 motif: 'c-citrus',
               },
             ].map(({ en, ja, text, motif }) => (
@@ -379,7 +369,7 @@ export default function ConceptPage() {
           </div>
         </section>
 
-        {/* ===== 7. CTAボタン → /shop ===== */}
+        {/* ===== 5. CTAボタン → /sweets ===== */}
         <section
           style={{
             padding: 'clamp(60px,8vw,100px) 24px',
@@ -388,19 +378,8 @@ export default function ConceptPage() {
           }}
         >
           <div className="rise">
-            <p
-              style={{
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
-                fontSize: '14px',
-                letterSpacing: '0.18em',
-                color: 'color-mix(in srgb, var(--ink) 65%, var(--bg))',
-                marginBottom: '36px',
-              }}
-            >
-              Graceのお菓子に会いに来てください。
-            </p>
             <Link
-              href="/shop"
+              href="/sweets"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -424,7 +403,7 @@ export default function ConceptPage() {
                 e.currentTarget.style.gap = '14px'
               }}
             >
-              Shop Info
+              VIEW SWEETS
               <span style={{ fontStyle: 'normal' }}>→</span>
             </Link>
           </div>

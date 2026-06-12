@@ -162,8 +162,6 @@ export default function ShopPage() {
                 ['営業時間', '9:30 - 19:30'],
                 ['営業日', '元旦を除き、毎日営業しています'],
                 ['駐車場', '8台（お車でのご来店に便利です）'],
-                ['形態', 'テイクアウト専門'],
-                ['開業', '2026年 秋頃予定'],
               ] as [string, string][]).map(([dt, dd]) => (
                 <>
                   <dt key={`dt-${dt}`} style={{ color: '#B8956A', letterSpacing: '0.22em', whiteSpace: 'nowrap' }}>{dt}</dt>
@@ -208,6 +206,20 @@ export default function ShopPage() {
             </p>
           </div>
         </section>
+
+        {/* ─── Google Maps 埋め込み ─── */}
+        <div style={{ width: '100%', height: '360px', marginTop: '0', overflow: 'hidden' }}>
+          <iframe
+            src="https://maps.google.com/maps?q=愛知県春日井市朝宮町1-2-6&hl=ja&output=embed"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="パティスリー Grace アクセスマップ"
+          />
+        </div>
 
         {/* ─── アクセス情報 ─── */}
         <section

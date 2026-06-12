@@ -98,8 +98,7 @@ export default function ContactPage() {
                 lineHeight: 1.9,
               }}
             >
-              内容を確認のうえ、3営業日以内にご返信いたします。<br />
-              お急ぎの場合は、Instagram DM でもお問い合わせいただけます。
+              内容を確認のうえ、3営業日以内にご返信いたします。
             </p>
           </div>
         </section>
