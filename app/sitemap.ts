@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/notion/products'
 import { getJournalPosts } from '@/lib/notion/journal'
 import { getNewsPosts } from '@/lib/notion/news'
 
+// ビルド時のNotionタイムアウト防止
+export const dynamic = 'force-dynamic'
+
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://grace-patisserie.jp'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

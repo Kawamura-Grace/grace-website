@@ -9,7 +9,8 @@ import { getJournalPosts } from '@/lib/notion/journal'
 import { formatDate } from '@/lib/utils/date'
 import type { JournalCategory } from '@/lib/notion/types'
 
-export const revalidate = 3600 // 1時間
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Journal | Grace — PATISSERIE',

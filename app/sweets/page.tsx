@@ -8,7 +8,8 @@ import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 
-export const revalidate = 3600 // 1時間
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Sweets | Grace — PATISSERIE',

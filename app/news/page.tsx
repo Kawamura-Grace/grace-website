@@ -9,7 +9,8 @@ import { getNewsPosts } from '@/lib/notion/news'
 import { formatDate } from '@/lib/utils/date'
 import type { NewsCategory } from '@/lib/notion/types'
 
-export const revalidate = 1800 // 30分
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'News | Grace — PATISSERIE',

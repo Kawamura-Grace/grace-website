@@ -7,7 +7,8 @@ import { getShopAlerts } from '@/lib/notion/news'
 import { formatDateJa } from '@/lib/utils/date'
 import Link from 'next/link'
 
-export const revalidate = 1800 // 30分
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Shop Info | Grace — PATISSERIE',

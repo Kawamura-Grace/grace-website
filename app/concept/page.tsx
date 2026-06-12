@@ -5,7 +5,8 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 
-export const revalidate = 86400 // 24時間
+// ビルド時フォントダウンロードタイムアウト防止
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Concept | Grace — PATISSERIE',

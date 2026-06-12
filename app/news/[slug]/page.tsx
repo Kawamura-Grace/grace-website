@@ -6,12 +6,13 @@ import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Tag } from '@/components/ui/Tag'
-import { getNewsPosts, getNewsBySlug, getNewsBlocks } from '@/lib/notion/news'
+import { getNewsBySlug, getNewsBlocks } from '@/lib/notion/news'
 import { formatDateJa } from '@/lib/utils/date'
 import type { BlockObjectResponse, PartialBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import type { NewsCategory } from '@/lib/notion/types'
 
-export const revalidate = 1800
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: { slug: string }
@@ -23,12 +24,6 @@ const CATEGORY_VARIANTS: Record<NewsCategory, 'wasabi' | 'gold' | 'stone'> = {
   '催事':       'gold',
   'メディア掲載': 'wasabi',
   '臨時定休':   'stone',
-}
-
-// ─── generateStaticParams ───
-export async function generateStaticParams() {
-  const posts = await getNewsPosts().catch(() => [])
-  return posts.map(p => ({ slug: p.slug }))
 }
 
 // ─── メタデータ ───

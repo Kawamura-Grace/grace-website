@@ -16,9 +16,9 @@ const schema = z.object({
   website:   z.string().max(0).optional(), // ハニーポット
 })
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: NextRequest) {
+  // Resendインスタンスはリクエスト時に生成（ビルド時のenv未設定エラーを防ぐ）
+  const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
   try {
     // JSONパース
     let body: unknown
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
 
     // ─── 運営へのメール通知（失敗しても送信成功として返す）───
     if (process.env.RESEND_API_KEY && process.env.NOTIFY_EMAIL) {
-      resend.emails.send({
+      resend?.emails.send({
         from:    'Grace Website <noreply@grace-patisserie.jp>',
         to:      process.env.NOTIFY_EMAIL,
         subject: `[お問い合わせ] ${data.category} — ${data.name}様`,
