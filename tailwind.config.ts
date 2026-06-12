@@ -22,12 +22,21 @@ const config: Config = {
         'grace-bg-primary':     '#FFFFFF',
         'grace-bg-secondary':   '#F7F3EF',
         'grace-bg-dark':        '#2C2421',
+        // cinematic-b 時間フェーズトークン
+        'phase-bg-morning': '#FAF5EC',
+        'phase-bg-day':     '#F7F3EF',
+        'phase-bg-dusk':    '#3A2D22',
+        'phase-bg-night':   '#211B17',
+        'phase-ink-light':  '#F7F3EF',
+        'phase-ink-dark':   '#2C2421',
       },
       fontFamily: {
         // 仕様書 2.2 タイポグラフィ
         'cormorant': ['Cormorant Garamond', 'Georgia', 'serif'],
         'noto-serif': ['"Noto Serif JP"', 'Georgia', 'serif'],
         'noto-sans':  ['"Noto Sans JP"', 'sans-serif'],
+        // cinematic-b 本文フォント
+        'shippori': ['Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', 'serif'],
       },
       spacing: {
         // 仕様書 2.3 スペーシングスケール
@@ -53,6 +62,27 @@ const config: Config = {
       },
       transitionDuration: {
         'grace': '300ms',
+      },
+      animation: {
+        // cinematic-b アニメーション
+        'vapor': 'vapor 16s ease-in-out infinite',
+        'draw':  'draw 2.6s ease forwards',
+        'cue':   'cue 2.6s ease-in-out infinite',
+      },
+      keyframes: {
+        vapor: {
+          '0%':   { transform: 'translateY(8%) scale(.92)',   opacity: '0' },
+          '25%':  { opacity: '.85' },
+          '75%':  { opacity: '.5' },
+          '100%': { transform: 'translateY(-14%) scale(1.06)', opacity: '0' },
+        },
+        draw: {
+          to: { strokeDashoffset: '0' },
+        },
+        cue: {
+          '0%, 100%': { transform: 'scaleY(.4)', transformOrigin: 'top' },
+          '50%':      { transform: 'scaleY(1)' },
+        },
       },
     },
   },
