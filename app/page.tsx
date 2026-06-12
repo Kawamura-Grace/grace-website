@@ -7,6 +7,9 @@ import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
 export const dynamic = 'force-dynamic'
 
+// グランドオープン後に true に変更するとステータスバーが表示される
+const STORE_OPEN = false
+
 // ============ フェーズ別メッセージ ============
 const PHASES = {
   morning: { t: 'MORNING', msg: '焼き上がりの時間。ショーケースに、今日の一段目が並びはじめます。' },
@@ -440,7 +443,8 @@ export default function HomePage() {
           <div className="scroll-cue">SCROLL</div>
         </section>
 
-        {/* ===== 2. いまのGrace ステータスバー ===== */}
+        {/* ===== 2. いまのGrace ステータスバー（STORE_OPEN = true で表示） ===== */}
+        {STORE_OPEN && (
         <div
           id="now"
           style={{
@@ -482,6 +486,7 @@ export default function HomePage() {
           </span>
           <span>{phaseData.msg}</span>
         </div>
+        )}
 
         {/* ===== 3. Concept（縦書き） ===== */}
         <section
