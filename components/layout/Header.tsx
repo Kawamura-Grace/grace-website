@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { label: 'Concept',  href: '#concept' },
   { label: 'Sweets',   href: '#sweets' },
   { label: 'Gift',     href: '#gift' },
-  { label: 'Journal',  href: '#journal' },
+  { label: 'Showcase', href: '#case' },
   { label: 'Shop',     href: '#shop' },
   { label: 'Contact',  href: '#contact' },
 ]

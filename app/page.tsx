@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { usePhase } from '@/lib/hooks/usePhase'
+import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
 export const dynamic = 'force-dynamic'
 
@@ -27,9 +27,10 @@ const STOCK = {
   night:   ['本日終了', '本日終了', '本日終了', '本日終了', '本日終了', '本日終了'],
 } as const
 
+// ============ バッジスタイル ============
 function badgeBorder(s: string) {
   if (s === '残りわずか') return '#B8956A'
-  if (s === '完売' || s === '本日終了') return undefined
+  if (s === '完売' || s === '本日終了') return 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
   if (s === '焼き上がり') return '#7B8B6F'
   return 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
 }
@@ -40,7 +41,14 @@ function badgeColor(s: string) {
   return 'color-mix(in srgb, var(--ink) 65%, var(--bg))'
 }
 
-// ============ IntersectionObserver セットアップ ============
+// ============ 現在時刻から営業判定 ============
+function calcIsOpen(): boolean {
+  if (typeof window === 'undefined') return false
+  const t = new Date().getHours() * 60 + new Date().getMinutes()
+  return t >= 570 && t < 1170
+}
+
+// ============ IntersectionObserver で .rise に .in を付与 ============
 function RiseObserver() {
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>('.rise')
@@ -61,7 +69,7 @@ function RiseObserver() {
   return null
 }
 
-// ============ ボタニカルSVG定義 ============
+// ============ ボタニカルSVG定義（非表示） ============
 function BotanicalDefs() {
   return (
     <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
@@ -102,42 +110,89 @@ function BotanicalDefs() {
   )
 }
 
-// ============ 香気モチーフ（フィラー的SVG区切り線） ============
-function Sep({ motif }: { motif: string }) {
+// ============ ラベル ============
+function Label({ children, center }: { children: React.ReactNode; center?: boolean }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: 'clamp(40px,6vw,72px) 0' }}>
-      <svg className="draw rise" viewBox="0 0 48 48" width="64" height="64" style={{ opacity: 0.9 }} aria-hidden="true">
-        <use href={`#${motif}`} />
-      </svg>
-    </div>
+    <p
+      style={{
+        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontStyle: 'italic',
+        fontWeight: 300,
+        fontSize: '13px',
+        letterSpacing: '0.42em',
+        color: '#B8956A',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: center ? 'center' : undefined,
+        gap: '16px',
+      }}
+    >
+      <span style={{ width: '42px', height: '1px', background: '#B8956A', flexShrink: 0, display: 'inline-block' }} />
+      {children}
+      {center && <span style={{ width: '42px', height: '1px', background: '#B8956A', flexShrink: 0, display: 'inline-block' }} />}
+    </p>
   )
 }
 
-// ============ 商品プレースホルダー ============
+// ============ CTAボタン ============
+function Btn({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '14px',
+        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontStyle: 'italic',
+        fontWeight: 300,
+        fontSize: '14px',
+        letterSpacing: '0.3em',
+        color: 'inherit',
+        borderBottom: '1px solid #B8956A',
+        padding: '0 4px 8px',
+        transition: 'opacity .3s, gap .3s',
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55'; e.currentTarget.style.gap = '20px' }}
+      onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.gap = '14px' }}
+    >
+      {children}
+      <span style={{ fontStyle: 'normal' }}>→</span>
+    </a>
+  )
+}
+
+// ============ 写真プレースホルダー ============
 function Ph({
   src,
   alt,
   aspectRatio = '4/5',
+  isBand = false,
   style: extraStyle,
 }: {
   src?: string
   alt?: string
   aspectRatio?: string
+  isBand?: boolean
   style?: React.CSSProperties
 }) {
   const [failed, setFailed] = useState(false)
+  const bg = isBand
+    ? 'linear-gradient(150deg, #46392f, #372d26 55%, #2C2421)'
+    : 'linear-gradient(150deg, color-mix(in srgb, var(--ink) 10%, var(--bg)), color-mix(in srgb, var(--ink) 20%, var(--bg)))'
+  const textColor = isBand ? 'rgba(247,243,239,.22)' : 'color-mix(in srgb, var(--ink) 32%, var(--bg))'
   return (
     <div
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(150deg, color-mix(in srgb, var(--ink) 10%, var(--bg)), color-mix(in srgb, var(--ink) 20%, var(--bg)))',
+        background: bg,
         aspectRatio,
         width: '100%',
         ...extraStyle,
       }}
     >
-      {/* PHOTOテキスト（フォールバック） */}
+      {/* フォールバックテキスト */}
       {(!src || failed) && (
         <div
           style={{
@@ -150,7 +205,7 @@ function Ph({
             fontStyle: 'italic',
             letterSpacing: '0.5em',
             fontSize: '11px',
-            color: 'color-mix(in srgb, var(--ink) 32%, var(--bg))',
+            color: textColor,
             textIndent: '0.5em',
           }}
         >
@@ -199,57 +254,35 @@ function Ph({
   )
 }
 
-// ============ ラベル ============
-function Label({ children }: { children: React.ReactNode }) {
+// ============ 区切り線（ボタニカルSVG） ============
+function Sep({ motif }: { motif: string }) {
   return (
-    <p
-      style={{
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
-        fontStyle: 'italic',
-        fontWeight: 300,
-        fontSize: '13px',
-        letterSpacing: '0.42em',
-        color: '#B8956A',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-      }}
-    >
-      <span style={{ width: '42px', height: '1px', background: '#B8956A', flexShrink: 0, display: 'inline-block' }} />
-      {children}
-    </p>
+    <div style={{ display: 'flex', justifyContent: 'center', padding: 'clamp(40px,6vw,72px) 0' }}>
+      <svg className="draw rise" viewBox="0 0 48 48" width="64" height="64" style={{ opacity: 0.9 }} aria-hidden="true">
+        <use href={`#${motif}`} />
+      </svg>
+    </div>
   )
 }
 
-// ============ CTAボタン ============
-function Btn({ href, children }: { href: string; children: React.ReactNode }) {
+// ============ 香りタグ ============
+function AromaTag({ motif, label, isFirst = false }: { motif: string; label: string; isFirst?: boolean }) {
   return (
-    <a
-      href={href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '14px',
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
-        fontStyle: 'italic',
-        fontWeight: 300,
-        fontSize: '14px',
-        letterSpacing: '0.3em',
-        color: 'inherit',
-        borderBottom: '1px solid #B8956A',
-        padding: '0 4px 8px',
-        transition: 'opacity .3s, gap .3s',
-      }}
-      onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55'; e.currentTarget.style.gap = '20px' }}
-      onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.gap = '14px' }}
-    >
-      {children}
-      <span style={{ fontStyle: 'normal' }}>→</span>
-    </a>
+    <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: 'var(--wasabi-color, #7B8B6F)' }}>
+      <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}>
+        <use href={`#${motif}`} />
+      </svg>
+      {isFirst && (
+        <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>
+          Aroma
+        </span>
+      )}
+      {label}
+    </span>
   )
 }
 
-// ============ Shop dl行コンポーネント（Reactキー問題回避） ============
+// ============ Shop dl行 ============
 function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
   return (
     <>
@@ -259,16 +292,97 @@ function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
   )
 }
 
+// ============ DEMOスイッチャー ============
+function DemoSwitcher({ currentPhase }: { currentPhase: Phase }) {
+  const [mode, setMode] = useState<'auto' | Phase>('auto')
+
+  function handleClick(p: 'auto' | Phase) {
+    setMode(p)
+    const targetPhase: Phase = p === 'auto'
+      ? (() => {
+          const t = new Date().getHours() * 60 + new Date().getMinutes()
+          if (t >= 360 && t < 660) return 'morning'
+          if (t >= 660 && t < 960) return 'day'
+          if (t >= 960 && t < 1170) return 'dusk'
+          return 'night'
+        })()
+      : p
+    document.documentElement.dataset.phase = targetPhase
+  }
+
+  const btns: Array<{ key: 'auto' | Phase; label: string }> = [
+    { key: 'auto', label: '現在' },
+    { key: 'morning', label: '朝' },
+    { key: 'day', label: '昼' },
+    { key: 'dusk', label: '夕' },
+    { key: 'night', label: '夜' },
+  ]
+
+  return (
+    <div
+      role="group"
+      aria-label="時間プレビュー（デモ用）"
+      style={{
+        position: 'fixed',
+        bottom: '16px',
+        right: '16px',
+        zIndex: 80,
+        background: 'color-mix(in srgb, #2C2421 92%, transparent)',
+        backdropFilter: 'blur(6px)',
+        border: '1px solid rgba(184,149,106,.4)',
+        borderRadius: '999px',
+        padding: '8px 12px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+      }}
+    >
+      <span
+        style={{
+          fontSize: '9.5px',
+          letterSpacing: '0.18em',
+          color: 'rgba(247,243,239,.55)',
+          marginRight: '4px',
+        }}
+      >
+        DEMO
+      </span>
+      {btns.map(({ key, label }) => (
+        <button
+          key={key}
+          onClick={() => handleClick(key)}
+          style={{
+            background: mode === key ? '#B8956A' : 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+            fontSize: '11px',
+            letterSpacing: '0.1em',
+            color: mode === key ? '#2C2421' : 'rgba(247,243,239,.75)',
+            padding: '4px 8px',
+            borderRadius: '999px',
+            transition: '.25s',
+          }}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 // ============ メインページ ============
 export default function HomePage() {
   const { phase } = usePhase()
   const phaseData = PHASES[phase]
-  const isOpen = (() => {
-    if (typeof window === 'undefined') return false
-    const d = new Date()
-    const t = d.getHours() * 60 + d.getMinutes()
-    return t >= 570 && t < 1170
-  })()
+  const [isOpen, setIsOpen] = useState(false)
+
+  // 営業判定はクライアントサイドのみ
+  useEffect(() => {
+    setIsOpen(calcIsOpen())
+    const timer = setInterval(() => setIsOpen(calcIsOpen()), 60_000)
+    return () => clearInterval(timer)
+  }, [])
 
   return (
     <>
@@ -277,188 +391,58 @@ export default function HomePage() {
       <Header />
 
       <main>
-        {/* ===== Hero ===== */}
+
+        {/* ===== 1. ヒーロー ===== */}
         <section
           id="top"
-          style={{
-            position: 'relative',
-            minHeight: '100svh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-          }}
+          className="hero"
         >
-          {/* ヒーロー背景グロー */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              transition: 'opacity 2s',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                inset: '-20%',
-                background: 'radial-gradient(ellipse 60% 50% at 50% 28%, var(--glow), transparent 65%), radial-gradient(ellipse 70% 60% at 18% 80%, var(--glow2), transparent 70%)',
-              }}
-            />
-          </div>
+          {/* 光グロー背景 */}
+          <div className="hero-light" aria-hidden="true" />
 
-          {/* vapor（光の拡散） */}
-          <div
-            className="vapor"
-            aria-hidden="true"
-            style={{
-              left: '18%', bottom: '6%',
-              width: '34vmin', height: '34vmin',
-              background: 'var(--glow)',
-              animationDelay: '0s',
-            }}
-          />
-          <div
-            className="vapor"
-            aria-hidden="true"
-            style={{
-              left: '58%', bottom: '-4%',
-              width: '46vmin', height: '46vmin',
-              background: 'var(--glow)',
-              animationDelay: '5s',
-            }}
-          />
-          <div
-            className="vapor"
-            aria-hidden="true"
-            style={{
-              left: '38%', bottom: '12%',
-              width: '24vmin', height: '24vmin',
-              background: 'var(--glow2)',
-              animationDelay: '9s',
-            }}
-          />
+          {/* vapor（浮遊光） */}
+          <div className="vapor" aria-hidden="true" style={{ left: '18%', bottom: '6%', width: '34vmin', height: '34vmin', background: 'var(--glow)', animationDelay: '0s' }} />
+          <div className="vapor" aria-hidden="true" style={{ left: '58%', bottom: '-4%', width: '46vmin', height: '46vmin', background: 'var(--glow)', animationDelay: '5s' }} />
+          <div className="vapor" aria-hidden="true" style={{ left: '38%', bottom: '12%', width: '24vmin', height: '24vmin', background: 'var(--glow2)', animationDelay: '9s' }} />
 
           {/* ヒーロー本文 */}
-          <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '0 24px' }}>
+          <div className="hero-inner">
             {/* 場所 */}
-            <p
-              className="rise"
-              data-d="1"
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: 'clamp(11px,1.6vw,13px)',
-                letterSpacing: '0.46em',
-                color: '#B8956A',
-                marginBottom: '24px',
-                textIndent: '0.46em',
-              }}
-            >
+            <p className="hero-place rise" data-d="1">
               PÂTISSERIE — KASUGAI, AICHI
             </p>
 
-            {/* ロゴ */}
-            <div
-              className="rise"
-              data-d="2"
-              style={{ display: 'flex', justifyContent: 'center', margin: '0 auto 40px' }}
-            >
+            {/* 縦ロゴ（中央） */}
+            <div className="hero-logo-box rise" data-d="2">
               <img
                 className="logo-d"
                 src="/logo/Grace縦ダークブラウン版.png"
                 alt="Grace"
-                style={{ width: 'min(190px,44vw)', height: 'auto', transition: 'opacity 1.2s' }}
               />
               <img
                 className="logo-w"
                 src="/logo/Grace縦白版.png"
                 alt="Grace"
-                style={{ width: 'min(190px,44vw)', height: 'auto', transition: 'opacity 1.2s' }}
               />
             </div>
 
             {/* タグライン */}
-            <p
-              className="rise"
-              data-d="3"
-              style={{
-                fontSize: 'clamp(15px,2.4vw,19px)',
-                letterSpacing: '0.32em',
-                textIndent: '0.32em',
-              }}
-            >
+            <p className="hero-tagline rise" data-d="3">
               美しい暮らしには、お菓子がある。
             </p>
 
-            {/* 開業日 */}
-            <p
-              className="rise"
-              data-d="4"
-              style={{
-                marginTop: '30px',
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: 'clamp(12.5px,1.8vw,15px)',
-                letterSpacing: '0.34em',
-                color: '#B8956A',
-              }}
-            >
+            {/* 開業予定（確定コピー） */}
+            <p className="hero-open rise" data-d="4">
               Grand Open
-              <span
-                style={{
-                  display: 'block',
-                  fontStyle: 'normal',
-                  fontSize: 'clamp(20px,3.2vw,26px)',
-                  letterSpacing: '0.22em',
-                  marginTop: '6px',
-                  color: 'var(--ink)',
-                }}
-              >
-                2026.10.01
-              </span>
+              <span className="date">2026年 秋頃予定</span>
             </p>
           </div>
 
           {/* スクロールキュー */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '32px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 2,
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontStyle: 'italic',
-              fontSize: '11px',
-              letterSpacing: '0.4em',
-              color: 'color-mix(in srgb, var(--ink) 55%, var(--bg))',
-              textAlign: 'center',
-            }}
-          >
-            SCROLL
-            <div
-              style={{
-                width: '1px',
-                height: '44px',
-                background: 'linear-gradient(to bottom, currentColor, transparent)',
-                margin: '10px auto 0',
-                animation: 'cue 2.6s ease-in-out infinite',
-              }}
-            />
-          </div>
-
-          <style>{`
-            @keyframes cue {
-              0%, 100% { transform: scaleY(.4); transform-origin: top }
-              50% { transform: scaleY(1) }
-            }
-          `}</style>
+          <div className="scroll-cue">SCROLL</div>
         </section>
 
-        {/* ===== いまのGrace（時間帯ステータス） ===== */}
+        {/* ===== 2. いまのGrace ステータスバー ===== */}
         <div
           id="now"
           style={{
@@ -475,7 +459,6 @@ export default function HomePage() {
             textAlign: 'center',
           }}
         >
-          {/* 営業ステータスドット */}
           <span
             aria-hidden="true"
             style={{
@@ -502,7 +485,7 @@ export default function HomePage() {
           <span>{phaseData.msg}</span>
         </div>
 
-        {/* ===== Concept（縦書き） ===== */}
+        {/* ===== 3. Concept（縦書き） ===== */}
         <section
           id="concept"
           style={{
@@ -568,14 +551,15 @@ export default function HomePage() {
               やさしさ ／ 余白 ／ 季節 ／ 香り ／ 素材 ／ 手仕事 ／ 豊かさ
             </p>
             <p style={{ marginTop: '36px' }}>
-              <Btn href="/concept">View Concept</Btn>
+              <Btn href="#">View Concept</Btn>
             </p>
           </div>
         </section>
 
+        {/* ===== 4. SEP（柑橘線画） ===== */}
         <Sep motif="m-citrus" />
 
-        {/* ===== 一品一章: チーズケーキ ===== */}
+        {/* ===== 5. チーズケーキ chapter ===== */}
         <section
           id="sweets"
           className="chapter-section"
@@ -627,22 +611,17 @@ export default function HomePage() {
                 SIGNATURE CHEESECAKE
               </p>
               <p style={{ marginTop: '20px', maxWidth: '30em', fontSize: '14.5px' }}>
-                チーズの主張をあえて抑え、バニラと果実の香りを引き立てた独自の設計。「チーズっぽくない」が褒め言葉になる、Graceの看板です。
+                チーズの主張をあえて抑え、バニラの香りを引き立てた独自の設計。「チーズっぽくない」が褒め言葉になる、Graceの看板です。
               </p>
+              {/* 香りタグ: バニラのみ（果実は削除） */}
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: '#7B8B6F' }}>
-                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-vanilla" /></svg>
-                  <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>バニラ
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: '#7B8B6F' }}>
-                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-fruit" /></svg>果実
-                </span>
+                <AromaTag motif="m-vanilla" label="バニラ" isFirst />
               </div>
             </div>
           </div>
         </section>
 
-        {/* ===== 一品一章: ショートケーキ（反転） ===== */}
+        {/* ===== 6. ショートケーキ chapter rev ===== */}
         <section
           className="chapter-section chapter-rev"
           style={{
@@ -696,19 +675,14 @@ export default function HomePage() {
                 季節の果実と、軽やかなクリーム。定番だからこそ、素材とバランスで違いが出る一品です。
               </p>
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: '#7B8B6F' }}>
-                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-fruit" /></svg>
-                  <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>季節の果実
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: '#7B8B6F' }}>
-                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-milk" /></svg>ミルク
-                </span>
+                <AromaTag motif="m-fruit" label="季節の果実" isFirst />
+                <AromaTag motif="m-milk" label="ミルク" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* ===== 一品一章: 季節のタルト ===== */}
+        {/* ===== 7. 季節のタルト chapter ===== */}
         <section
           className="chapter-section"
           style={{
@@ -762,19 +736,14 @@ export default function HomePage() {
                 旬の移ろいをそのままに。季節ごとに表情を変える、ショーケースの楽しみです。
               </p>
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: '#7B8B6F' }}>
-                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-fruit" /></svg>
-                  <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>旬の果実
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: '#7B8B6F' }}>
-                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-butter" /></svg>焦がしバター
-                </span>
+                <AromaTag motif="m-fruit" label="旬の果実" isFirst />
+                <AromaTag motif="m-butter" label="焦がしバター" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* ===== Grace Crumb（ギフト・暗背景） ===== */}
+        {/* ===== 8. Grace Crumb chapter rev band ===== */}
         <section
           id="gift"
           className="chapter-section chapter-rev"
@@ -790,50 +759,13 @@ export default function HomePage() {
           }}
         >
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
-            <div
-              style={{
-                position: 'relative',
-                overflow: 'hidden',
-                background: 'linear-gradient(150deg, #46392f, #372d26 55%, #2C2421)',
-                aspectRatio: '4/5',
-                maxHeight: '74svh',
-                width: '100%',
-              }}
-            >
-              <img
-                src="https://images.pexels.com/photos/34909568/pexels-photo-34909568.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                alt="Grace Crumb 焼き菓子（仮素材）"
-                loading="lazy"
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  zIndex: 1,
-                  filter: 'saturate(.82) contrast(.96)',
-                }}
-                onError={(e) => { e.currentTarget.style.display = 'none' }}
-              />
-              <span
-                style={{
-                  position: 'absolute',
-                  bottom: '8px',
-                  right: '8px',
-                  zIndex: 2,
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontSize: '8.5px',
-                  letterSpacing: '0.26em',
-                  color: 'rgba(247,243,239,.85)',
-                  background: 'rgba(44,36,33,.5)',
-                  padding: '3px 9px',
-                  backdropFilter: 'blur(2px)',
-                }}
-              >
-                PLACEHOLDER
-              </span>
-            </div>
+            <Ph
+              src="https://images.pexels.com/photos/34909568/pexels-photo-34909568.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Grace Crumb 焼き菓子（仮素材）"
+              aspectRatio="4/5"
+              isBand
+              style={{ maxHeight: '74svh' }}
+            />
           </figure>
           <div
             className="rise"
@@ -863,33 +795,36 @@ export default function HomePage() {
                   color: '#B8956A',
                 }}
               >
-                GRACE CRUMB &mdash; BAKED &amp; GIFT
+                GRACE CRUMB — BAKED &amp; GIFT
               </p>
               <p style={{ marginTop: '20px', maxWidth: '30em', fontSize: '14.5px' }}>
                 Grace Crumbは、Graceの焼き菓子ライン。フィナンシェを中心に、焦がしバター・バニラ・柑橘・ハーブを丁寧に重ねた焼き菓子を展開します。ひとつずつ味わうにも、まとめて贈るにも、「Graceらしさ」をそのまま届ける一箱に。
               </p>
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: 'color-mix(in srgb, #F7F3EF 70%, #2C2421)' }}>
+                  <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-butter" /></svg>
+                  <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>
+                  焦がしバター
+                </span>
                 {[
-                  { motif: 'm-butter', label: '焦がしバター', isAroma: true },
                   { motif: 'm-vanilla', label: 'バニラ' },
                   { motif: 'm-citrus', label: '柑橘' },
                   { motif: 'm-herb', label: 'ハーブ' },
-                ].map(({ motif, label, isAroma }) => (
+                ].map(({ motif, label }) => (
                   <span key={motif} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: 'color-mix(in srgb, #F7F3EF 70%, #2C2421)' }}>
                     <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href={`#${motif}`} /></svg>
-                    {isAroma && <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>}
                     {label}
                   </span>
                 ))}
               </div>
               <p style={{ marginTop: '34px' }}>
-                <Btn href="/gift">View Gift</Btn>
+                <Btn href="#">View Gift</Btn>
               </p>
             </div>
           </div>
         </section>
 
-        {/* ===== いまのショーケース ===== */}
+        {/* ===== 9. いまのショーケース ===== */}
         <section
           id="case"
           style={{
@@ -907,7 +842,7 @@ export default function HomePage() {
             }}
           >
             <div>
-              <Label>Showcase &mdash; {phaseData.t}</Label>
+              <Label>Showcase — {phaseData.t}</Label>
               <h2
                 style={{
                   fontSize: 'clamp(22px,3.4vw,30px)',
@@ -931,15 +866,14 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* ショーケースグリッド */}
           <div
+            className="case-grid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
               gap: 'clamp(16px,2.6vw,36px)',
               marginTop: 'clamp(36px,5vw,60px)',
             }}
-            className="case-grid"
           >
             {ITEMS.map((name, i) => {
               const stock = STOCK[phase][i]
@@ -968,7 +902,7 @@ export default function HomePage() {
                         fontSize: '10px',
                         letterSpacing: '0.2em',
                         padding: '3px 10px',
-                        border: `1px solid ${badgeBorder(stock) ?? 'color-mix(in srgb, var(--ink) 25%, var(--bg))'}`,
+                        border: `1px solid ${badgeBorder(stock)}`,
                         color: badgeColor(stock),
                         whiteSpace: 'nowrap',
                         opacity: (stock === '完売' || stock === '本日終了') ? 0.45 : 1,
@@ -981,12 +915,9 @@ export default function HomePage() {
               )
             })}
           </div>
-          <style>{`
-            @media (max-width: 880px) { .case-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-          `}</style>
         </section>
 
-        {/* ===== Journal ===== */}
+        {/* ===== 10. Journal ===== */}
         <section
           id="journal"
           style={{
@@ -994,14 +925,8 @@ export default function HomePage() {
             borderTop: '1px solid color-mix(in srgb, var(--ink) 12%, var(--bg))',
           }}
         >
-          <Label>
-            <span className="rise">Journal</span>
-          </Label>
-          <div
-            className="rise"
-            data-d="1"
-            style={{ marginTop: '30px' }}
-          >
+          <p className="rise"><Label>Journal</Label></p>
+          <div className="rise" data-d="1" style={{ marginTop: '30px' }}>
             {[
               { cat: 'Story', title: 'Graceが生まれるまで — 春日井に小さなパティスリーをひらく理由' },
               { cat: 'Craft', title: '素材のはなし — 香りを大切にする、お菓子づくりの考えかた' },
@@ -1043,14 +968,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ===== Shop ===== */}
+        {/* ===== 11. Shop ===== */}
         <section
           id="shop"
+          className="shop-section"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
           }}
-          className="shop-section"
         >
           <Ph
             src="https://images.pexels.com/photos/33683554/pexels-photo-33683554.jpeg?auto=compress&cs=tinysrgb&w=1200"
@@ -1088,15 +1013,15 @@ export default function HomePage() {
                 fontSize: '13.5px',
               }}
             >
-              {[
+              {([
                 ['店名', 'パティスリー Grace'],
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
                 ['営業時間', '9:30 - 19:30'],
                 ['営業日', '元旦を除き、毎日営業しています'],
                 ['駐車場', '8台（お車でのご来店に便利です）'],
                 ['形態', 'テイクアウト専門'],
-              ].map(([dt, dd]) => (
-                <ShopDtDd key={dt} dt={dt!} dd={dd!} />
+              ] as [string, string][]).map(([dt, dd]) => (
+                <ShopDtDd key={dt} dt={dt} dd={dd} />
               ))}
             </dl>
             <p
@@ -1110,15 +1035,12 @@ export default function HomePage() {
               最新の営業情報・ショーケースの様子はInstagramをご覧ください。
             </p>
             <p style={{ marginTop: '38px' }}>
-              <Btn href="https://maps.google.com">Google Maps</Btn>
+              <Btn href="https://maps.google.com/?q=愛知県春日井市朝宮町1-2-6">Google Maps</Btn>
             </p>
           </div>
-          <style>{`
-            @media (max-width: 880px) { .shop-section { grid-template-columns: 1fr !important; } }
-          `}</style>
         </section>
 
-        {/* ===== Online Shop（EC誘導） ===== */}
+        {/* ===== 12. EC / オープン通知（メール登録フォーム） ===== */}
         <section
           id="online-shop"
           style={{
@@ -1139,24 +1061,7 @@ export default function HomePage() {
             }}
           />
           <div className="rise" style={{ position: 'relative' }}>
-            <p
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: '13px',
-                letterSpacing: '0.42em',
-                color: '#B8956A',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '16px',
-              }}
-            >
-              <span style={{ width: '42px', height: '1px', background: '#B8956A', display: 'inline-block' }} />
-              Online Shop
-              <span style={{ width: '42px', height: '1px', background: '#B8956A', display: 'inline-block' }} />
-            </p>
+            <Label center>Online Shop</Label>
             <h2
               style={{
                 fontSize: 'clamp(20px,3vw,27px)',
@@ -1178,7 +1083,6 @@ export default function HomePage() {
               焼き菓子と冷凍スイーツのお届けを準備しています。<br />
               オンラインショップは2026年秋、オープン予定です。
             </p>
-            {/* メール登録フォーム */}
             <div
               style={{
                 marginTop: '46px',
@@ -1247,11 +1151,15 @@ export default function HomePage() {
             </p>
           </div>
         </section>
+
       </main>
 
       <Footer />
 
-      {/* レスポンシブ: chapter（一品一章）のグリッド */}
+      {/* ===== 13. DEMOスイッチャー（右下固定） ===== */}
+      <DemoSwitcher currentPhase={phase} />
+
+      {/* レスポンシブ */}
       <style>{`
         @media (max-width: 880px) {
           .chapter-section {
@@ -1260,6 +1168,16 @@ export default function HomePage() {
           }
           .chapter-photo-rev {
             order: 0 !important;
+          }
+          .case-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .shop-section {
+            grid-template-columns: 1fr !important;
+          }
+          .demo-switcher {
+            bottom: 10px !important;
+            right: 10px !important;
           }
         }
       `}</style>
