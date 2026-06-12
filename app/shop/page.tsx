@@ -1,64 +1,22 @@
-// 店舗情報ページ — 臨時定休アラートはNotionから取得（環境変数設定時のみ）
+// 店舗情報ページ — 静的コンテンツのみ（Notion依存なし）
 import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { getShopAlerts } from '@/lib/notion/news'
-import { isNotionConfigured } from '@/lib/notion/client'
-import { formatDateJa } from '@/lib/utils/date'
 import Link from 'next/link'
 
-// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
-export const dynamic = 'force-dynamic'
+// サーバーコンポーネント — イベントハンドラなし・Notion呼び出しなし
+// Vercelランタイムエラー(Digest: 257512637)の根本原因だったonMouseEnter/onMouseLeaveを除去
 
 export const metadata: Metadata = {
   title: '店舗のご案内 | Grace',
   description: '愛知県春日井市朝宮町1-2-6。9:30-19:30。テイクアウト専門のパティスリーGraceの店舗情報です。',
 }
 
-export default async function ShopPage() {
-  // 臨時定休アラートを取得（NOTION_TOKEN未設定時はスキップして空配列）
-  const alerts = isNotionConfigured
-    ? await getShopAlerts().catch(() => [])
-    : []
-
+export default function ShopPage() {
   return (
     <>
       <Header />
       <main>
-
-        {/* ─── 臨時定休アラート ─── */}
-        {alerts.length > 0 && (
-          <div className="bg-grace-gold/10 border-b border-grace-gold/30">
-            <div className="container-content py-4">
-              {alerts.map((alert) => (
-                <div key={alert.id} className="flex items-start gap-3">
-                  <svg
-                    width="16"
-                    height="16"
-                    className="block flex-shrink-0 text-grace-gold mt-0.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-                    <line x1="12" y1="9" x2="12" y2="13" />
-                    <line x1="12" y1="17" x2="12.01" y2="17" />
-                  </svg>
-                  <div>
-                    <span className="font-noto-sans text-[10px] tracking-widest text-grace-gold mr-3">
-                      {formatDateJa(alert.publishedAt)}
-                    </span>
-                    <span className="font-noto-serif text-lg text-grace-brown">{alert.title}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* ─── ページヘッダー ─── */}
         <section
@@ -222,6 +180,7 @@ export default async function ShopPage() {
               href="https://www.instagram.com/patisserie_grace_/"
               target="_blank"
               rel="noopener noreferrer"
+              className="shop-link-gold"
               style={{
                 display: 'inline-block',
                 marginTop: '8px',
@@ -235,34 +194,13 @@ export default async function ShopPage() {
               @patisserie_grace_
             </a>
 
-            {/* Google Maps ボタン */}
+            {/* Google Maps ボタン — hoverはCSSクラスで処理（サーバーコンポーネントのためonMouseEnter禁止） */}
             <p style={{ marginTop: '36px' }}>
               <a
                 href="https://maps.google.com/?q=愛知県春日井市朝宮町1-2-6"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '14px',
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontWeight: 300,
-                  fontSize: '14px',
-                  letterSpacing: '0.3em',
-                  color: 'inherit',
-                  borderBottom: '1px solid #B8956A',
-                  padding: '0 4px 8px',
-                  transition: 'opacity .3s, gap .3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = '0.55'
-                  e.currentTarget.style.gap = '20px'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = '1'
-                  e.currentTarget.style.gap = '14px'
-                }}
+                className="shop-arrow-link"
               >
                 Google Maps
                 <span style={{ fontStyle: 'normal' }}>→</span>
@@ -391,32 +329,12 @@ export default async function ShopPage() {
             >
               日々の様子・ショーケースの新着情報はInstagramでご覧ください。
             </p>
+            {/* hoverはCSSクラスで処理 */}
             <a
               href="https://www.instagram.com/patisserie_grace_/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '14px',
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: '14px',
-                letterSpacing: '0.3em',
-                color: '#F7F3EF',
-                borderBottom: '1px solid rgba(184,149,106,.6)',
-                padding: '0 4px 8px',
-                transition: 'opacity .3s, gap .3s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = '0.6'
-                e.currentTarget.style.gap = '20px'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = '1'
-                e.currentTarget.style.gap = '14px'
-              }}
+              className="shop-arrow-link shop-arrow-link--light"
             >
               @patisserie_grace_
               <span style={{ fontStyle: 'normal' }}>→</span>
@@ -435,30 +353,10 @@ export default async function ShopPage() {
           <p style={{ fontSize: '14px', letterSpacing: '0.12em', marginBottom: '28px', color: 'color-mix(in srgb, var(--ink) 65%, var(--bg))' }}>
             ご不明な点はお気軽にお問い合わせください
           </p>
+          {/* Link コンポーネント — hoverはCSSクラスで処理 */}
           <Link
             href="/contact"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '14px',
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: '14px',
-              letterSpacing: '0.3em',
-              color: 'inherit',
-              borderBottom: '1px solid #B8956A',
-              padding: '0 4px 8px',
-              transition: 'opacity .3s, gap .3s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '0.55'
-              e.currentTarget.style.gap = '20px'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '1'
-              e.currentTarget.style.gap = '14px'
-            }}
+            className="shop-arrow-link"
           >
             Contact
             <span style={{ fontStyle: 'normal' }}>→</span>
@@ -468,7 +366,7 @@ export default async function ShopPage() {
       </main>
       <Footer />
 
-      {/* レスポンシブ */}
+      {/* ページ専用スタイル — hover・レスポンシブをCSSで定義（サーバーコンポーネントのためonMouseEnterは使わない） */}
       <style>{`
         .shop-info-grid {
           grid-template-columns: 1fr 1fr;
@@ -477,6 +375,37 @@ export default async function ShopPage() {
           .shop-info-grid {
             grid-template-columns: 1fr !important;
           }
+        }
+
+        /* 矢印付きリンク共通スタイル */
+        .shop-arrow-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-style: italic;
+          font-weight: 300;
+          font-size: 14px;
+          letter-spacing: 0.3em;
+          color: inherit;
+          border-bottom: 1px solid #B8956A;
+          padding: 0 4px 8px;
+          transition: opacity .3s, gap .3s;
+        }
+        .shop-arrow-link:hover {
+          opacity: 0.55;
+          gap: 20px;
+        }
+
+        /* 暗背景上の矢印リンク（Instagramセクション） */
+        .shop-arrow-link--light {
+          color: #F7F3EF;
+          border-bottom-color: rgba(184,149,106,.6);
+        }
+
+        /* ゴールドカラーのシンプルリンク */
+        .shop-link-gold:hover {
+          opacity: 0.7;
         }
       `}</style>
     </>
