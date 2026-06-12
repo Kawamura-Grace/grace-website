@@ -110,7 +110,7 @@ export default function ConceptPage() {
 
       <main>
 
-        {/* ===== 1. OUR STORY ===== */}
+        {/* ===== 1. PHILOSOPHY ===== */}
         <section
           style={{
             minHeight: '56svh',
@@ -124,22 +124,8 @@ export default function ConceptPage() {
           }}
         >
           <div className="rise">
-            {/* ラベル: OUR STORY / PHILOSOPHY */}
-            <Label center>OUR STORY</Label>
-            <p
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: '11px',
-                letterSpacing: '0.38em',
-                color: 'color-mix(in srgb, #B8956A 65%, var(--bg))',
-                marginTop: '10px',
-                marginBottom: '28px',
-              }}
-            >
-              PHILOSOPHY
-            </p>
+            {/* ラベル: PHILOSOPHY */}
+            <Label center>PHILOSOPHY</Label>
             <h1
               style={{
                 fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
@@ -147,6 +133,7 @@ export default function ConceptPage() {
                 fontSize: 'clamp(26px,4.4vw,46px)',
                 letterSpacing: '0.18em',
                 lineHeight: 1.7,
+                marginTop: '28px',
               }}
             >
               美しい暮らしには、お菓子がある。
