@@ -99,54 +99,54 @@ export async function POST(request: NextRequest) {
       console.log('[contact] NOTION_TOKEN未設定のためNotion記録スキップ')
     }
 
-    // ─── 代表宛メール通知（失敗しても送信成功として返す） ───
+    // ─── メール送信（Promise.allでawaitし、serverless function終了前に完了させる） ───
     if (resend) {
-      resend.emails.send({
-        from:    process.env.CONTACT_EMAIL_FROM ?? 'noreply@grace-patisserie.jp',
-        to:      process.env.CONTACT_EMAIL_TO   ?? 'info@grace-foods.com',
-        subject: `【Grace HP】新規お問合せ: ${data.category}`,
-        text: [
-          `${data.name} 様${data.company ? `（${data.company}）` : ''}からのお問い合わせ`,
-          `メール: ${data.email}`,
-          data.phone ? `電話: ${data.phone}` : '',
-          '',
-          '内容:',
-          data.message,
-        ].filter(Boolean).join('\n'),
-      }).catch((err: Error) => {
-        console.error('[Contact API] 代表宛メール送信エラー:', err)
-      })
-    } else {
-      console.log('[contact] RESEND_API_KEY未設定のためメール送信スキップ')
-    }
-
-    // ─── 送信者への自動返信メール（失敗しても送信成功として返す） ───
-    if (resend) {
-      // メッセージ本文は先頭200文字に制限
+      const from = process.env.CONTACT_EMAIL_FROM ?? 'onboarding@resend.dev'
       const messagePreview = data.message.slice(0, 200) + (data.message.length > 200 ? '...' : '')
 
-      resend.emails.send({
-        from:    process.env.CONTACT_EMAIL_FROM ?? 'onboarding@resend.dev',
-        to:      data.email,
-        subject: '【Grace】お問合せを承りました',
-        text: [
-          `${data.name} 様`,
-          '',
-          'このたびはGraceへお問合せをいただき、誠にありがとうございます。',
-          'スタッフより、3営業日以内にご返信させていただきます。',
-          '',
-          'お問い合わせ内容：',
-          messagePreview,
-          '',
-          '──────────────────────',
-          '株式会社Grace Foods',
-          'パティスリー Grace',
-          '愛知県春日井市朝宮町1-2-6',
-          '──────────────────────',
-        ].join('\n'),
-      }).catch((err: Error) => {
-        console.error('[Contact API] 自動返信メール送信エラー:', err)
-      })
+      await Promise.all([
+        // 代表宛通知
+        resend.emails.send({
+          from,
+          to:      process.env.CONTACT_EMAIL_TO ?? 'info@grace-foods.com',
+          subject: `【Grace HP】新規お問合せ: ${data.category}`,
+          text: [
+            `${data.name} 様${data.company ? `（${data.company}）` : ''}からのお問い合わせ`,
+            `メール: ${data.email}`,
+            data.phone ? `電話: ${data.phone}` : '',
+            '',
+            '内容:',
+            data.message,
+          ].filter(Boolean).join('\n'),
+        }).catch((err: Error) => {
+          console.error('[Contact API] 代表宛メール送信エラー:', err)
+        }),
+        // 送信者への自動返信
+        resend.emails.send({
+          from,
+          to:      data.email,
+          subject: '【Grace】お問合せを承りました',
+          text: [
+            `${data.name} 様`,
+            '',
+            'このたびはGraceへお問合せをいただき、誠にありがとうございます。',
+            'スタッフより、3営業日以内にご返信させていただきます。',
+            '',
+            'お問い合わせ内容：',
+            messagePreview,
+            '',
+            '──────────────────────',
+            '株式会社Grace Foods',
+            'パティスリー Grace',
+            '愛知県春日井市朝宮町1-2-6',
+            '──────────────────────',
+          ].join('\n'),
+        }).catch((err: Error) => {
+          console.error('[Contact API] 自動返信メール送信エラー:', err)
+        }),
+      ])
+    } else {
+      console.log('[contact] RESEND_API_KEY未設定のためメール送信スキップ')
     }
 
     return NextResponse.json({ ok: true })
