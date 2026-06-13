@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { label: 'Gift',     href: '/#gift' },
   { label: 'Showcase', href: '/#case' },
   { label: 'Journal',  href: '/journal' },
+  { label: 'News',     href: '/news' },
   { label: 'Shop',     href: '/shop' },
   { label: 'Contact',  href: '/contact' },
 ]
@@ -119,7 +120,7 @@ export function Header() {
           aria-label="メインナビゲーション"
           style={{
             display: 'flex',
-            gap: '32px',
+            gap: '24px',
           }}
           className="desktop-nav"
         >
