@@ -75,13 +75,15 @@ export async function POST(request: NextRequest) {
         await notion.pages.create({
           parent: { database_id: DB_IDS.CONTACTS },
           properties: {
-            '送信者名':  { title: [{ text: { content: data.name } }] },
-            'メール':    { email: data.email },
-            'カテゴリ':  { select: { name: data.category } },
-            'ステータス': { select: { name: isLowScore ? '要確認' : '未返信' } },
-            ...(data.company ? { '会社名':   { rich_text: [{ text: { content: data.company } }] } } : {}),
-            ...(data.phone   ? { '電話番号': { phone_number: data.phone } } : {}),
-            'メッセージ': { rich_text: [{ text: { content: data.message } }] },
+            // 件名 が title型（DBの主キー）
+            '件名':       { title: [{ text: { content: `[${data.category}] ${data.name}` } }] },
+            'メール':     { email: data.email },
+            '送信者名':   { rich_text: [{ text: { content: data.name } }] },
+            '分類':       { select: { name: data.category } },
+            '対応状態':   { select: { name: isLowScore ? '要確認' : '未返信' } },
+            '本文':       { rich_text: [{ text: { content: data.message } }] },
+            ...(data.company ? { '会社名': { rich_text: [{ text: { content: data.company } }] } } : {}),
+            ...(data.phone   ? { '電話':   { phone_number: data.phone } } : {}),
           },
         })
       } catch (notionError) {
