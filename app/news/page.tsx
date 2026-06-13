@@ -9,11 +9,11 @@ import { getNewsPosts } from '@/lib/notion/news'
 import { formatDate } from '@/lib/utils/date'
 import type { NewsCategory } from '@/lib/notion/types'
 
-// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
-export const dynamic = 'force-dynamic'
+// ISR: 30分ごとに再検証
+export const revalidate = 1800
 
 export const metadata: Metadata = {
-  title: 'News | Grace — PATISSERIE',
+  title: 'News | Grace｜春日井のパティスリー',
   description: 'Pâtisserie Graceのお知らせ。新商品・催事・臨時定休などの最新情報。',
 }
 
@@ -36,14 +36,15 @@ export default async function NewsPage() {
         <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
           {/* 背景写真 */}
           <Image
-            src="https://images.pexels.com/photos/8211309/pexels-photo-8211309.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="/photos/placeholder_01.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
             sizes="100vw"
-            crossOrigin="anonymous"
             aria-hidden="true"
           />
+          {/* 仮素材であることを示すオーバーレイ（本番撮影素材差し替え時に削除） */}
+          <span style={{ position: 'absolute', right: 10, bottom: 10, fontSize: 10, color: 'white', opacity: 0.7, zIndex: 5 }}>PLACEHOLDER</span>
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">LATEST</p>
@@ -59,8 +60,11 @@ export default async function NewsPage() {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-8">
-                  現在お知らせはありません。
+                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
+                  お知らせは準備中です。
+                </p>
+                <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
+                  オープンに向けた情報をこちらでお届けします。
                 </p>
                 <a
                   href="/contact"

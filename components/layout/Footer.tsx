@@ -11,7 +11,8 @@ const FNAV = [
   { label: 'Showcase',    href: '/#case' },
   { label: 'Shop',        href: '/shop' },
   { label: 'Online Shop', href: '/#online-shop' },
-  { label: 'Journal',     href: '/#journal' },
+  { label: 'Journal',     href: '/journal' },
+  { label: 'News',        href: '/news' },
   { label: 'Contact',     href: '/contact' },
 ]
 

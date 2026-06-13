@@ -4,7 +4,8 @@ export type ProductCategory = 'プチガトー' | 'チーズケーキ' | '焼き
 export type Season = '通年' | '春' | '夏' | '秋' | '冬'
 export type PublishStatus = '下書き' | '公開中' | '非公開'
 
-export type JournalCategory = '素材の話' | '季節の話' | 'スタッフの話' | '製造の話'
+// 仕様書カテゴリ（日本語）+ 初期記事カテゴリ（英語）
+export type JournalCategory = '素材の話' | '季節の話' | 'スタッフの話' | '製造の話' | 'Story' | 'Craft' | 'Gift'
 
 export type NewsCategory = 'お知らせ' | '催事' | 'メディア掲載' | '臨時定休'
 export type NewsImportance = '高' | '中' | '低'

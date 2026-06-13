@@ -34,3 +34,4 @@ next-env.d.ts
 # ログ
 *.log
 npm-debug.log*
+.env*

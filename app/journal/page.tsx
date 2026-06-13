@@ -9,21 +9,20 @@ import { getJournalPosts } from '@/lib/notion/journal'
 import { formatDate } from '@/lib/utils/date'
 import type { JournalCategory } from '@/lib/notion/types'
 
-// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
-export const dynamic = 'force-dynamic'
+// ISR: 1時間ごとに再検証
+export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Journal | Grace — PATISSERIE',
+  title: 'Journal | Grace｜春日井のパティスリー',
   description: 'Grace Patisserieのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
 }
 
-// カテゴリ定義
+// カテゴリ定義: 初期記事は英語カテゴリ（Story/Craft/Gift）
 const CATEGORIES: { label: string; value: JournalCategory | 'all' }[] = [
-  { label: 'すべて',     value: 'all' },
-  { label: '素材の話',   value: '素材の話' },
-  { label: '季節の話',   value: '季節の話' },
-  { label: 'スタッフの話', value: 'スタッフの話' },
-  { label: '製造の話',   value: '製造の話' },
+  { label: 'すべて',  value: 'all' },
+  { label: 'Story',  value: 'Story' },
+  { label: 'Craft',  value: 'Craft' },
+  { label: 'Gift',   value: 'Gift' },
 ]
 
 interface PageProps {
@@ -46,15 +45,16 @@ export default async function JournalPage({ searchParams }: PageProps) {
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
           {/* 背景写真: パティスリーの素材・製造 */}
           <Image
-            src="https://images.pexels.com/photos/3983674/pexels-photo-3983674.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="/photos/placeholder_03.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
             sizes="100vw"
-            crossOrigin="anonymous"
             aria-hidden="true"
             priority
           />
+          {/* 仮素材であることを示すオーバーレイ（本番撮影素材差し替え時に削除） */}
+          <span style={{ position: 'absolute', right: 10, bottom: 10, fontSize: 10, color: 'white', opacity: 0.7, zIndex: 5 }}>PLACEHOLDER</span>
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">STORIES</p>

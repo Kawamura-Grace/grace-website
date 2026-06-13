@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { label: 'Sweets',   href: '/#sweets' },
   { label: 'Gift',     href: '/#gift' },
   { label: 'Showcase', href: '/#case' },
+  { label: 'Journal',  href: '/journal' },
   { label: 'Shop',     href: '/shop' },
   { label: 'Contact',  href: '/contact' },
 ]

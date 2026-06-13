@@ -4,12 +4,13 @@ import { useEffect } from 'react'
 
 // モバイルメニューの項目（英語ラベル + 日本語サブテキスト）
 const MENU_ITEMS = [
-  { label: 'Concept',  jp: 'ブランドについて', href: '#concept' },
-  { label: 'Sweets',   jp: 'お菓子',           href: '#sweets' },
-  { label: 'Gift',     jp: '贈りもの',          href: '#gift' },
-  { label: 'Journal',  jp: 'ジャーナル',        href: '#journal' },
-  { label: 'Shop',     jp: '店舗案内',          href: '#shop' },
-  { label: 'Contact',  jp: 'お問い合わせ',      href: '#contact' },
+  { label: 'Concept',  jp: 'ブランドについて', href: '/concept' },
+  { label: 'Sweets',   jp: 'お菓子',           href: '/#sweets' },
+  { label: 'Gift',     jp: '贈りもの',          href: '/#gift' },
+  { label: 'Journal',  jp: 'ジャーナル',        href: '/journal' },
+  { label: 'News',     jp: 'お知らせ',          href: '/news' },
+  { label: 'Shop',     jp: '店舗案内',          href: '/shop' },
+  { label: 'Contact',  jp: 'お問い合わせ',      href: '/contact' },
 ]
 
 interface MobileMenuProps {
