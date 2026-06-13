@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
@@ -76,26 +77,24 @@ export function Header() {
           style={{ display: 'flex', alignItems: 'center', height: '26px' }}
         >
           {/* 朝・昼フェーズ: ダークブラウン版（CSSで切り替え） */}
-          <img
+          <Image
             className="logo-d"
             src="/logo/Grace横ダークブラウン版.png"
             alt="Grace"
+            width={120}
+            height={26}
+            priority
             style={{ height: '100%', width: 'auto', transition: 'opacity 1.2s' }}
-            onError={(e) => {
-              const img = e.currentTarget
-              img.style.display = 'none'
-            }}
           />
           {/* 夕・夜フェーズ: 白版（CSSで切り替え） */}
-          <img
+          <Image
             className="logo-w"
             src="/logo/Grace横白版.png"
             alt="Grace"
+            width={120}
+            height={26}
+            priority
             style={{ height: '100%', width: 'auto', transition: 'opacity 1.2s' }}
-            onError={(e) => {
-              const img = e.currentTarget
-              img.style.display = 'none'
-            }}
           />
           {/* フォールバック */}
           <span

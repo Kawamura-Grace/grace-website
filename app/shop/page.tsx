@@ -1,5 +1,6 @@
 // 店舗情報ページ — 静的コンテンツのみ（Notion依存なし）
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
@@ -74,18 +75,12 @@ export default function ShopPage() {
         >
           {/* 左: 店舗写真（プレースホルダー） */}
           <div style={{ position: 'relative', overflow: 'hidden', minHeight: '460px' }}>
-            <img
+            <Image
               src="/photos/placeholder_05.jpg"
               alt="パティスリー Grace 店舗イメージ（仮素材）"
-              loading="lazy"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                filter: 'saturate(.82) contrast(.96)',
-              }}
+              fill
+              sizes="(max-width: 880px) 100vw, 50vw"
+              style={{ objectFit: 'cover', filter: 'saturate(.82) contrast(.96)' }}
             />
             {/* PLACEHOLDERバッジ */}
             <span

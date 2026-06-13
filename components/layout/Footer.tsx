@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 // フッターナビゲーション
@@ -48,16 +49,22 @@ export function Footer() {
             style={{ height: '30px', marginBottom: '20px' }}
           >
             {/* footer-logo クラスが .logo-d を非表示 .logo-w を表示 */}
-            <img
+            <Image
               className="logo-d"
               src="/logo/Grace横ダークブラウン版.png"
               alt="Grace"
+              width={120}
+              height={26}
+              priority
               style={{ height: '100%', width: 'auto' }}
             />
-            <img
+            <Image
               className="logo-w"
               src="/logo/Grace横白版.png"
               alt="Grace"
+              width={120}
+              height={26}
+              priority
               style={{ height: '100%', width: 'auto' }}
             />
             <span

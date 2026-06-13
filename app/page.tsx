@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
@@ -223,21 +224,13 @@ function Ph({
       )}
       {src && !failed && (
         <>
-          <img
+          <Image
             src={src}
             alt={alt ?? ''}
-            loading="lazy"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+            style={{ objectFit: 'cover', zIndex: 1, filter: 'saturate(.82) contrast(.96)', transition: 'transform 6s ease' }}
             onError={() => setFailed(true)}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              zIndex: 1,
-              filter: 'saturate(.82) contrast(.96)',
-              transition: 'transform 6s ease',
-            }}
           />
           <span
             style={{
@@ -416,15 +409,23 @@ export default function HomePage() {
           <div className="hero-inner">
               {/* 縦ロゴ（中央） */}
             <div className="hero-logo-box rise" data-d="2">
-              <img
+              <Image
                 className="logo-d"
                 src="/logo/Grace縦ダークブラウン版.png"
                 alt="Grace"
+                width={80}
+                height={200}
+                priority
+                style={{ width: 'auto', height: '100%' }}
               />
-              <img
+              <Image
                 className="logo-w"
                 src="/logo/Grace縦白版.png"
                 alt="Grace"
+                width={80}
+                height={200}
+                priority
+                style={{ width: 'auto', height: '100%' }}
               />
             </div>
 

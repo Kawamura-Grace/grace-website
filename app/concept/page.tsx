@@ -6,6 +6,7 @@
 //       静的ビルドで問題ない（Notionデータ不要）ため、dynamic 宣言は不要。
 
 import { useEffect } from 'react'
+import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
@@ -232,31 +233,12 @@ export default function ConceptPage() {
             }}
           >
             {/* 写真ファイルを /public/images/craftsmanship.jpg に配置するだけで差し替え可 */}
-            <img
+            <Image
               src="/images/craftsmanship.jpg"
               alt="こだわりの素材と製法 — Grace"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-              }}
-              onError={(e) => {
-                // 写真未配置時はプレースホルダーを表示
-                const el = e.currentTarget
-                el.style.display = 'none'
-                const parent = el.parentElement
-                if (parent && !parent.querySelector('.img-placeholder')) {
-                  const ph = document.createElement('div')
-                  ph.className = 'img-placeholder'
-                  ph.style.cssText = 'width:100%;height:100%;background:color-mix(in srgb,var(--ink) 6%,var(--bg));display:flex;align-items:center;justify-content:center;'
-                  const txt = document.createElement('span')
-                  txt.style.cssText = 'font-size:11px;letter-spacing:.2em;color:color-mix(in srgb,var(--ink) 35%,var(--bg));font-family:Cormorant Garamond,Georgia,serif;font-style:italic'
-                  txt.textContent = 'PHOTO'
-                  ph.appendChild(txt)
-                  parent.appendChild(ph)
-                }
-              }}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
+              style={{ objectFit: 'cover' }}
             />
             <div style={{
               position: 'absolute',
@@ -302,25 +284,12 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            <img
+            <Image
               src="/images/note-from-grace.jpg"
               alt="お菓子が、誰かの大切な日の横にいる — Grace"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              onError={(e) => {
-                const el = e.currentTarget
-                el.style.display = 'none'
-                const parent = el.parentElement
-                if (parent && !parent.querySelector('.img-placeholder')) {
-                  const ph = document.createElement('div')
-                  ph.className = 'img-placeholder'
-                  ph.style.cssText = 'width:100%;height:100%;background:color-mix(in srgb,var(--ink) 6%,var(--bg));display:flex;align-items:center;justify-content:center;'
-                  const txt = document.createElement('span')
-                  txt.style.cssText = 'font-size:11px;letter-spacing:.2em;color:color-mix(in srgb,var(--ink) 35%,var(--bg));font-family:Cormorant Garamond,Georgia,serif;font-style:italic'
-                  txt.textContent = 'PHOTO'
-                  ph.appendChild(txt)
-                  parent.appendChild(ph)
-                }
-              }}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 340px"
+              style={{ objectFit: 'cover' }}
             />
             <div style={{
               position: 'absolute',

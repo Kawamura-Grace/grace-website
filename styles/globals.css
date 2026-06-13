@@ -236,6 +236,7 @@ html[data-phase="night"] .logo-w { display: block }
   opacity: 0;
   transform: translateY(30px);
   filter: blur(12px);
+  will-change: transform, opacity;
   transition: opacity 1.6s ease, transform 1.8s cubic-bezier(.16,.84,.3,1), filter 1.6s ease;
 }
 .rise.in {
@@ -254,6 +255,7 @@ html[data-phase="night"] .logo-w { display: block }
   border-radius: 50%;
   filter: blur(60px);
   opacity: 0;
+  will-change: transform, opacity;
   animation: vapor 16s ease-in-out infinite;
 }
 @keyframes vapor {
