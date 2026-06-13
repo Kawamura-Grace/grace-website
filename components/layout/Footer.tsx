@@ -4,14 +4,14 @@ import Link from 'next/link'
 
 // フッターナビゲーション
 const FNAV = [
-  { label: 'Concept',     href: '#concept' },
-  { label: 'Sweets',      href: '#sweets' },
-  { label: 'Gift',        href: '#gift' },
-  { label: 'Showcase',    href: '#case' },
-  { label: 'Shop',        href: '#shop' },
-  { label: 'Online Shop', href: '#online-shop' },
-  { label: 'Journal',     href: '#journal' },
-  { label: 'Contact',     href: '#contact' },
+  { label: 'Concept',     href: '/concept' },
+  { label: 'Sweets',      href: '/#sweets' },
+  { label: 'Gift',        href: '/#gift' },
+  { label: 'Showcase',    href: '/#case' },
+  { label: 'Shop',        href: '/shop' },
+  { label: 'Online Shop', href: '/#online-shop' },
+  { label: 'Journal',     href: '/#journal' },
+  { label: 'Contact',     href: '/contact' },
 ]
 
 /**

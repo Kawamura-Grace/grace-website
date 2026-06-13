@@ -7,12 +7,12 @@ import { usePhase } from '@/lib/hooks/usePhase'
 
 // デスクトップナビゲーション項目
 const NAV_ITEMS = [
-  { label: 'Concept',  href: '#concept' },
-  { label: 'Sweets',   href: '#sweets' },
-  { label: 'Gift',     href: '#gift' },
-  { label: 'Showcase', href: '#case' },
-  { label: 'Shop',     href: '#shop' },
-  { label: 'Contact',  href: '#contact' },
+  { label: 'Concept',  href: '/concept' },
+  { label: 'Sweets',   href: '/#sweets' },
+  { label: 'Gift',     href: '/#gift' },
+  { label: 'Showcase', href: '/#case' },
+  { label: 'Shop',     href: '/shop' },
+  { label: 'Contact',  href: '/contact' },
 ]
 
 /**

@@ -56,27 +56,40 @@ function Label({ children, center }: { children: React.ReactNode; center?: boole
   )
 }
 
-// ボタニカルモチーフのPNGマッピング
-const MOTIF_PNG: Record<string, string> = {
-  'c-vanilla': '/images/vanilla.png',
-  'c-herb':    '/images/leaf.png',
-  'c-citrus':  '/images/lemon.png',
+// ============ ボタニカルSVG定義（非表示） ============
+function BotanicalDefs() {
+  return (
+    <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+      <defs>
+        <g id="c-vanilla" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+          <path pathLength={1} d="M8 40 C 14 20, 26 10, 40 8 C 30 14, 22 26, 18 40" />
+          <path pathLength={1} d="M30 33 c 2 -3 5 -4 8 -3 c -1 3 -4 5 -8 3 z" />
+        </g>
+        <g id="c-herb" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+          <path pathLength={1} d="M24 42 C 24 30, 24 18, 24 8" />
+          <path pathLength={1} d="M24 34 c -5 -1 -9 -5 -9 -10 c 5 1 9 5 9 10 z" />
+          <path pathLength={1} d="M24 26 c 5 -1 9 -5 9 -10 c -5 1 -9 5 -9 10 z" />
+          <path pathLength={1} d="M24 18 c -4 -1 -7 -4 -7 -8 c 4 1 7 4 7 8 z" />
+        </g>
+        <g id="c-citrus" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+          <circle pathLength={1} cx="24" cy="24" r="15" />
+          <line pathLength={1} x1="24" y1="9.5" x2="24" y2="38.5" />
+          <line pathLength={1} x1="9.5" y1="24" x2="38.5" y2="24" />
+          <line pathLength={1} x1="14" y1="14" x2="34" y2="34" />
+          <line pathLength={1} x1="34" y1="14" x2="14" y2="34" />
+        </g>
+      </defs>
+    </svg>
+  )
 }
 
 // ============ ボタニカルセパレーター ============
 function Sep({ motif }: { motif: string }) {
-  const src = MOTIF_PNG[motif]
   return (
     <div style={{ display: 'flex', justifyContent: 'center', padding: 'clamp(40px,6vw,72px) 0' }}>
-      {src ? (
-        <img
-          src={src}
-          alt=""
-          aria-hidden="true"
-          className="rise"
-          style={{ width: '64px', height: '64px', objectFit: 'contain', opacity: 0.9 }}
-        />
-      ) : null}
+      <svg className="draw rise" viewBox="0 0 48 48" width="64" height="64" style={{ color: '#B8956A', opacity: 0.9 }} aria-hidden="true">
+        <use href={`#${motif}`} />
+      </svg>
     </div>
   )
 }
@@ -85,6 +98,7 @@ function Sep({ motif }: { motif: string }) {
 export default function ConceptPage() {
   return (
     <>
+      <BotanicalDefs />
       <RiseObserver />
       <Header />
 
@@ -106,6 +120,31 @@ export default function ConceptPage() {
           <div className="rise">
             {/* ラベル: PHILOSOPHY */}
             <Label center>PHILOSOPHY</Label>
+            <h2
+              style={{
+                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontWeight: 500,
+                fontSize: 'clamp(20px,3.2vw,30px)',
+                letterSpacing: '0.16em',
+                lineHeight: 1.8,
+                marginTop: '28px',
+              }}
+            >
+              香りは、時間とともに立ちのぼる。
+            </h2>
+            <p
+              style={{
+                marginTop: '24px',
+                fontSize: '14px',
+                lineHeight: 2.2,
+                letterSpacing: '0.08em',
+                color: 'color-mix(in srgb, var(--ink) 70%, var(--bg))',
+                maxWidth: '440px',
+                margin: '24px auto 0',
+              }}
+            >
+              焦がしバター、バニラ、柑橘、ハーブ。Graceのお菓子は、香りから設計します。食べ終えたあとの余韻までが、ひとつの体験。
+            </p>
             <h1
               style={{
                 fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
@@ -175,7 +214,7 @@ export default function ConceptPage() {
           <div className="rise" data-d="2" style={{ maxWidth: '300px', flexShrink: 0 }}>
             <Label>Dedicated Handcraft</Label>
             <p style={{ marginTop: '24px', fontSize: '14px', lineHeight: 2.1 }}>
-              素材と向き合い、気候と対話しながら、その日だけの一皿を仕上げる。
+              素材と向き合い、気候と対話しながら、その日だけの一品を仕上げる。
               手が加わることで、お菓子に温度と揺らぎが生まれると信じているから。
             </p>
           </div>
@@ -219,6 +258,21 @@ export default function ConceptPage() {
                 }
               }}
             />
+            <div style={{
+              position: 'absolute',
+              right: '10px',
+              bottom: '10px',
+              background: 'rgba(0,0,0,0.45)',
+              color: '#fff',
+              fontSize: '9px',
+              letterSpacing: '0.18em',
+              padding: '3px 7px',
+              fontFamily: 'Cormorant Garamond, Georgia, serif',
+              fontStyle: 'italic',
+              pointerEvents: 'none',
+            }}>
+              PLACEHOLDER
+            </div>
           </div>
         </section>
 
@@ -245,6 +299,7 @@ export default function ConceptPage() {
               aspectRatio: '3 / 4',
               flexShrink: 0,
               overflow: 'hidden',
+              position: 'relative',
             }}
           >
             <img
@@ -267,6 +322,21 @@ export default function ConceptPage() {
                 }
               }}
             />
+            <div style={{
+              position: 'absolute',
+              right: '10px',
+              bottom: '10px',
+              background: 'rgba(0,0,0,0.45)',
+              color: '#fff',
+              fontSize: '9px',
+              letterSpacing: '0.18em',
+              padding: '3px 7px',
+              fontFamily: 'Cormorant Garamond, Georgia, serif',
+              fontStyle: 'italic',
+              pointerEvents: 'none',
+            }}>
+              PLACEHOLDER
+            </div>
           </div>
 
           {/* テキスト */}
@@ -359,12 +429,16 @@ export default function ConceptPage() {
             ].map(({ en, ja, text, motif }) => (
               <div key={en} className="rise" style={{ textAlign: 'center' }}>
                 {/* ボタニカルアイコン */}
-                <img
-                  src={MOTIF_PNG[motif]}
-                  alt=""
+                <svg
+                  className="draw"
+                  viewBox="0 0 48 48"
+                  width="52"
+                  height="52"
+                  style={{ margin: '0 auto 24px', display: 'block', color: '#B8956A', opacity: 0.85 }}
                   aria-hidden="true"
-                  style={{ width: '52px', height: '52px', objectFit: 'contain', margin: '0 auto 24px', display: 'block', opacity: 0.85 }}
-                />
+                >
+                  <use href={`#${motif}`} />
+                </svg>
                 <p
                   style={{
                     fontFamily: "'Cormorant Garamond', Georgia, serif",

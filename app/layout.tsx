@@ -35,11 +35,11 @@ const shippori = Shippori_Mincho({
 })
 
 export const metadata: Metadata = {
-  title: 'Grace — PATISSERIE',
+  title: 'Grace｜春日井のパティスリー',
   description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
   metadataBase: new URL('https://www.grace-patisserie.jp'),
   openGraph: {
-    title: 'Grace — PATISSERIE',
+    title: 'Grace｜春日井のパティスリー',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
     type: 'website',
     url: 'https://www.grace-patisserie.jp',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Grace — PATISSERIE',
+    title: 'Grace｜春日井のパティスリー',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
     images: ['/logo-horizontal.png'],
   },

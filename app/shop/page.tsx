@@ -75,7 +75,7 @@ export default function ShopPage() {
           {/* 左: 店舗写真（プレースホルダー） */}
           <div style={{ position: 'relative', overflow: 'hidden', minHeight: '460px' }}>
             <img
-              src="https://images.pexels.com/photos/33683554/pexels-photo-33683554.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              src="/photos/placeholder_05.jpg"
               alt="パティスリー Grace 店舗イメージ（仮素材）"
               loading="lazy"
               style={{
@@ -210,7 +210,7 @@ export default function ShopPage() {
         {/* ─── Google Maps 埋め込み ─── */}
         <div style={{ width: '100%', height: '360px', marginTop: '0', overflow: 'hidden' }}>
           <iframe
-            src="https://maps.google.com/maps?q=愛知県春日井市朝宮町1-2-6&hl=ja&output=embed"
+            src="https://maps.google.com/maps?q=35.2474,136.9839&z=16&hl=ja&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
