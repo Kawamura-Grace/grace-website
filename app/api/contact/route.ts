@@ -100,8 +100,8 @@ export async function POST(request: NextRequest) {
     // ─── 代表宛メール通知（失敗しても送信成功として返す） ───
     if (resend) {
       resend.emails.send({
-        from:    'noreply@grace-patisserie.jp',
-        to:      'kawamura@grace-foods.com',
+        from:    process.env.CONTACT_EMAIL_FROM ?? 'noreply@grace-patisserie.jp',
+        to:      process.env.CONTACT_EMAIL_TO   ?? 'info@grace-foods.com',
         subject: `【Grace HP】新規お問合せ: ${data.category}`,
         text: [
           `${data.name} 様${data.company ? `（${data.company}）` : ''}からのお問い合わせ`,
