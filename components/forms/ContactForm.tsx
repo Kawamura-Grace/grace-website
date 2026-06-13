@@ -1,14 +1,20 @@
 'use client'
 
 // お問い合わせフォーム — react-hook-form + zod バリデーション
-// ハニーポット（website field）でスパム対策
+// ハニーポット（website field）＋ reCAPTCHA v3 でスパム対策
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import type { ContactCategory } from '@/lib/notion/types'
 import { cn } from '@/lib/utils/cn'
+
+// ─── reCAPTCHA 型定義（グローバル grecaptcha） ───
+type GrecaptchaInstance = {
+  execute: (siteKey: string, options: { action: string }) => Promise<string>
+  ready: (callback: () => void) => void
+}
 
 // ─── バリデーションスキーマ（API route と同一） ───
 const schema = z.object({
@@ -25,6 +31,7 @@ const schema = z.object({
     errorMap: () => ({ message: 'プライバシーポリシーへの同意が必要です' }),
   }),
   website: z.string().max(0).optional(), // ハニーポット: 値があればスパムと判定
+  recaptchaToken: z.string().optional(), // reCAPTCHA v3 トークン
 })
 
 type FormData = z.infer<typeof schema>
@@ -48,6 +55,19 @@ export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
+  // reCAPTCHA v3 スクリプトを動的ロード（サイトキー未設定時はスキップ）
+  useEffect(() => {
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    if (!siteKey) return
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
+    script.async = true
+    document.head.appendChild(script)
+    return () => {
+      document.head.removeChild(script)
+    }
+  }, [])
+
   const {
     register,
     handleSubmit,
@@ -63,11 +83,26 @@ export function ContactForm() {
     // ハニーポット: websiteフィールドに値があればスパム → 送信しない
     if (data.website) return
 
+    // reCAPTCHA v3 トークン取得（サイトキー設定時のみ）
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    let recaptchaToken: string | undefined
+    if (siteKey && typeof window !== 'undefined') {
+      const w = window as unknown as { grecaptcha?: GrecaptchaInstance }
+      if (w.grecaptcha) {
+        recaptchaToken = await new Promise<string>((resolve) => {
+          w.grecaptcha!.ready(async () => {
+            const token = await w.grecaptcha!.execute(siteKey, { action: 'contact' })
+            resolve(token)
+          })
+        })
+      }
+    }
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, recaptchaToken }),
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
+import { SubscribeForm } from '@/components/forms/SubscribeForm'
 
 export const dynamic = 'force-dynamic'
 
@@ -1086,53 +1087,7 @@ export default function HomePage() {
               焼き菓子と冷凍スイーツのお届けを準備しています。<br />
               オンラインショップは2026年秋、オープン予定です。
             </p>
-            <div
-              style={{
-                marginTop: '46px',
-                display: 'flex',
-                justifyContent: 'center',
-                maxWidth: '460px',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-              }}
-            >
-              <input
-                type="email"
-                placeholder="メールアドレス"
-                aria-label="メールアドレス"
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  background: 'transparent',
-                  border: '1px solid rgba(247,243,239,.35)',
-                  borderRight: 'none',
-                  color: '#F7F3EF',
-                  fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
-                  fontSize: '13px',
-                  padding: '15px 18px',
-                  outline: 'none',
-                }}
-              />
-              <button
-                type="button"
-                style={{
-                  background: '#B8956A',
-                  color: '#2C2421',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontSize: '13.5px',
-                  letterSpacing: '0.2em',
-                  padding: '0 24px',
-                  transition: 'opacity .3s',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85' }}
-                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
-              >
-                お知らせを受け取る
-              </button>
-            </div>
+            <SubscribeForm />
             <p
               style={{
                 display: 'inline-block',

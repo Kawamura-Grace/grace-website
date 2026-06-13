@@ -17,7 +17,21 @@ const schema = z.object({
   message:      z.string().min(10).max(2000),
   privacyAgreed: z.literal(true),
   website:      z.string().max(0).optional(), // ハニーポット
+  recaptchaToken: z.string().optional(),       // reCAPTCHA v3 トークン
 })
+
+// reCAPTCHA v3 スコア検証（未設定時は 1.0 として通過）
+async function verifyRecaptcha(token: string): Promise<number> {
+  const secret = process.env.RECAPTCHA_SECRET_KEY
+  if (!secret) return 1.0
+  const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `secret=${secret}&response=${token}`,
+  })
+  const json = await res.json() as { success: boolean; score: number }
+  return json.success ? (json.score ?? 0) : 0
+}
 
 export async function POST(request: NextRequest) {
   // Resendインスタンスはリクエスト時に生成（ビルド時のenv未設定エラーを防ぐ）
@@ -48,6 +62,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: true })
     }
 
+    // reCAPTCHA v3 スコア検証（スコア低くても記録・送信は通常通り、Notionにフラグのみ）
+    let recaptchaScore = 1.0
+    if (data.recaptchaToken) {
+      recaptchaScore = await verifyRecaptcha(data.recaptchaToken)
+    }
+    const isLowScore = recaptchaScore < 0.5
+
     // ─── Notion ContactDB に記録 ───
     if (process.env.NOTION_TOKEN) {
       try {
@@ -57,7 +78,7 @@ export async function POST(request: NextRequest) {
             '送信者名':  { title: [{ text: { content: data.name } }] },
             'メール':    { email: data.email },
             'カテゴリ':  { select: { name: data.category } },
-            'ステータス': { select: { name: '未返信' } },
+            'ステータス': { select: { name: isLowScore ? '要確認' : '未返信' } },
             ...(data.company ? { '会社名':   { rich_text: [{ text: { content: data.company } }] } } : {}),
             ...(data.phone   ? { '電話番号': { phone_number: data.phone } } : {}),
             'メッセージ': { rich_text: [{ text: { content: data.message } }] },
