@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
       const messagePreview = data.message.slice(0, 200) + (data.message.length > 200 ? '...' : '')
 
       resend.emails.send({
-        from:    'noreply@grace-patisserie.jp',
+        from:    process.env.CONTACT_EMAIL_FROM ?? 'onboarding@resend.dev',
         to:      data.email,
         subject: '【Grace】お問合せを承りました',
         text: [
