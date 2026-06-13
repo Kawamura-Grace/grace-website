@@ -7,6 +7,9 @@ import { Footer } from '@/components/layout/Footer'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 import { SubscribeForm } from '@/components/forms/SubscribeForm'
 
+// Journal記事の型（APIレスポンス用）
+type JournalItem = { id: string; slug: string; category: string; title: string }
+
 export const dynamic = 'force-dynamic'
 
 // グランドオープン後に true に変更するとステータスバーが表示される
@@ -376,12 +379,21 @@ export default function HomePage() {
   const { phase, setDemoPhase } = usePhase()
   const phaseData = PHASES[phase]
   const [isOpen, setIsOpen] = useState(false)
+  const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
 
   // 営業判定はクライアントサイドのみ
   useEffect(() => {
     setIsOpen(calcIsOpen())
     const timer = setInterval(() => setIsOpen(calcIsOpen()), 60_000)
     return () => clearInterval(timer)
+  }, [])
+
+  // Journal最新3記事をAPIから取得
+  useEffect(() => {
+    fetch('/api/journal/latest')
+      .then(r => r.json())
+      .then((data: { posts: JournalItem[] }) => setJournalPosts(data.posts ?? []))
+      .catch(() => {})
   }, [])
 
   return (
@@ -556,7 +568,7 @@ export default function HomePage() {
               やさしさ ／ 余白 ／ 季節 ／ 香り ／ 素材 ／ 手仕事 ／ 豊かさ
             </p>
             <p style={{ marginTop: '36px' }}>
-              <Btn href="#">View Concept</Btn>
+              <Btn href="/concept">View Concept</Btn>
             </p>
           </div>
         </section>
@@ -823,7 +835,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p style={{ marginTop: '34px' }}>
-                <Btn href="#">View Gift</Btn>
+                <Btn href="#gift">View Gift</Btn>
               </p>
             </div>
           </div>
@@ -932,14 +944,10 @@ export default function HomePage() {
         >
           <p className="rise"><Label>Journal</Label></p>
           <div className="rise" data-d="1" style={{ marginTop: '30px' }}>
-            {[
-              { cat: 'Story', title: 'Graceが生まれるまで — 春日井に小さなパティスリーをひらく理由' },
-              { cat: 'Craft', title: '素材のはなし — 香りを大切にする、お菓子づくりの考えかた' },
-              { cat: 'Gift',  title: '贈るという時間 — 大切な人へ、Graceのお菓子を選ぶ' },
-            ].map(({ cat, title }) => (
+            {journalPosts.map(({ category: cat, slug, title }) => (
               <a
-                key={title}
-                href="#"
+                key={slug}
+                href={`/journal/${slug}`}
                 style={{
                   display: 'flex',
                   gap: '22px',
@@ -970,6 +978,9 @@ export default function HomePage() {
                 {title}
               </a>
             ))}
+            <p style={{ marginTop: '28px', textAlign: 'right' }}>
+              <Btn href="/journal">View all Journal</Btn>
+            </p>
           </div>
         </section>
 
