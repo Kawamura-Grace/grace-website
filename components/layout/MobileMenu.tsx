@@ -4,14 +4,15 @@ import { useEffect } from 'react'
 
 // モバイルメニューの項目（英語ラベル + 日本語サブテキスト）
 const MENU_ITEMS = [
-  { label: 'Concept',  jp: 'ブランドについて', href: '/concept' },
-  { label: 'Sweets',   jp: 'お菓子',           href: '/#sweets' },
-  { label: 'Gift',     jp: '贈りもの',          href: '/#gift' },
-  { label: 'Showcase', jp: 'ショーケース',       href: '/#case' },
-  { label: 'Journal',  jp: 'ジャーナル',        href: '/journal' },
-  { label: 'News',     jp: 'お知らせ',          href: '/news' },
-  { label: 'Shop',     jp: '店舗案内',          href: '/shop' },
-  { label: 'Contact',  jp: 'お問い合わせ',      href: '/contact' },
+  { label: 'Concept',  jp: 'ブランドについて', href: '/concept',                                    external: false },
+  { label: 'Sweets',   jp: 'お菓子',           href: '/#sweets',                                    external: false },
+  { label: 'Gift',     jp: '贈りもの',          href: '/#gift',                                      external: false },
+  { label: 'Showcase', jp: 'ショーケース',       href: '/#case',                                      external: false },
+  { label: 'Journal',  jp: 'ジャーナル',        href: '/journal',                                    external: false },
+  { label: 'News',     jp: 'お知らせ',          href: '/news',                                       external: false },
+  { label: 'Shop',     jp: '店舗案内',          href: '/shop',                                       external: false },
+  { label: 'Contact',  jp: 'お問い合わせ',      href: '/contact',                                    external: false },
+  { label: 'Recruit',  jp: '採用情報',          href: 'https://arwrk.net/recruit/grace-patisserie', external: true  },
 ]
 
 interface MobileMenuProps {
@@ -95,11 +96,12 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       </button>
 
       {/* ナビゲーション項目 */}
-      {MENU_ITEMS.map(({ label, jp, href }) => (
+      {MENU_ITEMS.map(({ label, jp, href, external }) => (
         <a
           key={href}
           href={href}
           onClick={onClose}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontStyle: 'italic',

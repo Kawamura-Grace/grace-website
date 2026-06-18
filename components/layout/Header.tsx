@@ -8,14 +8,15 @@ import { usePhase } from '@/lib/hooks/usePhase'
 
 // デスクトップナビゲーション項目
 const NAV_ITEMS = [
-  { label: 'Concept',  href: '/concept' },
-  { label: 'Sweets',   href: '/#sweets' },
-  { label: 'Gift',     href: '/#gift' },
-  { label: 'Showcase', href: '/#case' },
-  { label: 'Journal',  href: '/journal' },
-  { label: 'News',     href: '/news' },
-  { label: 'Shop',     href: '/shop' },
-  { label: 'Contact',  href: '/contact' },
+  { label: 'Concept',  href: '/concept',                                    external: false },
+  { label: 'Sweets',   href: '/#sweets',                                    external: false },
+  { label: 'Gift',     href: '/#gift',                                      external: false },
+  { label: 'Showcase', href: '/#case',                                      external: false },
+  { label: 'Journal',  href: '/journal',                                    external: false },
+  { label: 'News',     href: '/news',                                       external: false },
+  { label: 'Shop',     href: '/shop',                                       external: false },
+  { label: 'Contact',  href: '/contact',                                    external: false },
+  { label: 'Recruit',  href: 'https://arwrk.net/recruit/grace-patisserie', external: true  },
 ]
 
 /**
@@ -124,10 +125,11 @@ export function Header() {
           }}
           className="desktop-nav"
         >
-          {NAV_ITEMS.map(({ label, href }) => (
+          {NAV_ITEMS.map(({ label, href, external }) => (
             <a
               key={href}
               href={href}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               style={{
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 fontStyle: 'italic',
