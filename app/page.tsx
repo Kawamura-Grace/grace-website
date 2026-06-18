@@ -3,20 +3,27 @@ import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { ConceptExcerpt } from '@/components/sections/ConceptExcerpt'
 import { SeasonalProducts } from '@/components/sections/SeasonalProducts'
-import { JournalLatest } from '@/components/sections/JournalLatest'
+// ティザーフェーズで非表示 — 本番化時に以下3行をまとめて復元すること:
+//   (1) import { JournalLatest } from '@/components/sections/JournalLatest'
+//   (2) import { getLatestJournalPosts } from '@/lib/notion/journal'
+//   (3) getLatestJournalPosts(3).catch(() => []) を Promise.all に追加し latestJournals に代入
+//   (4) <JournalLatest posts={latestJournals} /> のコメントアウトを解除
+// import { JournalLatest } from '@/components/sections/JournalLatest'
 import { EcInvitation } from '@/components/sections/EcInvitation'
 import { getSeasonalProducts } from '@/lib/notion/products'
-import { getLatestJournalPosts } from '@/lib/notion/journal'
+// import { getLatestJournalPosts } from '@/lib/notion/journal'
 import { getTopNews } from '@/lib/notion/news'
-import Link from 'next/link'
+// Link は page.tsx 内未使用（子ページリンクを span に変更したため）
+// 本番化時に子ページリンクを Link に戻す際はコメント解除する
+// import Link from 'next/link'
 import { formatDate } from '@/lib/utils/date'
 
 export const revalidate = 3600 // ISR 1時間
 
 export default async function HomePage() {
-  const [seasonalProducts, latestJournals, topNews] = await Promise.all([
+  const [seasonalProducts, topNews] = await Promise.all([
     getSeasonalProducts('秋').catch(() => []),
-    getLatestJournalPosts(3).catch(() => []),
+    // getLatestJournalPosts(3) はティザーフェーズで非使用
     getTopNews().catch(() => null),
   ])
 
@@ -24,12 +31,12 @@ export default async function HomePage() {
     <>
       <Header variant="transparent" />
 
-      {/* ニュースティッカー */}
+      {/* ニュースティッカー — ティザーフェーズでは /news ページへの遷移を無効化 */}
       {topNews && (
         <div className="bg-grace-wasabi text-grace-offwhite py-2 px-4 text-center">
-          <Link href={`/news/${topNews.slug}`} className="font-noto-serif text-base tracking-wide hover:underline">
+          <span className="font-noto-serif text-base tracking-wide">
             {formatDate(topNews.publishedAt)} — {topNews.title}
-          </Link>
+          </span>
         </div>
       )}
 
@@ -37,7 +44,9 @@ export default async function HomePage() {
         <Hero />
         <ConceptExcerpt />
         <SeasonalProducts products={seasonalProducts} />
-        <JournalLatest posts={latestJournals} />
+        {/* Journal section - ティザーフェーズで非表示
+            本番化時の復元手順はファイル冒頭コメントを参照 */}
+        {/* <JournalLatest posts={latestJournals} /> */}
 
         {/* Shop Info 簡易 */}
         <section className="section-padding bg-grace-offwhite">
@@ -56,12 +65,12 @@ export default async function HomePage() {
                     <dd>9:30 – 19:30　不定休</dd>
                   </div>
                 </dl>
-                <Link
-                  href="/shop"
-                  className="inline-block mt-8 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary hover:text-grace-brown transition-colors border-b border-grace-line pb-1"
+                {/* ティザーフェーズ：/shop への遷移を無効化 */}
+                <span
+                  className="inline-block mt-8 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border-b border-grace-line pb-1 cursor-default"
                 >
                   SHOP DETAIL →
-                </Link>
+                </span>
               </div>
               {/* 地図プレースホルダー */}
               <div className="aspect-video bg-grace-stone flex items-center justify-center">

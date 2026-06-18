@@ -1,14 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+// ティザーフェーズのナビ設定
+// disabled: true のリンクはティザー期間中クリック不可（span で描画）
 const NAV = [
-  { label: 'Concept',     href: '/concept' },
-  { label: 'Sweets',      href: '/sweets' },
-  { label: 'Gift',        href: '/gift' },
-  { label: 'News',        href: '/news' },
-  { label: 'Shop Info',   href: '/shop' },
-  { label: 'Online Store',href: 'https://square.site', external: true },
-  { label: 'Contact',     href: '/contact' },
+  { label: 'Concept',     href: '/concept',                   disabled: true },
+  { label: 'Sweets',      href: '/sweets',                    disabled: true },
+  { label: 'Gift',        href: '/gift',                      disabled: true },
+  { label: 'News',        href: '/news',                      disabled: true },
+  { label: 'Shop Info',   href: '/shop',                      disabled: true },
+  { label: 'Online Store',href: 'https://square.site',        external: true },
+  { label: 'Contact',     href: '/contact',                   disabled: true },
+  { label: 'Recruit',     href: 'https://arwrk.net/recruit/grace-patisserie', external: true },
 ]
 
 const LEGAL = [
@@ -40,9 +43,10 @@ export function Footer() {
           <div>
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">MENU</p>
             <ul className="space-y-2">
-              {NAV.map(({ label, href, external }) => (
+              {NAV.map(({ label, href, external, disabled }) => (
                 <li key={href}>
                   {external ? (
+                    // 外部リンク（Online Store・Recruit）はそのまま有効
                     <a
                       href={href}
                       target="_blank"
@@ -51,6 +55,11 @@ export function Footer() {
                     >
                       {label}
                     </a>
+                  ) : disabled ? (
+                    // ティザーフェーズ：子ページリンクは span で無効化（外観維持）
+                    <span className="font-noto-serif text-base text-grace-text-secondary cursor-default">
+                      {label}
+                    </span>
                   ) : (
                     <Link
                       href={href}
