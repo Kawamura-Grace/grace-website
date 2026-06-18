@@ -4,14 +4,17 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils/cn'
 
+// ティザーフェーズのナビ設定
+// disabled: true のリンクはティザー期間中クリック不可（span で描画）
 const NAV_ITEMS = [
-  { label: 'Concept',      href: '/concept' },
-  { label: 'Sweets',       href: '/sweets' },
-  { label: 'Gift',         href: '/gift' },
-  { label: 'News',         href: '/news' },
-  { label: 'Shop Info',    href: '/shop' },
-  { label: 'Online Store', href: 'https://square.site', external: true },
-  { label: 'Contact',      href: '/contact' },
+  { label: 'Concept',      href: '/concept',                               disabled: true },
+  { label: 'Sweets',       href: '/sweets',                                disabled: true },
+  { label: 'Gift',         href: '/gift',                                  disabled: true },
+  { label: 'News',         href: '/news',                                  disabled: true },
+  { label: 'Shop Info',    href: '/shop',                                  disabled: true },
+  { label: 'Online Store', href: 'https://square.site',                    external: true },
+  { label: 'Contact',      href: '/contact',                               disabled: true },
+  { label: '採用情報',       href: 'https://arwrk.net/recruit/grace-patisserie', external: true },
 ]
 
 interface MobileMenuProps {
@@ -65,9 +68,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         </div>
 
         <ul className="flex-1 px-8 py-8 space-y-1">
-          {NAV_ITEMS.map(({ label, href, external }) => (
+          {NAV_ITEMS.map(({ label, href, external, disabled }) => (
             <li key={href}>
               {external ? (
+                // 外部リンク（Online Store・採用情報）はそのまま有効
                 <a
                   href={href}
                   target="_blank"
@@ -77,6 +81,11 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 >
                   {label}
                 </a>
+              ) : disabled ? (
+                // ティザーフェーズ：子ページリンクは span で無効化（外観維持）
+                <span className="block font-cormorant italic text-2xl text-grace-text-secondary py-2 cursor-default">
+                  {label}
+                </span>
               ) : (
                 <Link
                   href={href}
