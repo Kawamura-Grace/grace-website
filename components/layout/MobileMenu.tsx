@@ -83,7 +83,11 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 </a>
               ) : disabled ? (
                 // ティザーフェーズ：子ページリンクは span で無効化（外観維持）
-                <span className="block font-cormorant italic text-2xl text-grace-text-secondary py-2 cursor-default">
+                // onClose を呼ぶことでタップ時にメニューが閉じる
+                <span
+                  className="block font-cormorant italic text-2xl text-grace-text-secondary py-2 cursor-default"
+                  onClick={onClose}
+                >
                   {label}
                 </span>
               ) : (

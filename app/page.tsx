@@ -3,14 +3,18 @@ import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { ConceptExcerpt } from '@/components/sections/ConceptExcerpt'
 import { SeasonalProducts } from '@/components/sections/SeasonalProducts'
-// JournalLatest はティザーフェーズで非表示 — 本番化時に復活
+// ティザーフェーズで非表示 — 本番化時に以下3行をまとめて復元すること:
+//   (1) import { JournalLatest } from '@/components/sections/JournalLatest'
+//   (2) import { getLatestJournalPosts } from '@/lib/notion/journal'
+//   (3) getLatestJournalPosts(3).catch(() => []) を Promise.all に追加し latestJournals に代入
+//   (4) <JournalLatest posts={latestJournals} /> のコメントアウトを解除
 // import { JournalLatest } from '@/components/sections/JournalLatest'
 import { EcInvitation } from '@/components/sections/EcInvitation'
 import { getSeasonalProducts } from '@/lib/notion/products'
-// getLatestJournalPosts はティザーフェーズで不使用
 // import { getLatestJournalPosts } from '@/lib/notion/journal'
 import { getTopNews } from '@/lib/notion/news'
-// Link はティザーフェーズで page.tsx 内未使用（子ページリンクを span に変更したため）
+// Link は page.tsx 内未使用（子ページリンクを span に変更したため）
+// 本番化時に子ページリンクを Link に戻す際はコメント解除する
 // import Link from 'next/link'
 import { formatDate } from '@/lib/utils/date'
 
@@ -40,7 +44,8 @@ export default async function HomePage() {
         <Hero />
         <ConceptExcerpt />
         <SeasonalProducts products={seasonalProducts} />
-        {/* Journal section - ティザーフェーズで非表示（本番化時にコメント解除） */}
+        {/* Journal section - ティザーフェーズで非表示
+            本番化時の復元手順はファイル冒頭コメントを参照 */}
         {/* <JournalLatest posts={latestJournals} /> */}
 
         {/* Shop Info 簡易 */}
