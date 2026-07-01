@@ -6,21 +6,16 @@ import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Tag } from '@/components/ui/Tag'
-import { getJournalPosts, getJournalBySlug, getJournalBlocks } from '@/lib/notion/journal'
+import { getJournalBySlug, getJournalBlocks } from '@/lib/notion/journal'
 import { getProductBySlug, getProducts } from '@/lib/notion/products'
 import { formatDateJa } from '@/lib/utils/date'
 import type { BlockObjectResponse, PartialBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
-export const revalidate = 3600
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: { slug: string }
-}
-
-// ─── generateStaticParams ───
-export async function generateStaticParams() {
-  const posts = await getJournalPosts().catch(() => [])
-  return posts.map(p => ({ slug: p.slug }))
 }
 
 // ─── メタデータ動的生成 ───

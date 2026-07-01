@@ -8,7 +8,8 @@ import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 
-export const revalidate = 3600 // 1時間
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Sweets | Grace — PATISSERIE',
@@ -56,13 +57,29 @@ export default async function SweetsPage({ searchParams }: PageProps) {
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
+          {/* 背景写真: パティスリーのケーキ・ペストリー陳列 */}
+          <Image
+            src="https://images.pexels.com/photos/17869890/pexels-photo-17869890.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+            priority
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">OUR PRODUCTS</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Sweets
             </h1>
-            <div className="w-8 h-px bg-grace-gold mx-auto" />
+            <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
+            <p className="font-noto-serif text-lg text-grace-stone leading-loose max-w-md mx-auto">
+              季節と素材が主役。<br />
+              手仕事でしか生まれない、一皿のお菓子。
+            </p>
           </div>
         </section>
 

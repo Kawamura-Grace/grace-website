@@ -1,123 +1,208 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
-// ティザーフェーズのナビ設定
-// disabled: true のリンクはティザー期間中クリック不可（span で描画）
-const NAV = [
-  { label: 'Concept',     href: '/concept',                   disabled: true },
-  { label: 'Sweets',      href: '/sweets',                    disabled: true },
-  { label: 'Gift',        href: '/gift',                      disabled: true },
-  { label: 'News',        href: '/news',                      disabled: true },
-  { label: 'Shop Info',   href: '/shop',                      disabled: true },
-  { label: 'Online Store',href: 'https://square.site',        external: true },
-  { label: 'Contact',     href: '/contact',                   disabled: true },
-  { label: 'Recruit',     href: 'https://arwrk.net/recruit/grace-patisserie', external: true },
+// フッターナビゲーション
+const FNAV = [
+  { label: 'Concept',     href: '/concept',                                      external: false },
+  { label: 'Sweets',      href: '/#sweets',                                      external: false },
+  { label: 'Gift',        href: '/#gift',                                        external: false },
+  { label: 'Showcase',    href: '/#case',                                        external: false },
+  { label: 'Shop',        href: '/shop',                                         external: false },
+  { label: 'Online Shop', href: '/#online-shop',                                 external: false },
+  { label: 'Journal',     href: '/journal',                                      external: false },
+  { label: 'News',        href: '/news',                                         external: false },
+  { label: 'Contact',     href: '/contact',                                      external: false },
+  { label: 'Recruit',     href: '/recruit',                                      external: false },
 ]
 
-const LEGAL = [
-  { label: 'プライバシーポリシー', href: '/privacy' },
-  { label: '特定商取引法表記',     href: '/terms' },
-]
-
+/**
+ * cinematic-b フッター
+ * - 背景: var(--grace-brown)
+ * - ロゴ: 横版白（footer-logo クラスで常に白版表示）
+ * - 参照HTML .footer に準拠
+ */
 export function Footer() {
   return (
-    <footer className="bg-grace-offwhite border-t border-grace-line">
-      <div className="container-content py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-
-          {/* ブランド */}
-          <div>
+    <footer
+      id="contact"
+      style={{
+        background: '#2C2421',
+        color: '#F7F3EF',
+        padding: 'clamp(56px,8vw,84px) clamp(24px,6vw,80px) 38px',
+        borderTop: '1px solid rgba(247,243,239,.08)',
+      }}
+    >
+      {/* フッター上部 */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '40px',
+        }}
+      >
+        {/* ブランド情報 */}
+        <div>
+          {/* ロゴ（横版白を常時表示） */}
+          <div
+            className="footer-logo"
+            style={{ height: '30px', marginBottom: '20px' }}
+          >
+            {/* footer-logo クラスが .logo-d を非表示 .logo-w を表示 */}
             <Image
-              src="/logo-horizontal.png"
-              alt="Pâtisserie Grace"
-              width={160}
-              height={40}
-              className="mb-4"
+              className="logo-d"
+              src="/logo/Grace横ダークブラウン版.png"
+              alt="Grace"
+              width={120}
+              height={26}
+              priority
+              style={{ height: '100%', width: 'auto' }}
             />
-            <p className="font-noto-serif text-base text-grace-text-tertiary leading-relaxed tracking-wide">
-              美しい暮らしには、お菓子がある。
-            </p>
+            <Image
+              className="logo-w"
+              src="/logo/Grace横白版.png"
+              alt="Grace"
+              width={120}
+              height={26}
+              priority
+              style={{ height: '100%', width: 'auto' }}
+            />
+            <span
+              style={{
+                display: 'none',
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontStyle: 'italic',
+                fontWeight: 300,
+                fontSize: '24px',
+                color: '#F7F3EF',
+              }}
+            >
+              Grace
+            </span>
           </div>
 
-          {/* ナビ */}
-          <div>
-            <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">MENU</p>
-            <ul className="space-y-2">
-              {NAV.map(({ label, href, external, disabled }) => (
-                <li key={href}>
-                  {external ? (
-                    // 外部リンク（Online Store・Recruit）はそのまま有効
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-noto-serif text-base text-grace-text-secondary hover:text-grace-brown transition-colors"
-                    >
-                      {label}
-                    </a>
-                  ) : disabled ? (
-                    // ティザーフェーズ：子ページリンクは span で無効化（外観維持）
-                    <span className="font-noto-serif text-base text-grace-text-secondary cursor-default">
-                      {label}
-                    </span>
-                  ) : (
-                    <Link
-                      href={href}
-                      className="font-noto-serif text-base text-grace-text-secondary hover:text-grace-brown transition-colors"
-                    >
-                      {label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* 住所・営業時間 */}
+          <address
+            style={{
+              fontStyle: 'normal',
+              fontSize: '12.5px',
+              color: 'rgba(247,243,239,.6)',
+              letterSpacing: '0.12em',
+              lineHeight: 2.1,
+            }}
+          >
+            パティスリー Grace<br />
+            愛知県春日井市朝宮町1-2-6<br />
+            9:30 - 19:30 ／ 元旦を除き毎日営業
+          </address>
 
-          {/* 店舗・SNS */}
-          <div>
-            <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">SHOP</p>
-            <address className="not-italic font-noto-serif text-base text-grace-text-secondary leading-relaxed mb-6">
-              〒486-0844<br />
-              愛知県春日井市<br />
-              営業時間 9:30–19:30<br />
-              不定休
-            </address>
-            <div className="flex gap-4">
-              <a
-                href="https://www.instagram.com/patisserie_grace_/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="text-grace-text-tertiary hover:text-grace-brown transition-colors"
-              >
-                <svg width="16" height="16" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                  <circle cx="12" cy="12" r="5"/>
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
+          {/* Instagram */}
+          <p
+            style={{
+              marginTop: '20px',
+              fontSize: '12px',
+              letterSpacing: '0.16em',
+            }}
+          >
+            Instagram&nbsp;&nbsp;
+            <a
+              href="https://www.instagram.com/patisserie_grace_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: '#B8956A',
+                borderBottom: '1px solid rgba(184,149,106,.4)',
+                paddingBottom: '2px',
+              }}
+            >
+              @patisserie_grace_
+            </a>
+          </p>
 
-        {/* ボトム */}
-        <div className="border-t border-grace-line pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex gap-6">
-            {LEGAL.map(({ label, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className="font-noto-sans text-[10px] tracking-wide text-grace-text-tertiary hover:text-grace-brown transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
-          <p className="font-noto-sans text-[10px] tracking-wide text-grace-text-tertiary">
-            © {new Date().getFullYear()} 株式会社Grace Foods
+          {/* お問い合わせ */}
+          <p
+            style={{
+              marginTop: '8px',
+              fontSize: '12px',
+              letterSpacing: '0.12em',
+              color: 'rgba(247,243,239,.6)',
+            }}
+          >
+            取材・法人ギフト・卸・採用のお問い合わせ&nbsp;&nbsp;
+            <Link
+              href="/contact"
+              style={{ color: '#B8956A', borderBottom: '1px solid rgba(184,149,106,.4)', paddingBottom: '2px' }}
+            >
+              Contact Form
+            </Link>
           </p>
         </div>
+
+        {/* フッターナビ */}
+        <nav
+          aria-label="フッターナビゲーション"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, auto)',
+            gap: '13px 42px',
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '13.5px',
+            letterSpacing: '0.22em',
+            alignContent: 'start',
+          }}
+          className="footer-fnav"
+        >
+          {FNAV.map(({ label, href, external }) => (
+            <a
+              key={href}
+              href={href}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              style={{
+                color: '#F7F3EF',
+                transition: 'opacity .3s',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
       </div>
+
+      {/* フッター下部 */}
+      <div
+        style={{
+          marginTop: '48px',
+          paddingTop: '22px',
+          borderTop: '1px solid rgba(247,243,239,.1)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px',
+          fontSize: '11px',
+          letterSpacing: '0.16em',
+          color: 'rgba(247,243,239,.45)',
+        }}
+      >
+        <p>&copy; 2026 Grace Foods Inc.</p>
+        <p>
+          <Link href="/privacy" style={{ color: 'inherit' }}>Privacy Policy</Link>
+          &nbsp;&nbsp;／&nbsp;&nbsp;
+          <Link href="/terms" style={{ color: 'inherit' }}>Terms</Link>
+        </p>
+      </div>
+
+      {/* フッターナビのレスポンシブ */}
+      <style>{`
+        @media (max-width: 880px) {
+          .footer-fnav { grid-template-columns: repeat(2, auto) !important; }
+        }
+      `}</style>
     </footer>
   )
 }

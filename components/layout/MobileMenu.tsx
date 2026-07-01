@@ -1,20 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils/cn'
+import { useEffect } from 'react'
 
-// ティザーフェーズのナビ設定
-// disabled: true のリンクはティザー期間中クリック不可（span で描画）
-const NAV_ITEMS = [
-  { label: 'Concept',      href: '/concept',                               disabled: true },
-  { label: 'Sweets',       href: '/sweets',                                disabled: true },
-  { label: 'Gift',         href: '/gift',                                  disabled: true },
-  { label: 'News',         href: '/news',                                  disabled: true },
-  { label: 'Shop Info',    href: '/shop',                                  disabled: true },
-  { label: 'Online Store', href: 'https://square.site',                    external: true },
-  { label: 'Contact',      href: '/contact',                               disabled: true },
-  { label: '採用情報',       href: 'https://arwrk.net/recruit/grace-patisserie', external: true },
+// モバイルメニューの項目（英語ラベル + 日本語サブテキスト）
+const MENU_ITEMS = [
+  { label: 'Concept',  jp: 'ブランドについて', href: '/concept',                                    external: false },
+  { label: 'Sweets',   jp: 'お菓子',           href: '/#sweets',                                    external: false },
+  { label: 'Gift',     jp: '贈りもの',          href: '/#gift',                                      external: false },
+  { label: 'Showcase', jp: 'ショーケース',       href: '/#case',                                      external: false },
+  { label: 'Journal',  jp: 'ジャーナル',        href: '/journal',                                    external: false },
+  { label: 'News',     jp: 'お知らせ',          href: '/news',                                       external: false },
+  { label: 'Shop',     jp: '店舗案内',          href: '/shop',                                       external: false },
+  { label: 'Contact',  jp: 'お問い合わせ',      href: '/contact',                                    external: false },
+  { label: 'Recruit',  jp: '採用情報',          href: '/recruit',                                    external: false },
 ]
 
 interface MobileMenuProps {
@@ -22,6 +20,12 @@ interface MobileMenuProps {
   onClose: () => void
 }
 
+/**
+ * cinematic-b モバイルメニュー
+ * - フルスクリーンオーバーレイ（背景: var(--grace-brown)）
+ * - 参照HTML .mobile-menu に完全準拠
+ * - 各リンクに日本語サブテキスト（.jp）付き
+ */
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   // スクロール防止
   useEffect(() => {
@@ -34,81 +38,97 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   }, [isOpen])
 
   return (
-    <>
-      {/* オーバーレイ */}
-      <div
-        className={cn(
-          'fixed inset-0 bg-grace-brown/60 z-40 transition-opacity duration-300',
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
-        )}
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: '#2C2421',
+        zIndex: 60,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '22px',
+        opacity: isOpen ? 1 : 0,
+        pointerEvents: isOpen ? 'auto' : 'none',
+        transition: 'opacity .4s',
+      }}
+      aria-hidden={!isOpen}
+    >
+      {/* 閉じるボタン */}
+      <button
         onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* メニューパネル */}
-      <nav
-        className={cn(
-          'fixed top-0 left-0 h-full w-72 bg-grace-offwhite z-50 flex flex-col transition-transform duration-300 ease-out',
-          isOpen ? 'translate-x-0' : '-translate-x-full',
-        )}
-        aria-label="ナビゲーションメニュー"
-        aria-hidden={!isOpen}
+        aria-label="メニューを閉じる"
+        style={{
+          position: 'absolute',
+          top: '24px',
+          right: '28px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          width: '34px',
+          height: '34px',
+          zIndex: 70,
+        }}
       >
-        <div className="flex items-center justify-between px-8 py-6 border-b border-grace-line">
-          <span className="font-cormorant italic text-lg text-grace-brown">Grace</span>
-          <button
-            onClick={onClose}
-            aria-label="メニューを閉じる"
-            className="text-grace-text-tertiary hover:text-grace-brown transition-colors"
+        <span
+          style={{
+            position: 'absolute',
+            left: '5px',
+            right: '5px',
+            height: '1px',
+            background: '#F7F3EF',
+            top: '16px',
+            transform: 'rotate(26deg)',
+          }}
+        />
+        <span
+          style={{
+            position: 'absolute',
+            left: '5px',
+            right: '5px',
+            height: '1px',
+            background: '#F7F3EF',
+            top: '16px',
+            transform: 'rotate(-26deg)',
+          }}
+        />
+      </button>
+
+      {/* ナビゲーション項目 */}
+      {MENU_ITEMS.map(({ label, jp, href, external }) => (
+        <a
+          key={href}
+          href={href}
+          onClick={onClose}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '22px',
+            letterSpacing: '0.2em',
+            color: '#F7F3EF',
+            textAlign: 'center',
+            display: 'block',
+          }}
+        >
+          {label}
+          <span
+            style={{
+              fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+              fontStyle: 'normal',
+              fontSize: '10.5px',
+              letterSpacing: '0.3em',
+              color: '#B8956A',
+              display: 'block',
+              marginTop: '2px',
+            }}
           >
-            <svg width="20" height="20" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <path d="M6 6l12 12M6 18L18 6"/>
-            </svg>
-          </button>
-        </div>
-
-        <ul className="flex-1 px-8 py-8 space-y-1">
-          {NAV_ITEMS.map(({ label, href, external, disabled }) => (
-            <li key={href}>
-              {external ? (
-                // 外部リンク（Online Store・採用情報）はそのまま有効
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={onClose}
-                  className="block font-cormorant italic text-2xl text-grace-text-secondary hover:text-grace-brown transition-colors py-2"
-                >
-                  {label}
-                </a>
-              ) : disabled ? (
-                // ティザーフェーズ：子ページリンクは span で無効化（外観維持）
-                // onClose を呼ぶことでタップ時にメニューが閉じる
-                <span
-                  className="block font-cormorant italic text-2xl text-grace-text-secondary py-2 cursor-default"
-                  onClick={onClose}
-                >
-                  {label}
-                </span>
-              ) : (
-                <Link
-                  href={href}
-                  onClick={onClose}
-                  className="block font-cormorant italic text-2xl text-grace-text-secondary hover:text-grace-brown transition-colors py-2"
-                >
-                  {label}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        <div className="px-8 py-6 border-t border-grace-line">
-          <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary">
-            © {new Date().getFullYear()} Grace Foods
-          </p>
-        </div>
-      </nav>
-    </>
+            {jp}
+          </span>
+        </a>
+      ))}
+    </div>
   )
 }

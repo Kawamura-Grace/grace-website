@@ -1,48 +1,72 @@
 'use client'
 
 // お問い合わせフォーム — react-hook-form + zod バリデーション
-// ハニーポット（website field）でスパム対策
+// ハニーポット（website field）＋ reCAPTCHA v3 でスパム対策
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import type { ContactCategory } from '@/lib/notion/types'
 import { cn } from '@/lib/utils/cn'
 
-// ─── バリデーションスキーマ ───
+// ─── reCAPTCHA 型定義（グローバル grecaptcha） ───
+type GrecaptchaInstance = {
+  execute: (siteKey: string, options: { action: string }) => Promise<string>
+  ready: (callback: () => void) => void
+}
 
+// ─── バリデーションスキーマ（API route と同一） ───
 const schema = z.object({
-  category:  z.enum(['商品・ご来店について', 'ギフトご相談', '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他'] as const),
-  name:      z.string().min(1, 'お名前を入力してください').max(50),
-  company:   z.string().max(100).optional(),
-  email:     z.string().email('正しいメールアドレスを入力してください'),
-  phone:     z.string().max(20).optional(),
-  message:   z.string().min(10, '10文字以上でご入力ください').max(2000, '2000文字以内でご入力ください'),
-  privacy:   z.boolean().refine(v => v === true, 'プライバシーポリシーに同意してください'),
-  website:   z.string().max(0).optional(), // ハニーポット: 入力があればスパムと判定
+  category: z.enum(
+    ['取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他'],
+    { errorMap: () => ({ message: 'お問い合わせ種別を選択してください' }) }
+  ),
+  name:     z.string().min(1, 'お名前は必須です').max(50),
+  company:  z.string().max(100).optional(),
+  email:    z.string().email('正しいメールアドレスを入力してください'),
+  phone:    z.string().max(20).optional(),
+  message:  z.string().min(10, '10文字以上入力してください').max(2000, '2000文字以内で入力してください'),
+  privacyAgreed: z.literal(true, {
+    errorMap: () => ({ message: 'プライバシーポリシーへの同意が必要です' }),
+  }),
+  website: z.string().max(0).optional(), // ハニーポット: 値があればスパムと判定
+  recaptchaToken: z.string().optional(), // reCAPTCHA v3 トークン
 })
 
 type FormData = z.infer<typeof schema>
 
 // ─── スタイル定数 ───
-
 const inputBase = cn(
-  'w-full font-noto-serif text-lg text-grace-brown bg-white',
+  'w-full font-noto-serif text-lg bg-white',
   'border border-grace-line px-4 py-3',
   'focus:outline-none focus:border-grace-brown transition-colors',
   'placeholder:text-grace-text-tertiary',
+  'text-grace-brown',
 )
 
 const labelBase = 'block font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-2'
 
 const CATEGORIES: ContactCategory[] = [
-  '商品・ご来店について', 'ギフトご相談', '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他',
+  '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他',
 ]
 
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+
+  // reCAPTCHA v3 スクリプトを動的ロード（サイトキー未設定時はスキップ）
+  useEffect(() => {
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    if (!siteKey) return
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
+    script.async = true
+    document.head.appendChild(script)
+    return () => {
+      document.head.removeChild(script)
+    }
+  }, [])
 
   const {
     register,
@@ -50,20 +74,35 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { category: '商品・ご来店について' },
+    defaultValues: { category: '取材' },
   })
 
   const onSubmit = async (data: FormData) => {
     setSubmitError(null)
 
-    // ハニーポット: websiteフィールドに値があればスパム→送信しない
+    // ハニーポット: websiteフィールドに値があればスパム → 送信しない
     if (data.website) return
+
+    // reCAPTCHA v3 トークン取得（サイトキー設定時のみ）
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    let recaptchaToken: string | undefined
+    if (siteKey && typeof window !== 'undefined') {
+      const w = window as unknown as { grecaptcha?: GrecaptchaInstance }
+      if (w.grecaptcha) {
+        recaptchaToken = await new Promise<string>((resolve) => {
+          w.grecaptcha!.ready(async () => {
+            const token = await w.grecaptcha!.execute(siteKey, { action: 'contact' })
+            resolve(token)
+          })
+        })
+      }
+    }
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, recaptchaToken }),
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
@@ -71,21 +110,70 @@ export function ContactForm() {
       }
       setIsSubmitted(true)
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : '送信に失敗しました。しばらく経ってからお試しください。')
+      setSubmitError(
+        err instanceof Error ? err.message : '送信に失敗しました。しばらく経ってからお試しください。'
+      )
     }
   }
 
   // ─── 送信完了画面 ───
   if (isSubmitted) {
     return (
-      <div className="bg-grace-cream border border-grace-line p-12 text-center">
-        <div className="w-8 h-8 border border-grace-wasabi rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg width="16" height="16" className="block flex-shrink-0 text-grace-wasabi" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="20 6 9 17 4 12"/>
+      <div
+        style={{
+          background: 'color-mix(in srgb, var(--ink) 5%, var(--bg))',
+          border: '1px solid color-mix(in srgb, var(--ink) 14%, var(--bg))',
+          padding: 'clamp(40px,6vw,72px)',
+          textAlign: 'center',
+        }}
+      >
+        {/* チェックアイコン */}
+        <div
+          style={{
+            width: '40px',
+            height: '40px',
+            border: '1px solid #7B8B6F',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+          }}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#7B8B6F"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <h2 className="font-cormorant italic text-2xl text-grace-brown mb-4">Thank you</h2>
-        <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+        <p
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '22px',
+            letterSpacing: '0.08em',
+            marginBottom: '16px',
+          }}
+        >
+          Thank you
+        </p>
+        <p
+          style={{
+            fontSize: '14px',
+            lineHeight: 2.1,
+            letterSpacing: '0.08em',
+            color: 'color-mix(in srgb, var(--ink) 70%, var(--bg))',
+          }}
+        >
           お問い合わせありがとうございます。<br />
           3営業日以内にご返信いたします。
         </p>
@@ -95,12 +183,13 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {/* ハニーポット（画面外に隠す） */}
+
+      {/* ハニーポット: 人間には見えない、ボットが埋めてしまうフィールド */}
       <div
+        style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
         aria-hidden="true"
-        style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
       >
-        <label htmlFor="website">ウェブサイト（入力しないでください）</label>
+        <label htmlFor="website">このフィールドは空のままにしてください</label>
         <input
           id="website"
           type="text"
@@ -111,7 +200,8 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-8">
-        {/* カテゴリ */}
+
+        {/* 1. お問い合わせ種別 */}
         <div>
           <label htmlFor="category" className={labelBase}>
             お問い合わせ種別 <span className="text-grace-gold ml-1">*</span>
@@ -121,7 +211,7 @@ export function ContactForm() {
             {...register('category')}
             className={cn(inputBase, 'appearance-none cursor-pointer')}
           >
-            {CATEGORIES.map(cat => (
+            {CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
@@ -130,7 +220,7 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* お名前・会社名 */}
+        {/* 2. お名前 / 3. 会社名・屋号 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className={labelBase}>
@@ -150,7 +240,7 @@ export function ContactForm() {
           </div>
           <div>
             <label htmlFor="company" className={labelBase}>
-              会社名・店舗名 <span className="text-grace-text-tertiary ml-1">（任意）</span>
+              会社名・屋号 <span className="text-grace-text-tertiary ml-1">（任意）</span>
             </label>
             <input
               id="company"
@@ -163,7 +253,7 @@ export function ContactForm() {
           </div>
         </div>
 
-        {/* メール・電話 */}
+        {/* 4. メールアドレス / 5. 電話番号 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="email" className={labelBase}>
@@ -196,15 +286,15 @@ export function ContactForm() {
           </div>
         </div>
 
-        {/* メッセージ */}
+        {/* 6. お問い合わせ内容 */}
         <div>
           <label htmlFor="message" className={labelBase}>
-            メッセージ <span className="text-grace-gold ml-1">*</span>
+            お問い合わせ内容 <span className="text-grace-gold ml-1">*</span>
           </label>
           <textarea
             id="message"
             rows={6}
-            placeholder="お問い合わせ内容をご記入ください"
+            placeholder="お問い合わせ内容をご記入ください（10文字以上）"
             {...register('message')}
             className={cn(inputBase, 'resize-none', errors.message && 'border-grace-gold')}
           />
@@ -213,24 +303,29 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* プライバシー同意 */}
+        {/* 7. プライバシーポリシー同意 */}
         <div>
           <label className="flex items-start gap-3 cursor-pointer">
             <input
               type="checkbox"
-              {...register('privacy')}
+              {...register('privacyAgreed')}
               className="mt-0.5 w-4 h-4 accent-grace-brown cursor-pointer flex-shrink-0"
             />
             <span className="font-noto-serif text-base text-grace-text-secondary leading-relaxed">
-              <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-grace-brown transition-colors">
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-grace-brown transition-colors"
+              >
                 プライバシーポリシー
               </a>
               に同意して送信します
               <span className="text-grace-gold ml-1">*</span>
             </span>
           </label>
-          {errors.privacy && (
-            <p className="mt-1 font-noto-sans text-[10px] text-grace-gold">{errors.privacy.message}</p>
+          {errors.privacyAgreed && (
+            <p className="mt-1 font-noto-sans text-[10px] text-grace-gold">{errors.privacyAgreed.message}</p>
           )}
         </div>
 
@@ -241,7 +336,7 @@ export function ContactForm() {
           </div>
         )}
 
-        {/* 送信ボタン */}
+        {/* 8. 送信ボタン */}
         <div className="text-center pt-4">
           <button
             type="submit"
@@ -257,6 +352,7 @@ export function ContactForm() {
             {isSubmitting ? '送信中...' : 'SEND MESSAGE'}
           </button>
         </div>
+
       </div>
     </form>
   )

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
+import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP, Shippori_Mincho } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import '../styles/globals.css'
@@ -26,12 +26,20 @@ const notoSans = Noto_Sans_JP({
   display: 'swap',
 })
 
+// cinematic-b 本文フォント
+const shippori = Shippori_Mincho({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-shippori',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'Grace — PATISSERIE',
+  title: 'Grace｜春日井のパティスリー',
   description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
   metadataBase: new URL('https://www.grace-patisserie.jp'),
   openGraph: {
-    title: 'Grace — PATISSERIE',
+    title: 'Grace｜春日井のパティスリー',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
     type: 'website',
     url: 'https://www.grace-patisserie.jp',
@@ -40,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Grace — PATISSERIE',
+    title: 'Grace｜春日井のパティスリー',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
     images: ['/logo-horizontal.png'],
   },
@@ -63,7 +71,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${notoSerif.variable} ${notoSans.variable}`}
+      data-phase="day"
+      className={`${cormorant.variable} ${notoSerif.variable} ${notoSans.variable} ${shippori.variable}`}
     >
       <body>
         {GA_ID && (

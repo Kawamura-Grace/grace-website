@@ -1,5 +1,6 @@
 // News一覧ページ — リスト表示
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -8,10 +9,11 @@ import { getNewsPosts } from '@/lib/notion/news'
 import { formatDate } from '@/lib/utils/date'
 import type { NewsCategory } from '@/lib/notion/types'
 
-export const revalidate = 1800 // 30分
+// ISR: 30分ごとに再検証
+export const revalidate = 1800
 
 export const metadata: Metadata = {
-  title: 'News | Grace — PATISSERIE',
+  title: 'News | Grace｜春日井のパティスリー',
   description: 'Pâtisserie Graceのお知らせ。新商品・催事・臨時定休などの最新情報。',
 }
 
@@ -31,8 +33,20 @@ export default async function NewsPage() {
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
+          {/* 背景写真 */}
+          <Image
+            src="/photos/placeholder_01.jpg"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            aria-hidden="true"
+          />
+          {/* 仮素材であることを示すオーバーレイ（本番撮影素材差し替え時に削除） */}
+          <span style={{ position: 'absolute', right: 10, bottom: 10, fontSize: 10, color: 'white', opacity: 0.7, zIndex: 5 }}>PLACEHOLDER</span>
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">LATEST</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               News
@@ -46,8 +60,11 @@ export default async function NewsPage() {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-8">
-                  現在お知らせはありません。
+                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
+                  お知らせは準備中です。
+                </p>
+                <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
+                  オープンに向けた情報をこちらでお届けします。
                 </p>
                 <a
                   href="/contact"
