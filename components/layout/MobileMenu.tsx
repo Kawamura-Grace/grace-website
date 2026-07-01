@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { label: 'Shop Info',    href: '/shop',                                  disabled: true },
   { label: 'Online Store', href: 'https://square.site',                    external: true },
   { label: 'Contact',      href: '/contact',                               disabled: true },
-  { label: '採用情報',       href: 'https://arwrk.net/recruit/grace-patisserie', external: true },
+  { label: '採用情報',       href: '/recruit' },
 ]
 
 interface MobileMenuProps {
@@ -71,7 +71,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {NAV_ITEMS.map(({ label, href, external, disabled }) => (
             <li key={href}>
               {external ? (
-                // 外部リンク（Online Store・採用情報）はそのまま有効
+                // 外部リンク（Online Store）はそのまま有効
                 <a
                   href={href}
                   target="_blank"
