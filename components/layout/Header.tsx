@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { label: 'News',     href: '/news',                                       external: false },
   { label: 'Shop',     href: '/shop',                                       external: false },
   { label: 'Contact',  href: '/contact',                                    external: false },
-  { label: 'Recruit',  href: 'https://arwrk.net/recruit/grace-patisserie', external: true  },
+  { label: 'Recruit',  href: '/recruit',                                    external: false },
 ]
 
 /**

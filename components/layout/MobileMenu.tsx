@@ -12,7 +12,7 @@ const MENU_ITEMS = [
   { label: 'News',     jp: 'お知らせ',          href: '/news',                                       external: false },
   { label: 'Shop',     jp: '店舗案内',          href: '/shop',                                       external: false },
   { label: 'Contact',  jp: 'お問い合わせ',      href: '/contact',                                    external: false },
-  { label: 'Recruit',  jp: '採用情報',          href: 'https://arwrk.net/recruit/grace-patisserie', external: true  },
+  { label: 'Recruit',  jp: '採用情報',          href: '/recruit',                                    external: false },
 ]
 
 interface MobileMenuProps {

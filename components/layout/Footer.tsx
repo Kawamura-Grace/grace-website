@@ -14,7 +14,7 @@ const FNAV = [
   { label: 'Journal',     href: '/journal',                                      external: false },
   { label: 'News',        href: '/news',                                         external: false },
   { label: 'Contact',     href: '/contact',                                      external: false },
-  { label: 'Recruit',     href: 'https://arwrk.net/recruit/grace-patisserie',   external: true  },
+  { label: 'Recruit',     href: '/recruit',                                      external: false },
 ]
 
 /**
