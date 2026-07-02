@@ -11,7 +11,7 @@ const NAV = [
   { label: 'Shop Info',   href: '/shop',                      disabled: true },
   { label: 'Online Store',href: 'https://square.site',        external: true },
   { label: 'Contact',     href: '/contact',                   disabled: true },
-  { label: 'Recruit',     href: 'https://arwrk.net/recruit/grace-patisserie', external: true },
+  { label: 'Recruit',     href: '/recruit' },
 ]
 
 const LEGAL = [
@@ -46,7 +46,7 @@ export function Footer() {
               {NAV.map(({ label, href, external, disabled }) => (
                 <li key={href}>
                   {external ? (
-                    // 外部リンク（Online Store・Recruit）はそのまま有効
+                    // 外部リンク（Online Store）はそのまま有効
                     <a
                       href={href}
                       target="_blank"
