@@ -12,18 +12,25 @@ import {
   buildJobPostingJsonLd,
   formatSalary,
 } from '@/lib/recruit'
+import { buildPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+// canonical / og:url は従来 非www（https://grace-patisserie.jp/recruit）を指していたが、
+// 非wwwは www へ307リダイレクトされるため誤り。共通ヘルパー経由で www に統一する。
+// あわせて、従来欠落していた og:image / og:site_name もヘルパーが補う。
+const recruitMetadata = buildPageMetadata({
+  path: '/recruit',
   title: '採用情報｜Grace（グレイス）春日井のパティスリー',
   description:
     '2026年秋オープン、愛知・春日井のパティスリー「Grace」の採用情報。店舗マネージャー候補・製造販売スタッフ（契約社員／パート）を募集しています。',
-  alternates: { canonical: 'https://grace-patisserie.jp/recruit' },
+})
+
+export const metadata: Metadata = {
+  ...recruitMetadata,
   openGraph: {
-    title: '採用情報｜Grace（グレイス）春日井のパティスリー',
+    ...recruitMetadata.openGraph,
+    // OGP用の短縮版の説明文は従来のものをそのまま残す
     description:
       '2026年秋オープン、愛知・春日井のパティスリー「Grace」の採用情報。店舗マネージャー候補・製造販売スタッフを募集中。',
-    type: 'website',
-    url: 'https://grace-patisserie.jp/recruit',
   },
 }
 

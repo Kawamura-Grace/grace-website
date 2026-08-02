@@ -8,14 +8,16 @@ import { Tag } from '@/components/ui/Tag'
 import { getNewsPosts } from '@/lib/notion/news'
 import { formatDate } from '@/lib/utils/date'
 import type { NewsCategory } from '@/lib/notion/types'
+import { buildPageMetadata } from '@/lib/seo'
 
 // ISR: 30分ごとに再検証
 export const revalidate = 1800
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/news',
   title: 'News | Grace｜春日井のパティスリー',
   description: 'Pâtisserie Graceのお知らせ。新商品・催事・臨時定休などの最新情報。',
-}
+})
 
 // カテゴリのバッジスタイル
 const CATEGORY_VARIANTS: Record<NewsCategory, 'wasabi' | 'gold' | 'stone'> = {

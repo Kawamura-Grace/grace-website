@@ -7,14 +7,16 @@ import { Footer } from '@/components/layout/Footer'
 import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
+import { buildPageMetadata } from '@/lib/seo'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/sweets',
   title: 'Sweets | Grace — PATISSERIE',
   description: 'Pâtisserie Graceのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
-}
+})
 
 // カテゴリタブの定義
 const CATEGORIES: { label: string; value: ProductCategory | 'all' }[] = [

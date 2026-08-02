@@ -8,14 +8,16 @@ import { Tag } from '@/components/ui/Tag'
 import { getJournalPosts } from '@/lib/notion/journal'
 import { formatDate } from '@/lib/utils/date'
 import type { JournalCategory } from '@/lib/notion/types'
+import { buildPageMetadata } from '@/lib/seo'
 
 // ISR: 1時間ごとに再検証
 export const revalidate = 3600
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/journal',
   title: 'Journal | Grace｜春日井のパティスリー',
   description: 'Grace Patisserieのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
-}
+})
 
 // カテゴリ定義: 初期記事は英語カテゴリ（Story/Craft/Gift）
 const CATEGORIES: { label: string; value: JournalCategory | 'all' }[] = [

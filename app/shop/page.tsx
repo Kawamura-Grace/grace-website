@@ -4,14 +4,16 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
+import { buildPageMetadata } from '@/lib/seo'
 
 // サーバーコンポーネント — イベントハンドラなし・Notion呼び出しなし
 // Vercelランタイムエラー(Digest: 257512637)の根本原因だったonMouseEnter/onMouseLeaveを除去
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/shop',
   title: '店舗のご案内 | Grace',
   description: '愛知県春日井市朝宮町1-2-6。9:30-19:30。テイクアウト専門のパティスリーGraceの店舗情報です。',
-}
+})
 
 export default function ShopPage() {
   return (

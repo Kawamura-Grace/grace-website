@@ -4,14 +4,16 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
+import { buildPageMetadata } from '@/lib/seo'
 
 // ビルド時フォントダウンロードタイムアウト防止
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/gift',
   title: 'Gift | Grace — PATISSERIE',
   description: 'Pâtisserie Graceのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
-}
+})
 
 export default function GiftPage() {
   return (
