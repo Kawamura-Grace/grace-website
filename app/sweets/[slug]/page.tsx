@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Tag } from '@/components/ui/Tag'
 import { Button } from '@/components/ui/Button'
 import { getProducts, getProductBySlug } from '@/lib/notion/products'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 3600 // 1時間
 
@@ -25,11 +26,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const product = await getProductBySlug(params.slug).catch(() => null)
   if (!product) return { title: '商品が見つかりません | Grace' }
-  return {
+  // canonical / og:url は商品ごとに自ページのURLを指す
+  return buildPageMetadata({
+    path: `/sweets/${params.slug}`,
     title: `${product.name} | Grace — PATISSERIE`,
     description: product.scentDescription || `Grace Patisserieの${product.name}`,
-    openGraph: product.mainImage ? { images: [{ url: product.mainImage }] } : undefined,
-  }
+    images: product.mainImage ? [product.mainImage] : undefined,
+  })
 }
 
 export default async function SweetDetailPage({ params }: PageProps) {

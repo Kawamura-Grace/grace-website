@@ -4,13 +4,15 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 86400 // 24時間
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/concept',
   title: 'Concept | Grace — PATISSERIE',
   description: '美しい暮らしには、お菓子がある。Pâtisserie Graceのコンセプトをご紹介します。',
-}
+})
 
 export default function ConceptPage() {
   return (

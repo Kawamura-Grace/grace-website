@@ -2,13 +2,15 @@
 import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 86400
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/terms',
   title: '特定商取引法表記 | Grace — PATISSERIE',
   description: '株式会社Grace Foods 特定商取引法に基づく表記。',
-}
+})
 
 // 特定商取引法の表示項目
 const ITEMS = [

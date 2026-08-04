@@ -9,6 +9,7 @@ import { Tag } from '@/components/ui/Tag'
 import { getJournalPosts, getJournalBySlug, getJournalBlocks } from '@/lib/notion/journal'
 import { getProductBySlug, getProducts } from '@/lib/notion/products'
 import { formatDateJa } from '@/lib/utils/date'
+import { buildPageMetadata } from '@/lib/seo'
 import type { BlockObjectResponse, PartialBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 export const revalidate = 3600
@@ -27,11 +28,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getJournalBySlug(params.slug).catch(() => null)
   if (!post) return { title: '記事が見つかりません | Grace' }
-  return {
+  // canonical / og:url は記事ごとに自ページのURLを指す
+  return buildPageMetadata({
+    path: `/journal/${params.slug}`,
     title: `${post.title} | Journal | Grace`,
     description: post.summary,
-    openGraph: post.eyecatch ? { images: [{ url: post.eyecatch }] } : undefined,
-  }
+    images: post.eyecatch ? [post.eyecatch] : undefined,
+  })
 }
 
 // ─── Notionブロックの型ガード ───

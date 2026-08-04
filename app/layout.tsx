@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from '@/lib/seo'
 import '../styles/globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -29,20 +30,21 @@ const notoSans = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: 'Grace — PATISSERIE',
   description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
-  metadataBase: new URL('https://www.grace-patisserie.jp'),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: 'Grace — PATISSERIE',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
     type: 'website',
-    url: 'https://www.grace-patisserie.jp',
-    siteName: 'Grace Patisserie',
-    images: [{ url: '/logo-horizontal.png' }],
+    // 相対パスで指定し metadataBase で解決させる。ここはトップページ自身のURL。
+    url: '/',
+    siteName: SITE_NAME,
+    images: [{ url: DEFAULT_OG_IMAGE }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Grace — PATISSERIE',
     description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
-    images: ['/logo-horizontal.png'],
+    images: [DEFAULT_OG_IMAGE],
   },
   icons: {
     icon: [{ url: '/favicon-32.png', sizes: '32x32', type: 'image/png' }],
@@ -53,7 +55,9 @@ export const metadata: Metadata = {
     google: 'OSsOhnDrzCCf891qRWKkzn3OJ7IZxs754JID1oUS7M8',
   },
   alternates: {
-    canonical: 'https://www.grace-patisserie.jp',
+    // ルートレイアウトの canonical はトップページ自身を指す。
+    // 各下層ページは buildPageMetadata()（lib/seo.ts）で自ページのパスに上書きする。
+    canonical: '/',
   },
 }
 

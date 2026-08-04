@@ -8,13 +8,15 @@ import { Tag } from '@/components/ui/Tag'
 import { getJournalPosts } from '@/lib/notion/journal'
 import { formatDate } from '@/lib/utils/date'
 import type { JournalCategory } from '@/lib/notion/types'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 3600 // 1時間
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/journal',
   title: 'Journal | Grace — PATISSERIE',
   description: 'Grace Patisserieのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
-}
+})
 
 // カテゴリ定義
 const CATEGORIES: { label: string; value: JournalCategory | 'all' }[] = [
