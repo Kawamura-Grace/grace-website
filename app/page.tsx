@@ -58,7 +58,7 @@ export default async function HomePage() {
                 <dl className="space-y-3 font-noto-serif text-lg text-grace-text-secondary">
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">ADDRESS</dt>
-                    <dd>〒486-0844 愛知県春日井市</dd>
+                    <dd>〒486-0846 愛知県春日井市</dd>
                   </div>
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">HOURS</dt>
