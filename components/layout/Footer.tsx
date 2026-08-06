@@ -77,7 +77,7 @@ export function Footer() {
           <div>
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">SHOP</p>
             <address className="not-italic font-noto-serif text-base text-grace-text-secondary leading-relaxed mb-6">
-              〒486-0844<br />
+              〒486-0846<br />
               愛知県春日井市<br />
               営業時間 9:30–19:30<br />
               不定休

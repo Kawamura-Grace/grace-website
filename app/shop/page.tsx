@@ -68,7 +68,7 @@ export default async function ShopPage() {
                   <div>
                     <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">ADDRESS</dt>
                     <dd className="font-noto-serif text-lg text-grace-text-secondary leading-relaxed">
-                      〒486-0844<br />
+                      〒486-0846<br />
                       愛知県春日井市
                     </dd>
                   </div>
