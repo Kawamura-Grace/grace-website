@@ -5,13 +5,15 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 86400 // 24時間
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/gift',
   title: 'Gift | Grace — PATISSERIE',
   description: 'Pâtisserie Graceのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
-}
+})
 
 export default function GiftPage() {
   return (

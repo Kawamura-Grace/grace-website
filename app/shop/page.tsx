@@ -5,13 +5,15 @@ import { Footer } from '@/components/layout/Footer'
 import { getShopAlerts } from '@/lib/notion/news'
 import { formatDateJa } from '@/lib/utils/date'
 import Link from 'next/link'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 1800 // 30分
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/shop',
   title: 'Shop Info | Grace — PATISSERIE',
   description: 'Pâtisserie Grace の店舗情報。営業時間・アクセス・駐車場。愛知県春日井市。',
-}
+})
 
 export default async function ShopPage() {
   // 臨時定休アラートを取得（失敗時は空配列）

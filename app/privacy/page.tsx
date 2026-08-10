@@ -2,13 +2,15 @@
 import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { buildPageMetadata } from '@/lib/seo'
 
 export const revalidate = 86400
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/privacy',
   title: 'プライバシーポリシー | Grace — PATISSERIE',
   description: '株式会社Grace Foodsのプライバシーポリシー。',
-}
+})
 
 // プライバシーポリシーの条文データ
 const ARTICLES = [

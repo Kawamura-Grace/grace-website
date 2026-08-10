@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Tag } from '@/components/ui/Tag'
 import { getNewsPosts, getNewsBySlug, getNewsBlocks } from '@/lib/notion/news'
 import { formatDateJa } from '@/lib/utils/date'
+import { buildPageMetadata } from '@/lib/seo'
 import type { BlockObjectResponse, PartialBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import type { NewsCategory } from '@/lib/notion/types'
 
@@ -35,10 +36,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getNewsBySlug(params.slug).catch(() => null)
   if (!post) return { title: 'お知らせが見つかりません | Grace' }
-  return {
+  // canonical / og:url は記事ごとに自ページのURLを指す
+  return buildPageMetadata({
+    path: `/news/${params.slug}`,
     title: `${post.title} | News | Grace`,
     description: `Grace Patisserieのお知らせ: ${post.title}`,
-  }
+  })
 }
 
 // ─── 型ガード ───
