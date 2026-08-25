@@ -50,14 +50,20 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         justifyContent: 'center',
         gap: '22px',
         opacity: isOpen ? 1 : 0,
+        // 閉じている間はvisibility:hiddenでフォーカス・タブ移動対象から除外する。
+        // opacity:0とpointer-events:noneだけだと視覚上は消えてもキーボードのTabで
+        // 内部のリンク/閉じるボタンにフォーカスが移ってしまい、Lighthouse a11y監査の
+        // aria-hidden-focus違反（aria-hidden="true"の要素にフォーカス可能な子孫がある）になる。
+        // visibility はトランジション対象に含めることで、閉じるときはopacityのフェードが
+        // 終わってから非表示に切り替わり（フェードアウトの見た目を壊さない）、開くときは
+        // 即座にvisibility:visibleへ戻る（CSSの標準的な仕様どおりの挙動）。
+        // ※ inert属性はReact 18.3.1のreact-domが未対応（SSR/CSRとも属性が出力されない）
+        //   ため使用しない（2026-08-25実測で確認）。
+        visibility: isOpen ? 'visible' : 'hidden',
         pointerEvents: isOpen ? 'auto' : 'none',
-        transition: 'opacity .4s',
+        transition: 'opacity .4s, visibility .4s',
       }}
       aria-hidden={!isOpen}
-      // 閉じている間はinertでフォーカス・スクリーンリーダー到達を無効化する。
-      // aria-hidden="true"だけだと内部のリンク/ボタンがキーボードでフォーカス可能なまま残り、
-      // Lighthouse a11y監査の aria-hidden-focus 違反（隠し要素にフォーカス可能な子孫がある）になる。
-      inert={!isOpen}
     >
       {/* 閉じるボタン */}
       <button
