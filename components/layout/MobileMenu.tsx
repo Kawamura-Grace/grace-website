@@ -54,6 +54,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         transition: 'opacity .4s',
       }}
       aria-hidden={!isOpen}
+      // 閉じている間はinertでフォーカス・スクリーンリーダー到達を無効化する。
+      // aria-hidden="true"だけだと内部のリンク/ボタンがキーボードでフォーカス可能なまま残り、
+      // Lighthouse a11y監査の aria-hidden-focus 違反（隠し要素にフォーカス可能な子孫がある）になる。
+      inert={!isOpen}
     >
       {/* 閉じるボタン */}
       <button
