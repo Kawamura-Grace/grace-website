@@ -304,8 +304,15 @@ export default function ShopPage() {
       </main>
       <Footer />
 
-      {/* ページ専用スタイル — hover・レスポンシブをCSSで定義（サーバーコンポーネントのためonMouseEnterは使わない） */}
-      <style>{`
+      {/*
+        ページ専用スタイル — hover・レスポンシブをCSSで定義（サーバーコンポーネントのためonMouseEnterは使わない）。
+        dangerouslySetInnerHTMLを使う理由: <style>はHTML仕様上「生テキスト要素」でエンティティをデコードしないため、
+        JSXのテキスト子要素として引用符を含むCSSを渡すとReactのテキストエスケープ処理でSSR/CSRのHTML不一致
+        （hydrationエラー）が発生する。dangerouslySetInnerHTMLはエスケープを経由せず生文字列をそのまま挿入するため回避できる。
+      */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         .shop-info-grid {
           grid-template-columns: 1fr 1fr;
         }
@@ -320,7 +327,7 @@ export default function ShopPage() {
           display: inline-flex;
           align-items: center;
           gap: 14px;
-          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-family: "Cormorant Garamond", Georgia, serif;
           font-style: italic;
           font-weight: 300;
           font-size: 14px;
@@ -345,7 +352,9 @@ export default function ShopPage() {
         .shop-link-gold:hover {
           opacity: 0.7;
         }
-      `}</style>
+      `,
+        }}
+      />
     </>
   )
 }

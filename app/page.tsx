@@ -942,7 +942,7 @@ export default function HomePage() {
             borderTop: '1px solid color-mix(in srgb, var(--ink) 12%, var(--bg))',
           }}
         >
-          <p className="rise"><Label>Journal</Label></p>
+          <div className="rise"><Label>Journal</Label></div>
           <div className="rise" data-d="1" style={{ marginTop: '30px' }}>
             {journalPosts.map(({ category: cat, slug, title }) => (
               <a
