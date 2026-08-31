@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return buildPageMetadata({
     path: `/news/${params.slug}`,
     title: `${post.title} | News | Grace`,
-    description: `Grace Patisserieのお知らせ: ${post.title}`,
+    description: `Grace PÂTISSERIEのお知らせ: ${post.title}`,
   })
 }
 

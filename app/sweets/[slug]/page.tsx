@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return buildPageMetadata({
     path: `/sweets/${params.slug}`,
     title: `${product.name} | Grace — PATISSERIE`,
-    description: product.scentDescription || `Grace Patisserieの${product.name}`,
+    description: product.scentDescription || `Grace PÂTISSERIEの${product.name}`,
     images: product.mainImage ? [product.mainImage] : undefined,
   })
 }

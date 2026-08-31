@@ -16,7 +16,7 @@ export const revalidate = 3600
 export const metadata: Metadata = buildPageMetadata({
   path: '/journal',
   title: 'Journal | Grace｜春日井のパティスリー',
-  description: 'Grace Patisserieのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
+  description: 'Grace PÂTISSERIEのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
 })
 
 // カテゴリ定義: 初期記事は英語カテゴリ（Story/Craft/Gift）

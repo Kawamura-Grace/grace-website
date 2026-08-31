@@ -27,7 +27,7 @@ import type { Metadata } from 'next'
 export const SITE_URL = 'https://www.grace-patisserie.jp'
 
 /** og:site_name に出す表記 */
-export const SITE_NAME = 'Grace Patisserie'
+export const SITE_NAME = 'Grace PÂTISSERIE'
 
 /** OGP画像の既定値（ページ固有の画像がない場合に使う） */
 export const DEFAULT_OG_IMAGE = '/logo-horizontal.png'

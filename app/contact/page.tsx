@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = buildPageMetadata({
   path: '/contact',
   title: 'Contact - お問い合わせ | Grace',
-  description: 'Grace Patisserieへのお問い合わせ。取材・法人ギフト・卸・採用など各種お問い合わせはこちらから。',
+  description: 'Grace PÂTISSERIEへのお問い合わせ。取材・法人ギフト・卸・採用など各種お問い合わせはこちらから。',
 })
 
 export default function ContactPage() {
