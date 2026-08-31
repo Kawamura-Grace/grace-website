@@ -93,7 +93,7 @@ export function Footer() {
               lineHeight: 2.1,
             }}
           >
-            グレイスパティスリー<br />
+            Grace PÂTISSERIE グレイス<br />
             愛知県春日井市朝宮町1-2-6<br />
             9:30 - 19:30 ／ 年中無休（元旦を除く）
           </address>
