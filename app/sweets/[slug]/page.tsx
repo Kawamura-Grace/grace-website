@@ -9,6 +9,7 @@ import { Tag } from '@/components/ui/Tag'
 import { Button } from '@/components/ui/Button'
 import { getProducts, getProductBySlug } from '@/lib/notion/products'
 import { buildPageMetadata } from '@/lib/seo'
+import { getInventoryStatusByNames } from '@/lib/square/inventory'
 
 export const revalidate = 3600 // 1時間
 
@@ -39,6 +40,10 @@ export default async function SweetDetailPage({ params }: PageProps) {
   const product = await getProductBySlug(params.slug).catch(() => null)
 
   if (!product) notFound()
+
+  // Square在庫状態（商品名一致）。未連携・未マッチはMapが空のまま＝バッジ非表示
+  const inventory = await getInventoryStatusByNames([product.name])
+  const inventoryStatus = inventory.get(product.name)
 
   return (
     <>
@@ -107,6 +112,8 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   {product.season && product.season !== '通年' && (
                     <Tag variant="gold">{product.season}</Tag>
                   )}
+                  {inventoryStatus === 'sold_out' && <Tag variant="stone">完売</Tag>}
+                  {inventoryStatus === 'in_stock' && <Tag variant="wasabi">販売中</Tag>}
                 </div>
 
                 {/* 商品名 */}

@@ -8,6 +8,7 @@ import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 import { buildPageMetadata } from '@/lib/seo'
+import { getInventoryStatusByNames } from '@/lib/square/inventory'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
 export const dynamic = 'force-dynamic'
@@ -53,6 +54,9 @@ export default async function SweetsPage({ searchParams }: PageProps) {
   const products = (!activeCategory || activeCategory === 'all')
     ? allProducts
     : allProducts.filter(p => p.category === activeCategory)
+
+  // Square在庫状態（商品名で一致した分のみ。未連携・未マッチはMapに含まれずバッジ非表示になる）
+  const inventory = await getInventoryStatusByNames(products.map((p) => p.name))
 
   return (
     <>
@@ -165,8 +169,15 @@ export default async function SweetsPage({ searchParams }: PageProps) {
 
                     {/* 商品情報 */}
                     <div>
-                      <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">
+                      <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1 flex items-center gap-2">
                         {product.category}
+                        {/* Square在庫連携（商品名一致）。未連携・未マッチの商品はバッジなし */}
+                        {inventory.get(product.name) === 'sold_out' && (
+                          <Tag variant="stone">完売</Tag>
+                        )}
+                        {inventory.get(product.name) === 'in_stock' && (
+                          <Tag variant="wasabi">販売中</Tag>
+                        )}
                       </p>
                       <h2 className="font-noto-serif text-lg text-grace-brown mb-1 group-hover:text-grace-text-secondary transition-colors">
                         {product.name}

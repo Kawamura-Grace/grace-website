@@ -33,26 +33,22 @@ const IMGS = [
   '/photos/placeholder_07.jpg',
   '/photos/placeholder_08.jpg',
 ]
-const STOCK = {
-  morning: ['焼き上がり', '準備中', '準備中', '焼き上がり', '在庫あり', '在庫あり'],
-  day:     ['在庫あり', '在庫あり', '在庫あり', '在庫あり', '在庫あり', '在庫あり'],
-  dusk:    ['残りわずか', '残りわずか', '完売', '在庫あり', '残りわずか', '在庫あり'],
-  night:   ['本日終了', '本日終了', '本日終了', '本日終了', '本日終了', '本日終了'],
-} as const
+// ショーケースの在庫バッジ表示状態
+// 'in_stock'/'sold_out' はSquare在庫連携の実データ、'closed' は営業時間外（在庫と無関係の事実）。
+// 個数までの表示（近リアルタイム在庫数）はPhase 2判断のため、開業時は二値表示のみ
+// （設計正本: Grace_顧客窓口設計_#8_W3詳細設計_v1.md §6）
+type ShowcaseLabel = 'in_stock' | 'sold_out' | 'closed'
+
+const SHOWCASE_LABEL_TEXT: Record<ShowcaseLabel, string> = {
+  in_stock: '在庫あり',
+  sold_out: '完売',
+  closed:   '本日終了',
+}
 
 // ============ バッジスタイル ============
-function badgeBorder(s: string) {
-  if (s === '残りわずか') return '#B8956A'
-  if (s === '完売' || s === '本日終了') return 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
-  if (s === '焼き上がり') return '#7B8B6F'
-  return 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
-}
-function badgeColor(s: string) {
-  if (s === '残りわずか') return '#B8956A'
-  if (s === '完売' || s === '本日終了') return 'color-mix(in srgb, var(--ink) 65%, var(--bg))'
-  if (s === '焼き上がり') return '#7B8B6F'
-  return 'color-mix(in srgb, var(--ink) 65%, var(--bg))'
-}
+// 二値表示のみのためバッジの見た目は状態によらず統一（旧デザインの「在庫あり」表示と同じ配色）
+const BADGE_BORDER = 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
+const BADGE_COLOR = 'color-mix(in srgb, var(--ink) 65%, var(--bg))'
 
 // ============ 現在時刻から営業判定 ============
 function calcIsOpen(): boolean {
@@ -380,6 +376,7 @@ export default function HomePage() {
   const phaseData = PHASES[phase]
   const [isOpen, setIsOpen] = useState(false)
   const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
+  const [inventory, setInventory] = useState<Record<string, 'in_stock' | 'sold_out'>>({})
 
   // 営業判定はクライアントサイドのみ
   useEffect(() => {
@@ -395,6 +392,17 @@ export default function HomePage() {
       .then((data: { posts: JournalItem[] }) => setJournalPosts(data.posts ?? []))
       .catch(() => {})
   }, [])
+
+  // ショーケースのSquare在庫状態をAPIから取得（未設定・障害時はSQUARE_ACCESS_TOKEN等が
+  // 無い/エラーのため空オブジェクトのまま＝バッジ非表示のフォールバックに自然に倒れる）
+  useEffect(() => {
+    const namesParam = ITEMS.map(encodeURIComponent).join(',')
+    fetch(`/api/inventory-status?names=${namesParam}`)
+      .then(r => r.json())
+      .then((data: Record<string, 'in_stock' | 'sold_out'>) => setInventory(data))
+      .catch(() => {})
+  }, [])
+  const hasLiveInventory = Object.keys(inventory).length > 0
 
   return (
     <>
@@ -879,7 +887,9 @@ export default function HomePage() {
                 color: 'color-mix(in srgb, var(--ink) 55%, var(--bg))',
               }}
             >
-              時間とともに、店の「いま」をお伝えします（デモ表示）
+              {hasLiveInventory
+                ? '時間とともに、店の「いま」をお伝えします'
+                : '本日のラインナップは店頭でご確認ください（オンライン在庫表示は準備中です）'}
             </p>
           </div>
 
@@ -893,7 +903,10 @@ export default function HomePage() {
             }}
           >
             {ITEMS.map((name, i) => {
-              const stock = STOCK[phase][i]
+              // 営業時間外は在庫と無関係に「本日終了」。営業中はSquare在庫の実データのみ表示し、
+              // 未連携（Square未設定・カタログ未マッチ）の商品はバッジ自体を出さない（フェイク表示を避ける）
+              const label: ShowcaseLabel | null =
+                phase === 'night' ? 'closed' : inventory[name] ?? null
               return (
                 <article key={name} className="rise in">
                   <Ph
@@ -914,19 +927,21 @@ export default function HomePage() {
                     }}
                   >
                     {name}
-                    <span
-                      style={{
-                        fontSize: '10px',
-                        letterSpacing: '0.2em',
-                        padding: '3px 10px',
-                        border: `1px solid ${badgeBorder(stock)}`,
-                        color: badgeColor(stock),
-                        whiteSpace: 'nowrap',
-                        opacity: (stock === '完売' || stock === '本日終了') ? 0.45 : 1,
-                      }}
-                    >
-                      {stock}
-                    </span>
+                    {label && (
+                      <span
+                        style={{
+                          fontSize: '10px',
+                          letterSpacing: '0.2em',
+                          padding: '3px 10px',
+                          border: `1px solid ${BADGE_BORDER}`,
+                          color: BADGE_COLOR,
+                          whiteSpace: 'nowrap',
+                          opacity: label === 'sold_out' || label === 'closed' ? 0.45 : 1,
+                        }}
+                      >
+                        {SHOWCASE_LABEL_TEXT[label]}
+                      </span>
+                    )}
                   </h3>
                 </article>
               )
