@@ -3,7 +3,7 @@
 // お問い合わせフォーム — react-hook-form + zod バリデーション
 // ハニーポット（website field）＋ reCAPTCHA v3 でスパム対策
 
-import { useState, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -55,18 +55,28 @@ export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
-  // reCAPTCHA v3 スクリプトを動的ロード（サイトキー未設定時はスキップ）
-  useEffect(() => {
+  // reCAPTCHA v3 スクリプト（約350KB）の遅延ロード用Promiseキャッシュ。
+  // 以前はページ表示直後(useEffect on mount)に無条件ロードしており、
+  // Lighthouse実測でContactページのPerformanceスコアを押し下げる主因になっていた
+  // （unused-javascript 218KB・network-requests 349KB, 2026-08-31実測）。
+  // フォームへの最初の入力（フォーカス）まで読み込みを遅延させ、
+  // 初回描画のクリティカルパスから外す。送信時にも念のため待機して確実性を担保する。
+  const recaptchaPromiseRef = useRef<Promise<void> | null>(null)
+
+  const loadRecaptcha = (): Promise<void> => {
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-    if (!siteKey) return
-    const script = document.createElement('script')
-    script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
-    script.async = true
-    document.head.appendChild(script)
-    return () => {
-      document.head.removeChild(script)
+    if (!siteKey) return Promise.resolve()
+    if (!recaptchaPromiseRef.current) {
+      recaptchaPromiseRef.current = new Promise<void>((resolve) => {
+        const script = document.createElement('script')
+        script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
+        script.async = true
+        script.onload = () => resolve()
+        document.head.appendChild(script)
+      })
     }
-  }, [])
+    return recaptchaPromiseRef.current
+  }
 
   const {
     register,
@@ -87,6 +97,8 @@ export function ContactForm() {
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
     let recaptchaToken: string | undefined
     if (siteKey && typeof window !== 'undefined') {
+      // フォーカス操作を経ずに送信された場合（プログラム操作等）の保険としてここでも待機
+      await loadRecaptcha()
       const w = window as unknown as { grecaptcha?: GrecaptchaInstance }
       if (w.grecaptcha) {
         recaptchaToken = await new Promise<string>((resolve) => {
@@ -182,7 +194,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} onFocus={() => loadRecaptcha()} noValidate>
 
       {/* ハニーポット: 人間には見えない、ボットが埋めてしまうフィールド */}
       <div
