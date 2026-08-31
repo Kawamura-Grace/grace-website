@@ -27,7 +27,19 @@
   --grace-bg-primary:     #FFFFFF;
   --grace-bg-secondary:   #F7F3EF;
   --grace-bg-dark:        #2C2421;
+
+  /* cinematic-b デフォルト（昼フェーズ） */
+  --bg:    #F7F3EF;
+  --ink:   #2C2421;
+  --glow:  rgba(184,149,106,.20);
+  --glow2: rgba(123,139,111,.12);
 }
+
+/* ============ cinematic-b 時間フェーズ ============ */
+html[data-phase="morning"] { --bg:#FAF5EC; --ink:#2C2421; --glow:rgba(220,176,118,.38); --glow2:rgba(123,139,111,.10) }
+html[data-phase="day"]     { --bg:#F7F3EF; --ink:#2C2421; --glow:rgba(184,149,106,.20); --glow2:rgba(123,139,111,.12) }
+html[data-phase="dusk"]    { --bg:#3A2D22; --ink:#F7F3EF; --glow:rgba(224,156,88,.34);  --glow2:rgba(184,149,106,.12) }
+html[data-phase="night"]   { --bg:#211B17; --ink:#F7F3EF; --glow:rgba(184,149,106,.20); --glow2:rgba(184,149,106,.06) }
 
 /* ─── リセット ─── */
 
@@ -51,12 +63,15 @@ html {
 }
 
 body {
-  background-color: var(--grace-bg-primary);
-  color: var(--grace-text-primary);
+  /* cinematic-b: 時間フェーズ CSS変数で背景・文字色が切り替わる */
+  background: var(--bg);
+  color: var(--ink);
+  transition: background 2s ease, color 2s ease;
   /* 仕様書 2.2 本文フォント */
-  font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', Georgia, serif;
-  font-size: 16px;
-  line-height: 1.8;
+  font-family: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  font-size: 15px;
+  line-height: 2.1;
+  letter-spacing: 0.06em;
 }
 
 /* ─── 見出し ─── */
@@ -104,6 +119,169 @@ video {
 ::selection {
   background-color: var(--grace-wasabi);
   color: #fff;
+}
+
+/* ============ cinematic-b ロゴ切り替え ============ */
+/* 朝・昼フェーズ: ダークブラウン版を表示 / 夕・夜フェーズ: 白版を表示 */
+.logo-d { display: block }
+.logo-w { display: none }
+html[data-phase="dusk"]  .logo-d,
+html[data-phase="night"] .logo-d { display: none }
+html[data-phase="dusk"]  .logo-w,
+html[data-phase="night"] .logo-w { display: block }
+
+/* フッターは常に白版 */
+.footer-logo .logo-d { display: none }
+.footer-logo .logo-w { display: block }
+
+/* ============ ヒーロー ============ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-light {
+  position: absolute;
+  inset: 0;
+  transition: opacity 2s;
+}
+.hero-light::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 28%, var(--glow), transparent 65%),
+    radial-gradient(ellipse 70% 60% at 18% 80%, var(--glow2), transparent 70%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+.hero-logo-box {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 40px;
+}
+.hero-logo-box img {
+  width: min(190px, 44vw);
+  height: auto;
+  transition: opacity 1.2s;
+}
+.hero-place {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(11px, 1.6vw, 13px);
+  letter-spacing: 0.46em;
+  color: var(--gold, #B8956A);
+  margin-bottom: 24px;
+  text-indent: 0.46em;
+}
+.hero-tagline {
+  font-size: clamp(15px, 2.4vw, 19px);
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+}
+.hero-open {
+  margin-top: 30px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(12.5px, 1.8vw, 15px);
+  letter-spacing: 0.34em;
+  color: var(--gold, #B8956A);
+}
+.hero-open .date {
+  display: block;
+  font-style: normal;
+  font-size: clamp(20px, 3.2vw, 26px);
+  letter-spacing: 0.22em;
+  margin-top: 6px;
+  color: var(--ink);
+}
+.scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: color-mix(in srgb, var(--ink) 55%, var(--bg));
+  text-align: center;
+}
+.scroll-cue::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, currentColor, transparent);
+  margin: 10px auto 0;
+  animation: cue 2.6s ease-in-out infinite;
+}
+@keyframes cue {
+  0%, 100% { transform: scaleY(.4); transform-origin: top; }
+  50% { transform: scaleY(1); }
+}
+
+/* ============ cinematic-b 登場アニメーション ============ */
+.rise {
+  opacity: 0;
+  transform: translateY(30px);
+  filter: blur(12px);
+  will-change: transform, opacity;
+  transition: opacity 1.6s ease, transform 1.8s cubic-bezier(.16,.84,.3,1), filter 1.6s ease;
+}
+.rise.in {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+.rise[data-d="1"] { transition-delay: .18s }
+.rise[data-d="2"] { transition-delay: .36s }
+.rise[data-d="3"] { transition-delay: .54s }
+.rise[data-d="4"] { transition-delay: .72s }
+
+/* ============ cinematic-b vapor（光の拡散） ============ */
+.vapor {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: vapor 16s ease-in-out infinite;
+}
+@keyframes vapor {
+  0%   { transform: translateY(8%) scale(.92);   opacity: 0 }
+  25%  { opacity: .85 }
+  75%  { opacity: .5 }
+  100% { transform: translateY(-14%) scale(1.06); opacity: 0 }
+}
+
+/* ============ cinematic-b draw（SVGストローク描画） ============ */
+.draw {
+  stroke: var(--grace-gold);
+  fill: none;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.in .draw, .draw.in { animation: draw 2.6s ease forwards }
+@keyframes draw { to { stroke-dashoffset: 0 } }
+
+/* ============ アクセシビリティ: モーション低減 ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important }
+  .rise { opacity: 1; transform: none; filter: none }
+  .draw { stroke-dasharray: none; stroke-dashoffset: 0 }
 }
 
 /* ─── ユーティリティ ─── */

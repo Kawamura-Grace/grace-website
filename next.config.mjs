@@ -21,6 +21,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      // Pexels（背景写真・開業前差し替え予定）
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
     ],
   },
   // ISR用 / on-demand revalidation

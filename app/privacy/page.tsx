@@ -4,11 +4,11 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { buildPageMetadata } from '@/lib/seo'
 
-export const revalidate = 86400
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/privacy',
-  title: 'プライバシーポリシー | Grace — PATISSERIE',
+  title: 'プライバシーポリシー | Grace PÂTISSERIE',
   description: '株式会社Grace Foodsのプライバシーポリシー。',
 })
 

@@ -143,7 +143,8 @@ export function buildJobPostingJsonLd(): string {
 // 給与の表示用フォーマット（例: 月給 205,000〜212,000円 / 時給 1,200〜1,350円）
 export function formatSalary(salary: BaseSalary): string {
   const unit = salary.unitText === 'HOUR' ? '時給' : '月給'
+  const suffix = salary.unitText === 'HOUR' ? '円' : '円'
   const min = salary.minValue.toLocaleString('ja-JP')
   const max = salary.maxValue.toLocaleString('ja-JP')
-  return `${unit} ${min}〜${max}円`
+  return `${unit} ${min}〜${max}${suffix}`
 }

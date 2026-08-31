@@ -3,16 +3,16 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import { buildPageMetadata } from '@/lib/seo'
 
-export const revalidate = 86400 // 24時間
+// ビルド時フォントダウンロードタイムアウト防止
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/gift',
-  title: 'Gift | Grace — PATISSERIE',
-  description: 'Pâtisserie Graceのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
+  title: 'Gift | Grace PÂTISSERIE',
+  description: 'Grace PÂTISSERIEのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
 })
 
 export default function GiftPage() {
@@ -21,8 +21,20 @@ export default function GiftPage() {
       <Header />
       <main>
         {/* ─── ヒーロー見出し ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
+          {/* 背景写真: ギフトボックスとリボン */}
+          <Image
+            src="https://images.pexels.com/photos/1007533/pexels-photo-1007533.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+            priority
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">FOR SPECIAL MOMENTS</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Gift
@@ -30,7 +42,7 @@ export default function GiftPage() {
             <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
             <p className="font-noto-serif text-lg text-grace-stone leading-loose max-w-md mx-auto">
               大切な人への気持ちを、美しい贈り物に。<br />
-              Pâtisserie Graceの贈り物は、開ける瞬間から体験が始まります。
+              Grace PÂTISSERIEの贈り物は、開ける瞬間から体験が始まります。
             </p>
           </div>
         </section>
@@ -67,7 +79,7 @@ export default function GiftPage() {
               <div className="relative aspect-square overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1592903297149-37fb25202dfa?w=800&q=80&auto=format&fit=crop"
-                  alt="Pâtisserie Grace ギフト包装"
+                  alt="Grace PÂTISSERIE ギフト包装"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -96,34 +108,37 @@ export default function GiftPage() {
         <section className="section-padding bg-grace-cream">
           <div className="container-content">
             <div className="section-label mb-12">NOSHI &amp; MESSAGE</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
               {/* 熨斗 */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line">
-                <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Noshi</h3>
-                <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">熨斗対応</p>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                  御祝・御礼・粗品など、各種熨斗に対応しております。
-                  ご注文時にご希望の表書きと名入れをお知らせください。
-                </p>
-                <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
-                  <li>御祝・御礼・粗品・寸志</li>
-                  <li>内祝・快気祝・引き出物</li>
-                  <li>その他ご要望に対応可能</li>
-                </ul>
+              <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
+                <h3 className="font-cormorant italic text-2xl text-grace-brown mb-4">熨斗</h3>
+                <div className="flex-1">
+                  <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                    御祝・御礼・粗品など、各種熨斗に対応しております。
+                    ご注文時にご希望の表書きと名入れをお知らせください。
+                  </p>
+                  <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
+                    <li>御祝・御礼・粗品・寸志</li>
+                    <li>内祝・快気祝・引き出物</li>
+                    <li>その他ご要望に対応可能</li>
+                  </ul>
+                </div>
               </div>
               {/* メッセージカード */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line">
+              <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
                 <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Message</h3>
                 <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">メッセージカード</p>
-                <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                  Graceオリジナルのメッセージカードに、
-                  お好きなメッセージを手書きでお入れします。
-                  誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
-                </p>
-                <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
-                  文字数: 最大100文字程度<br />
-                  ご注文時の備考欄にご記入ください
-                </p>
+                <div className="flex-1">
+                  <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                    Graceオリジナルのメッセージカードに、
+                    お好きなメッセージを手書きでお入れします。
+                    誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
+                  </p>
+                  <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
+                    文字数: 最大100文字程度<br />
+                    ご注文時の備考欄にご記入ください
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -158,8 +173,19 @@ export default function GiftPage() {
         </section>
 
         {/* ─── 法人ギフト → Contact誘導 ─── */}
-        <section className="section-padding bg-grace-bg-dark">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden section-padding bg-grace-bg-dark">
+          {/* 背景写真: 高級チョコレートギフトボックス */}
+          <Image
+            src="https://images.pexels.com/photos/7407255/pexels-photo-7407255.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
+            crossOrigin="anonymous"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/78" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">CORPORATE GIFT</p>
             <h2 className="font-cormorant italic text-4xl text-grace-offwhite mb-6">
               For Corporate

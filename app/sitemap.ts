@@ -4,6 +4,9 @@ import { getJournalPosts } from '@/lib/notion/journal'
 import { getNewsPosts } from '@/lib/notion/news'
 import { SITE_URL } from '@/lib/seo'
 
+// ビルド時のNotionタイムアウト防止
+export const dynamic = 'force-dynamic'
+
 // 既定値を非wwwからwww（= canonical と同じ正規ホスト）へ変更。
 // sitemap に載せるURLは canonical と一致させる必要がある。
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || SITE_URL
