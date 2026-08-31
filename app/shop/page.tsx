@@ -141,7 +141,7 @@ export default function ShopPage() {
                 lineHeight: 1.9,
               }}
             >
-              グレイスパティスリー
+              Grace PÂTISSERIE グレイス
             </h2>
 
             {/* 店舗情報テーブル */}
