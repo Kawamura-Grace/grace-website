@@ -79,7 +79,7 @@ export default function ShopPage() {
           <div style={{ position: 'relative', overflow: 'hidden', minHeight: '460px' }}>
             <Image
               src="/photos/placeholder_05.jpg"
-              alt="パティスリー Grace 店舗イメージ（仮素材）"
+              alt="グレイスパティスリー 店舗イメージ（仮素材）"
               fill
               sizes="(max-width: 880px) 100vw, 50vw"
               style={{ objectFit: 'cover', filter: 'saturate(.82) contrast(.96)' }}
@@ -141,7 +141,7 @@ export default function ShopPage() {
                 lineHeight: 1.9,
               }}
             >
-              パティスリー Grace
+              グレイスパティスリー
             </h2>
 
             {/* 店舗情報テーブル */}
@@ -158,7 +158,7 @@ export default function ShopPage() {
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
                 ['TEL', '未定（開業時に掲載予定）'],
                 ['営業時間', '9:30 - 19:30'],
-                ['営業日', '元旦を除き、毎日営業しています'],
+                ['営業日', '年中無休（元旦を除く）'],
                 ['駐車場', '8台（お車でのご来店に便利です）'],
               ] as [string, string][]).map(([dt, dd]) => (
                 <>
@@ -215,7 +215,7 @@ export default function ShopPage() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="パティスリー Grace アクセスマップ"
+            title="グレイスパティスリー アクセスマップ"
           />
         </div>
 

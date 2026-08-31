@@ -10,7 +10,7 @@ import { buildPageMetadata } from '@/lib/seo'
 export const metadata: Metadata = buildPageMetadata({
   path: '/concept',
   title: 'Concept | Grace — PATISSERIE',
-  description: '美しい暮らしには、お菓子がある。Pâtisserie Graceのコンセプトをご紹介します。',
+  description: '美しい暮らしには、お菓子がある。Grace Patisserieのコンセプトをご紹介します。',
 })
 
 export default function ConceptLayout({ children }: { children: React.ReactNode }) {

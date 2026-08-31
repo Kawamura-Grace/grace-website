@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = buildPageMetadata({
   path: '/sweets',
   title: 'Sweets | Grace — PATISSERIE',
-  description: 'Pâtisserie Graceのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
+  description: 'Grace Patisserieのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
 })
 
 // カテゴリタブの定義

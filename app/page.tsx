@@ -778,7 +778,7 @@ export default function HomePage() {
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
             <Ph
               src="/photos/placeholder_04.jpg"
-              alt="Grace Crumb 焼き菓子（仮素材）"
+              alt="焼き菓子・ギフト（仮素材）"
               aspectRatio="4/5"
               isBand
               style={{ maxHeight: '74svh' }}
@@ -799,7 +799,7 @@ export default function HomePage() {
                 flexShrink: 0,
               }}
             >
-              グレイスクラム
+              焼き菓子
             </h2>
             <div>
               <p
@@ -812,10 +812,10 @@ export default function HomePage() {
                   color: '#B8956A',
                 }}
               >
-                GRACE CRUMB — BAKED &amp; GIFT
+                BAKED &amp; GIFT
               </p>
               <p style={{ marginTop: '20px', maxWidth: '30em', fontSize: '14.5px' }}>
-                Grace Crumbは、Graceの焼き菓子ライン。フィナンシェを中心に、焦がしバター・バニラ・柑橘・ハーブを丁寧に重ねた焼き菓子を展開します。ひとつずつ味わうにも、まとめて贈るにも、「Graceらしさ」をそのまま届ける一箱に。
+                フィナンシェを中心に、焦がしバター・バニラ・柑橘・ハーブの香りを重ねた焼き菓子です。噛むたびの余韻にほのかな香ばしさ（Grace Crumb）が寄り添う、贈りものにもふさわしい一箱です。
               </p>
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: 'color-mix(in srgb, #F7F3EF 70%, #2C2421)' }}>
@@ -1030,10 +1030,10 @@ export default function HomePage() {
               }}
             >
               {([
-                ['店名', 'パティスリー Grace'],
+                ['店名', 'グレイスパティスリー'],
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
                 ['営業時間', '9:30 - 19:30'],
-                ['営業日', '元旦を除き、毎日営業しています'],
+                ['営業日', '年中無休（元旦を除く）'],
                 ['駐車場', '8台（お車でのご来店に便利です）'],
                 ['形態', 'テイクアウト専門'],
               ] as [string, string][]).map(([dt, dd]) => (

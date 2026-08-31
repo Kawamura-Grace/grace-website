@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
             '',
             '──────────────────────',
             '株式会社Grace Foods',
-            'パティスリー Grace',
+            'グレイスパティスリー',
             '愛知県春日井市朝宮町1-2-6',
             '──────────────────────',
           ].join('\n'),

@@ -16,7 +16,7 @@ export const revalidate = 1800
 export const metadata: Metadata = buildPageMetadata({
   path: '/news',
   title: 'News | Grace｜春日井のパティスリー',
-  description: 'Pâtisserie Graceのお知らせ。新商品・催事・臨時定休などの最新情報。',
+  description: 'Grace Patisserieのお知らせ。新商品・催事・臨時定休などの最新情報。',
 })
 
 // カテゴリのバッジスタイル

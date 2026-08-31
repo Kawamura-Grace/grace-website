@@ -93,9 +93,9 @@ export function Footer() {
               lineHeight: 2.1,
             }}
           >
-            パティスリー Grace<br />
+            グレイスパティスリー<br />
             愛知県春日井市朝宮町1-2-6<br />
-            9:30 - 19:30 ／ 元旦を除き毎日営業
+            9:30 - 19:30 ／ 年中無休（元旦を除く）
           </address>
 
           {/* Instagram */}

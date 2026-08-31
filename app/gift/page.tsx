@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = buildPageMetadata({
   path: '/gift',
   title: 'Gift | Grace — PATISSERIE',
-  description: 'Pâtisserie Graceのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
+  description: 'Grace Patisserieのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
 })
 
 export default function GiftPage() {
@@ -42,7 +42,7 @@ export default function GiftPage() {
             <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
             <p className="font-noto-serif text-lg text-grace-stone leading-loose max-w-md mx-auto">
               大切な人への気持ちを、美しい贈り物に。<br />
-              Pâtisserie Graceの贈り物は、開ける瞬間から体験が始まります。
+              Grace Patisserieの贈り物は、開ける瞬間から体験が始まります。
             </p>
           </div>
         </section>
@@ -79,7 +79,7 @@ export default function GiftPage() {
               <div className="relative aspect-square overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1592903297149-37fb25202dfa?w=800&q=80&auto=format&fit=crop"
-                  alt="Pâtisserie Grace ギフト包装"
+                  alt="Grace Patisserie ギフト包装"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
