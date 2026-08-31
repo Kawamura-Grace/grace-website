@@ -9,7 +9,7 @@ import { buildPageMetadata } from '@/lib/seo'
 // （cinematic-b でクライアントコンポーネント化した際に metadata が失われていたため）。
 export const metadata: Metadata = buildPageMetadata({
   path: '/concept',
-  title: 'Concept | Grace — PATISSERIE',
+  title: 'Concept | Grace PÂTISSERIE',
   description: '美しい暮らしには、お菓子がある。Grace PÂTISSERIEのコンセプトをご紹介します。',
 })
 

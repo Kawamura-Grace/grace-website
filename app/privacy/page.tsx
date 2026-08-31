@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/privacy',
-  title: 'プライバシーポリシー | Grace — PATISSERIE',
+  title: 'プライバシーポリシー | Grace PÂTISSERIE',
   description: '株式会社Grace Foodsのプライバシーポリシー。',
 })
 

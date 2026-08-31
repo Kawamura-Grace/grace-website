@@ -115,28 +115,36 @@ async function fetchInventoryCounts(
   const counts = new Map<string, number>()
   if (variationIds.length === 0) return counts
 
-  // Grace規模（数十SKU）では1回（上限1000件/回）で足りる想定
-  const res = await fetch(`${env.baseUrl}/v2/inventory/counts/batch-retrieve`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.accessToken}`,
-      'Square-Version': SQUARE_VERSION,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      catalog_object_ids: variationIds,
-      location_ids: [env.locationId],
-      states: ['IN_STOCK'],
-    }),
-    next: { revalidate: 60 },
-  })
-  if (!res.ok) {
-    throw new Error(`Square /v2/inventory/counts/batch-retrieve failed: ${res.status}`)
-  }
-  const json = (await res.json()) as SquareBatchRetrieveInventoryCountsResponse
-  for (const c of json.counts ?? []) {
-    if (c.catalog_object_id) counts.set(c.catalog_object_id, Number(c.quantity ?? '0'))
-  }
+  // limitの未指定時デフォルト値はSquare公式ドキュメント・OpenAPI仕様のどちらにも明記が無かったため、
+  // 上限値（1000。Grace規模の数十SKUなら1回で収まる）を明示指定し、念のためcursorも最後まで辿る
+  let cursor: string | undefined
+  do {
+    const res = await fetch(`${env.baseUrl}/v2/inventory/counts/batch-retrieve`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.accessToken}`,
+        'Square-Version': SQUARE_VERSION,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        catalog_object_ids: variationIds,
+        location_ids: [env.locationId],
+        states: ['IN_STOCK'],
+        limit: 1000,
+        ...(cursor ? { cursor } : {}),
+      }),
+      next: { revalidate: 60 },
+    })
+    if (!res.ok) {
+      throw new Error(`Square /v2/inventory/counts/batch-retrieve failed: ${res.status}`)
+    }
+    const json = (await res.json()) as SquareBatchRetrieveInventoryCountsResponse
+    for (const c of json.counts ?? []) {
+      if (c.catalog_object_id) counts.set(c.catalog_object_id, Number(c.quantity ?? '0'))
+    }
+    cursor = json.cursor
+  } while (cursor)
+
   return counts
 }
 

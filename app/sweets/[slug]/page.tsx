@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // canonical / og:url は商品ごとに自ページのURLを指す
   return buildPageMetadata({
     path: `/sweets/${params.slug}`,
-    title: `${product.name} | Grace — PATISSERIE`,
+    title: `${product.name} | Grace PÂTISSERIE`,
     description: product.scentDescription || `Grace PÂTISSERIEの${product.name}`,
     images: product.mainImage ? [product.mainImage] : undefined,
   })

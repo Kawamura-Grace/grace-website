@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/terms',
-  title: '特定商取引法表記 | Grace — PATISSERIE',
+  title: '特定商取引法表記 | Grace PÂTISSERIE',
   description: '株式会社Grace Foods 特定商取引法に基づく表記。',
 })
 
