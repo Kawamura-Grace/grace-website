@@ -12,7 +12,7 @@ import { buildPageMetadata } from '@/lib/seo'
 export const metadata: Metadata = buildPageMetadata({
   path: '/shop',
   title: '店舗のご案内 | Grace',
-  description: '愛知県春日井市朝宮町1-2-6。9:30-19:30。テイクアウト専門のパティスリーGraceの店舗情報です。',
+  description: '愛知県春日井市朝宮町1-2-6。9:30-19:30。テイクアウト専門のグレイスパティスリーの店舗情報です。',
 })
 
 export default function ShopPage() {
