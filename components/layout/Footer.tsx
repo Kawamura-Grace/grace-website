@@ -189,11 +189,11 @@ export function Footer() {
           color: 'rgba(247,243,239,.45)',
         }}
       >
-        <p>&copy; 2026 Grace Foods Inc.</p>
+        <p>&copy; 2026 株式会社Grace Foods</p>
         <p>
           <Link href="/privacy" style={{ color: 'inherit' }}>Privacy Policy</Link>
           &nbsp;&nbsp;／&nbsp;&nbsp;
-          <Link href="/terms" style={{ color: 'inherit' }}>Terms</Link>
+          <Link href="/terms" style={{ color: 'inherit' }}>特定商取引法に基づく表記</Link>
         </p>
       </div>
 
