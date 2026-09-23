@@ -377,12 +377,28 @@ export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false)
   const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
   const [inventory, setInventory] = useState<Record<string, 'in_stock' | 'sold_out'>>({})
+  // Hero動画のフォールバック判定（2026-09-23実装）。以下のいずれかで静止画フォールバックに切替：
+  // ①動画の読み込み・再生に失敗した場合（onError） ②OS/ブラウザ側で「視差効果を減らす」設定が
+  // 有効な場合（prefers-reduced-motion）。素材未着荷の間は動画src自体が404になりonErrorが発火する
+  // ため、自動的に静止画（poster指定と同じ/images/hero-fallback.jpg）表示に倒れる設計。
+  const [heroVideoFallback, setHeroVideoFallback] = useState(false)
 
   // 営業判定はクライアントサイドのみ
   useEffect(() => {
     setIsOpen(calcIsOpen())
     const timer = setInterval(() => setIsOpen(calcIsOpen()), 60_000)
     return () => clearInterval(timer)
+  }, [])
+
+  // prefers-reduced-motionを尊重し、動画を自動再生しない（アクセシビリティ・globals.css既存の
+  // reduced-motion方針と統一）。SSR時はwindow未定義のためuseEffect内でのみ判定する。
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mql.matches) setHeroVideoFallback(true)
+    const onChange = (e: MediaQueryListEvent) => setHeroVideoFallback(e.matches)
+    mql.addEventListener('change', onChange)
+    return () => mql.removeEventListener('change', onChange)
   }, [])
 
   // Journal最新3記事をAPIから取得
@@ -417,6 +433,44 @@ export default function HomePage() {
           id="top"
           className="hero"
         >
+          {/* 背景動画（2026-09-23実装・HP素材差し替えタスク370ac No.1）。
+              素材配置先：動画=/public/video/hero.mp4／静止画フォールバック=/public/images/hero-fallback.jpg。
+              どちらも2026-09-23時点で未着荷のためファイル自体は存在しない。動画srcが404の間は
+              onErrorでheroVideoFallbackがtrueになり、下のImageによる静止画表示に自動的に切り替わる
+              （素材が揃った時点でファイルを置くだけで動画が有効化される設計。コード変更は不要）。
+              モバイル対応：playsInline+muted+autoPlayでiOS Safari含め自動再生に対応。
+              prefers-reduced-motion有効時も静止画フォールバックにする（上のuseEffect参照）。 */}
+          {!heroVideoFallback ? (
+            <video
+              className="hero-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/images/hero-fallback.jpg"
+              onError={() => setHeroVideoFallback(true)}
+              aria-hidden="true"
+            >
+              <source src="/video/hero.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            <Image
+              className="hero-video"
+              src="/images/hero-fallback.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover' }}
+              onError={() => {
+                /* フォールバック静止画すら未着荷（開発初期）の場合は何もしない。
+                   .heroの背景色（既存CSS変数）がそのまま見える状態にとどまる。 */
+              }}
+            />
+          )}
+          <div className="hero-video-overlay" aria-hidden="true" />
+
           {/* 光グロー背景 */}
           <div className="hero-light" aria-hidden="true" />
 
