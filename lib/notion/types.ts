@@ -21,7 +21,6 @@ export interface Product {
   slug: string
   name: string
   category: ProductCategory
-  price: number
   size?: string
   mainImage?: string
   subImages?: string[]
