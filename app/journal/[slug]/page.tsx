@@ -329,9 +329,6 @@ export default async function JournalDetailPage({ params }: PageProps) {
                     <p className="font-noto-serif text-base text-grace-brown group-hover:text-grace-text-secondary transition-colors">
                       {product.name}
                     </p>
-                    <p className="font-noto-sans text-[10px] text-grace-text-tertiary">
-                      ¥{product.price.toLocaleString()}
-                    </p>
                   </Link>
                 ))}
               </div>
