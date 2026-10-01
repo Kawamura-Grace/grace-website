@@ -13,7 +13,6 @@ function parseProduct(page: PageObjectResponse): Product {
     slug:                 props['slug']?.rich_text?.[0]?.plain_text ?? '',
     name:                 props['商品名']?.title?.[0]?.plain_text ?? '',
     category:             props['カテゴリ']?.select?.name ?? 'プチガトー',
-    price:                props['価格']?.number ?? 0,
     size:                 props['サイズ']?.rich_text?.[0]?.plain_text,
     mainImage:            files(props['メイン画像'])[0],
     subImages:            files(props['サブ画像']),
