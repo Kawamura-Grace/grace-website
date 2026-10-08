@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
 
 // フッターナビゲーション
 const FNAV = [
@@ -120,6 +121,20 @@ export function Footer() {
               @patisserie_grace_
             </a>
           </p>
+
+          {/* ホールケーキ予約 */}
+          {RESERVATION_URL && (
+            <p style={{ marginTop: '16px', fontSize: '12px', letterSpacing: '0.12em' }}>
+              <a
+                href={RESERVATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#B8956A', borderBottom: '1px solid rgba(184,149,106,.4)', paddingBottom: '2px' }}
+              >
+                {RESERVATION_LABEL}
+              </a>
+            </p>
+          )}
 
           {/* 公式LINE */}
           <p
