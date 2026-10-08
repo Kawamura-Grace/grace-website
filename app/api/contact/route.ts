@@ -102,13 +102,20 @@ export async function POST(request: NextRequest) {
     // ─── メール送信（Promise.allでawaitし、serverless function終了前に完了させる） ───
     if (resend) {
       const from = process.env.CONTACT_EMAIL_FROM ?? 'onboarding@resend.dev'
+      const staffTo = process.env.CONTACT_EMAIL_TO ?? 'info@grace-foods.com'
+      // Resend SDK v4 は送信失敗を例外ではなく { error } で返すため、ここでログに出す
+      const logResult = (label: string) => (res: { error: unknown }) => {
+        if (res.error) console.error(`[Contact API] ${label}送信エラー:`, res.error)
+      }
       const messagePreview = data.message.slice(0, 200) + (data.message.length > 200 ? '...' : '')
 
       await Promise.all([
         // 代表宛通知
         resend.emails.send({
           from,
-          to:      process.env.CONTACT_EMAIL_TO ?? 'info@grace-foods.com',
+          to:      staffTo,
+          // 通知メールに返信すると、お問い合わせしたお客様に届く
+          replyTo: data.email,
           subject: `【Grace HP】新規お問合せ: ${data.category}`,
           text: [
             `${data.name} 様${data.company ? `（${data.company}）` : ''}からのお問い合わせ`,
@@ -118,13 +125,15 @@ export async function POST(request: NextRequest) {
             '内容:',
             data.message,
           ].filter(Boolean).join('\n'),
-        }).catch((err: Error) => {
+        }).then(logResult('代表宛メール')).catch((err: Error) => {
           console.error('[Contact API] 代表宛メール送信エラー:', err)
         }),
         // 送信者への自動返信
         resend.emails.send({
           from,
           to:      data.email,
+          // 自動返信にお客様が返信すると、店の受付アドレスに届く（送信元ドメインは受信できないため）
+          replyTo: staffTo,
           subject: '【Grace】お問合せを承りました',
           text: [
             `${data.name} 様`,
@@ -141,7 +150,7 @@ export async function POST(request: NextRequest) {
             '愛知県春日井市朝宮町1-2-6',
             '──────────────────────',
           ].join('\n'),
-        }).catch((err: Error) => {
+        }).then(logResult('自動返信メール')).catch((err: Error) => {
           console.error('[Contact API] 自動返信メール送信エラー:', err)
         }),
       ])
