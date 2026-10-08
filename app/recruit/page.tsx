@@ -21,7 +21,7 @@ const recruitMetadata = buildPageMetadata({
   path: '/recruit',
   title: '採用情報｜Grace（グレイス）春日井のパティスリー',
   description:
-    '2026年秋オープン、愛知・春日井のパティスリー「Grace」の採用情報。店舗マネージャー候補・製造販売スタッフ（契約社員／パート）を募集しています。',
+    '2026年10月15日オープン、愛知・春日井のパティスリー「Grace」の採用情報。店舗マネージャー候補・製造販売スタッフ（契約社員／パート）を募集しています。',
 })
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     ...recruitMetadata.openGraph,
     // OGP用の短縮版の説明文は従来のものをそのまま残す
     description:
-      '2026年秋オープン、愛知・春日井のパティスリー「Grace」の採用情報。店舗マネージャー候補・製造販売スタッフを募集中。',
+      '2026年10月15日オープン、愛知・春日井のパティスリー「Grace」の採用情報。店舗マネージャー候補・製造販売スタッフを募集中。',
   },
 }
 
@@ -109,7 +109,7 @@ export default function RecruitPage() {
               maxWidth: '460px',
             }}
           >
-            2026年秋、愛知・春日井にオープンするパティスリー「Grace」。
+            2026年10月15日、愛知・春日井にオープンするパティスリー「Grace」。
             <br />
             お菓子づくりと店づくりを、一緒に育ててくれる仲間を募集しています。
           </p>

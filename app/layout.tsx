@@ -50,11 +50,11 @@ const shippori = Shippori_Mincho({
 
 export const metadata: Metadata = {
   title: 'Grace｜春日井のパティスリー',
-  description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
+  description: '美しい暮らしには、お菓子がある。2026年10月15日、愛知・春日井にオープン。',
   metadataBase: new URL(SITE_URL),
   openGraph: {
     title: 'Grace｜春日井のパティスリー',
-    description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
+    description: '美しい暮らしには、お菓子がある。2026年10月15日、愛知・春日井にオープン。',
     type: 'website',
     // 相対パスで指定し metadataBase で解決させる。ここはトップページ自身のURL。
     url: '/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Grace｜春日井のパティスリー',
-    description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
+    description: '美しい暮らしには、お菓子がある。2026年10月15日、愛知・春日井にオープン。',
     images: [DEFAULT_OG_IMAGE],
   },
   icons: {

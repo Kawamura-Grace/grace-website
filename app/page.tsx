@@ -457,7 +457,7 @@ export default function HomePage() {
             {/* 開業予定（確定コピー） */}
             <p className="hero-open rise" data-d="4">
               Grand Open
-              <span className="date">2026年 秋頃予定</span>
+              <span className="date">2026年10月15日（木）オープン</span>
             </p>
           </div>
 
@@ -1112,7 +1112,7 @@ export default function HomePage() {
               }}
             >
               焼き菓子と冷凍スイーツのお届けを準備しています。<br />
-              オンラインショップは2026年秋、オープン予定です。
+              オンラインショップは準備中です。
             </p>
             <SubscribeForm />
             <p
