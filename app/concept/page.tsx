@@ -232,10 +232,10 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            {/* 写真ファイルを /public/images/craftsmanship.jpg に配置するだけで差し替え可 */}
+            {/* 自店撮影のバニラビーンズ。正式な撮影素材の受領後に差し替え可 */}
             <Image
-              src="/images/craftsmanship.jpg"
-              alt="こだわりの素材と製法 — Grace"
+              src="/photos/own_vanilla.jpg"
+              alt="バニラビーンズ — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
               style={{ objectFit: 'cover' }}
@@ -270,8 +270,8 @@ export default function ConceptPage() {
             }}
           >
             <Image
-              src="/images/note-from-grace.jpg"
-              alt="お菓子が、誰かの大切な日の横にいる — Grace"
+              src="/photos/own_exterior.jpg"
+              alt="Graceの外観"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 340px"
               style={{ objectFit: 'cover' }}

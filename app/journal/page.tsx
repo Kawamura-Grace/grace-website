@@ -45,9 +45,9 @@ export default async function JournalPage({ searchParams }: PageProps) {
       <main>
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: パティスリーの素材・製造 */}
+          {/* 背景写真: Grace店舗外観（自店撮影） */}
           <Image
-            src="/photos/placeholder_03.jpg"
+            src="/photos/own_exterior.jpg"
             alt=""
             fill
             className="object-cover opacity-25"

@@ -25,13 +25,15 @@ const PHASES = {
 
 // ============ ショーケースデータ ============
 const ITEMS = ['チーズケーキ', 'ショートケーキ', '季節のタルト', 'フィナンシェ', 'マドレーヌ', 'クッキー缶']
-const IMGS = [
-  '/photos/placeholder_01.jpg',
-  '/photos/placeholder_02.jpg',
-  '/photos/placeholder_03.jpg',
-  '/photos/placeholder_06.jpg',
-  '/photos/placeholder_07.jpg',
-  '/photos/placeholder_08.jpg',
+// 自店撮影の写真がある商品のみ設定する。undefined の商品は写真ブロックを出さない
+// （他店・ストック写真は使わない。正式な撮影素材の受領後に差し替える・2026-10-09方針）
+const IMGS: (string | undefined)[] = [
+  '/photos/own_cheesecake.jpg',
+  '/photos/own_shortcake.jpg',
+  undefined, // 季節のタルト
+  undefined, // フィナンシェ
+  undefined, // マドレーヌ
+  undefined, // クッキー缶
 ]
 // ショーケースの在庫バッジ表示状態
 // 'in_stock'/'sold_out' はSquare在庫連携の実データ、'closed' は営業時間外（在庫と無関係の事実）。
@@ -504,7 +506,7 @@ export default function HomePage() {
         >
           <figure className="rise" style={{ margin: 0 }}>
             <Ph
-              src="/photos/placeholder_01.jpg"
+              src="/photos/own_cheesecake.jpg"
               alt="チーズケーキ"
               aspectRatio="4/5"
               style={{ maxHeight: '74svh' }}
@@ -565,7 +567,7 @@ export default function HomePage() {
         >
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
             <Ph
-              src="/photos/placeholder_02.jpg"
+              src="/photos/own_shortcake.jpg"
               alt="ショートケーキ"
               aspectRatio="4/5"
               style={{ maxHeight: '74svh' }}
@@ -616,22 +618,15 @@ export default function HomePage() {
         <section
           className="chapter-section"
           style={{
-            minHeight: '92svh',
+            minHeight: '56svh',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: '1fr',
+            justifyItems: 'center',
             alignItems: 'center',
             gap: 'clamp(28px,5vw,80px)',
             padding: 'clamp(60px,8vw,110px) clamp(24px,6vw,80px)',
           }}
         >
-          <figure className="rise" style={{ margin: 0 }}>
-            <Ph
-              src="/photos/placeholder_03.jpg"
-              alt="季節のタルト"
-              aspectRatio="4/5"
-              style={{ maxHeight: '74svh' }}
-            />
-          </figure>
           <div
             className="rise"
             data-d="2"
@@ -690,8 +685,8 @@ export default function HomePage() {
         >
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
             <Ph
-              src="/photos/placeholder_04.jpg"
-              alt="焼き菓子・ギフト"
+              src="/photos/own_gift_s.jpg"
+              alt="詰め合わせギフト（焼き菓子）"
               aspectRatio="4/5"
               isBand
               style={{ maxHeight: '74svh' }}
@@ -814,11 +809,13 @@ export default function HomePage() {
                 phase === 'night' ? 'closed' : inventory[name] ?? null
               return (
                 <article key={name} className="rise in">
-                  <Ph
-                    src={IMGS[i]}
-                    alt={`${name}`}
-                    aspectRatio="1/1"
-                  />
+                  {IMGS[i] && (
+                    <Ph
+                      src={IMGS[i]}
+                      alt={`${name}`}
+                      aspectRatio="1/1"
+                    />
+                  )}
                   <h3
                     style={{
                       fontSize: '13.5px',
@@ -914,8 +911,8 @@ export default function HomePage() {
           }}
         >
           <Ph
-            src="/photos/placeholder_05.jpg"
-            alt="店舗イメージ"
+            src="/photos/own_exterior.jpg"
+            alt="Graceの外観"
             style={{ minHeight: '420px', height: '100%', aspectRatio: undefined }}
           />
           <div

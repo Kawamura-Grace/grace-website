@@ -22,17 +22,6 @@ export default function GiftPage() {
       <main>
         {/* ─── ヒーロー見出し ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: ギフトボックスとリボン */}
-          <Image
-            src="https://images.pexels.com/photos/1007533/pexels-photo-1007533.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            alt=""
-            fill
-            className="object-cover opacity-25"
-            sizes="100vw"
-            crossOrigin="anonymous"
-            aria-hidden="true"
-            priority
-          />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">FOR SPECIAL MOMENTS</p>
@@ -75,10 +64,10 @@ export default function GiftPage() {
                   ))}
                 </ul>
               </div>
-              {/* 仮写真（撮影後差し替え） */}
+              {/* 自店撮影（詰め合わせギフトS）。正式な撮影素材の受領後に差し替え可 */}
               <div className="relative aspect-square overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1592903297149-37fb25202dfa?w=800&q=80&auto=format&fit=crop"
+                  src="/photos/own_gift_s.jpg"
                   alt="Grace PÂTISSERIE ギフト包装"
                   fill
                   className="object-cover"
@@ -174,16 +163,6 @@ export default function GiftPage() {
 
         {/* ─── 法人ギフト → Contact誘導 ─── */}
         <section className="relative overflow-hidden section-padding bg-grace-bg-dark">
-          {/* 背景写真: 高級チョコレートギフトボックス */}
-          <Image
-            src="https://images.pexels.com/photos/7407255/pexels-photo-7407255.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            alt=""
-            fill
-            className="object-cover opacity-20"
-            sizes="100vw"
-            crossOrigin="anonymous"
-            aria-hidden="true"
-          />
           <div className="absolute inset-0 bg-grace-bg-dark/78" aria-hidden="true" />
           <div className="relative z-10 container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">CORPORATE GIFT</p>

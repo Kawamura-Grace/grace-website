@@ -64,14 +64,13 @@ export default async function SweetsPage({ searchParams }: PageProps) {
       <main>
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: パティスリーのケーキ・ペストリー陳列 */}
+          {/* 背景写真: ガトーショコラ（自店撮影） */}
           <Image
-            src="https://images.pexels.com/photos/17869890/pexels-photo-17869890.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="/photos/gateau_chocolat_petit.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
             sizes="100vw"
-            crossOrigin="anonymous"
             aria-hidden="true"
             priority
           />
