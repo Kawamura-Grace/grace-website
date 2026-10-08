@@ -240,21 +240,6 @@ export default function ConceptPage() {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
               style={{ objectFit: 'cover' }}
             />
-            <div style={{
-              position: 'absolute',
-              right: '10px',
-              bottom: '10px',
-              background: 'rgba(0,0,0,0.45)',
-              color: '#fff',
-              fontSize: '9px',
-              letterSpacing: '0.18em',
-              padding: '3px 7px',
-              fontFamily: 'Cormorant Garamond, Georgia, serif',
-              fontStyle: 'italic',
-              pointerEvents: 'none',
-            }}>
-              PLACEHOLDER
-            </div>
           </div>
         </section>
 
@@ -291,21 +276,6 @@ export default function ConceptPage() {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 340px"
               style={{ objectFit: 'cover' }}
             />
-            <div style={{
-              position: 'absolute',
-              right: '10px',
-              bottom: '10px',
-              background: 'rgba(0,0,0,0.45)',
-              color: '#fff',
-              fontSize: '9px',
-              letterSpacing: '0.18em',
-              padding: '3px 7px',
-              fontFamily: 'Cormorant Garamond, Georgia, serif',
-              fontStyle: 'italic',
-              pointerEvents: 'none',
-            }}>
-              PLACEHOLDER
-            </div>
           </div>
 
           {/* テキスト */}

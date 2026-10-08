@@ -75,34 +75,15 @@ export default function ShopPage() {
           }}
           className="shop-info-grid"
         >
-          {/* 左: 店舗写真（プレースホルダー） */}
+          {/* 左: 店舗写真 */}
           <div style={{ position: 'relative', overflow: 'hidden', minHeight: '460px' }}>
             <Image
               src="/photos/placeholder_05.jpg"
-              alt="グレイスパティスリー 店舗イメージ（仮素材）"
+              alt="グレイスパティスリー 店舗イメージ"
               fill
               sizes="(max-width: 880px) 100vw, 50vw"
               style={{ objectFit: 'cover', filter: 'saturate(.82) contrast(.96)' }}
             />
-            {/* PLACEHOLDERバッジ */}
-            <span
-              style={{
-                position: 'absolute',
-                bottom: '8px',
-                right: '8px',
-                zIndex: 2,
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontSize: '8.5px',
-                letterSpacing: '0.26em',
-                color: 'rgba(247,243,239,.85)',
-                background: 'rgba(44,36,33,.5)',
-                padding: '3px 9px',
-                backdropFilter: 'blur(2px)',
-              }}
-            >
-              PLACEHOLDER
-            </span>
           </div>
 
           {/* 右: 基本情報 */}

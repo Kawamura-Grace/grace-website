@@ -231,24 +231,6 @@ function Ph({
             style={{ objectFit: 'cover', zIndex: 1, filter: 'saturate(.82) contrast(.96)', transition: 'transform 6s ease' }}
             onError={() => setFailed(true)}
           />
-          <span
-            style={{
-              position: 'absolute',
-              bottom: '8px',
-              right: '8px',
-              zIndex: 2,
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontStyle: 'italic',
-              fontSize: '8.5px',
-              letterSpacing: '0.26em',
-              color: 'rgba(247,243,239,.85)',
-              background: 'rgba(44,36,33,.5)',
-              padding: '3px 9px',
-              backdropFilter: 'blur(2px)',
-            }}
-          >
-            PLACEHOLDER
-          </span>
         </>
       )}
     </div>
@@ -293,86 +275,9 @@ function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
   )
 }
 
-// ============ DEMOスイッチャー ============
-function DemoSwitcher({
-  currentPhase,
-  onPhaseChange,
-}: {
-  currentPhase: Phase
-  onPhaseChange: (p: Phase | 'auto') => void
-}) {
-  const [mode, setMode] = useState<'auto' | Phase>('auto')
-
-  function handleClick(p: 'auto' | Phase) {
-    setMode(p)
-    // usePhase の setDemoPhase 経由でReact stateとCSSの両方を更新する
-    onPhaseChange(p)
-  }
-
-  const btns: Array<{ key: 'auto' | Phase; label: string }> = [
-    { key: 'auto', label: '現在' },
-    { key: 'morning', label: '朝' },
-    { key: 'day', label: '昼' },
-    { key: 'dusk', label: '夕' },
-    { key: 'night', label: '夜' },
-  ]
-
-  return (
-    <div
-      role="group"
-      aria-label="時間プレビュー（デモ用）"
-      style={{
-        position: 'fixed',
-        bottom: '16px',
-        right: '16px',
-        zIndex: 80,
-        background: 'color-mix(in srgb, #2C2421 92%, transparent)',
-        backdropFilter: 'blur(6px)',
-        border: '1px solid rgba(184,149,106,.4)',
-        borderRadius: '999px',
-        padding: '8px 12px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '6px',
-      }}
-    >
-      <span
-        style={{
-          fontSize: '9.5px',
-          letterSpacing: '0.18em',
-          color: 'rgba(247,243,239,.55)',
-          marginRight: '4px',
-        }}
-      >
-        DEMO
-      </span>
-      {btns.map(({ key, label }) => (
-        <button
-          key={key}
-          onClick={() => handleClick(key)}
-          style={{
-            background: mode === key ? '#B8956A' : 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
-            fontSize: '11px',
-            letterSpacing: '0.1em',
-            color: mode === key ? '#2C2421' : 'rgba(247,243,239,.75)',
-            padding: '4px 8px',
-            borderRadius: '999px',
-            transition: '.25s',
-          }}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
-  )
-}
-
 // ============ メインページ ============
 export default function HomePage() {
-  const { phase, setDemoPhase } = usePhase()
+  const { phase } = usePhase()
   const phaseData = PHASES[phase]
   const [isOpen, setIsOpen] = useState(false)
   const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
@@ -600,7 +505,7 @@ export default function HomePage() {
           <figure className="rise" style={{ margin: 0 }}>
             <Ph
               src="/photos/placeholder_01.jpg"
-              alt="チーズケーキ（仮素材）"
+              alt="チーズケーキ"
               aspectRatio="4/5"
               style={{ maxHeight: '74svh' }}
             />
@@ -661,7 +566,7 @@ export default function HomePage() {
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
             <Ph
               src="/photos/placeholder_02.jpg"
-              alt="ショートケーキ（仮素材）"
+              alt="ショートケーキ"
               aspectRatio="4/5"
               style={{ maxHeight: '74svh' }}
             />
@@ -722,7 +627,7 @@ export default function HomePage() {
           <figure className="rise" style={{ margin: 0 }}>
             <Ph
               src="/photos/placeholder_03.jpg"
-              alt="季節のタルト（仮素材）"
+              alt="季節のタルト"
               aspectRatio="4/5"
               style={{ maxHeight: '74svh' }}
             />
@@ -786,7 +691,7 @@ export default function HomePage() {
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
             <Ph
               src="/photos/placeholder_04.jpg"
-              alt="焼き菓子・ギフト（仮素材）"
+              alt="焼き菓子・ギフト"
               aspectRatio="4/5"
               isBand
               style={{ maxHeight: '74svh' }}
@@ -911,7 +816,7 @@ export default function HomePage() {
                 <article key={name} className="rise in">
                   <Ph
                     src={IMGS[i]}
-                    alt={`${name}（仮素材）`}
+                    alt={`${name}`}
                     aspectRatio="1/1"
                   />
                   <h3
@@ -1010,7 +915,7 @@ export default function HomePage() {
         >
           <Ph
             src="/photos/placeholder_05.jpg"
-            alt="店舗イメージ（仮素材）"
+            alt="店舗イメージ"
             style={{ minHeight: '420px', height: '100%', aspectRatio: undefined }}
           />
           <div
@@ -1140,9 +1045,6 @@ export default function HomePage() {
       </main>
 
       <Footer />
-
-      {/* ===== 13. DEMOスイッチャー（右下固定） ===== */}
-      <DemoSwitcher currentPhase={phase} onPhaseChange={setDemoPhase} />
 
       {/* レスポンシブ */}
       <style>{`

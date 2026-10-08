@@ -55,8 +55,6 @@ export default async function JournalPage({ searchParams }: PageProps) {
             aria-hidden="true"
             priority
           />
-          {/* 仮素材であることを示すオーバーレイ（本番撮影素材差し替え時に削除） */}
-          <span style={{ position: 'absolute', right: 10, bottom: 10, fontSize: 10, color: 'white', opacity: 0.7, zIndex: 5 }}>PLACEHOLDER</span>
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">STORIES</p>
