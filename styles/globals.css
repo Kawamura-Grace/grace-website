@@ -204,6 +204,14 @@ html[data-phase="night"] .logo-w { display: block }
   margin-top: 6px;
   color: var(--ink);
 }
+/* 「2026年10月15日（木）オープン」はスマホ幅で1行に収める */
+@media (max-width: 480px) {
+  .hero-open .date {
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+}
 .scroll-cue {
   position: absolute;
   bottom: 32px;
