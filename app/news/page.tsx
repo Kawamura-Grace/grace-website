@@ -36,9 +36,9 @@ export default async function NewsPage() {
       <main>
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark section-padding">
-          {/* 背景写真 */}
+          {/* 背景写真（No.10 Grace商品）: ガトーショコラ プチガトー 河村撮影の仮素材。本番撮影素材で差し替え予定 */}
           <Image
-            src="/photos/placeholder_01.jpg"
+            src="/photos/gateau_chocolat_petit.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
