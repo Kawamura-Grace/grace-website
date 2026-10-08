@@ -90,7 +90,7 @@ export default function GiftPage() {
             {/* WRAPPING直下CTA — 開業後に ONLINE STORE リンクへ差し替え */}
             <div className="mt-12 text-center">
               <p className="font-noto-serif text-base text-grace-text-tertiary mb-3">
-                オンラインストアは2026年10月開業時にオープン予定です。
+                オンラインストアは準備中です。
               </p>
               <a
                 href="https://www.instagram.com/patisserie_grace_/"
@@ -211,7 +211,7 @@ export default function GiftPage() {
               Coming Soon
             </h2>
             <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 max-w-md mx-auto">
-              オンラインストアは2026年10月の開業に合わせてオープン予定です。<br />
+              オンラインストアは準備中です。<br />
               Instagramで先行情報をお届けしています。
             </p>
             <a

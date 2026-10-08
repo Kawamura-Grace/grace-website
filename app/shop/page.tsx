@@ -140,7 +140,7 @@ export default function ShopPage() {
                 ['TEL', '未定（開業時に掲載予定）'],
                 ['営業時間', '9:30 - 19:30'],
                 ['営業日', '不定休（元日のみ休業）'],
-                ['駐車場', '8台（お車でのご来店に便利です）'],
+                ['駐車場', '台数に限りがあります'],
               ] as [string, string][]).map(([dt, dd]) => (
                 <>
                   <dt key={`dt-${dt}`} style={{ color: '#B8956A', letterSpacing: '0.22em', whiteSpace: 'nowrap' }}>{dt}</dt>

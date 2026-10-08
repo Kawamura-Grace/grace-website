@@ -121,7 +121,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
               // 空ステート（開業前）
               <div className="text-center py-24">
                 <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
-                  商品は2026年10月の開業時より順次公開予定です。
+                  商品ページは準備中です。
                 </p>
                 <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
                   Instagramで開業前の最新情報をお届けしています。
