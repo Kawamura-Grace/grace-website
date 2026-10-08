@@ -15,9 +15,12 @@ export const metadata: Metadata = buildPageMetadata({
 // 特定商取引法の表示項目
 const ITEMS = [
   { label: '販売業者',         value: '株式会社Grace Foods' },
-  { label: '運営責任者', value: '代表取締役（公開前に実名記載）' },
-  { label: '所在地',           value: '〒486-0846 愛知県春日井市（詳細住所は開業時に公開予定）' },
-  { label: '電話番号',         value: 'お問い合わせフォームよりご連絡ください（電話対応時間：9:30〜19:30）' },
+  // 以下の文言は legal-agent 確定版「Grace_特定商取引法に基づく表記_v7_20260921」（doc_id 1YUWTFVJxfqiYGFOUEDMxOs9ihQUVhecs4HgKu3uGO9o）の原文
+  { label: '運営統括責任者',   value: '河村 大輔' },
+  { label: '本店所在地',       value: '〒486-0903 愛知県春日井市前並町一丁目13番地17（登記上の本店所在地）' },
+  { label: '商品発送拠点所在地', value: '〒486-0846 愛知県春日井市朝宮町一丁目2番地6（Grace店舗。本店所在地とは異なります）' },
+  { label: '電話番号',         value: 'ご請求をいただいた場合は、遅滞なく電子メールにて電話番号をご案内いたします。お問い合わせは info@grace-foods.com までご連絡ください。' },
+  { label: 'メールアドレス',   value: 'info@grace-foods.com' },
   { label: 'お問い合わせ',     value: 'サイト内お問い合わせフォームをご利用ください' },
   { label: 'ウェブサイト',     value: 'https://grace-patisserie.jp' },
   {
@@ -100,8 +103,7 @@ export default function TermsPage() {
               {/* 備考 */}
               <div className="mt-12 pt-8 border-t border-grace-line">
                 <p className="font-noto-serif text-base text-grace-text-tertiary leading-loose">
-                  ※ 上記の内容は予告なく変更される場合があります。最新情報は本ページをご確認ください。<br />
-                  ※ 事業者情報の詳細（電話番号・住所等）は、開業後に更新いたします。
+                  ※ 上記の内容は予告なく変更される場合があります。最新情報は本ページをご確認ください。
                 </p>
                 <p className="font-noto-serif text-base text-grace-text-tertiary mt-4 text-right">
                   最終更新：2026年10月1日<br />
