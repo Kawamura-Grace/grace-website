@@ -95,7 +95,7 @@ export function Footer() {
           >
             Grace PÂTISSERIE グレイス<br />
             愛知県春日井市朝宮町1-2-6<br />
-            9:30 - 19:30 ／ 年中無休（元旦を除く）
+            9:30 - 19:30 ／ 不定休（元日のみ休業）
           </address>
 
           {/* Instagram */}
@@ -118,6 +118,29 @@ export function Footer() {
               }}
             >
               @patisserie_grace_
+            </a>
+          </p>
+
+          {/* 公式LINE */}
+          <p
+            style={{
+              marginTop: '8px',
+              fontSize: '12px',
+              letterSpacing: '0.16em',
+            }}
+          >
+            公式LINE&nbsp;&nbsp;
+            <a
+              href="https://lin.ee/SHBoDiLI"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: '#B8956A',
+                borderBottom: '1px solid rgba(184,149,106,.4)',
+                paddingBottom: '2px',
+              }}
+            >
+              友だち追加
             </a>
           </p>
 

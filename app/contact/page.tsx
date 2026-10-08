@@ -102,6 +102,16 @@ export default function ContactPage() {
             >
               内容を確認のうえ、3営業日以内にご返信いたします。
             </p>
+            <p style={{ marginTop: '18px', fontSize: '12.5px', letterSpacing: '0.14em', textAlign: 'center' }}>
+              <a
+                href="https://lin.ee/SHBoDiLI"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#B8956A', borderBottom: '1px solid rgba(184,149,106,.4)', paddingBottom: '2px' }}
+              >
+                公式LINE 友だち追加
+              </a>
+            </p>
           </div>
         </section>
 

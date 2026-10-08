@@ -139,7 +139,7 @@ export default function ShopPage() {
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
                 ['TEL', '未定（開業時に掲載予定）'],
                 ['営業時間', '9:30 - 19:30'],
-                ['営業日', '年中無休（元旦を除く）'],
+                ['営業日', '不定休（元日のみ休業）'],
                 ['駐車場', '8台（お車でのご来店に便利です）'],
               ] as [string, string][]).map(([dt, dd]) => (
                 <>
@@ -169,6 +169,26 @@ export default function ShopPage() {
               }}
             >
               @patisserie_grace_
+            </a>
+            <p style={{ marginTop: '14px', fontSize: '12px', color: '#7B8B6F', letterSpacing: '0.12em' }}>
+              お問い合わせは公式LINEでも承ります。
+            </p>
+            <a
+              href="https://lin.ee/SHBoDiLI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shop-link-gold"
+              style={{
+                display: 'inline-block',
+                marginTop: '8px',
+                fontSize: '12.5px',
+                letterSpacing: '0.18em',
+                color: '#B8956A',
+                borderBottom: '1px solid rgba(184,149,106,.4)',
+                paddingBottom: '2px',
+              }}
+            >
+              公式LINE 友だち追加
             </a>
 
             {/* Google Maps ボタン — hoverはCSSクラスで処理（サーバーコンポーネントのためonMouseEnter禁止） */}
