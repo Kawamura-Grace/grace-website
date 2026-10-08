@@ -101,7 +101,7 @@ export default async function JournalPage({ searchParams }: PageProps) {
               <div className="text-center py-24">
                 <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
                   {(!activeCategory || activeCategory === 'all')
-                    ? 'ジャーナルは2026年10月の開業にあわせて公開予定です。'
+                    ? 'ジャーナルは準備中です。'
                     : 'このカテゴリの記事はまだありません。'}
                 </p>
                 {(!activeCategory || activeCategory === 'all') && (
