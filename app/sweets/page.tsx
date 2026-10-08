@@ -183,7 +183,6 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                         {product.name}
                       </h2>
                       <p className="font-noto-sans text-xs text-grace-text-secondary">
-                        ¥{product.price.toLocaleString()}
                         {product.size && (
                           <span className="text-grace-text-tertiary ml-1">({product.size})</span>
                         )}

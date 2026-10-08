@@ -121,11 +121,6 @@ export default async function SweetDetailPage({ params }: PageProps) {
                   {product.name}
                 </h1>
 
-                {/* 価格 */}
-                <p className="font-noto-sans text-xl text-grace-brown mb-1">
-                  ¥{product.price.toLocaleString()}
-                  <span className="text-xs text-grace-text-tertiary ml-1">（税込）</span>
-                </p>
                 {product.size && (
                   <p className="font-noto-sans text-xs text-grace-text-tertiary mb-8">{product.size}</p>
                 )}
