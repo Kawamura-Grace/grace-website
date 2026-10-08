@@ -802,13 +802,28 @@ export default function HomePage() {
               marginTop: 'clamp(36px,5vw,60px)',
             }}
           >
-            {ITEMS.map((name, i) => {
+            {/* 写真のある商品を先に並べ、写真のない商品は写真枠を持たない名前だけの行として後ろに並べる（グリッドの段ずれ防止） */}
+            {[...ITEMS.keys()].sort((a, b) => Number(!IMGS[a]) - Number(!IMGS[b])).map((i, order, sorted) => {
+              const name = ITEMS[i]
+              // 写真のない商品の先頭は必ず新しい行から始める
+              const isFirstTextOnly = !IMGS[i] && (order === 0 || !!IMGS[sorted[order - 1]])
               // 営業時間外は在庫と無関係に「本日終了」。営業中はSquare在庫の実データのみ表示し、
               // 未連携（Square未設定・カタログ未マッチ）の商品はバッジ自体を出さない（フェイク表示を避ける）
               const label: ShowcaseLabel | null =
                 phase === 'night' ? 'closed' : inventory[name] ?? null
               return (
-                <article key={name} className="rise in">
+                <article
+                  key={name}
+                  className="rise in"
+                  style={
+                    IMGS[i]
+                      ? undefined
+                      : {
+                          borderTop: '1px solid color-mix(in srgb, var(--ink) 14%, var(--bg))',
+                          ...(isFirstTextOnly ? { gridColumnStart: 1 } : {}),
+                        }
+                  }
+                >
                   {IMGS[i] && (
                     <Ph
                       src={IMGS[i]}
