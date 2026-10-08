@@ -8,13 +8,15 @@ import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 import { buildPageMetadata } from '@/lib/seo'
+import { getInventoryStatusByNames } from '@/lib/square/inventory'
 
-export const revalidate = 3600 // 1時間
+// ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/sweets',
-  title: 'Sweets | Grace — PATISSERIE',
-  description: 'Pâtisserie Graceのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
+  title: 'Sweets | Grace PÂTISSERIE',
+  description: 'Grace PÂTISSERIEのスイーツ一覧。プチガトー・チーズケーキ・焼き菓子・ホール・カヌレ。',
 })
 
 // カテゴリタブの定義
@@ -53,18 +55,36 @@ export default async function SweetsPage({ searchParams }: PageProps) {
     ? allProducts
     : allProducts.filter(p => p.category === activeCategory)
 
+  // Square在庫状態（商品名で一致した分のみ。未連携・未マッチはMapに含まれずバッジ非表示になる）
+  const inventory = await getInventoryStatusByNames(products.map((p) => p.name))
+
   return (
     <>
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
+          {/* 背景写真: ガトーショコラ（自店撮影） */}
+          <Image
+            src="/photos/gateau_chocolat_petit.jpg"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            aria-hidden="true"
+            priority
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">OUR PRODUCTS</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Sweets
             </h1>
-            <div className="w-8 h-px bg-grace-gold mx-auto" />
+            <div className="w-8 h-px bg-grace-gold mx-auto mb-8" />
+            <p className="font-noto-serif text-lg text-grace-stone leading-loose max-w-md mx-auto">
+              季節と素材が主役。<br />
+              手仕事でしか生まれない、一皿のお菓子。
+            </p>
           </div>
         </section>
 
@@ -100,7 +120,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
               // 空ステート（開業前）
               <div className="text-center py-24">
                 <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
-                  商品は2026年10月の開業時より順次公開予定です。
+                  商品ページは準備中です。
                 </p>
                 <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
                   Instagramで開業前の最新情報をお届けしています。
@@ -148,14 +168,20 @@ export default async function SweetsPage({ searchParams }: PageProps) {
 
                     {/* 商品情報 */}
                     <div>
-                      <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1">
+                      <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1 flex items-center gap-2">
                         {product.category}
+                        {/* Square在庫連携（商品名一致）。未連携・未マッチの商品はバッジなし */}
+                        {inventory.get(product.name) === 'sold_out' && (
+                          <Tag variant="stone">完売</Tag>
+                        )}
+                        {inventory.get(product.name) === 'in_stock' && (
+                          <Tag variant="wasabi">販売中</Tag>
+                        )}
                       </p>
                       <h2 className="font-noto-serif text-lg text-grace-brown mb-1 group-hover:text-grace-text-secondary transition-colors">
                         {product.name}
                       </h2>
                       <p className="font-noto-sans text-xs text-grace-text-secondary">
-                        ¥{product.price.toLocaleString()}
                         {product.size && (
                           <span className="text-grace-text-tertiary ml-1">({product.size})</span>
                         )}

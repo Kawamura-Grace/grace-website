@@ -1,16 +1,26 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
+import { Cormorant_Garamond, Noto_Serif_JP, Noto_Sans_JP, Shippori_Mincho } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from '@/lib/seo'
 import '../styles/globals.css'
 
+// パフォーマンス最適化（2026-08-29）：
+// これら4書体はいずれも実際の描画では next/font のCSS変数(var(--font-*))ではなく
+// tailwind.config.ts の literal font-family名（"Cormorant Garamond"等）が使われており、
+// next/fontが生成する@font-face（obfuscatedな内部名）は現状どのCSSからも参照されていない
+// （grep実測・getComputedStyle実測で確認済み・デザイン上の見た目に影響なし）。
+// それにもかかわらず preload:true（デフォルト）により <link rel="preload"> が
+// 全ウェイト×サブセット分（実測126件のwoff2）を初回アクセスで強制ダウンロードさせており、
+// Lighthouse Performance低下の主因になっていた。
+// 書体・ウェイト構成・見た目は変更せず、不要なプリロードのみ止める（preload:false）。
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   style: ['normal', 'italic'],
   variable: '--font-cormorant',
   display: 'swap',
+  preload: false,
 })
 
 const notoSerif = Noto_Serif_JP({
@@ -18,6 +28,7 @@ const notoSerif = Noto_Serif_JP({
   weight: ['200', '300', '400'],
   variable: '--font-noto-serif',
   display: 'swap',
+  preload: false,
 })
 
 const notoSans = Noto_Sans_JP({
@@ -25,15 +36,25 @@ const notoSans = Noto_Sans_JP({
   weight: ['400', '500'],
   variable: '--font-noto-sans',
   display: 'swap',
+  preload: false,
+})
+
+// cinematic-b 本文フォント
+const shippori = Shippori_Mincho({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-shippori',
+  display: 'swap',
+  preload: false,
 })
 
 export const metadata: Metadata = {
-  title: 'Grace — PATISSERIE',
-  description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
+  title: 'Grace｜春日井のパティスリー',
+  description: '美しい暮らしには、お菓子がある。2026年10月15日、愛知・春日井にオープン。',
   metadataBase: new URL(SITE_URL),
   openGraph: {
-    title: 'Grace — PATISSERIE',
-    description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
+    title: 'Grace｜春日井のパティスリー',
+    description: '美しい暮らしには、お菓子がある。2026年10月15日、愛知・春日井にオープン。',
     type: 'website',
     // 相対パスで指定し metadataBase で解決させる。ここはトップページ自身のURL。
     url: '/',
@@ -42,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Grace — PATISSERIE',
-    description: '美しい暮らしには、お菓子がある。2026年秋、愛知・春日井にオープン。',
+    title: 'Grace｜春日井のパティスリー',
+    description: '美しい暮らしには、お菓子がある。2026年10月15日、愛知・春日井にオープン。',
     images: [DEFAULT_OG_IMAGE],
   },
   icons: {
@@ -56,7 +77,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     // ルートレイアウトの canonical はトップページ自身を指す。
-    // 各下層ページは buildPageMetadata()（lib/seo.ts）で自ページのパスに上書きする。
+    // 各下層ページは buildPageMetadata() で自ページのパスに上書きする。
     canonical: '/',
   },
 }
@@ -67,7 +88,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${notoSerif.variable} ${notoSans.variable}`}
+      data-phase="day"
+      className={`${cormorant.variable} ${notoSerif.variable} ${notoSans.variable} ${shippori.variable}`}
     >
       <body>
         {GA_ID && (

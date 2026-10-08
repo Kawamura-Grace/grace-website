@@ -10,12 +10,10 @@ import type { Metadata } from 'next'
  * 【背景】
  * Next.js App Router の metadata は親レイアウトから子ページへ「浅くマージ」される。
  * 子ページが alternates を定義しない場合、ルートレイアウトの canonical をそのまま
- * 継承してしまう。ルートレイアウト（app/layout.tsx）が canonical / og:url に
- * 絶対URL（サイトルート）を固定値で持っていたため、alternates を自前で持たない
- * 全ページがサイトルートへ正規化されていた（self-canonical だったのは
- * alternates を独自定義していた /recruit のみ）。
+ * 継承してしまう。ルートレイアウトが絶対URL（サイトルート）を固定値で持っていたため、
+ * alternates を自前で持たない全ページがサイトルートへ正規化されていた。
  *
- * さらに openGraph も「浅いマージ」の対象で、ページ側で openGraph を定義すると
+ * さらに openGraph は「浅いマージ」の対象で、ページ側で openGraph を定義すると
  * 親の siteName / images / type は引き継がれずに消える。各ページで og を手書きすると
  * その欠落を全ページ分だけ再生産することになるため、このヘルパーに集約する。
  */
@@ -29,7 +27,7 @@ import type { Metadata } from 'next'
 export const SITE_URL = 'https://www.grace-patisserie.jp'
 
 /** og:site_name に出す表記 */
-export const SITE_NAME = 'Grace Patisserie'
+export const SITE_NAME = 'Grace PÂTISSERIE'
 
 /** OGP画像の既定値（ページ固有の画像がない場合に使う） */
 export const DEFAULT_OG_IMAGE = '/logo-horizontal.png'
@@ -37,7 +35,7 @@ export const DEFAULT_OG_IMAGE = '/logo-horizontal.png'
 type BuildPageMetadataInput = {
   /**
    * 自ページのパス。先頭スラッシュ付きで渡す（例: '/concept', '/journal/my-slug'）。
-   * metadataBase（= SITE_URL、app/layout.tsx で設定）を基準に絶対URLへ解決される。
+   * metadataBase（= SITE_URL）を基準に絶対URLへ解決される。
    */
   path: string
   title: string

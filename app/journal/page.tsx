@@ -10,21 +10,21 @@ import { formatDate } from '@/lib/utils/date'
 import type { JournalCategory } from '@/lib/notion/types'
 import { buildPageMetadata } from '@/lib/seo'
 
-export const revalidate = 3600 // 1時間
+// ISR: 1時間ごとに再検証
+export const revalidate = 3600
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/journal',
-  title: 'Journal | Grace — PATISSERIE',
-  description: 'Grace Patisserieのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
+  title: 'Journal | Grace｜春日井のパティスリー',
+  description: 'Grace PÂTISSERIEのジャーナル。素材・季節・製造の話など、お菓子にまつわる物語。',
 })
 
-// カテゴリ定義
+// カテゴリ定義: 初期記事は英語カテゴリ（Story/Craft/Gift）
 const CATEGORIES: { label: string; value: JournalCategory | 'all' }[] = [
-  { label: 'すべて',     value: 'all' },
-  { label: '素材の話',   value: '素材の話' },
-  { label: '季節の話',   value: '季節の話' },
-  { label: 'スタッフの話', value: 'スタッフの話' },
-  { label: '製造の話',   value: '製造の話' },
+  { label: 'すべて',  value: 'all' },
+  { label: 'Story',  value: 'Story' },
+  { label: 'Craft',  value: 'Craft' },
+  { label: 'Gift',   value: 'Gift' },
 ]
 
 interface PageProps {
@@ -44,8 +44,19 @@ export default async function JournalPage({ searchParams }: PageProps) {
       <Header />
       <main>
         {/* ─── ページヘッダー ─── */}
-        <section className="bg-grace-bg-dark section-padding">
-          <div className="container-content text-center">
+        <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
+          {/* 背景写真: Grace店舗外観（自店撮影） */}
+          <Image
+            src="/photos/own_exterior.jpg"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+            aria-hidden="true"
+            priority
+          />
+          <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
+          <div className="relative z-10 container-content text-center py-24">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-6">STORIES</p>
             <h1 className="font-cormorant italic text-5xl md:text-7xl text-grace-offwhite leading-none mb-8">
               Journal
@@ -88,9 +99,24 @@ export default async function JournalPage({ searchParams }: PageProps) {
           <div className="container-content">
             {posts.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-noto-serif text-lg text-grace-text-tertiary">
-                  現在この カテゴリの記事はありません。
+                <p className="font-noto-serif text-lg text-grace-text-tertiary mb-2">
+                  {(!activeCategory || activeCategory === 'all')
+                    ? 'ジャーナルは準備中です。'
+                    : 'このカテゴリの記事はまだありません。'}
                 </p>
+                {(!activeCategory || activeCategory === 'all') && (
+                  <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
+                    素材・季節・製造の話を、開業前から少しずつお届けします。
+                  </p>
+                )}
+                <a
+                  href="https://www.instagram.com/patisserie_grace_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"
+                >
+                  @patisserie_grace_ →
+                </a>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

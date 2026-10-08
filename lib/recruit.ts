@@ -63,7 +63,7 @@ export const JOB_LISTINGS: JobListing[] = [
     title: 'パティスリー店舗マネージャー候補',
     employmentType: 'CONTRACTOR',
     description:
-      '<p>2026年秋、愛知・春日井にオープンするパティスリー「Grace」の店舗マネージャー候補を募集します。製造・接客・店舗運営全般をリードする責任者候補のポジションです。</p>' +
+      '<p>2026年10月15日、愛知・春日井にオープンするパティスリー「Grace」の店舗マネージャー候補を募集します。製造・接客・店舗運営全般をリードする責任者候補のポジションです。</p>' +
       '<p>スタッフの育成やシフト管理、品質・衛生管理、売上づくりまで、店づくりの中心を担っていただきます。契約社員としてスタートし、正社員登用の道があります。</p>',
     summary:
       '製造・接客・店舗運営全般をリードする責任者候補。スタッフ育成、品質・衛生管理、売上づくりまで店づくりの中心を担います。契約社員スタート・正社員登用あり。',
@@ -77,7 +77,7 @@ export const JOB_LISTINGS: JobListing[] = [
     title: 'パティスリーの製造・販売スタッフ',
     employmentType: 'CONTRACTOR',
     description:
-      '<p>2026年秋オープンのパティスリー「Grace」で、お菓子の製造と販売の両方を担う製販一体スタイルのスタッフを募集します。</p>' +
+      '<p>2026年10月15日オープンのパティスリー「Grace」で、お菓子の製造と販売の両方を担う製販一体スタイルのスタッフを募集します。</p>' +
       '<p>焼き菓子・生菓子の仕込みから仕上げ、店頭での接客・ラッピングまで、幅広く経験できます。契約社員としてスタートし、正社員登用の道があります。未経験の方も歓迎します。</p>',
     summary:
       '製造と販売の両方を担う製販一体スタイル。焼き菓子・生菓子の仕込みから接客・ラッピングまで幅広く経験できます。契約社員スタート・正社員登用あり。未経験歓迎。',
@@ -91,7 +91,7 @@ export const JOB_LISTINGS: JobListing[] = [
     title: 'パティスリーの製造・販売スタッフ',
     employmentType: 'PART_TIME',
     description:
-      '<p>2026年秋オープンのパティスリー「Grace」で、お菓子の製造と販売を担うパート・アルバイトスタッフを募集します。</p>' +
+      '<p>2026年10月15日オープンのパティスリー「Grace」で、お菓子の製造と販売を担うパート・アルバイトスタッフを募集します。</p>' +
       '<p>焼き菓子の仕込みや店頭での接客・ラッピングなど、できることから少しずつお任せします。製販一体のスタイルで、お菓子づくりと接客の両方に携われます。未経験の方も歓迎します。</p>',
     summary:
       'お菓子の製造と販売を担うパート・アルバイト。焼き菓子の仕込みや店頭接客など、できることから少しずつ。未経験の方も歓迎します。',
@@ -143,7 +143,8 @@ export function buildJobPostingJsonLd(): string {
 // 給与の表示用フォーマット（例: 月給 205,000〜212,000円 / 時給 1,200〜1,350円）
 export function formatSalary(salary: BaseSalary): string {
   const unit = salary.unitText === 'HOUR' ? '時給' : '月給'
+  const suffix = salary.unitText === 'HOUR' ? '円' : '円'
   const min = salary.minValue.toLocaleString('ja-JP')
   const max = salary.maxValue.toLocaleString('ja-JP')
-  return `${unit} ${min}〜${max}円`
+  return `${unit} ${min}〜${max}${suffix}`
 }

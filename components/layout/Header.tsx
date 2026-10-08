@@ -4,74 +4,203 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MobileMenu } from './MobileMenu'
-import { cn } from '@/lib/utils/cn'
+import { usePhase } from '@/lib/hooks/usePhase'
 
-interface HeaderProps {
-  variant?: 'transparent' | 'solid'
-}
+// デスクトップナビゲーション項目
+const NAV_ITEMS = [
+  { label: 'Concept',  href: '/concept',                                    external: false },
+  { label: 'Sweets',   href: '/#sweets',                                    external: false },
+  { label: 'Gift',     href: '/#gift',                                      external: false },
+  { label: 'Showcase', href: '/#case',                                      external: false },
+  { label: 'Journal',  href: '/journal',                                    external: false },
+  { label: 'News',     href: '/news',                                       external: false },
+  { label: 'Shop',     href: '/shop',                                       external: false },
+  { label: 'Contact',  href: '/contact',                                    external: false },
+  { label: 'Recruit',  href: '/recruit',                                    external: false },
+]
 
-export function Header({ variant = 'solid' }: HeaderProps) {
+/**
+ * cinematic-b ヘッダー
+ * - usePhase() で html[data-phase] を設定（時間フェーズシステム）
+ * - スクロールで .solid クラス付与（backdrop-blur）
+ * - ロゴはCSSクラス(.logo-d/.logo-w)で時間帯ごとに切り替え
+ */
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isSolid, setIsSolid] = useState(false)
+  const { phase } = usePhase()
 
+  // html[data-phase] を設定してCSSカスタムプロパティを切り替える
   useEffect(() => {
-    if (variant !== 'transparent') return
-    const onScroll = () => setIsScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [variant])
+    document.documentElement.dataset.phase = phase
+  }, [phase])
 
-  const isTransparent = variant === 'transparent' && !isScrolled
+  // スクロール検知: ビューポート高さの70%以降でソリッドに
+  useEffect(() => {
+    const onScroll = () => {
+      setIsSolid(window.scrollY > window.innerHeight * 0.7)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <>
       <header
-        className={cn(
-          'sticky top-0 z-30 transition-all duration-300',
-          isTransparent
-            ? 'bg-transparent'
-            : 'bg-grace-bg-primary/95 backdrop-blur-sm border-b border-grace-line',
-        )}
+        className={[
+          'header',
+          isSolid ? 'solid' : '',
+        ].filter(Boolean).join(' ')}
+        id="header"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: isSolid ? '12px 28px' : '20px 28px',
+          transition: 'background .5s, padding .5s',
+          background: isSolid
+            ? 'color-mix(in srgb, var(--bg) 92%, transparent)'
+            : 'transparent',
+          backdropFilter: isSolid ? 'blur(8px)' : undefined,
+          borderBottom: isSolid
+            ? '1px solid color-mix(in srgb, var(--ink) 10%, var(--bg))'
+            : undefined,
+        }}
       >
-        <div className="container-content">
-          <div className="flex items-center justify-between h-16">
+        {/* ロゴ */}
+        <Link
+          href="/"
+          aria-label="Grace"
+          style={{ display: 'flex', alignItems: 'center', height: '26px' }}
+        >
+          {/* 朝・昼フェーズ: ダークブラウン版（CSSで切り替え） */}
+          <Image
+            className="logo-d"
+            src="/logo/Grace横ダークブラウン版.png"
+            alt="Grace"
+            width={120}
+            height={26}
+            priority
+            style={{ height: '100%', width: 'auto', transition: 'opacity 1.2s' }}
+          />
+          {/* 夕・夜フェーズ: 白版（CSSで切り替え） */}
+          <Image
+            className="logo-w"
+            src="/logo/Grace横白版.png"
+            alt="Grace"
+            width={120}
+            height={26}
+            priority
+            style={{ height: '100%', width: 'auto', transition: 'opacity 1.2s' }}
+          />
+          {/* フォールバック */}
+          <span
+            className="logo-fallback"
+            style={{
+              display: 'none',
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontStyle: 'italic',
+              fontWeight: 300,
+              letterSpacing: '0.22em',
+              fontSize: '21px',
+              color: 'var(--ink)',
+            }}
+          >
+            Grace
+          </span>
+        </Link>
 
-            {/* ハンバーガー */}
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              aria-label="メニューを開く"
-              aria-expanded={isMenuOpen}
-              className={cn(
-                'relative z-10 flex items-center justify-center p-2 transition-colors',
-                isTransparent
-                  ? 'text-grace-offwhite hover:text-grace-stone'
-                  : 'text-grace-text-secondary hover:text-grace-brown',
-              )}
+        {/* デスクトップナビ（880px以上で表示） */}
+        <nav
+          aria-label="メインナビゲーション"
+          style={{
+            display: 'flex',
+            gap: '24px',
+          }}
+          className="desktop-nav"
+        >
+          {NAV_ITEMS.map(({ label, href, external }) => (
+            <a
+              key={href}
+              href={href}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontStyle: 'italic',
+                fontWeight: 300,
+                fontSize: '14.5px',
+                letterSpacing: '0.18em',
+                color: 'var(--ink)',
+                opacity: 0.85,
+                transition: 'opacity .3s',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.5' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.85' }}
             >
-              <svg width="20" height="20" className="block flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-                <path d="M3 6h18M3 12h18M3 18h18"/>
-              </svg>
-            </button>
+              {label}
+            </a>
+          ))}
+        </nav>
 
-            {/* ロゴ（中央） */}
-            <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-              <Image
-                src="/logo-horizontal.png"
-                alt="Pâtisserie Grace"
-                width={120}
-                height={32}
-                className={cn('h-7 w-auto block transition-opacity', isTransparent && 'brightness-0 invert')}
-                priority
-              />
-            </Link>
-
-            {/* カート（開業後に復活予定）— ティザー期はレイアウト維持のため invisible */}
-            <div className="invisible w-10 h-10" aria-hidden="true" />
-          </div>
-        </div>
+        {/* ハンバーガーボタン（モバイルのみ表示） */}
+        <button
+          aria-label="メニュー"
+          className="menu-btn-cinematic"
+          onClick={() => setIsMenuOpen(true)}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            width: '34px',
+            height: '34px',
+            position: 'relative',
+            zIndex: 70,
+            padding: 0,
+          }}
+        >
+          <span
+            style={{
+              position: 'absolute',
+              left: '5px',
+              right: '5px',
+              height: '1px',
+              background: 'var(--ink)',
+              top: '12px',
+              transition: '.35s',
+            }}
+          />
+          <span
+            style={{
+              position: 'absolute',
+              left: '5px',
+              right: '5px',
+              height: '1px',
+              background: 'var(--ink)',
+              top: '21px',
+              transition: '.35s',
+            }}
+          />
+        </button>
       </header>
 
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+
+      {/* レスポンシブ: デスクトップナビの表示制御 */}
+      <style>{`
+        @media (max-width: 880px) {
+          .desktop-nav { display: none !important; }
+          .menu-btn-cinematic { display: block !important; }
+        }
+        @media (min-width: 881px) {
+          .menu-btn-cinematic { display: none !important; }
+        }
+      `}</style>
     </>
   )
 }

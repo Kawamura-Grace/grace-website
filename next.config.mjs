@@ -16,11 +16,6 @@ const nextConfig = {
         protocol: 'https',
         hostname: '*.amazonaws.com',
       },
-      // Unsplash（仮写真・開業前差し替え予定）
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
     ],
   },
   // ISR用 / on-demand revalidation
