@@ -116,7 +116,8 @@ export async function POST(request: NextRequest) {
           to:      staffTo,
           // 通知メールに返信すると、お問い合わせしたお客様に届く
           replyTo: data.email,
-          subject: `【Grace HP】新規お問合せ: ${data.category}`,
+          // 件名に送信者名を入れ、Gmailで問い合わせごとに別スレッドになるようにする（改行は除去）
+          subject: `【Grace HP】新規お問合せ: ${data.category}／${data.name.replace(/[\r\n]+/g, ' ').slice(0, 40)} 様`,
           text: [
             `${data.name} 様${data.company ? `（${data.company}）` : ''}からのお問い合わせ`,
             `メール: ${data.email}`,
