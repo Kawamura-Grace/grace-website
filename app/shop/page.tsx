@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 import { buildPageMetadata } from '@/lib/seo'
+import { RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
 
 // サーバーコンポーネント — イベントハンドラなし・Notion呼び出しなし
 // Vercelランタイムエラー(Digest: 257512637)の根本原因だったonMouseEnter/onMouseLeaveを除去
@@ -189,6 +190,26 @@ export default function ShopPage() {
             >
               公式LINE 友だち追加
             </a>
+            {RESERVATION_URL && (
+              <p style={{ marginTop: '18px' }}>
+                <a
+                  href={RESERVATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shop-link-gold"
+                  style={{
+                    display: 'inline-block',
+                    fontSize: '12.5px',
+                    letterSpacing: '0.14em',
+                    color: '#B8956A',
+                    borderBottom: '1px solid rgba(184,149,106,.4)',
+                    paddingBottom: '2px',
+                  }}
+                >
+                  {RESERVATION_LABEL}
+                </a>
+              </p>
+            )}
 
             {/* Google Maps ボタン — hoverはCSSクラスで処理（サーバーコンポーネントのためonMouseEnter禁止） */}
             <p style={{ marginTop: '36px' }}>
