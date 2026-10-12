@@ -24,7 +24,7 @@ const CATEGORY_VARIANTS: Record<NewsCategory, 'wasabi' | 'gold' | 'stone'> = {
   'お知らせ':   'stone',
   '催事':       'gold',
   'メディア掲載': 'wasabi',
-  '臨時定休':   'stone',
+  '臨時休業':   'stone',
 }
 
 // ─── メタデータ ───
