@@ -51,6 +51,13 @@ const SHOWCASE_LABEL_TEXT: Record<ShowcaseLabel, string> = {
 const BADGE_BORDER = 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
 const BADGE_COLOR = 'color-mix(in srgb, var(--ink) 65%, var(--bg))'
 
+// ============ 開業日（日本時間で判定） ============
+const OPENING_DAY = '2026-10-15'
+function jstDateString(): string {
+  // en-CA は YYYY-MM-DD 形式。端末のタイムゾーンに関わらず日本時間の日付にする
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date())
+}
+
 // ============ 現在時刻から営業判定 ============
 function calcIsOpen(): boolean {
   if (typeof window === 'undefined') return false
@@ -279,7 +286,18 @@ function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
 // ============ メインページ ============
 export default function HomePage() {
   const { phase } = usePhase()
-  const phaseData = PHASES[phase]
+  // 開業当日（2026-10-15・日本時間）だけ朝の案内を差し替える。SSRとの不一致を避けるためクライアントで判定
+  const [isOpeningDay, setIsOpeningDay] = useState(false)
+  useEffect(() => {
+    const check = () => setIsOpeningDay(jstDateString() === OPENING_DAY)
+    check()
+    const t = setInterval(check, 60_000)
+    return () => clearInterval(t)
+  }, [])
+  const phaseData =
+    isOpeningDay && phase === 'morning'
+      ? { ...PHASES.morning, msg: '本日オープン。9:30から営業します。' }
+      : PHASES[phase]
   const [isOpen, setIsOpen] = useState(false)
   const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
   const [inventory, setInventory] = useState<Record<string, 'in_stock' | 'sold_out'>>({})

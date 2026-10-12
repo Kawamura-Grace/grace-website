@@ -64,7 +64,7 @@ export default async function NewsPage() {
                   お知らせは準備中です。
                 </p>
                 <p className="font-noto-serif text-base text-grace-text-tertiary mb-10">
-                  オープンに向けた情報をこちらでお届けします。
+                  最新の情報をこちらでお届けします。
                 </p>
                 <a
                   href="/contact"
