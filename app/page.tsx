@@ -11,14 +11,14 @@ type JournalItem = { id: string; slug: string; category: string; title: string }
 
 export const dynamic = 'force-dynamic'
 
-// グランドオープン後に true に変更するとステータスバーが表示される
-const STORE_OPEN = false
+// グランドオープン後は true（ステータスバー・時間帯バッジが表示される）。2026-10-15 開業切替
+const STORE_OPEN = true
 
 // ============ フェーズ別メッセージ ============
 const PHASES = {
-  morning: { t: 'MORNING', msg: '焼き上がりの時間。ショーケースに、今日の一段目が並びはじめます。' },
-  day:     { t: 'MIDDAY',  msg: 'ショーケースがいちばん賑やかな時間です。' },
-  dusk:    { t: 'EVENING', msg: '日が傾いてきました。本日のお菓子は、残りわずかです。' },
+  morning: { t: 'MORNING', msg: '本日も9:30から営業しています。' },
+  day:     { t: 'MIDDAY',  msg: '本日の営業は19:30までです。' },
+  dusk:    { t: 'EVENING', msg: '日が傾いてきました。本日の営業は19:30までです。' },
   night:   { t: 'CLOSED',  msg: '本日は閉店いたしました。また明日、9:30にお会いしましょう。' },
 } as const
 
@@ -360,10 +360,10 @@ export default function HomePage() {
               美しい暮らしには、お菓子がある。
             </p>
 
-            {/* 開業予定（確定コピー） */}
+            {/* 開業後の表記（2026-10-15 切替） */}
             <p className="hero-open rise" data-d="4">
-              Grand Open
-              <span className="date">2026年10月15日（木）オープン</span>
+              Now Open
+              <span className="date">2026年10月15日（木）オープンしました</span>
             </p>
           </div>
 
