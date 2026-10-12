@@ -51,7 +51,10 @@ const CATEGORIES: ContactCategory[] = [
   '取材', '法人ギフト', '卸', '採用', 'EC関連', 'メディア掲載', 'インフルエンサー提携', 'その他',
 ]
 
-export function ContactForm() {
+export function ContactForm({ initialCategory }: { initialCategory?: string }) {
+  // URLの値は決まった選択肢にあるものだけ採用し、それ以外は既定値（取材）のまま
+  const presetCategory = CATEGORIES.find((c) => c === initialCategory)
+
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
@@ -84,7 +87,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { category: '取材' },
+    defaultValues: { category: presetCategory ?? '取材' },
   })
 
   const onSubmit = async (data: FormData) => {

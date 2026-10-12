@@ -743,7 +743,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p style={{ marginTop: '34px' }}>
-                <Btn href="#gift">View Gift</Btn>
+                <Btn href="/gift">View Gift</Btn>
               </p>
             </div>
           </div>
@@ -809,8 +809,9 @@ export default function HomePage() {
               const isFirstTextOnly = !IMGS[i] && (order === 0 || !!IMGS[sorted[order - 1]])
               // 営業時間外は在庫と無関係に「本日終了」。営業中はSquare在庫の実データのみ表示し、
               // 未連携（Square未設定・カタログ未マッチ）の商品はバッジ自体を出さない（フェイク表示を避ける）
+              // 開業前（STORE_OPEN=false）は時間帯の「本日終了」を出さない（まだ営業していないため）
               const label: ShowcaseLabel | null =
-                phase === 'night' ? 'closed' : inventory[name] ?? null
+                phase === 'night' ? (STORE_OPEN ? 'closed' : null) : inventory[name] ?? null
               return (
                 <article
                   key={name}
@@ -832,18 +833,20 @@ export default function HomePage() {
                     />
                   )}
                   <h3
+                    className="case-name"
                     style={{
                       fontSize: '13.5px',
                       fontWeight: 500,
                       letterSpacing: '0.16em',
                       marginTop: '14px',
                       display: 'flex',
+                      flexWrap: 'wrap',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: '10px',
+                      gap: '6px 10px',
                     }}
                   >
-                    {name}
+                    <span>{name}</span>
                     {label && (
                       <span
                         style={{
@@ -1060,6 +1063,16 @@ export default function HomePage() {
 
       {/* レスポンシブ */}
       <style>{`
+        @media (max-width: 560px) {
+          /* スマホ幅: 商品名が途中で折り返さないよう字間を詰め、バッジは名前の下に回す */
+          .case-name {
+            letter-spacing: 0.04em !important;
+            font-size: 13px !important;
+          }
+          .case-name > span:first-child {
+            white-space: nowrap;
+          }
+        }
         @media (max-width: 880px) {
           .chapter-section {
             grid-template-columns: 1fr !important;

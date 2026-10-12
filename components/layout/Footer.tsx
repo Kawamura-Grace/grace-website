@@ -6,8 +6,8 @@ import Link from 'next/link'
 // フッターナビゲーション
 const FNAV = [
   { label: 'Concept',     href: '/concept',                                      external: false },
-  { label: 'Sweets',      href: '/#sweets',                                      external: false },
-  { label: 'Gift',        href: '/#gift',                                        external: false },
+  { label: 'Sweets',      href: '/sweets',                                      external: false },
+  { label: 'Gift',        href: '/gift',                                        external: false },
   { label: 'Showcase',    href: '/#case',                                        external: false },
   { label: 'Shop',        href: '/shop',                                         external: false },
   { label: 'Online Shop', href: '/#online-shop',                                 external: false },

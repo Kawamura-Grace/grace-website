@@ -13,7 +13,15 @@ export const metadata: Metadata = buildPageMetadata({
   description: 'Grace PÂTISSERIEへのお問い合わせ。取材・法人ギフト・卸・採用など各種お問い合わせはこちらから。',
 })
 
-export default function ContactPage() {
+// URLの ?category= を受け取りフォームに渡す（選択肢にない値はフォーム側で無視する）
+export default function ContactPage({
+  searchParams,
+}: {
+  searchParams?: { category?: string | string[] }
+}) {
+  const raw = searchParams?.category
+  const initialCategory = Array.isArray(raw) ? raw[0] : raw
+
   return (
     <>
       <Header />
@@ -87,7 +95,7 @@ export default function ContactPage() {
         >
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
             {/* お問い合わせフォーム */}
-            <ContactForm />
+            <ContactForm initialCategory={initialCategory} />
 
             {/* 注意書き */}
             <p

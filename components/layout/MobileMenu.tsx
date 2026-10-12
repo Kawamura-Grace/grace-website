@@ -5,8 +5,8 @@ import { useEffect } from 'react'
 // モバイルメニューの項目（英語ラベル + 日本語サブテキスト）
 const MENU_ITEMS = [
   { label: 'Concept',  jp: 'ブランドについて', href: '/concept',                                    external: false },
-  { label: 'Sweets',   jp: 'お菓子',           href: '/#sweets',                                    external: false },
-  { label: 'Gift',     jp: '贈りもの',          href: '/#gift',                                      external: false },
+  { label: 'Sweets',   jp: 'お菓子',           href: '/sweets',                                    external: false },
+  { label: 'Gift',     jp: '贈りもの',          href: '/gift',                                      external: false },
   { label: 'Showcase', jp: 'ショーケース',       href: '/#case',                                      external: false },
   { label: 'Journal',  jp: 'ジャーナル',        href: '/journal',                                    external: false },
   { label: 'News',     jp: 'お知らせ',          href: '/news',                                       external: false },
