@@ -77,7 +77,7 @@ export default function GiftPage() {
               {/* 自店撮影（詰め合わせギフトS）。正式な撮影素材の受領後に差し替え可 */}
               <div className="relative aspect-square overflow-hidden">
                 <Image
-                  src="/photos/own_gift_s.jpg"
+                  src="/photos/own_gift_s2.jpg"
                   alt="Grace PÂTISSERIE ギフト包装"
                   fill
                   className="object-cover"

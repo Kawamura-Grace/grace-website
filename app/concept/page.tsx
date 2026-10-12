@@ -270,8 +270,8 @@ export default function ConceptPage() {
             }}
           >
             <Image
-              src="/photos/own_exterior.jpg"
-              alt="Graceの外観"
+              src="/photos/own_choux.jpg"
+              alt="シュークリーム — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 340px"
               style={{ objectFit: 'cover' }}

@@ -78,7 +78,7 @@ export default function ShopPage() {
           {/* 左: 店舗写真 */}
           <div style={{ position: 'relative', overflow: 'hidden', minHeight: '460px' }}>
             <Image
-              src="/photos/own_exterior.jpg"
+              src="/photos/own_exterior_wide.jpg"
               alt="グレイスパティスリー 店舗イメージ"
               fill
               sizes="(max-width: 880px) 100vw, 50vw"

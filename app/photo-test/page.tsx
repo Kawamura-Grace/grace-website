@@ -31,6 +31,8 @@ const PHOTOS: { file: string; note: string }[] = [
   { file: 'own_gift_lid.jpg', note: 'ギフト化粧箱の蓋（Gift法人欄背景）' },
   { file: 'own_financier_box.jpg', note: '詰め合わせ内のフィナンシェ（トップ・暫定）' },
   { file: 'own_madeleine_box.jpg', note: '詰め合わせ内のマドレーヌ（トップ・暫定）' },
+  { file: 'own_shortcake2.jpg', note: 'ショートケーキ別カット（トップのショーケース）' },
+  { file: 'own_gift_s2.jpg', note: '詰め合わせギフトS別カット（Gift）' },
   { file: 'own_vanilla.jpg', note: 'バニラビーンズ（コンセプト）' },
   { file: 'own_eggs.jpg', note: '卵黄（素材・該当枠なし）' },
   { file: 'own_butter.jpg', note: 'バター（素材・該当枠なし）' },
