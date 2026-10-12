@@ -31,8 +31,8 @@ const IMGS: (string | undefined)[] = [
   '/photos/own_cheesecake6.jpg',
   '/photos/own_shortcake2.jpg',
   undefined, // 季節のタルト
-  '/photos/own_financier_box.jpg', // 詰め合わせ内の写真で暫定（単品写真は不足）
-  '/photos/own_madeleine_box.jpg', // 同上
+  undefined, // フィナンシェ（単品写真の撮影待ち。箱写真は両方入りのため使わない）
+  undefined, // マドレーヌ（同上）
   undefined, // クッキー缶
 ]
 // ショーケースの在庫バッジ表示状態
@@ -230,7 +230,7 @@ function Ph({
             alt={alt ?? ''}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
-            style={{ objectFit: 'cover', zIndex: 1, filter: 'saturate(.82) contrast(.96)', transition: 'transform 6s ease' }}
+            style={{ objectFit: 'cover', zIndex: 1, filter: 'saturate(.95) contrast(.99)', transition: 'transform 6s ease' }}
             onError={() => setFailed(true)}
           />
         </>

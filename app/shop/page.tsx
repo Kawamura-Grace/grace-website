@@ -82,7 +82,7 @@ export default function ShopPage() {
               alt="グレイスパティスリー 店舗イメージ"
               fill
               sizes="(max-width: 880px) 100vw, 50vw"
-              style={{ objectFit: 'cover', filter: 'saturate(.82) contrast(.96)' }}
+              style={{ objectFit: 'cover', filter: 'saturate(.95) contrast(.99)' }}
             />
           </div>
 
