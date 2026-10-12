@@ -104,7 +104,7 @@ export default function GiftPage() {
                 <div className="flex-1">
                   <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
                     御祝・御礼・粗品など、各種熨斗に対応しております。
-                    ご注文時にご希望の表書きと名入れをお知らせください。
+                    ご希望の表書きと名入れは、店頭でお知らせください。
                   </p>
                   <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
                     <li>御祝・御礼・粗品・寸志</li>
@@ -125,7 +125,7 @@ export default function GiftPage() {
                   </p>
                   <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
                     文字数: 最大100文字程度<br />
-                    ご注文時の備考欄にご記入ください
+                    ご購入時に店頭でお申し付けください
                   </p>
                 </div>
               </div>
