@@ -232,10 +232,10 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            {/* 自店撮影のバニラビーンズ。正式な撮影素材の受領後に差し替え可 */}
+            {/* 自店撮影のバターカット（製造工程）。正式な撮影素材の受領後に差し替え可 */}
             <Image
-              src="/photos/own_vanilla.jpg"
-              alt="バニラビーンズ — Grace"
+              src="/photos/own_butter.jpg"
+              alt="バターを切る手元 — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
               style={{ objectFit: 'cover' }}
@@ -270,8 +270,8 @@ export default function ConceptPage() {
             }}
           >
             <Image
-              src="/photos/own_exterior.jpg"
-              alt="Graceの外観"
+              src="/photos/own_choux.jpg"
+              alt="シュークリーム — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 340px"
               style={{ objectFit: 'cover' }}
