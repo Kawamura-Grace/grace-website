@@ -1,0 +1,43 @@
+name: Auto merge opening PR (2026-10-15)
+
+# 開業日 2026-10-15 0:00（日本時間）に、開業切替PRを自動でマージする。
+# cron は UTC 表記。10/14 15:00 UTC = 10/15 0:00 JST。年1回だけ該当日に起動する。
+# GitHub の定期実行は数分〜数十分遅れることがあるが、判定は「今日が2026年か」だけなので遅れても問題ない。
+# 来年以降は起動しても年の判定で何もせず終了する（下の YEAR_GUARD）。
+on:
+  schedule:
+    - cron: '0 15 14 10 *'   # 本番: 10/15 0:00 JST
+    # 予備（GitHubの定期実行は混雑時に落ちることがあるため）。マージ済みなら何もせず終了する
+    - cron: '30 15 14 10 *'  # 10/15 0:30 JST
+    - cron: '0 16 14 10 *'   # 10/15 1:00 JST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'true の間は判定だけ行いマージしない'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write        # マージに必要
+  pull-requests: write   # Draft解除・マージに必要
+  issues: write          # 失敗通知のIssue作成に必要
+
+concurrency:
+  group: auto-merge-open
+  cancel-in-progress: false
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      PR_NUMBER: '24'
+      PR_HEAD_BRANCH: release/hp-open-switch-20261012
+      YEAR_GUARD: '2026'
+      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check and merge
+        run: bash .github/scripts/auto_merge_open.sh
