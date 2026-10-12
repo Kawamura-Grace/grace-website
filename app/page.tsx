@@ -31,8 +31,8 @@ const IMGS: (string | undefined)[] = [
   '/photos/own_cheesecake.jpg',
   '/photos/own_shortcake.jpg',
   undefined, // 季節のタルト
-  undefined, // フィナンシェ
-  undefined, // マドレーヌ
+  '/photos/own_financier_box.jpg', // 詰め合わせ内の写真で暫定（単品写真は不足）
+  '/photos/own_madeleine_box.jpg', // 同上
   undefined, // クッキー缶
 ]
 // ショーケースの在庫バッジ表示状態
