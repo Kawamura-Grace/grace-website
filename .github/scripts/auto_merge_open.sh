@@ -13,7 +13,8 @@ notify_issue() {
   local title="[自動マージ失敗] 開業切替PR #${PR_NUMBER} を自動マージできませんでした"
   local body="$1"
   if [ "$DRY_RUN" = "true" ]; then echo "DRY_RUN: Issueは作らない: $body"; return; fi
-  if gh issue list --repo "$REPO" --state open --search "$title in:title" --json number --jq 'length' | grep -qv '^0$'; then
+  # タイトル完全一致の未解決Issueがあれば作らない
+  if gh issue list --repo "$REPO" --state open --limit 100 --json title 2>/dev/null | jq --arg t "$title" '[.[] | select(.title == $t)] | length' | grep -qv '^0$'; then
     echo "同名のIssueが既にあるため作成しない"; return
   fi
   gh issue create --repo "$REPO" --title "$title" --body "$body
@@ -30,6 +31,12 @@ if [ "$year" != "$YEAR_GUARD" ]; then
   echo "年が ${YEAR_GUARD} ではない (${year})。何もしない。"; exit 0
 fi
 echo "OK: 年=${year}"
+
+# 開業日時（2026-10-15 0:00 JST）より前なら何もしない（手動実行の誤操作で早く切り替わるのを防ぐ）
+now_jst=$(TZ=Asia/Tokyo date +%Y%m%d%H%M)
+if [ "$now_jst" -lt "${OPEN_AT_JST:-202610150000}" ]; then
+  echo "開業日時より前 (${now_jst})。何もしない。"; exit 0
+fi
 
 # PR情報取得（mergeable は計算中だと UNKNOWN になるため最大5回待つ）
 pr_json=""
