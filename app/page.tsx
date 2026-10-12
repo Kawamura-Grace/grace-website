@@ -28,7 +28,7 @@ const ITEMS = ['チーズケーキ', 'ショートケーキ', '季節のタル�
 // （他店・ストック写真は使わない。正式な撮影素材の受領後に差し替える・2026-10-09方針）
 const IMGS: (string | undefined)[] = [
   '/photos/own_cheesecake6.jpg',
-  '/photos/own_shortcake2.jpg',
+  '/photos/own_shortcake_close.jpg',
   undefined, // 季節のタルト
   undefined, // フィナンシェ（単品写真の撮影待ち。箱写真は両方入りのため使わない）
   undefined, // マドレーヌ（同上）

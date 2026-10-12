@@ -232,10 +232,10 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            {/* バターカット（製造工程・7/30撮影。自店撮影の確認待ち）。正式な撮影素材の受領後に差し替え可 */}
+            {/* バニラビーンズ（10/13 自店撮影）。正式な撮影素材の受領後に差し替え可 */}
             <Image
-              src="/photos/own_butter.jpg"
-              alt="バターを切る手元 — Grace"
+              src="/photos/own_vanilla2.jpg"
+              alt="バニラビーンズ — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
               style={{ objectFit: 'cover' }}
