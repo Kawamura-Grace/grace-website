@@ -42,7 +42,7 @@ export async function getTopNews(): Promise<NewsPost | null> {
   return parseNews(res.results[0] as PageObjectResponse)
 }
 
-// Shop Infoの臨時定休アラート用
+// Shop Infoの臨時休業アラート用
 export async function getShopAlerts(): Promise<NewsPost[]> {
   const res = await notion.databases.query({
     database_id: DB_IDS.NEWS,
@@ -51,7 +51,7 @@ export async function getShopAlerts(): Promise<NewsPost[]> {
         { property: 'ステータス', select: { equals: '公開中' } },
         {
           or: [
-            { property: 'カテゴリ', select: { equals: '臨時定休' } },
+            { property: 'カテゴリ', select: { equals: '臨時休業' } },
           ],
         },
       ],
