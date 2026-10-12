@@ -22,7 +22,7 @@ export default function GiftPage() {
       <main>
         {/* ─── ヒーロー見出し ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: 詰め合わせギフトL（自店撮影・テスト差し替え） */}
+          {/* 背景写真: 詰め合わせギフトL（自店撮影） */}
           <Image
             src="/photos/own_gift_l_box.jpg"
             alt=""
@@ -164,7 +164,7 @@ export default function GiftPage() {
 
         {/* ─── 法人ギフト → Contact誘導 ─── */}
         <section className="relative overflow-hidden section-padding bg-grace-bg-dark">
-          {/* 背景写真: ギフト化粧箱（自店撮影・テスト差し替え） */}
+          {/* 背景写真: ギフト化粧箱（自店撮影） */}
           <Image
             src="/photos/own_gift_lid.jpg"
             alt=""

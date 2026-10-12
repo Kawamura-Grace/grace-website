@@ -232,7 +232,7 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            {/* 自店撮影のバターカット（製造工程）。正式な撮影素材の受領後に差し替え可 */}
+            {/* バターカット（製造工程・7/30撮影。自店撮影の確認待ち）。正式な撮影素材の受領後に差し替え可 */}
             <Image
               src="/photos/own_butter.jpg"
               alt="バターを切る手元 — Grace"
