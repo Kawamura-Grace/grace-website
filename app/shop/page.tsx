@@ -205,10 +205,12 @@ export default function ShopPage() {
           </div>
         </section>
 
-        {/* ─── Google Maps 埋め込み ─── */}
+        {/* ─── Google Maps 埋め込み ───
+            座標はGoogleビジネスプロフィール「Grace PÂTISSERIE グレイス」の地点（35.2505894,136.9587987）。
+            旧座標（35.2474,136.9839）は約2.3km東にずれていたため2026-10-12に是正。 */}
         <div style={{ width: '100%', height: '360px', marginTop: '0', overflow: 'hidden' }}>
           <iframe
-            src="https://maps.google.com/maps?q=35.2474,136.9839&z=16&hl=ja&output=embed"
+            src="https://maps.google.com/maps?q=35.2505894,136.9587987&z=16&hl=ja&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
