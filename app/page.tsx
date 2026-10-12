@@ -28,7 +28,7 @@ const ITEMS = ['チーズケーキ', 'ショートケーキ', '季節のタル�
 // 自店撮影の写真がある商品のみ設定する。undefined の商品は写真ブロックを出さない
 // （他店・ストック写真は使わない。正式な撮影素材の受領後に差し替える・2026-10-09方針）
 const IMGS: (string | undefined)[] = [
-  '/photos/own_cheesecake_single.jpg',
+  '/photos/own_cheesecake6.jpg',
   '/photos/own_shortcake2.jpg',
   undefined, // 季節のタルト
   '/photos/own_financier_box.jpg', // 詰め合わせ内の写真で暫定（単品写真は不足）

@@ -45,7 +45,7 @@ export default async function JournalPage({ searchParams }: PageProps) {
       <main>
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: Grace店舗外観（自店撮影） */}
+          {/* 背景写真: こく生ブリオッシュ（自店撮影） */}
           <Image
             src="/photos/own_brioche.jpg"
             alt=""
