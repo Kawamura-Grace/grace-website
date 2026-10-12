@@ -78,11 +78,11 @@ export default function ShopPage() {
           {/* 左: 店舗写真 */}
           <div style={{ position: 'relative', overflow: 'hidden', minHeight: '460px' }}>
             <Image
-              src="/photos/own_exterior.jpg"
+              src="/photos/own_exterior_sign.jpg"
               alt="グレイスパティスリー 店舗イメージ"
               fill
               sizes="(max-width: 880px) 100vw, 50vw"
-              style={{ objectFit: 'cover', filter: 'saturate(.82) contrast(.96)' }}
+              style={{ objectFit: 'cover', filter: 'saturate(.95) contrast(.99)' }}
             />
           </div>
 

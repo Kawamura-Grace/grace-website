@@ -28,11 +28,11 @@ const ITEMS = ['チーズケーキ', 'ショートケーキ', '季節のタル�
 // 自店撮影の写真がある商品のみ設定する。undefined の商品は写真ブロックを出さない
 // （他店・ストック写真は使わない。正式な撮影素材の受領後に差し替える・2026-10-09方針）
 const IMGS: (string | undefined)[] = [
-  '/photos/own_cheesecake.jpg',
-  '/photos/own_shortcake.jpg',
+  '/photos/own_cheesecake6.jpg',
+  '/photos/own_shortcake2.jpg',
   undefined, // 季節のタルト
-  undefined, // フィナンシェ
-  undefined, // マドレーヌ
+  undefined, // フィナンシェ（単品写真の撮影待ち。箱写真は両方入りのため使わない）
+  undefined, // マドレーヌ（同上）
   undefined, // クッキー缶
 ]
 // ショーケースの在庫バッジ表示状態
@@ -230,7 +230,7 @@ function Ph({
             alt={alt ?? ''}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
-            style={{ objectFit: 'cover', zIndex: 1, filter: 'saturate(.82) contrast(.96)', transition: 'transform 6s ease' }}
+            style={{ objectFit: 'cover', zIndex: 1, filter: 'saturate(.95) contrast(.99)', transition: 'transform 6s ease' }}
             onError={() => setFailed(true)}
           />
         </>
