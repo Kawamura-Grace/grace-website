@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
-import { SubscribeForm } from '@/components/forms/SubscribeForm'
 
 // Journal記事の型（APIレスポンス用）
 type JournalItem = { id: string; slug: string; category: string; title: string }
@@ -743,7 +742,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p style={{ marginTop: '34px' }}>
-                <Btn href="#gift">View Gift</Btn>
+                <Btn href="/gift">View Gift</Btn>
               </p>
             </div>
           </div>
@@ -809,8 +808,9 @@ export default function HomePage() {
               const isFirstTextOnly = !IMGS[i] && (order === 0 || !!IMGS[sorted[order - 1]])
               // 営業時間外は在庫と無関係に「本日終了」。営業中はSquare在庫の実データのみ表示し、
               // 未連携（Square未設定・カタログ未マッチ）の商品はバッジ自体を出さない（フェイク表示を避ける）
+              // 開業前（STORE_OPEN=false）は時間帯の「本日終了」を出さない（まだ営業していないため）
               const label: ShowcaseLabel | null =
-                phase === 'night' ? 'closed' : inventory[name] ?? null
+                phase === 'night' ? (STORE_OPEN ? 'closed' : null) : inventory[name] ?? null
               return (
                 <article
                   key={name}
@@ -832,15 +832,17 @@ export default function HomePage() {
                     />
                   )}
                   <h3
+                    className="case-name"
                     style={{
                       fontSize: '13.5px',
                       fontWeight: 500,
                       letterSpacing: '0.16em',
                       marginTop: '14px',
                       display: 'flex',
+                      flexWrap: 'wrap',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: '10px',
+                      gap: '6px 10px',
                     }}
                   >
                     {name}
@@ -965,7 +967,7 @@ export default function HomePage() {
                 ['店名', 'Grace PÂTISSERIE グレイス'],
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
                 ['営業時間', '9:30 - 19:30'],
-                ['営業日', '不定休（元日のみ休業）'],
+                ['営業日', '元日を除き毎日営業（臨時休業はお知らせでご案内）'],
                 ['駐車場', '台数に限りがあります'],
                 ['形態', 'テイクアウト専門'],
               ] as [string, string][]).map(([dt, dd]) => (
@@ -1031,7 +1033,24 @@ export default function HomePage() {
               焼き菓子と冷凍スイーツのお届けを準備しています。<br />
               オンラインショップは準備中です。
             </p>
-            <SubscribeForm />
+            {/* メール登録欄の代わりに、公式LINEの友だち追加へ案内する */}
+            <p style={{ marginTop: '30px' }}>
+              <a
+                href="https://lin.ee/SHBoDiLI"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  padding: '14px 34px',
+                  border: '1px solid #B8956A',
+                  color: '#B8956A',
+                  fontSize: '12.5px',
+                  letterSpacing: '0.2em',
+                }}
+              >
+                公式LINEで新着・お知らせを受け取る
+              </a>
+            </p>
             <p
               style={{
                 display: 'inline-block',
@@ -1060,6 +1079,13 @@ export default function HomePage() {
 
       {/* レスポンシブ */}
       <style>{`
+        @media (max-width: 560px) {
+          .case-name {
+            letter-spacing: 0.04em !important;
+            font-size: 13px !important;
+            white-space: nowrap;
+          }
+        }
         @media (max-width: 880px) {
           .chapter-section {
             grid-template-columns: 1fr !important;

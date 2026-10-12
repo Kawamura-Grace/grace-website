@@ -9,8 +9,8 @@ import { usePhase } from '@/lib/hooks/usePhase'
 // デスクトップナビゲーション項目
 const NAV_ITEMS = [
   { label: 'Concept',  href: '/concept',                                    external: false },
-  { label: 'Sweets',   href: '/#sweets',                                    external: false },
-  { label: 'Gift',     href: '/#gift',                                      external: false },
+  { label: 'Sweets',   href: '/sweets',                                    external: false },
+  { label: 'Gift',     href: '/gift',                                      external: false },
   { label: 'Showcase', href: '/#case',                                      external: false },
   { label: 'Journal',  href: '/journal',                                    external: false },
   { label: 'News',     href: '/news',                                       external: false },

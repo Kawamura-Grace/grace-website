@@ -6,8 +6,8 @@ import Link from 'next/link'
 // フッターナビゲーション
 const FNAV = [
   { label: 'Concept',     href: '/concept',                                      external: false },
-  { label: 'Sweets',      href: '/#sweets',                                      external: false },
-  { label: 'Gift',        href: '/#gift',                                        external: false },
+  { label: 'Sweets',      href: '/sweets',                                      external: false },
+  { label: 'Gift',        href: '/gift',                                        external: false },
   { label: 'Showcase',    href: '/#case',                                        external: false },
   { label: 'Shop',        href: '/shop',                                         external: false },
   { label: 'Online Shop', href: '/#online-shop',                                 external: false },
@@ -95,7 +95,7 @@ export function Footer() {
           >
             Grace PÂTISSERIE グレイス<br />
             愛知県春日井市朝宮町1-2-6<br />
-            9:30 - 19:30 ／ 不定休（元日のみ休業）
+            9:30 - 19:30 ／ 元日を除き毎日営業（臨時休業はお知らせでご案内）
           </address>
 
           {/* Instagram */}

@@ -104,7 +104,7 @@ export default function GiftPage() {
                 <div className="flex-1">
                   <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
                     御祝・御礼・粗品など、各種熨斗に対応しております。
-                    ご注文時にご希望の表書きと名入れをお知らせください。
+                    ご希望の表書きと名入れは、店頭でお知らせください。
                   </p>
                   <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
                     <li>御祝・御礼・粗品・寸志</li>
@@ -125,7 +125,7 @@ export default function GiftPage() {
                   </p>
                   <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
                     文字数: 最大100文字程度<br />
-                    ご注文時の備考欄にご記入ください
+                    ご購入時に店頭でお申し付けください
                   </p>
                 </div>
               </div>
@@ -133,30 +133,21 @@ export default function GiftPage() {
           </div>
         </section>
 
-        {/* ─── 配送サービス ─── */}
+        {/* ─── 店頭販売の案内（オンラインストア開始までの間） ─── */}
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content">
-            <div className="section-label mb-12">DELIVERY</div>
-            <div className="max-w-2xl mx-auto">
-              <h2 className="font-cormorant italic text-3xl text-grace-brown mb-6">Nationwide Delivery</h2>
-              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-8">
-                オンラインストアでご購入いただいたギフト商品は、全国への配送に対応しています。
-                クール便・常温便どちらも対応。お日にちの指定も承りますので、
-                大切な記念日に合わせてお届けします。
+            <div className="section-label mb-12">IN STORE</div>
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="font-cormorant italic text-3xl text-grace-brown mb-6">At the Shop</h2>
+              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10">
+                店頭でお買い求めいただけます。
               </p>
-              <dl className="space-y-4">
-                {[
-                  { label: '配送エリア', value: '全国（離島・一部地域を除く）' },
-                  { label: '配送方法',   value: '常温便・冷蔵便（商品により異なります）' },
-                  { label: '日時指定',   value: '可能（ご注文時に備考欄にてご指定ください）' },
-                  { label: '送料',       value: '全国一律 / 一定金額以上は送料無料（詳細はオンラインストアにて）' },
-                ].map(({ label, value }) => (
-                  <div key={label} className="flex gap-4 py-3 border-b border-grace-line">
-                    <dt className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary w-24 flex-shrink-0">{label}</dt>
-                    <dd className="font-noto-serif text-lg text-grace-text-secondary">{value}</dd>
-                  </div>
-                ))}
-              </dl>
+              <Link
+                href="/shop"
+                className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-offwhite bg-grace-brown px-8 py-4 hover:bg-grace-text-secondary transition-colors"
+              >
+                店舗情報を見る
+              </Link>
             </div>
           </div>
         </section>

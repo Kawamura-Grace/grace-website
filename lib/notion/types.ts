@@ -7,7 +7,7 @@ export type PublishStatus = '下書き' | '公開中' | '非公開'
 // 仕様書カテゴリ（日本語）+ 初期記事カテゴリ（英語）
 export type JournalCategory = '素材の話' | '季節の話' | 'スタッフの話' | '製造の話' | 'Story' | 'Craft' | 'Gift'
 
-export type NewsCategory = 'お知らせ' | '催事' | 'メディア掲載' | '臨時定休'
+export type NewsCategory = 'お知らせ' | '催事' | 'メディア掲載' | '臨時休業'
 export type NewsImportance = '高' | '中' | '低'
 
 export type ContactCategory = '取材' | '法人ギフト' | '卸' | '採用' | 'EC関連' | 'メディア掲載' | 'インフルエンサー提携' | 'その他'
