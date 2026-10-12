@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
-import { SubscribeForm } from '@/components/forms/SubscribeForm'
 
 // Journal記事の型（APIレスポンス用）
 type JournalItem = { id: string; slug: string; category: string; title: string }
@@ -968,7 +967,7 @@ export default function HomePage() {
                 ['店名', 'Grace PÂTISSERIE グレイス'],
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
                 ['営業時間', '9:30 - 19:30'],
-                ['営業日', '不定休（元日のみ休業）'],
+                ['営業日', '元日を除き毎日営業（臨時休業はお知らせでご案内）'],
                 ['駐車場', '台数に限りがあります'],
                 ['形態', 'テイクアウト専門'],
               ] as [string, string][]).map(([dt, dd]) => (
@@ -1034,7 +1033,24 @@ export default function HomePage() {
               焼き菓子と冷凍スイーツのお届けを準備しています。<br />
               オンラインショップは準備中です。
             </p>
-            <SubscribeForm />
+            {/* メール登録欄の代わりに、公式LINEの友だち追加へ案内する */}
+            <p style={{ marginTop: '30px' }}>
+              <a
+                href="https://lin.ee/SHBoDiLI"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  padding: '14px 34px',
+                  border: '1px solid #B8956A',
+                  color: '#B8956A',
+                  fontSize: '12.5px',
+                  letterSpacing: '0.2em',
+                }}
+              >
+                公式LINEで新着・お知らせを受け取る
+              </a>
+            </p>
             <p
               style={{
                 display: 'inline-block',

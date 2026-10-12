@@ -95,7 +95,7 @@ export function Footer() {
           >
             Grace PÂTISSERIE グレイス<br />
             愛知県春日井市朝宮町1-2-6<br />
-            9:30 - 19:30 ／ 不定休（元日のみ休業）
+            9:30 - 19:30 ／ 元日を除き毎日営業（臨時休業はお知らせでご案内）
           </address>
 
           {/* Instagram */}
