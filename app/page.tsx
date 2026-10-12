@@ -845,7 +845,7 @@ export default function HomePage() {
                       gap: '6px 10px',
                     }}
                   >
-                    <span>{name}</span>
+                    {name}
                     {label && (
                       <span
                         style={{
@@ -1080,12 +1080,9 @@ export default function HomePage() {
       {/* レスポンシブ */}
       <style>{`
         @media (max-width: 560px) {
-          /* スマホ幅: 商品名が途中で折り返さないよう字間を詰め、バッジは名前の下に回す */
           .case-name {
             letter-spacing: 0.04em !important;
             font-size: 13px !important;
-          }
-          .case-name > span:first-child {
             white-space: nowrap;
           }
         }

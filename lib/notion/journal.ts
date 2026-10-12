@@ -2,17 +2,30 @@ import { notion, DB_IDS } from './client'
 import type { JournalPost } from './types'
 import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
+// Notionのアイキャッチが空のとき、slugからサイト内の画像にフォールバックする
+// （NotionのファイルURLは署名付きで期限が切れるため。Notionに値があればそちらを優先）
+const JOURNAL_EYECATCH_FALLBACK: Record<string, string> = {
+  'domestic-fresh-cream': '/photos/journal/domestic-fresh-cream.jpg',
+  'fermented-butter': '/photos/journal/fermented-butter.jpg',
+}
+
+export function resolveEyecatch(notionUrl: string | undefined, slug: string): string | undefined {
+  return notionUrl ?? JOURNAL_EYECATCH_FALLBACK[slug]
+}
+
 function parseJournal(page: PageObjectResponse): JournalPost {
   const props = page.properties as Record<string, any>
   const files = (prop: any): string[] =>
     (prop?.files ?? []).map((f: any) => f.file?.url ?? f.external?.url ?? '').filter(Boolean)
 
+  const slug = props['slug']?.rich_text?.[0]?.plain_text ?? ''
+
   return {
     id: page.id,
-    slug:             props['slug']?.rich_text?.[0]?.plain_text ?? '',
+    slug,
     title:            props['タイトル']?.title?.[0]?.plain_text ?? '',
     category:         props['カテゴリ']?.select?.name ?? '素材の話',
-    eyecatch:         files(props['アイキャッチ'])[0],
+    eyecatch:         resolveEyecatch(files(props['アイキャッチ'])[0], slug),
     summary:          props['サマリー']?.rich_text?.[0]?.plain_text ?? '',
     publishedAt:      props['公開日']?.date?.start ?? '',
     status:           props['ステータス']?.select?.name ?? '下書き',
