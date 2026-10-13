@@ -45,15 +45,24 @@ export default async function JournalPage({ searchParams }: PageProps) {
       <main>
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: バニラビーンズ（引き・10/13 自店撮影。90度回して横帯に切り出し） */}
+          {/* 背景写真: バニラビーンズを木皿ごと引きで（10/13 自店撮影 IMG_6047）。
+              PCは横帯なので90度回してさやの先が左右に入る向き、スマホは縦長なので元の向き */}
           <Image
-            src="/photos/own_vanilla_pods.jpg"
+            src="/photos/own_vanilla_pods_wide.jpg"
             alt=""
             fill
-            className="object-cover opacity-25"
+            className="hidden md:block object-cover object-[50%_38%] opacity-25"
             sizes="100vw"
             aria-hidden="true"
             priority
+          />
+          <Image
+            src="/photos/own_vanilla_pods_tall.jpg"
+            alt=""
+            fill
+            className="md:hidden object-cover opacity-25"
+            sizes="100vw"
+            aria-hidden="true"
           />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center py-24">
