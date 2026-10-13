@@ -376,7 +376,7 @@ export default function HomePage() {
             </p>
 
             {/* 店の種類（2026-10-14 追加） */}
-            <p className="hero-descriptor rise" data-d="5">
+            <p className="hero-descriptor rise" data-d="4">
               春日井・朝宮町のテイクアウト専門パティスリー
             </p>
           </div>

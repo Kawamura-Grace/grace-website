@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
 
-// デスクトップナビゲーション項目
+// デスクトップナビゲーション項目（右端のボタンを足した分、1000px以下はハンバーガーに切り替える）
 const NAV_ITEMS = [
   { label: 'Concept',  href: '/concept',                                    external: false },
   { label: 'Sweets',   href: '/sweets',                                    external: false },
@@ -105,7 +105,7 @@ export function Header() {
         <Link
           href="/"
           aria-label="Grace"
-          style={{ display: 'flex', alignItems: 'center', height: '36px' }}
+          style={{ display: 'flex', alignItems: 'center', height: '36px', flexShrink: 0 }}
         >
           {/* 朝・昼フェーズ: ダークブラウン版（CSSで切り替え） */}
           <Image
@@ -236,12 +236,12 @@ export function Header() {
 
       {/* レスポンシブ: デスクトップナビの表示制御 */}
       <style>{`
-        @media (max-width: 880px) {
+        @media (max-width: 1000px) {
           .desktop-nav { display: none !important; }
           .menu-btn-cinematic { display: block !important; }
           #header { padding-left: 16px !important; padding-right: 16px !important; }
         }
-        @media (min-width: 881px) {
+        @media (min-width: 1001px) {
           .menu-btn-cinematic { display: none !important; }
         }
         .header-right { display: flex; align-items: center; gap: 8px; }
