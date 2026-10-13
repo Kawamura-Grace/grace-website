@@ -23,6 +23,12 @@ const NAV_ITEMS = [
 // 暗いヒーロー写真が先頭にあるページ（朝・昼の配色でも文字を白にする）
 const DARK_HERO_PATHS = ['/sweets', '/gift', '/journal', '/news']
 
+// ヘッダー右端のボタン（地図・LINE）。リンク先はサイト内ですでに使っているものと同じ
+const HEADER_CTAS = [
+  { label: '道順', href: 'https://maps.google.com/?q=愛知県春日井市朝宮町1-2-6', cls: 'header-cta' },
+  { label: 'LINE', href: 'https://lin.ee/SHBoDiLI', cls: 'header-cta header-cta-fill' },
+]
+
 // 暗いヒーロー上で使う文字色（オフホワイト）
 const ON_DARK_INK = '#F7F3EF'
 
@@ -170,6 +176,20 @@ export function Header() {
           ))}
         </nav>
 
+        {/* 右端: 道順・LINEボタン（PC・スマホ共通）＋ハンバーガー（モバイルのみ） */}
+        <div className="header-right">
+          {HEADER_CTAS.map(({ label, href, cls }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cls}
+              style={cls.includes('fill') ? undefined : { color: inkColor }}
+            >
+              {label}
+            </a>
+          ))}
         {/* ハンバーガーボタン（モバイルのみ表示） */}
         <button
           aria-label="メニュー"
@@ -209,6 +229,7 @@ export function Header() {
             }}
           />
         </button>
+        </div>
       </header>
 
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
@@ -218,9 +239,22 @@ export function Header() {
         @media (max-width: 880px) {
           .desktop-nav { display: none !important; }
           .menu-btn-cinematic { display: block !important; }
+          #header { padding-left: 16px !important; padding-right: 16px !important; }
         }
         @media (min-width: 881px) {
           .menu-btn-cinematic { display: none !important; }
+        }
+        .header-right { display: flex; align-items: center; gap: 8px; }
+        .header-cta {
+          font-size: 12px; line-height: 1; letter-spacing: 0.12em; white-space: nowrap;
+          padding: 8px 11px; border: 1px solid var(--gold, #B8956A); border-radius: 999px;
+          transition: opacity .3s, color .3s;
+        }
+        .header-cta:hover { opacity: .7; }
+        .header-cta-fill { background: var(--gold, #B8956A); color: var(--grace-brown, #2C2421); }
+        @media (max-width: 380px) {
+          .header-right { gap: 5px; }
+          .header-cta { font-size: 11px; padding: 7px 8px; letter-spacing: 0.06em; }
         }
       `}</style>
     </>

@@ -191,6 +191,17 @@ html[data-phase="night"] .logo-w { display: block }
   letter-spacing: 0.32em;
   text-indent: 0.32em;
 }
+.hero-descriptor {
+  margin-top: 14px;
+  font-size: clamp(12px, 1.9vw, 14px);
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  line-height: 1.8;
+  color: var(--gold, #B8956A);
+}
+@media (max-width: 400px) {
+  .hero-descriptor { letter-spacing: 0.08em; text-indent: 0.08em; }
+}
 .hero-open {
   margin-top: 30px;
   font-family: var(--font-cormorant), Georgia, serif;

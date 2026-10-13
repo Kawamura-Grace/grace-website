@@ -369,6 +369,11 @@ export default function HomePage() {
               美しい暮らしには、お菓子がある。
             </p>
 
+            {/* 店の種類（2026-10-14 追加） */}
+            <p className="hero-descriptor rise" data-d="3">
+              春日井・朝宮町のテイクアウト専門パティスリー
+            </p>
+
             {/* 開業予定（確定コピー） */}
             <p className="hero-open rise" data-d="4">
               Grand Open
