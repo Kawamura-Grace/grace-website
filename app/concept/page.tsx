@@ -232,9 +232,9 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            {/* 自店撮影のバニラビーンズ。正式な撮影素材の受領後に差し替え可 */}
+            {/* バニラビーンズ（10/13 自店撮影）。正式な撮影素材の受領後に差し替え可 */}
             <Image
-              src="/photos/own_vanilla.jpg"
+              src="/photos/own_vanilla2.jpg"
               alt="バニラビーンズ — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
@@ -270,8 +270,8 @@ export default function ConceptPage() {
             }}
           >
             <Image
-              src="/photos/own_exterior.jpg"
-              alt="Graceの外観"
+              src="/photos/own_choux.jpg"
+              alt="シュークリーム — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 340px"
               style={{ objectFit: 'cover' }}
