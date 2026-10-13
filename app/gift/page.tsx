@@ -9,10 +9,15 @@ import { buildPageMetadata } from '@/lib/seo'
 // ビルド時フォントダウンロードタイムアウト防止
 export const dynamic = 'force-dynamic'
 
+// 熨斗・メッセージカードの案内の表示フラグ（2026-10-13 一時非表示。戻すときは true に）
+const SHOW_NOSHI_CARD = false
+
 export const metadata: Metadata = buildPageMetadata({
   path: '/gift',
   title: 'Gift | Grace PÂTISSERIE',
-  description: 'Grace PÂTISSERIEのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。',
+  description: SHOW_NOSHI_CARD
+    ? 'Grace PÂTISSERIEのギフトサービス。化粧箱・熨斗・メッセージカード対応。法人ギフトのご相談も承ります。'
+    : 'Grace PÂTISSERIEのギフトサービス。化粧箱・帯紙・袋をご用意しています。法人ギフトのご相談も承ります。',
 })
 
 export default function GiftPage() {
@@ -103,48 +108,51 @@ export default function GiftPage() {
           </div>
         </section>
 
-        {/* ─── 熨斗・メッセージカード ─── */}
-        <section className="section-padding bg-grace-cream">
-          <div className="container-content">
-            <div className="section-label mb-12">NOSHI &amp; MESSAGE</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
-              {/* 熨斗 */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
-                <h3 className="font-cormorant italic text-2xl text-grace-brown mb-4">熨斗</h3>
-                <div className="flex-1">
-                  <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                    御祝・御礼・粗品など、各種熨斗に対応しております。
-                    ご希望の表書きと名入れは、店頭でお知らせください。
-                  </p>
-                  <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
-                    <li>御祝・御礼・粗品・寸志</li>
-                    <li>内祝・快気祝・引き出物</li>
-                    <li>その他ご要望に対応可能</li>
-                  </ul>
+        {/* ─── 熨斗・メッセージカード（SHOW_NOSHI_CARD=false の間は非表示） ─── */}
+        {SHOW_NOSHI_CARD && (
+          <section className="section-padding bg-grace-cream">
+            <div className="container-content">
+              <div className="section-label mb-12">NOSHI &amp; MESSAGE</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
+                {/* 熨斗 */}
+                <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
+                  <h3 className="font-cormorant italic text-2xl text-grace-brown mb-4">熨斗</h3>
+                  <div className="flex-1">
+                    <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                      御祝・御礼・粗品など、各種熨斗に対応しております。
+                      ご希望の表書きと名入れは、店頭でお知らせください。
+                    </p>
+                    <ul className="mt-4 space-y-1 font-noto-serif text-base text-grace-text-tertiary">
+                      <li>御祝・御礼・粗品・寸志</li>
+                      <li>内祝・快気祝・引き出物</li>
+                      <li>その他ご要望に対応可能</li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              {/* メッセージカード */}
-              <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
-                <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Message</h3>
-                <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">メッセージカード</p>
-                <div className="flex-1">
-                  <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
-                    Graceオリジナルのメッセージカードに、
-                    お好きなメッセージを手書きでお入れします。
-                    誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
-                  </p>
-                  <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
-                    文字数: 最大100文字程度<br />
-                    ご購入時に店頭でお申し付けください
-                  </p>
+                {/* メッセージカード */}
+                <div className="bg-grace-offwhite p-8 border border-grace-line h-full flex flex-col">
+                  <h3 className="font-cormorant italic text-2xl text-grace-brown mb-2">Message</h3>
+                  <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-4">メッセージカード</p>
+                  <div className="flex-1">
+                    <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose">
+                      Graceオリジナルのメッセージカードに、
+                      お好きなメッセージを手書きでお入れします。
+                      誕生日・記念日・季節のご挨拶など、気持ちをかたちに。
+                    </p>
+                    <p className="mt-4 font-noto-serif text-base text-grace-text-tertiary">
+                      文字数: 最大100文字程度<br />
+                      ご購入時に店頭でお申し付けください
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* ─── 店頭販売の案内（オンラインストア開始までの間） ─── */}
-        <section className="section-padding bg-grace-offwhite">
+        {/* 熨斗・カード非表示中は背景を交互に保つため cream にする */}
+        <section className={`section-padding ${SHOW_NOSHI_CARD ? 'bg-grace-offwhite' : 'bg-grace-cream'}`}>
           <div className="container-content">
             <div className="section-label mb-12">IN STORE</div>
             <div className="max-w-2xl mx-auto text-center">
@@ -180,7 +188,7 @@ export default function GiftPage() {
               For Corporate
             </h2>
             <p className="font-noto-serif text-lg text-grace-stone leading-loose mb-10 max-w-md mx-auto">
-              大量注文・のし対応・個別包装など、法人様向けのギフトご相談を承ります。
+              {SHOW_NOSHI_CARD ? '大量注文・のし対応・個別包装など' : '大量注文・個別包装など'}、法人様向けのギフトご相談を承ります。
               周年記念・お歳暮・催事などにぜひご活用ください。
             </p>
             <Link
