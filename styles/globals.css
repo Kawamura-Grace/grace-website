@@ -197,10 +197,14 @@ html[data-phase="night"] .logo-w { display: block }
   letter-spacing: 0.16em;
   text-indent: 0.16em;
   line-height: 1.8;
-  color: var(--gold, #B8956A);
+  /* 昼の明るい背景でも読めるよう、金ではなく文字色（ink）を少し薄めて使う */
+  color: color-mix(in srgb, var(--ink) 78%, var(--bg));
 }
 @media (max-width: 400px) {
   .hero-descriptor { letter-spacing: 0.08em; text-indent: 0.08em; }
+}
+@media (max-width: 340px) {
+  .hero-descriptor { font-size: 11px; letter-spacing: 0.03em; text-indent: 0.03em; }
 }
 .hero-open {
   margin-top: 30px;
