@@ -27,9 +27,9 @@ export default function GiftPage() {
       <main>
         {/* ─── ヒーロー見出し ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: 詰め合わせギフトL（自店撮影） */}
+          {/* 背景写真: ギフトLの箱の蓋（自店撮影。ロゴが正立するよう90度回転済み） */}
           <Image
-            src="/photos/own_gift_l_box.jpg"
+            src="/photos/own_gift_l_lid.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
