@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button'
 import { getProducts, getProductBySlug } from '@/lib/notion/products'
 import { buildPageMetadata } from '@/lib/seo'
 import { getInventoryStatusByNames } from '@/lib/square/inventory'
+import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
 
 export const revalidate = 3600 // 1時間
 
@@ -19,12 +20,15 @@ interface PageProps {
 
 // ─── generateStaticParams: スラッグ一覧を静的生成 ───
 export async function generateStaticParams() {
+  // 詳しいページを閉じている間は静的生成しない
+  if (!SHOW_PRODUCT_DETAIL) return []
   const products = await getProducts().catch(() => [])
   return products.map(p => ({ slug: p.slug }))
 }
 
 // ─── メタデータ動的生成 ───
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  if (!SHOW_PRODUCT_DETAIL) return { title: '商品が見つかりません | Grace', robots: { index: false } }
   const product = await getProductBySlug(params.slug).catch(() => null)
   if (!product) return { title: '商品が見つかりません | Grace' }
   // canonical / og:url は商品ごとに自ページのURLを指す
@@ -37,6 +41,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function SweetDetailPage({ params }: PageProps) {
+  // 詳しいページは閉じている（2026-10-13）。URLを直接開かれても 404
+  if (!SHOW_PRODUCT_DETAIL) notFound()
+
   const product = await getProductBySlug(params.slug).catch(() => null)
 
   if (!product) notFound()

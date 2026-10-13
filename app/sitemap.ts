@@ -3,6 +3,7 @@ import { getProducts } from '@/lib/notion/products'
 import { getJournalPosts } from '@/lib/notion/journal'
 import { getNewsPosts } from '@/lib/notion/news'
 import { SITE_URL } from '@/lib/seo'
+import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
 
 // ビルド時のNotionタイムアウト防止
 export const dynamic = 'force-dynamic'
@@ -31,7 +32,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getNewsPosts(),
     ])
 
-    const productPages: MetadataRoute.Sitemap = products
+    // 詳しいページを閉じている間は商品URLを載せない
+    const productPages: MetadataRoute.Sitemap = (SHOW_PRODUCT_DETAIL ? products : [])
       .filter(p => p.slug)
       .map(p => ({
         url: `${BASE}/sweets/${p.slug}`,
