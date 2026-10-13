@@ -122,8 +122,8 @@ export default function ShopPage() {
                 lineHeight: 1.9,
               }}
             >
-              {/* 「ス」だけが次の行に落ちないよう、英字名とカナを別々のかたまりにする（折り返しはかたまりの間だけ） */}
-              <span style={{ whiteSpace: 'nowrap' }}>Grace PÂTISSERIE</span>{' '}
+              {/* 「ス」だけが次の行に落ちないよう、カナはひとかたまりにする（英字側は狭い画面で折り返せるようにして横スクロールを防ぐ） */}
+              <span>Grace PÂTISSERIE</span>{' '}
               <span style={{ whiteSpace: 'nowrap' }}>グレイス</span>
             </h2>
 
