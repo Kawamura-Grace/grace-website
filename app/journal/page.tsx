@@ -45,9 +45,9 @@ export default async function JournalPage({ searchParams }: PageProps) {
       <main>
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: こく生ブリオッシュ（自店撮影） */}
+          {/* 背景写真: バニラビーンズ（10/13 自店撮影） */}
           <Image
-            src="/photos/own_brioche.jpg"
+            src="/photos/own_vanilla2.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
