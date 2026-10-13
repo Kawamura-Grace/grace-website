@@ -232,10 +232,10 @@ export default function ConceptPage() {
               position: 'relative',
             }}
           >
-            {/* バニラビーンズ（10/13 自店撮影）。正式な撮影素材の受領後に差し替え可 */}
+            {/* 卵黄と砂糖を泡立てる手元（製造工程・7/30撮影。河村さん確認済み）。正式な撮影素材の受領後に差し替え可 */}
             <Image
-              src="/photos/own_vanilla2.jpg"
-              alt="バニラビーンズ — Grace"
+              src="/photos/own_process_yolk.jpg"
+              alt="卵黄を泡立てる手元 — Grace"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 360px"
               style={{ objectFit: 'cover' }}
