@@ -10,6 +10,7 @@ import { getJournalBySlug, getJournalBlocks } from '@/lib/notion/journal'
 import { getProductBySlug, getProducts } from '@/lib/notion/products'
 import { formatDateJa } from '@/lib/utils/date'
 import { buildPageMetadata } from '@/lib/seo'
+import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
 import type { BlockObjectResponse, PartialBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
@@ -203,6 +204,12 @@ function groupBlocks(blocks: BlockObjectResponse[]): React.ReactNode[] {
   return result
 }
 
+// 関連商品の外枠：詳しいページを閉じている間はリンクなし（/sweets/slug が 404 になるため）
+function RelatedProductShell({ slug, children }: { slug: string; children: React.ReactNode }) {
+  if (!SHOW_PRODUCT_DETAIL) return <div className="block">{children}</div>
+  return <Link href={`/sweets/${slug}`} className="group block">{children}</Link>
+}
+
 export default async function JournalDetailPage({ params }: PageProps) {
   const post = await getJournalBySlug(params.slug).catch(() => null)
   if (!post) notFound()
@@ -306,11 +313,7 @@ export default async function JournalDetailPage({ params }: PageProps) {
               <div className="section-label mb-10">RELATED SWEETS</div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {relatedProducts.map((product) => (
-                  <Link
-                    key={product.id}
-                    href={`/sweets/${product.slug}`}
-                    className="group block"
-                  >
+                  <RelatedProductShell key={product.id} slug={product.slug}>
                     <div className="relative aspect-square bg-grace-stone overflow-hidden mb-3">
                       {product.mainImage ? (
                         <Image
@@ -329,7 +332,7 @@ export default async function JournalDetailPage({ params }: PageProps) {
                     <p className="font-noto-serif text-base text-grace-brown group-hover:text-grace-text-secondary transition-colors">
                       {product.name}
                     </p>
-                  </Link>
+                  </RelatedProductShell>
                 ))}
               </div>
             </div>

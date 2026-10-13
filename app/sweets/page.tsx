@@ -8,7 +8,7 @@ import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 import { buildPageMetadata } from '@/lib/seo'
-import { getInventoryStatusByNames } from '@/lib/square/inventory'
+import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
 export const dynamic = 'force-dynamic'
@@ -41,6 +41,15 @@ function SeasonBadge({ season }: { season?: string }) {
   return <Tag variant={variants[season] ?? 'stone'}>{season}</Tag>
 }
 
+// 商品カードの外枠：詳しいページを閉じている間はリンクなしの枠、開いたらリンク
+// （在庫バッジ・価格は出さない。在庫連携は詳しいページを開くときに改めて決める）
+function ProductCardShell({ slug, name, children }: { slug: string; name: string; children: React.ReactNode }) {
+  if (!SHOW_PRODUCT_DETAIL) {
+    return <div className="block" aria-label={name}>{children}</div>
+  }
+  return <Link href={`/sweets/${slug}`} className="group block" aria-label={name}>{children}</Link>
+}
+
 interface PageProps {
   searchParams: { category?: string }
 }
@@ -55,8 +64,10 @@ export default async function SweetsPage({ searchParams }: PageProps) {
     ? allProducts
     : allProducts.filter(p => p.category === activeCategory)
 
-  // Square在庫状態（商品名で一致した分のみ。未連携・未マッチはMapに含まれずバッジ非表示になる）
-  const inventory = await getInventoryStatusByNames(products.map((p) => p.name))
+  // 商品のあるカテゴリだけタブに出す（空のタブを作らない）
+  const visibleCategories = CATEGORIES.filter(
+    c => c.value === 'all' || allProducts.some(p => p.category === c.value),
+  )
 
   return (
     <>
@@ -92,7 +103,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
         <section className="bg-grace-offwhite border-b border-grace-line sticky top-16 z-20">
           <div className="container-content">
             <nav aria-label="商品カテゴリ" className="flex gap-0 overflow-x-auto scrollbar-hide">
-              {CATEGORIES.map(({ label, value }) => {
+              {visibleCategories.map(({ label, value }) => {
                 const isActive = (!activeCategory && value === 'all') || activeCategory === value
                 return (
                   <Link
@@ -137,12 +148,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                 {products.map((product) => (
-                  <Link
-                    key={product.id}
-                    href={`/sweets/${product.slug}`}
-                    className="group block"
-                    aria-label={product.name}
-                  >
+                  <ProductCardShell key={product.id} slug={product.slug} name={product.name}>
                     {/* 商品画像 */}
                     <div className="relative aspect-square bg-grace-cream overflow-hidden mb-3">
                       {product.mainImage ? (
@@ -150,7 +156,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                           src={product.mainImage}
                           alt={product.name}
                           fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          className={`object-cover ${SHOW_PRODUCT_DETAIL ? 'group-hover:scale-105 transition-transform duration-500' : ''}`}
                           sizes="(max-width: 768px) 50vw, 33vw"
                         />
                       ) : (
@@ -170,15 +176,8 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                     <div>
                       <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-1 flex items-center gap-2">
                         {product.category}
-                        {/* Square在庫連携（商品名一致）。未連携・未マッチの商品はバッジなし */}
-                        {inventory.get(product.name) === 'sold_out' && (
-                          <Tag variant="stone">完売</Tag>
-                        )}
-                        {inventory.get(product.name) === 'in_stock' && (
-                          <Tag variant="wasabi">販売中</Tag>
-                        )}
                       </p>
-                      <h2 className="font-noto-serif text-lg text-grace-brown mb-1 group-hover:text-grace-text-secondary transition-colors">
+                      <h2 className={`font-noto-serif text-base md:text-lg text-grace-brown mb-1 ${SHOW_PRODUCT_DETAIL ? 'group-hover:text-grace-text-secondary transition-colors' : ''}`}>
                         {product.name}
                       </h2>
                       <p className="font-noto-sans text-xs text-grace-text-secondary">
@@ -187,7 +186,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                         )}
                       </p>
                     </div>
-                  </Link>
+                  </ProductCardShell>
                 ))}
               </div>
             )}
