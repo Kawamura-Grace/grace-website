@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
 
@@ -19,6 +20,12 @@ const NAV_ITEMS = [
   { label: 'Recruit',  href: '/recruit',                                    external: false },
 ]
 
+// 暗いヒーロー写真が先頭にあるページ（朝・昼の配色でも文字を白にする）
+const DARK_HERO_PATHS = ['/sweets', '/gift', '/journal', '/news']
+
+// 暗いヒーロー上で使う文字色（オフホワイト）
+const ON_DARK_INK = '#F7F3EF'
+
 /**
  * cinematic-b ヘッダー
  * - usePhase() で html[data-phase] を設定（時間フェーズシステム）
@@ -28,7 +35,14 @@ const NAV_ITEMS = [
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSolid, setIsSolid] = useState(false)
+  const [overHero, setOverHero] = useState(true)
   const { phase } = usePhase()
+  const pathname = usePathname()
+
+  // 暗いヒーローの上にいる間だけ、白文字・白ロゴにする（ヒーローを抜けたら通常色に戻す）
+  const hasDarkHero = DARK_HERO_PATHS.includes(pathname ?? '')
+  const onDark = hasDarkHero && overHero && !isSolid && !isMenuOpen
+  const inkColor = onDark ? ON_DARK_INK : 'var(--ink)'
 
   // html[data-phase] を設定してCSSカスタムプロパティを切り替える
   useEffect(() => {
@@ -39,11 +53,18 @@ export function Header() {
   useEffect(() => {
     const onScroll = () => {
       setIsSolid(window.scrollY > window.innerHeight * 0.7)
+      // ヒーロー（main 直下の最初のセクション）の下端がヘッダーより下にあるか
+      const hero = document.querySelector('main > section')
+      setOverHero(hero ? hero.getBoundingClientRect().bottom > 64 : false)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
     onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [pathname])
 
   return (
     <>
@@ -51,6 +72,7 @@ export function Header() {
         className={[
           'header',
           isSolid ? 'solid' : '',
+          onDark ? 'on-dark' : '',
         ].filter(Boolean).join(' ')}
         id="header"
         style={{
@@ -77,15 +99,15 @@ export function Header() {
         <Link
           href="/"
           aria-label="Grace"
-          style={{ display: 'flex', alignItems: 'center', height: '26px' }}
+          style={{ display: 'flex', alignItems: 'center', height: '36px' }}
         >
           {/* 朝・昼フェーズ: ダークブラウン版（CSSで切り替え） */}
           <Image
             className="logo-d"
             src="/logo/Grace横ダークブラウン版.png"
             alt="Grace"
-            width={120}
-            height={26}
+            width={124}
+            height={36}
             priority
             style={{ height: '100%', width: 'auto', transition: 'opacity 1.2s' }}
           />
@@ -94,8 +116,8 @@ export function Header() {
             className="logo-w"
             src="/logo/Grace横白版.png"
             alt="Grace"
-            width={120}
-            height={26}
+            width={124}
+            height={36}
             priority
             style={{ height: '100%', width: 'auto', transition: 'opacity 1.2s' }}
           />
@@ -104,7 +126,7 @@ export function Header() {
             className="logo-fallback"
             style={{
               display: 'none',
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: 'italic',
               fontWeight: 300,
               letterSpacing: '0.22em',
@@ -131,14 +153,14 @@ export function Header() {
               href={href}
               {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '14.5px',
                 letterSpacing: '0.18em',
-                color: 'var(--ink)',
+                color: inkColor,
                 opacity: 0.85,
-                transition: 'opacity .3s',
+                transition: 'opacity .3s, color .3s',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.5' }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.85' }}
@@ -170,7 +192,7 @@ export function Header() {
               left: '5px',
               right: '5px',
               height: '1px',
-              background: 'var(--ink)',
+              background: inkColor,
               top: '12px',
               transition: '.35s',
             }}
@@ -181,7 +203,7 @@ export function Header() {
               left: '5px',
               right: '5px',
               height: '1px',
-              background: 'var(--ink)',
+              background: inkColor,
               top: '21px',
               transition: '.35s',
             }}

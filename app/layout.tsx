@@ -5,15 +5,10 @@ import Script from 'next/script'
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from '@/lib/seo'
 import '../styles/globals.css'
 
-// パフォーマンス最適化（2026-08-29）：
-// これら4書体はいずれも実際の描画では next/font のCSS変数(var(--font-*))ではなく
-// tailwind.config.ts の literal font-family名（"Cormorant Garamond"等）が使われており、
-// next/fontが生成する@font-face（obfuscatedな内部名）は現状どのCSSからも参照されていない
-// （grep実測・getComputedStyle実測で確認済み・デザイン上の見た目に影響なし）。
-// それにもかかわらず preload:true（デフォルト）により <link rel="preload"> が
-// 全ウェイト×サブセット分（実測126件のwoff2）を初回アクセスで強制ダウンロードさせており、
-// Lighthouse Performance低下の主因になっていた。
-// 書体・ウェイト構成・見た目は変更せず、不要なプリロードのみ止める（preload:false）。
+// 書体は下の変数（--font-cormorant など）を CSS・Tailwind・インラインstyle の
+// font-family で var(--font-xxx) として参照する（2026-10-13：以前は書体名の直書きで
+// 読み込まれず Georgia / OS明朝で表示されていた）。
+// パフォーマンス（2026-08-29）：preload:false で <link rel="preload"> の一斉ダウンロードは止めている。
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500'],

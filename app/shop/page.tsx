@@ -36,7 +36,7 @@ export default function ShopPage() {
         >
           <p
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '13px',
@@ -54,7 +54,7 @@ export default function ShopPage() {
           </p>
           <h1
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(38px,6vw,64px)',
@@ -97,7 +97,7 @@ export default function ShopPage() {
           >
             <p
               style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '13px',
@@ -114,7 +114,7 @@ export default function ShopPage() {
 
             <h2
               style={{
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
                 fontSize: 'clamp(22px,3.4vw,30px)',
                 fontWeight: 500,
                 letterSpacing: '0.18em',
@@ -122,7 +122,9 @@ export default function ShopPage() {
                 lineHeight: 1.9,
               }}
             >
-              Grace PÂTISSERIE グレイス
+              {/* 「ス」だけが次の行に落ちないよう、カナはひとかたまりにする（英字側は狭い画面で折り返せるようにして横スクロールを防ぐ） */}
+              <span>Grace PÂTISSERIE</span>{' '}
+              <span style={{ whiteSpace: 'nowrap' }}>グレイス</span>
             </h2>
 
             {/* 店舗情報テーブル */}
@@ -243,7 +245,7 @@ export default function ShopPage() {
           <div style={{ position: 'relative' }}>
             <p
               style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '13px',
@@ -330,7 +332,7 @@ export default function ShopPage() {
           display: inline-flex;
           align-items: center;
           gap: 14px;
-          font-family: "Cormorant Garamond", Georgia, serif;
+          font-family: var(--font-cormorant), Georgia, serif;
           font-style: italic;
           font-weight: 300;
           font-size: 14px;

@@ -32,11 +32,11 @@ const config: Config = {
       },
       fontFamily: {
         // 仕様書 2.2 タイポグラフィ
-        'cormorant': ['Cormorant Garamond', 'Georgia', 'serif'],
-        'noto-serif': ['"Noto Serif JP"', 'Georgia', 'serif'],
-        'noto-sans':  ['"Noto Sans JP"', 'sans-serif'],
+        'cormorant': ['var(--font-cormorant)', 'Georgia', 'serif'],
+        'noto-serif': ['var(--font-noto-serif)', 'Georgia', 'serif'],
+        'noto-sans':  ['var(--font-noto-sans)', 'sans-serif'],
         // cinematic-b 本文フォント
-        'shippori': ['Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', 'serif'],
+        'shippori': ['var(--font-shippori)', 'Hiragino Mincho ProN', 'Yu Mincho', 'serif'],
       },
       spacing: {
         // 仕様書 2.3 スペーシングスケール

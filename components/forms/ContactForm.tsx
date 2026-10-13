@@ -171,7 +171,7 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
         </div>
         <p
           style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: "var(--font-cormorant), Georgia, serif",
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '22px',
