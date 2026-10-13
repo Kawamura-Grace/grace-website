@@ -374,6 +374,11 @@ export default function HomePage() {
               Grand Open
               <span className="date">2026年10月15日（木）オープン</span>
             </p>
+
+            {/* 店の種類（2026-10-14 追加） */}
+            <p className="hero-descriptor rise" data-d="4">
+              春日井・朝宮町のテイクアウト専門パティスリー
+            </p>
           </div>
 
           {/* スクロールキュー */}

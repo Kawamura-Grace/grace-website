@@ -46,12 +46,13 @@ export default async function JournalPage({ searchParams }: PageProps) {
         {/* ─── ページヘッダー ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
           {/* 背景写真: バニラビーンズを木皿ごと引きで（10/13 自店撮影 IMG_6047）。
-              PCは横帯なので90度回してさやの先が左右に入る向き、スマホは縦長なので元の向き */}
+              撮ったときの向き（EXIF補正後の正立）のまま使う。回して作らない。
+              PCは4:3で切り出し（さやと木皿が収まる範囲）、スマホは縦長 */}
           <Image
             src="/photos/own_vanilla_pods_wide.jpg"
             alt=""
             fill
-            className="hidden md:block object-cover object-[50%_38%] opacity-25"
+            className="hidden md:block object-cover object-[50%_55%] opacity-25"
             sizes="100vw"
             aria-hidden="true"
             priority
