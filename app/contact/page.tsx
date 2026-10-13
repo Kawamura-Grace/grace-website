@@ -42,7 +42,7 @@ export default function ContactPage({
         >
           <p
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '13px',
@@ -60,7 +60,7 @@ export default function ContactPage({
           </p>
           <h1
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(38px,6vw,64px)',

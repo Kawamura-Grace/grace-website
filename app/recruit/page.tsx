@@ -39,7 +39,7 @@ function Label({ children, center }: { children: React.ReactNode; center?: boole
   return (
     <p
       style={{
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontFamily: "var(--font-cormorant), Georgia, serif",
         fontStyle: 'italic',
         fontWeight: 300,
         fontSize: '13px',
@@ -89,7 +89,7 @@ export default function RecruitPage() {
           <Label center>RECRUIT</Label>
           <h1
             style={{
-              fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+              fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
               fontWeight: 500,
               fontSize: 'clamp(24px,4vw,40px)',
               letterSpacing: '0.18em',
@@ -148,7 +148,7 @@ export default function RecruitPage() {
                 {/* 雇用形態バッジ */}
                 <p
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontStyle: 'italic',
                     fontWeight: 300,
                     fontSize: '12px',
@@ -163,7 +163,7 @@ export default function RecruitPage() {
                 {/* 職種名 */}
                 <h2
                   style={{
-                    fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                    fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
                     fontWeight: 500,
                     fontSize: 'clamp(18px,2.2vw,22px)',
                     letterSpacing: '0.1em',
@@ -231,7 +231,7 @@ export default function RecruitPage() {
                     alignItems: 'center',
                     gap: '12px',
                     alignSelf: 'flex-start',
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontStyle: 'italic',
                     fontWeight: 300,
                     fontSize: '13.5px',

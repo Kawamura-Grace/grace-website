@@ -34,6 +34,15 @@ const IMGS: (string | undefined)[] = [
   undefined, // マドレーヌ（単品写真の撮影待ち。箱写真は両方入りのため使わない）
   undefined, // クッキー缶
 ]
+// 表示フラグ：写真が入るまで非表示にしている（2026-10-13河村決裁）。
+// 季節のタルト・マドレーヌ・クッキー缶の単品写真が撮影できたら IMGS に写真を設定し、下を true に戻す。
+// SHOW_SEASONAL_TART：トップの「季節のタルト」の章を出すか（false の間は章を丸ごと隠し、後ろの章の左右を入れ替えて交互の並びを保つ）
+// SHOW_ITEMS_WITHOUT_PHOTO：ショーケースで写真のない商品（文字だけの行）を出すか
+const SHOW_SEASONAL_TART = false
+const SHOW_ITEMS_WITHOUT_PHOTO = false
+// ショーケースに実際に出す商品の番号（ITEMS・IMGS の添字）
+const VISIBLE_ITEM_INDEXES = [...ITEMS.keys()].filter(i => SHOW_ITEMS_WITHOUT_PHOTO || !!IMGS[i])
+
 // ショーケースの在庫バッジ表示状態
 // 'in_stock'/'sold_out' はSquare在庫連携の実データ、'closed' は営業時間外（在庫と無関係の事実）。
 // 個数までの表示（近リアルタイム在庫数）はPhase 2判断のため、開業時は二値表示のみ
@@ -125,7 +134,7 @@ function Label({ children, center }: { children: React.ReactNode; center?: boole
   return (
     <p
       style={{
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontFamily: "var(--font-cormorant), Georgia, serif",
         fontStyle: 'italic',
         fontWeight: 300,
         fontSize: '13px',
@@ -153,7 +162,7 @@ function Btn({ href, children }: { href: string; children: React.ReactNode }) {
         display: 'inline-flex',
         alignItems: 'center',
         gap: '14px',
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontFamily: "var(--font-cormorant), Georgia, serif",
         fontStyle: 'italic',
         fontWeight: 300,
         fontSize: '14px',
@@ -211,7 +220,7 @@ function Ph({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: "var(--font-cormorant), Georgia, serif",
             fontStyle: 'italic',
             letterSpacing: '0.5em',
             fontSize: '11px',
@@ -257,7 +266,7 @@ function AromaTag({ motif, label, isFirst = false }: { motif: string; label: str
         <use href={`#${motif}`} />
       </svg>
       {isFirst && (
-        <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>
+        <span style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>
           Aroma
         </span>
       )}
@@ -403,7 +412,7 @@ export default function HomePage() {
           />
           <span
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: 'italic',
               color: '#B8956A',
               letterSpacing: '0.26em',
@@ -531,7 +540,7 @@ export default function HomePage() {
             <div>
               <p
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontFamily: "var(--font-cormorant), Georgia, serif",
                   fontStyle: 'italic',
                   fontWeight: 300,
                   fontSize: '13px',
@@ -566,7 +575,7 @@ export default function HomePage() {
         >
           <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
             <Ph
-              src="/photos/own_shortcake_mid.jpg"
+              src="/photos/own_shortcake_wide.jpg"
               alt="ショートケーキ"
               aspectRatio="4/5"
               style={{ maxHeight: '74svh' }}
@@ -592,7 +601,7 @@ export default function HomePage() {
             <div>
               <p
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontFamily: "var(--font-cormorant), Georgia, serif",
                   fontStyle: 'italic',
                   fontWeight: 300,
                   fontSize: '13px',
@@ -614,6 +623,7 @@ export default function HomePage() {
         </section>
 
         {/* ===== 7. 季節のタルト chapter ===== */}
+        {SHOW_SEASONAL_TART && (
         <section
           className="chapter-section"
           style={{
@@ -646,7 +656,7 @@ export default function HomePage() {
             <div>
               <p
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontFamily: "var(--font-cormorant), Georgia, serif",
                   fontStyle: 'italic',
                   fontWeight: 300,
                   fontSize: '13px',
@@ -666,11 +676,12 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* ===== 8. Grace Crumb chapter rev band ===== */}
         <section
           id="gift"
-          className="chapter-section chapter-rev"
+          className={`chapter-section${SHOW_SEASONAL_TART ? ' chapter-rev' : ''}`}
           style={{
             minHeight: '92svh',
             display: 'grid',
@@ -682,7 +693,8 @@ export default function HomePage() {
             color: '#F7F3EF',
           }}
         >
-          <figure className="rise chapter-photo-rev" style={{ margin: 0, order: 2 }}>
+          {/* タルトの章を隠している間は、ショートケーキ章（写真が右）と交互になるよう写真を左に置く */}
+          <figure className={`rise${SHOW_SEASONAL_TART ? ' chapter-photo-rev' : ''}`} style={{ margin: 0, order: SHOW_SEASONAL_TART ? 2 : 0 }}>
             <Ph
               src="/photos/own_gift_s.jpg"
               alt="詰め合わせギフト（焼き菓子）"
@@ -711,7 +723,7 @@ export default function HomePage() {
             <div>
               <p
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontFamily: "var(--font-cormorant), Georgia, serif",
                   fontStyle: 'italic',
                   fontWeight: 300,
                   fontSize: '13px',
@@ -727,7 +739,7 @@ export default function HomePage() {
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: 'color-mix(in srgb, #F7F3EF 70%, #2C2421)' }}>
                   <svg className="draw" viewBox="0 0 48 48" width="30" height="30" style={{ flexShrink: 0 }}><use href="#m-butter" /></svg>
-                  <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>
+                  <span style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontStyle: 'italic', color: '#B8956A', letterSpacing: '0.18em', marginRight: '2px' }}>Aroma</span>
                   焦がしバター
                 </span>
                 {[
@@ -788,12 +800,12 @@ export default function HomePage() {
             >
               {hasLiveInventory
                 ? '時間とともに、店の「いま」をお伝えします'
-                : '本日のラインナップは店頭でご確認ください（オンライン在庫表示は準備中です）'}
+                : '本日のラインナップは店頭でご確認ください'}
             </p>
           </div>
 
           <div
-            className="case-grid"
+            className={`case-grid${VISIBLE_ITEM_INDEXES.length % 2 === 1 ? ' case-grid-odd' : ''}`}
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
@@ -802,7 +814,7 @@ export default function HomePage() {
             }}
           >
             {/* 写真のある商品を先に並べ、写真のない商品は写真枠を持たない名前だけの行として後ろに並べる（グリッドの段ずれ防止） */}
-            {[...ITEMS.keys()].sort((a, b) => Number(!IMGS[a]) - Number(!IMGS[b])).map((i, order, sorted) => {
+            {[...VISIBLE_ITEM_INDEXES].sort((a, b) => Number(!IMGS[a]) - Number(!IMGS[b])).map((i, order, sorted) => {
               const name = ITEMS[i]
               // 写真のない商品の先頭は必ず新しい行から始める
               const isFirstTextOnly = !IMGS[i] && (order === 0 || !!IMGS[sorted[order - 1]])
@@ -898,7 +910,7 @@ export default function HomePage() {
               >
                 <span
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontStyle: 'italic',
                     fontSize: '12px',
                     letterSpacing: '0.24em',
@@ -1030,8 +1042,7 @@ export default function HomePage() {
                 letterSpacing: '0.12em',
               }}
             >
-              焼き菓子と冷凍スイーツのお届けを準備しています。<br />
-              オンラインショップは準備中です。
+              焼き菓子と冷凍スイーツのお届けを準備しています。
             </p>
             {/* メール登録欄の代わりに、公式LINEの友だち追加へ案内する */}
             <p style={{ marginTop: '30px' }}>
@@ -1096,6 +1107,10 @@ export default function HomePage() {
           }
           .case-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          /* 商品が奇数のとき、2列だと最後の1枚だけ右が空くので1列にする */
+          .case-grid-odd {
+            grid-template-columns: 1fr !important;
           }
           .shop-section {
             grid-template-columns: 1fr !important;

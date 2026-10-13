@@ -38,7 +38,7 @@ function Label({ children, center }: { children: React.ReactNode; center?: boole
   return (
     <p
       style={{
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontFamily: "var(--font-cormorant), Georgia, serif",
         fontStyle: 'italic',
         fontWeight: 300,
         fontSize: '13px',
@@ -123,7 +123,7 @@ export default function ConceptPage() {
             <Label center>PHILOSOPHY</Label>
             <h2
               style={{
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
                 fontWeight: 500,
                 fontSize: 'clamp(20px,3.2vw,30px)',
                 letterSpacing: '0.16em',
@@ -148,7 +148,7 @@ export default function ConceptPage() {
             </p>
             <h1
               style={{
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
                 fontWeight: 500,
                 fontSize: 'clamp(26px,4.4vw,46px)',
                 letterSpacing: '0.18em',
@@ -204,7 +204,7 @@ export default function ConceptPage() {
                 lineHeight: 2.6,
                 fontSize: 'clamp(20px,3vw,27px)',
                 fontWeight: 500,
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
               }}
             >
               こだわりの素材と製法
@@ -283,7 +283,7 @@ export default function ConceptPage() {
             <Label>A NOTE FROM GRACE</Label>
             <h2
               style={{
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
                 fontWeight: 500,
                 fontSize: 'clamp(20px,3.2vw,30px)',
                 letterSpacing: '0.16em',
@@ -313,7 +313,7 @@ export default function ConceptPage() {
                 letterSpacing: '0.22em',
                 color: '#B8956A',
                 lineHeight: 2.2,
-                fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
               }}
             >
               素材に誠実に。季節に正直に。来てくれた人に丁寧に。
@@ -380,7 +380,7 @@ export default function ConceptPage() {
                 </svg>
                 <p
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontStyle: 'italic',
                     fontWeight: 300,
                     fontSize: '12px',
@@ -397,7 +397,7 @@ export default function ConceptPage() {
                     fontWeight: 500,
                     letterSpacing: '0.2em',
                     marginBottom: '20px',
-                    fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                    fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
                   }}
                 >
                   {ja}
@@ -440,7 +440,7 @@ export default function ConceptPage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '14px',
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '14px',

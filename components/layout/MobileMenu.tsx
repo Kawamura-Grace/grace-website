@@ -113,7 +113,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           onClick={onClose}
           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: "var(--font-cormorant), Georgia, serif",
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '22px',
@@ -126,7 +126,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {label}
           <span
             style={{
-              fontFamily: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+              fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
               fontStyle: 'normal',
               fontSize: '10.5px',
               letterSpacing: '0.3em',

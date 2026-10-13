@@ -4,7 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 // フッターナビゲーション
-const FNAV = [
+// 表示フラグ：オンラインショップの開店まで、準備中の案内にしか行かないリンクは出さない（2026-10-13）。
+// 開店したらリンク先を実際のショップのURLに変えて true に戻す
+const SHOW_ONLINE_SHOP_LINK = false
+
+const FNAV_ALL = [
   { label: 'Concept',     href: '/concept',                                      external: false },
   { label: 'Sweets',      href: '/sweets',                                      external: false },
   { label: 'Gift',        href: '/gift',                                        external: false },
@@ -16,6 +20,7 @@ const FNAV = [
   { label: 'Contact',     href: '/contact',                                      external: false },
   { label: 'Recruit',     href: '/recruit',                                      external: false },
 ]
+const FNAV = FNAV_ALL.filter(({ label }) => SHOW_ONLINE_SHOP_LINK || label !== 'Online Shop')
 
 /**
  * cinematic-b フッター
@@ -48,15 +53,15 @@ export function Footer() {
           {/* ロゴ（横版白を常時表示） */}
           <div
             className="footer-logo"
-            style={{ height: '30px', marginBottom: '20px' }}
+            style={{ height: '36px', marginBottom: '20px' }}
           >
             {/* footer-logo クラスが .logo-d を非表示 .logo-w を表示 */}
             <Image
               className="logo-d"
               src="/logo/Grace横ダークブラウン版.png"
               alt="Grace"
-              width={120}
-              height={26}
+              width={124}
+              height={36}
               priority
               style={{ height: '100%', width: 'auto' }}
             />
@@ -64,15 +69,15 @@ export function Footer() {
               className="logo-w"
               src="/logo/Grace横白版.png"
               alt="Grace"
-              width={120}
-              height={26}
+              width={124}
+              height={36}
               priority
               style={{ height: '100%', width: 'auto' }}
             />
             <span
               style={{
                 display: 'none',
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '24px',
@@ -170,7 +175,7 @@ export function Footer() {
             display: 'grid',
             gridTemplateColumns: 'repeat(4, auto)',
             gap: '13px 42px',
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: "var(--font-cormorant), Georgia, serif",
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '13.5px',

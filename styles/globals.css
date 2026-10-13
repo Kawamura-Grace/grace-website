@@ -68,7 +68,7 @@ body {
   color: var(--ink);
   transition: background 2s ease, color 2s ease;
   /* 仕様書 2.2 本文フォント */
-  font-family: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  font-family: var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   font-size: 15px;
   line-height: 2.1;
   letter-spacing: 0.06em;
@@ -78,7 +78,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   /* 仕様書 2.2 見出し（英）= Cormorant Garamond */
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 400;
   line-height: 1.2;
 }
@@ -130,6 +130,10 @@ html[data-phase="night"] .logo-d { display: none }
 html[data-phase="dusk"]  .logo-w,
 html[data-phase="night"] .logo-w { display: block }
 
+/* 暗いヒーロー上のヘッダー（/sweets・/gift・/journal・/news）は時間帯にかかわらず白版 */
+.header.on-dark .logo-d { display: none }
+.header.on-dark .logo-w { display: block }
+
 /* フッターは常に白版 */
 .footer-logo .logo-d { display: none }
 .footer-logo .logo-w { display: block }
@@ -173,7 +177,7 @@ html[data-phase="night"] .logo-w { display: block }
   transition: opacity 1.2s;
 }
 .hero-place {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-style: italic;
   font-weight: 300;
   font-size: clamp(11px, 1.6vw, 13px);
@@ -189,7 +193,7 @@ html[data-phase="night"] .logo-w { display: block }
 }
 .hero-open {
   margin-top: 30px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-style: italic;
   font-weight: 300;
   font-size: clamp(12.5px, 1.8vw, 15px);
@@ -218,7 +222,7 @@ html[data-phase="night"] .logo-w { display: block }
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-style: italic;
   font-size: 11px;
   letter-spacing: 0.4em;
@@ -331,7 +335,7 @@ html[data-phase="night"] .logo-w { display: block }
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: var(--font-noto-sans), sans-serif;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -422,7 +426,7 @@ body:has(.teaser-container)::before {
 }
 
 .teaser-philosophy {
-  font-family: 'Noto Serif JP', serif;
+  font-family: var(--font-noto-serif), serif;
   font-weight: 200;
   font-size: clamp(0.8rem, 2.2vw, 1.05rem);
   letter-spacing: 0.12em;
@@ -445,7 +449,7 @@ body:has(.teaser-container)::before {
 }
 
 .teaser-opening-location {
-  font-family: 'Noto Serif JP', serif;
+  font-family: var(--font-noto-serif), serif;
   font-weight: 300;
   font-size: clamp(0.65rem, 1.6vw, 0.78rem);
   letter-spacing: 0.15em;

@@ -27,9 +27,9 @@ export default function GiftPage() {
       <main>
         {/* ─── ヒーロー見出し ─── */}
         <section className="relative overflow-hidden bg-grace-bg-dark flex items-center justify-center" style={{ minHeight: '480px' }}>
-          {/* 背景写真: ギフトLの箱（蓋の端と中の焼き菓子・自店撮影。箱を正立させて横帯に切り出し） */}
+          {/* 背景写真: 並べたフィナンシェ（10/13 自店撮影 IMG_6059・横帯に切り出し） */}
           <Image
-            src="/photos/own_gift_l_lid.jpg"
+            src="/photos/own_gift_financier_band.jpg"
             alt=""
             fill
             className="object-cover opacity-25"
@@ -89,21 +89,6 @@ export default function GiftPage() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-            </div>
-
-            {/* WRAPPING直下CTA — 開業後に ONLINE STORE リンクへ差し替え */}
-            <div className="mt-12 text-center">
-              <p className="font-noto-serif text-base text-grace-text-tertiary mb-3">
-                オンラインストアは準備中です。
-              </p>
-              <a
-                href="https://www.instagram.com/patisserie_grace_/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-4 hover:border-grace-brown hover:text-grace-brown transition-all duration-300"
-              >
-                Instagram で最新情報を見る →
-              </a>
             </div>
           </div>
         </section>
