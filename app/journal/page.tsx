@@ -63,7 +63,6 @@ export default async function JournalPage({ searchParams }: PageProps) {
             className="md:hidden object-cover opacity-25"
             sizes="100vw"
             aria-hidden="true"
-            priority
           />
           <div className="absolute inset-0 bg-grace-bg-dark/72" aria-hidden="true" />
           <div className="relative z-10 container-content text-center py-24">
