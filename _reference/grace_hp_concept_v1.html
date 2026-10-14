@@ -460,13 +460,13 @@ var PHASES={
   dusk:{t:'EVENING',msg:'日が傾いてきました。本日のお菓子は、残りわずかです。'},
   night:{t:'CLOSED',msg:'本日は閉店いたしました。また明日、9:30にお会いしましょう。'}
 };
-var ITEMS=['チーズケーキ','ショートケーキ','季節のタルト','フィナンシェ','マドレーヌ','クッキー缶'];
-var IMGS=['6607325','10311435','6605303','797761','10511210','5985991'].map(function(id){return 'https://images.pexels.com/photos/'+id+'/pexels-photo-'+id+'.jpeg?auto=compress&cs=tinysrgb&w=600'});
+var ITEMS=['チーズケーキ','ショートケーキ','季節のタルト','フィナンシェ','マドレーヌ'];
+var IMGS=['6607325','10311435','6605303','797761','10511210'].map(function(id){return 'https://images.pexels.com/photos/'+id+'/pexels-photo-'+id+'.jpeg?auto=compress&cs=tinysrgb&w=600'});
 var STOCK={
-  morning:['焼き上がり','準備中','準備中','焼き上がり','在庫あり','在庫あり'],
-  day:['在庫あり','在庫あり','在庫あり','在庫あり','在庫あり','在庫あり'],
-  dusk:['残りわずか','残りわずか','完売','在庫あり','残りわずか','在庫あり'],
-  night:['本日終了','本日終了','本日終了','本日終了','本日終了','本日終了']
+  morning:['焼き上がり','準備中','準備中','焼き上がり','在庫あり'],
+  day:['在庫あり','在庫あり','在庫あり','在庫あり','在庫あり'],
+  dusk:['残りわずか','残りわずか','完売','在庫あり','残りわずか'],
+  night:['本日終了','本日終了','本日終了','本日終了','本日終了']
 };
 function phaseFromNow(){
   var d=new Date(),h=d.getHours(),m=d.getMinutes(),t=h*60+m;
