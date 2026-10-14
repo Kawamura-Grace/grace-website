@@ -11,14 +11,14 @@ type JournalItem = { id: string; slug: string; category: string; title: string }
 
 export const dynamic = 'force-dynamic'
 
-// グランドオープン後に true に変更するとステータスバーが表示される
-const STORE_OPEN = false
+// グランドオープン後は true（ステータスバー・時間帯バッジが表示される）。2026-10-15 開業切替
+const STORE_OPEN = true
 
 // ============ フェーズ別メッセージ ============
 const PHASES = {
-  morning: { t: 'MORNING', msg: '焼き上がりの時間。ショーケースに、今日の一段目が並びはじめます。' },
-  day:     { t: 'MIDDAY',  msg: 'ショーケースがいちばん賑やかな時間です。' },
-  dusk:    { t: 'EVENING', msg: '日が傾いてきました。本日のお菓子は、残りわずかです。' },
+  morning: { t: 'MORNING', msg: '本日も9:30から営業しています。' },
+  day:     { t: 'MIDDAY',  msg: '本日の営業は19:30までです。' },
+  dusk:    { t: 'EVENING', msg: '日が傾いてきました。本日の営業は19:30までです。' },
   night:   { t: 'CLOSED',  msg: '本日は閉店いたしました。また明日、9:30にお会いしましょう。' },
 } as const
 
@@ -58,6 +58,13 @@ const SHOWCASE_LABEL_TEXT: Record<ShowcaseLabel, string> = {
 // 二値表示のみのためバッジの見た目は状態によらず統一（旧デザインの「在庫あり」表示と同じ配色）
 const BADGE_BORDER = 'color-mix(in srgb, var(--ink) 25%, var(--bg))'
 const BADGE_COLOR = 'color-mix(in srgb, var(--ink) 65%, var(--bg))'
+
+// ============ 開業日（日本時間で判定） ============
+const OPENING_DAY = '2026-10-15'
+function jstDateString(): string {
+  // en-CA は YYYY-MM-DD 形式。端末のタイムゾーンに関わらず日本時間の日付にする
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date())
+}
 
 // ============ 現在時刻から営業判定 ============
 function calcIsOpen(): boolean {
@@ -287,7 +294,18 @@ function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
 // ============ メインページ ============
 export default function HomePage() {
   const { phase } = usePhase()
-  const phaseData = PHASES[phase]
+  // 開業当日（2026-10-15・日本時間）だけ朝の案内を差し替える。SSRとの不一致を避けるためクライアントで判定
+  const [isOpeningDay, setIsOpeningDay] = useState(false)
+  useEffect(() => {
+    const check = () => setIsOpeningDay(jstDateString() === OPENING_DAY)
+    check()
+    const t = setInterval(check, 60_000)
+    return () => clearInterval(t)
+  }, [])
+  const phaseData =
+    isOpeningDay && phase === 'morning'
+      ? { ...PHASES.morning, msg: '本日オープン。9:30から営業します。' }
+      : PHASES[phase]
   const [isOpen, setIsOpen] = useState(false)
   const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
   const [inventory, setInventory] = useState<Record<string, 'in_stock' | 'sold_out'>>({})
@@ -368,10 +386,10 @@ export default function HomePage() {
               美しい暮らしには、お菓子がある。
             </p>
 
-            {/* 開業予定（確定コピー） */}
+            {/* 開業後の表記（2026-10-15 切替） */}
             <p className="hero-open rise" data-d="4">
-              Grand Open
-              <span className="date">2026年10月15日（木）オープン</span>
+              Now Open
+              <span className="date">2026年10月15日（木）オープンしました</span>
             </p>
 
             {/* 店の種類（2026-10-14 追加） */}
