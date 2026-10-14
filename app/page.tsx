@@ -682,7 +682,7 @@ export default function HomePage() {
         </section>
         )}
 
-        {/* ===== 8. Grace Crumb chapter rev band ===== */}
+        {/* ===== 8. 焼き菓子 chapter rev band ===== */}
         <section
           id="gift"
           className={`chapter-section${SHOW_SEASONAL_TART ? ' chapter-rev' : ''}`}
@@ -738,7 +738,7 @@ export default function HomePage() {
                 BAKED &amp; GIFT
               </p>
               <p style={{ marginTop: '20px', maxWidth: '30em', fontSize: '14.5px' }}>
-                フィナンシェを中心に、焦がしバター・バニラ・柑橘・ハーブの香りを重ねた焼き菓子です。噛むたびの余韻にほのかな香ばしさ（Grace Crumb）が寄り添う、贈りものにもふさわしい一箱です。
+                フィナンシェを中心に、焦がしバター・バニラ・柑橘・ハーブの香りを重ねた焼き菓子です。噛むたびの余韻にほのかな香ばしさが寄り添う、贈りものにもふさわしい一箱です。
               </p>
               <div style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '18px 26px' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', letterSpacing: '0.22em', color: 'color-mix(in srgb, #F7F3EF 70%, #2C2421)' }}>
