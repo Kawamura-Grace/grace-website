@@ -136,7 +136,7 @@ export function Footer() {
                 letterSpacing: '0.16em',
               }}
             >
-              ホールケーキ&nbsp;&nbsp;
+              ご予約&nbsp;&nbsp;
               <a
                 href={RESERVATION_URL}
                 target="_blank"
@@ -147,7 +147,7 @@ export function Footer() {
                   paddingBottom: '2px',
                 }}
               >
-                {RESERVATION_LABEL}
+                ホールケーキ
               </a>
             </p>
           )}
