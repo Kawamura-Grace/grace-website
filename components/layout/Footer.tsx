@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
 
 // フッターナビゲーション
 // 表示フラグ：オンラインショップの開店まで、準備中の案内にしか行かないリンクは出さない（2026-10-13）。
@@ -125,6 +126,31 @@ export function Footer() {
               @patisserie_grace_
             </a>
           </p>
+
+          {/* ホールケーキ予約（予約サイト公開後に環境変数で表示） */}
+          {SHOW_HALLCAKE_RESERVE && (
+            <p
+              style={{
+                marginTop: '8px',
+                fontSize: '12px',
+                letterSpacing: '0.16em',
+              }}
+            >
+              ご予約&nbsp;&nbsp;
+              <a
+                href={RESERVATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#B8956A',
+                  borderBottom: '1px solid rgba(184,149,106,.4)',
+                  paddingBottom: '2px',
+                }}
+              >
+                ホールケーキ
+              </a>
+            </p>
+          )}
 
           {/* 公式LINE */}
           <p
