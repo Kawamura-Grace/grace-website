@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
 
 // フッターナビゲーション
 // 表示フラグ：オンラインショップの開店まで、準備中の案内にしか行かないリンクは出さない（2026-10-13）。
