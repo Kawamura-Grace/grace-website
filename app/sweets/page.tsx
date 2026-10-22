@@ -8,6 +8,8 @@ import { Tag } from '@/components/ui/Tag'
 import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 import { buildPageMetadata } from '@/lib/seo'
+import { WHOLE_CAKES } from '@/lib/wholecakes'
+import { RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
 import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
@@ -192,6 +194,56 @@ export default async function SweetsPage({ searchParams }: PageProps) {
             )}
           </div>
         </section>
+        {/* ─── ホールケーキ（ご予約）：5品。各カードから予約サイトへ ─── */}
+        <section id="whole-cake" className="section-padding bg-grace-offwhite border-t border-grace-line">
+          <div className="container-content">
+            <div className="text-center mb-12">
+              <p className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-4">WHOLE CAKE</p>
+              <h2 className="font-noto-serif text-2xl md:text-3xl text-grace-brown mb-4">ホールケーキ</h2>
+              <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
+                ホールケーキは、ご予約サイトで承ります。<br />
+                サイズやお値段は、ご予約サイトでご確認ください。
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+              {WHOLE_CAKES.map((cake) => (
+                <a
+                  key={cake.id}
+                  href={RESERVATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="relative aspect-[3/4] bg-grace-cream overflow-hidden mb-3">
+                    <Image
+                      src={cake.image}
+                      alt=""
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                    />
+                  </div>
+                  <h3 className="font-noto-serif text-base md:text-lg text-grace-brown mb-1">{cake.name}</h3>
+                  <p className="font-noto-sans text-xs text-grace-text-secondary leading-relaxed mb-2">{cake.description}</p>
+                  <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary group-hover:text-grace-brown transition-colors">
+                    ご予約へ →
+                  </p>
+                </a>
+              ))}
+            </div>
+            <div className="text-center mt-12">
+              <a
+                href={RESERVATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"
+              >
+                {RESERVATION_LABEL} →
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* ─── ギフトCTA ─── */}
         <section className="section-padding bg-grace-cream">
           <div className="container-content text-center">
