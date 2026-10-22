@@ -6,8 +6,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
 
-// デスクトップナビゲーション項目（右端のボタンを足した分、1000px以下はハンバーガーに切り替える）
+// デスクトップナビゲーション項目（右端のボタンを足した分、1100px以下はハンバーガーに切り替える）
 const NAV_ITEMS = [
   { label: 'Concept',  href: '/concept',                                    external: false },
   { label: 'Sweets',   href: '/sweets',                                    external: false },
@@ -24,8 +25,10 @@ const NAV_ITEMS = [
 const DARK_HERO_PATHS = ['/sweets', '/gift', '/journal', '/news']
 
 // ヘッダー右端のボタン（地図・LINE）。リンク先はサイト内ですでに使っているものと同じ
+// 「ご予約」はホールケーキ予約サイトへ。環境変数 NEXT_PUBLIC_SHOW_HALLCAKE_RESERVE=true のときだけ出す
 const HEADER_CTAS = [
   { label: '道順', href: 'https://maps.google.com/?q=愛知県春日井市朝宮町1-2-6', cls: 'header-cta' },
+  ...(SHOW_HALLCAKE_RESERVE ? [{ label: 'ご予約', href: RESERVATION_URL, cls: 'header-cta' }] : []),
   { label: 'LINE', href: 'https://lin.ee/SHBoDiLI', cls: 'header-cta header-cta-fill' },
 ]
 
@@ -236,12 +239,12 @@ export function Header() {
 
       {/* レスポンシブ: デスクトップナビの表示制御 */}
       <style>{`
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
           .desktop-nav { display: none !important; }
           .menu-btn-cinematic { display: block !important; }
           #header { padding-left: 16px !important; padding-right: 16px !important; }
         }
-        @media (min-width: 1001px) {
+        @media (min-width: 1101px) {
           .menu-btn-cinematic { display: none !important; }
         }
         .header-right { display: flex; align-items: center; gap: 8px; }

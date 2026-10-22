@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
 
 // モバイルメニューの項目（英語ラベル + 日本語サブテキスト）
 const MENU_ITEMS = [
@@ -11,6 +12,10 @@ const MENU_ITEMS = [
   { label: 'Journal',  jp: 'ジャーナル',        href: '/journal',                                    external: false },
   { label: 'News',     jp: 'お知らせ',          href: '/news',                                       external: false },
   { label: 'Shop',     jp: '店舗案内',          href: '/shop',                                       external: false },
+  // ホールケーキ予約サイトへの外部リンク（環境変数 NEXT_PUBLIC_SHOW_HALLCAKE_RESERVE=true のときだけ出す）
+  ...(SHOW_HALLCAKE_RESERVE
+    ? [{ label: 'Reserve', jp: 'ご予約（ホールケーキ）', href: RESERVATION_URL, external: true }]
+    : []),
   { label: 'Contact',  jp: 'お問い合わせ',      href: '/contact',                                    external: false },
   { label: 'Recruit',  jp: '採用情報',          href: '/recruit',                                    external: false },
 ]
