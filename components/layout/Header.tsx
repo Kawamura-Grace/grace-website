@@ -8,7 +8,7 @@ import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
 
-// デスクトップナビゲーション項目（右端のボタンを足した分、1000px以下はハンバーガーに切り替える）
+// デスクトップナビゲーション項目（右端のボタンを足した分、1100px以下はハンバーガーに切り替える）
 const NAV_ITEMS = [
   { label: 'Concept',  href: '/concept',                                    external: false },
   { label: 'Sweets',   href: '/sweets',                                    external: false },
@@ -239,12 +239,12 @@ export function Header() {
 
       {/* レスポンシブ: デスクトップナビの表示制御 */}
       <style>{`
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
           .desktop-nav { display: none !important; }
           .menu-btn-cinematic { display: block !important; }
           #header { padding-left: 16px !important; padding-right: 16px !important; }
         }
-        @media (min-width: 1001px) {
+        @media (min-width: 1101px) {
           .menu-btn-cinematic { display: none !important; }
         }
         .header-right { display: flex; align-items: center; gap: 8px; }
