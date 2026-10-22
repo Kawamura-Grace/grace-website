@@ -213,12 +213,11 @@ export default async function SweetsPage({ searchParams }: PageProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block"
-                  aria-label={`${cake.name}（${RESERVATION_LABEL}へ）`}
                 >
                   <div className="relative aspect-[3/4] bg-grace-cream overflow-hidden mb-3">
                     <Image
                       src={cake.image}
-                      alt={cake.name}
+                      alt=""
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 50vw, 33vw"
