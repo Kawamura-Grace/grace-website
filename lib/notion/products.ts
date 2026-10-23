@@ -9,7 +9,7 @@ export const PRODUCT_IMAGE_BY_SLUG: Record<string, string> = {
   'shortcake':       '/photos/own_shortcake_hiki.jpg',
   'chocolate-cake':  '/photos/own_chocolatecake.jpg',
   'brioche':         '/photos/own_brioche.jpg',
-  'gateau-chocolat': '/photos/gateau_chocolat_petit.jpg',
+  'gateau-chocolat': '/photos/own_gateau_chocolat_side.jpg',
   'millefeuille':    '/photos/own_millefeuille.jpg',
   'choux':           '/photos/own_choux.jpg',
   'financier':       '/photos/own_financier.jpg',
