@@ -4,16 +4,18 @@ import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoint
 
 // 商品写真は public/photos のサイト内画像を slug で引く。
 // Notion のメイン画像は署名付きURL（約1時間で期限切れ）のため使わない（2026-10-13）。
+// 写真は商品の幅が約45%・中心が上から55%の正方形に切り直したもの（*_sq.jpg。元画像は別名で残置）。
+// 箱物5点・チーズケーキ1個は元画像の解像度・構図の都合で切り直せていない（撮り直し待ち）。
 // 写真を足す・替えるときは、ファイルを置いてこの表を書き換える。表に無い slug の商品は一覧に出さない。
 export const PRODUCT_IMAGE_BY_SLUG: Record<string, string> = {
-  'shortcake':       '/photos/own_shortcake_hiki.jpg',
-  'chocolate-cake':  '/photos/own_chocolatecake.jpg',
-  'brioche':         '/photos/own_brioche.jpg',
-  'gateau-chocolat': '/photos/own_gateau_chocolat_side.jpg',
-  'millefeuille':    '/photos/own_millefeuille.jpg',
-  'choux':           '/photos/own_choux.jpg',
-  'financier':       '/photos/own_financier.jpg',
-  'carrot-cake':     '/photos/own_carrotcake.jpg',
+  'shortcake':       '/photos/own_shortcake_hiki_sq.jpg',
+  'chocolate-cake':  '/photos/own_chocolatecake_sq.jpg',
+  'brioche':         '/photos/own_brioche_sq.jpg',
+  'gateau-chocolat': '/photos/own_gateau_chocolat_side_sq.jpg',
+  'millefeuille':    '/photos/own_millefeuille_sq.jpg',
+  'choux':           '/photos/own_choux_sq.jpg',
+  'financier':       '/photos/own_financier_sq.jpg',
+  'carrot-cake':     '/photos/own_carrotcake_sq.jpg',
   'cheesecake-1':    '/photos/own_cheesecake_single.jpg',
   'cheesecake-6':    '/photos/own_cheesecake6.jpg',
   'cheesecake-10':   '/photos/own_cheesecake10.jpg',
