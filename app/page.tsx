@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
+import { ChristmasBanner, ChristmasHeroLink } from '@/components/home/ChristmasBanner'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
 // Journal記事の型（APIレスポンス用）
@@ -397,11 +398,17 @@ export default function HomePage() {
             <p className="hero-descriptor rise" data-d="4">
               春日井・朝宮町のテイクアウト専門パティスリー
             </p>
+
+            {/* クリスマスケーキ予約の案内（2026-11-02 追加） */}
+            <ChristmasHeroLink />
           </div>
 
           {/* スクロールキュー */}
           <div className="scroll-cue">SCROLL</div>
         </section>
+
+        {/* ===== クリスマスケーキ予約バナー（2026-11-02 追加） ===== */}
+        <ChristmasBanner />
 
         {/* ===== 2. いまのGrace ステータスバー（STORE_OPEN = true で表示） ===== */}
         {STORE_OPEN && (

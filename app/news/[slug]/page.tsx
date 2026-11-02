@@ -50,13 +50,33 @@ function renderBlock(block: BlockObjectResponse, index: number): React.ReactNode
     return richTexts.map(t => t.plain_text).join('')
   }
 
+  // リンク付きの文字はクリックできるようにする。長いURLが画面からはみ出さないよう折り返す
+  function renderRichText(richTexts: Array<{ plain_text: string; href?: string | null }>): React.ReactNode {
+    return richTexts.map((t, i) =>
+      t.href && /^https?:\/\//.test(t.href) ? (
+        <a
+          key={i}
+          href={t.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-4 break-all hover:text-grace-brown transition-colors"
+        >
+          {t.plain_text}
+        </a>
+      ) : (
+        <span key={i}>{t.plain_text}</span>
+      )
+    )
+  }
+
   switch (block.type) {
     case 'paragraph': {
-      const text = getRichText((block as any).paragraph?.rich_text ?? [])
+      const rich = (block as any).paragraph?.rich_text ?? []
+      const text = getRichText(rich)
       if (!text) return <div key={index} className="h-4" />
       return (
-        <p key={index} className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-4">
-          {text}
+        <p key={index} className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-4 break-words">
+          {renderRichText(rich)}
         </p>
       )
     }
@@ -86,19 +106,19 @@ function renderBlock(block: BlockObjectResponse, index: number): React.ReactNode
     }
 
     case 'bulleted_list_item': {
-      const text = getRichText((block as any).bulleted_list_item?.rich_text ?? [])
+      const rich = (block as any).bulleted_list_item?.rich_text ?? []
       return (
-        <li key={index} className="font-noto-serif text-lg text-grace-text-secondary leading-loose pl-2">
-          {text}
+        <li key={index} className="font-noto-serif text-lg text-grace-text-secondary leading-loose pl-2 break-words">
+          {renderRichText(rich)}
         </li>
       )
     }
 
     case 'numbered_list_item': {
-      const text = getRichText((block as any).numbered_list_item?.rich_text ?? [])
+      const rich = (block as any).numbered_list_item?.rich_text ?? []
       return (
-        <li key={index} className="font-noto-serif text-lg text-grace-text-secondary leading-loose pl-2">
-          {text}
+        <li key={index} className="font-noto-serif text-lg text-grace-text-secondary leading-loose pl-2 break-words">
+          {renderRichText(rich)}
         </li>
       )
     }
