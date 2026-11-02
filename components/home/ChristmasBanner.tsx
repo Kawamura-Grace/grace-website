@@ -41,8 +41,8 @@ export function ChristmasBanner() {
           <span style={{ display: 'inline-block' }}>クリスマスケーキ</span>　<span style={{ display: 'inline-block' }}>ご予約受付中</span>
         </h2>
         <p className="rise" data-d="2" style={{ marginTop: '14px', fontSize: '14px', letterSpacing: '0.1em', lineHeight: 1.9 }}>
-          <span style={{ display: 'inline-block' }}>お受け取り　12月22日（火）〜25日（金）</span>
-          <span style={{ display: 'inline-block' }}>・店頭のみ</span>
+          <span style={{ display: 'inline-block' }}>お受け取り　12月22日（火）〜25日（金）　</span>
+          <span style={{ display: 'inline-block' }}>店頭のみ</span>
         </p>
 
         <ul
