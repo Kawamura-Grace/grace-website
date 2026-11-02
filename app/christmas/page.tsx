@@ -1,6 +1,6 @@
 // クリスマスケーキ紹介ページ（2026-11-02 追加）
 import type { Metadata } from 'next'
-import Image from 'next/image'
+import { PhotoCarousel } from '@/components/christmas/PhotoCarousel'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { buildPageMetadata } from '@/lib/seo'
@@ -54,9 +54,7 @@ export default function ChristmasPage() {
           <div className="container-content max-w-4xl mx-auto space-y-20">
             {XMAS_DETAILS.map((it) => (
               <article key={it.name} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div className="relative aspect-[3/4] overflow-hidden bg-grace-cream">
-                  <Image src={it.src} alt={it.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 400px" />
-                </div>
+                <PhotoCarousel photos={it.photos} />
                 <div>
                   <h2 className="font-noto-serif text-xl md:text-2xl text-grace-brown leading-relaxed mb-4">{it.name}</h2>
                   <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-6">{it.text}</p>
