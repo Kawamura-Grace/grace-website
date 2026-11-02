@@ -1,10 +1,10 @@
 // クリスマスケーキ紹介ページ（2026-11-02 追加）
 import type { Metadata } from 'next'
-import Image from 'next/image'
+import { PhotoCarousel } from '@/components/christmas/PhotoCarousel'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { buildPageMetadata } from '@/lib/seo'
-import { XMAS_RESERVE_URL, XMAS_DETAILS, XMAS_DEADLINES } from '@/lib/christmas'
+import { XMAS_RESERVE_URL, XMAS_DETAILS, XMAS_LIMIT_NOTE } from '@/lib/christmas'
 
 export const dynamic = 'force-dynamic'
 
@@ -45,7 +45,7 @@ export default function ChristmasPage() {
               <span className="inline-block">お受け取り　12月22日（火）〜25日（金）　</span><span className="inline-block">店頭のみ</span>
             </p>
             <div className="mt-10"><ReserveButton onDark /></div>
-            <p className="font-noto-sans text-xs tracking-wide text-grace-stone mt-4">数に限りがあります</p>
+            <p className="font-noto-sans text-xs tracking-wide text-grace-stone mt-4">{XMAS_LIMIT_NOTE}</p>
           </div>
         </section>
 
@@ -54,9 +54,7 @@ export default function ChristmasPage() {
           <div className="container-content max-w-4xl mx-auto space-y-20">
             {XMAS_DETAILS.map((it) => (
               <article key={it.name} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div className="relative aspect-[3/4] overflow-hidden bg-grace-cream">
-                  <Image src={it.src} alt={it.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 400px" />
-                </div>
+                <PhotoCarousel photos={it.photos} />
                 <div>
                   <h2 className="font-noto-serif text-xl md:text-2xl text-grace-brown leading-relaxed mb-4">{it.name}</h2>
                   <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-6">{it.text}</p>
@@ -74,7 +72,7 @@ export default function ChristmasPage() {
           </div>
         </section>
 
-        {/* ─── お受け取りと締切 ─── */}
+        {/* ─── お受け取りとご予約 ─── */}
         <section className="section-padding bg-grace-offwhite border-t border-grace-line">
           <div className="container-content max-w-2xl mx-auto">
             <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">お受け取り</h2>
@@ -85,33 +83,17 @@ export default function ChristmasPage() {
               生菓子です。要冷蔵（10℃以下）で、消費期限はお受け取り当日です。
             </p>
 
-            <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">ご予約の締切</h2>
-            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
-              受取日の3日前の19:30までにご予約ください。
+            <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">ご予約について</h2>
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
+              {XMAS_LIMIT_NOTE}
             </p>
-            <table className="w-full font-noto-serif text-base text-grace-text-secondary mb-8">
-              <thead>
-                <tr className="border-b border-grace-line text-left text-sm text-grace-text-tertiary">
-                  <th className="py-2 font-normal">お受け取り日</th>
-                  <th className="py-2 font-normal">ご予約の締切</th>
-                </tr>
-              </thead>
-              <tbody>
-                {XMAS_DEADLINES.map((d) => (
-                  <tr key={d.pickup} className="border-b border-grace-line">
-                    <td className="py-3">{d.pickup}</td>
-                    <td className="py-3">{d.deadline}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
 
             <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">ご注意</h2>
             <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
               食品のため、ご注文確定後の、お客様のご都合によるキャンセル・受取日や内容の変更・返品・交換はお受けできません。
             </p>
             <p className="font-noto-serif text-base text-grace-text-secondary leading-loose">
-              数に限りがあります。最新の情報は、公式LINEとInstagramでお知らせします。
+              最新の情報は、公式LINEとInstagramでお知らせします。
             </p>
 
             <div className="text-center mt-14"><ReserveButton /></div>

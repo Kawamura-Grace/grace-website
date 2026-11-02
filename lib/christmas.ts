@@ -2,15 +2,15 @@
 // 予約サイトの直リンク（店舗選択なしでクリスマス店舗に入る）。ホールケーキ用の RESERVATION_URL とは別
 export const XMAS_RESERVE_URL = 'https://grace-hallcake-reserve.square.site/?location=LJGYR5RMH5BHF'
 
-// バナーの表示スイッチ。受付終了後は false にする（受付は受取日の3日前19:30まで。最終は12/22 19:30）
+// バナーの表示スイッチ。受付終了後は false にする（受付は数量限定・数に達しだい終了。Squareの注文期限は別設定）
 export const SHOW_XMAS_BANNER = true
 
 // 掲載する3品（売価・上限数・アレルゲンは載せない：2026-10-22決裁）
 // name の「|」は、バナーで語の途中で改行しないための区切り位置（表示では消える）
 export const XMAS_ITEMS = [
-  { name: '苺の|クリスマスケーキ', src: '/photos/xmas_strawberry.webp' },
-  { name: 'ブッシュドノエル', src: '/photos/xmas_buche.webp' },
-  { name: '苺とピスタチオの|クリスマス|ミルフィーユ', src: '/photos/xmas_millefeuille.webp' },
+  { name: '苺の|クリスマスケーキ', src: '/photos/xmas_strawberry_1.webp' },
+  { name: 'ブッシュドノエル', src: '/photos/xmas_buche_1.webp' },
+  { name: '苺とピスタチオの|クリスマス|ミルフィーユ', src: '/photos/xmas_millefeuille_1.webp' },
 ] as const
 
 // ===== 紹介ページ（/christmas）用 =====
@@ -20,7 +20,11 @@ export const XMAS_ITEMS = [
 export const XMAS_DETAILS = [
   {
     name: '苺のクリスマスケーキ',
-    src: '/photos/xmas_strawberry.webp',
+    photos: [
+      { src: '/photos/xmas_strawberry_1.webp', alt: '苺のクリスマスケーキ' },
+      { src: '/photos/xmas_strawberry_2.webp', alt: '苺のクリスマスケーキを真上に近い角度から見たところ' },
+      { src: '/photos/xmas_strawberry_3.webp', alt: '苺のクリスマスケーキを横から近づいて見たところ' },
+    ],
     text: 'スポンジの間に5mmにスライスした苺をはさみ、クリームで仕上げました。',
     sizes: [
       { label: '5号（直径15cm）', price: '6,900円' },
@@ -30,22 +34,25 @@ export const XMAS_DETAILS = [
   },
   {
     name: 'ブッシュドノエル',
-    src: '/photos/xmas_buche.webp',
+    photos: [
+      { src: '/photos/xmas_buche_1.webp', alt: 'ブッシュドノエル' },
+      { src: '/photos/xmas_buche_2.webp', alt: 'ブッシュドノエルを別の角度から見たところ' },
+      { src: '/photos/xmas_buche_3.webp', alt: 'ブッシュドノエルの端の年輪の模様' },
+    ],
     text: 'アールグレイとミルクチョコレートのロール生地に、オレンジとバナナを合わせています。',
     sizes: [{ label: '18×10cm', price: '7,900円' }],
   },
   {
     name: '苺とピスタチオのクリスマスミルフィーユ',
-    src: '/photos/xmas_millefeuille.webp',
+    photos: [
+      { src: '/photos/xmas_millefeuille_1.webp', alt: '苺とピスタチオのクリスマスミルフィーユ' },
+      { src: '/photos/xmas_millefeuille_2.webp', alt: 'ミルフィーユの断面。ピスタチオのクリームと苺が重なっている' },
+      { src: '/photos/xmas_millefeuille_3.webp', alt: 'スタンドに載せたミルフィーユの全体' },
+    ],
     text: '3枚のパイの間に、ピスタチオのクリームと半分に切った苺を重ねました。',
     sizes: [{ label: '10×18cm', price: '11,000円' }],
   },
 ] as const
 
-// 受取日ごとの予約締切（受取日の3日前の19:30）
-export const XMAS_DEADLINES = [
-  { pickup: '12月22日（火）', deadline: '12月19日（土）19:30' },
-  { pickup: '12月23日（水）', deadline: '12月20日（日）19:30' },
-  { pickup: '12月24日（木）', deadline: '12月21日（月）19:30' },
-  { pickup: '12月25日（金）', deadline: '12月22日（火）19:30' },
-] as const
+// 受付終了の案内（河村さん指示 2026-11-02：受取日の3日前ではなく、数量限定で数に達したら終了）
+export const XMAS_LIMIT_NOTE = '数量限定のため、ご用意した数に達しだい、ご予約の受付を終了します。'
