@@ -2,7 +2,7 @@
 // 予約サイトの直リンク（店舗選択なしでクリスマス店舗に入る）。ホールケーキ用の RESERVATION_URL とは別
 export const XMAS_RESERVE_URL = 'https://grace-hallcake-reserve.square.site/?location=LJGYR5RMH5BHF'
 
-// バナーの表示スイッチ。受付終了後は false にする（受付は数量限定・数に達しだい終了。Squareの注文期限は別設定）
+// バナーの表示スイッチ。受付終了後は false にする（受付は12/19 19:30まで・数量限定で数に達しだい終了）
 export const SHOW_XMAS_BANNER = true
 
 // 掲載する3品（売価・上限数・アレルゲンは載せない：2026-10-22決裁）
@@ -54,5 +54,5 @@ export const XMAS_DETAILS = [
   },
 ] as const
 
-// 受付終了の案内（河村さん指示 2026-11-02：受取日の3日前ではなく、数量限定で数に達したら終了）
-export const XMAS_LIMIT_NOTE = '数量限定のため、ご用意した数に達しだい、ご予約の受付を終了します。'
+// 受付終了の案内（河村さん決裁 2026-11-02：12/19 19:30で全日締切＋数量限定で数に達しだい終了。店頭の自由販売は今は書かない）
+export const XMAS_LIMIT_NOTE = 'ご予約は12月19日（土）19:30までです。数量限定のため、ご用意した数に達しだい、その時点で受付を終了します。'
