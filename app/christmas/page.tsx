@@ -14,13 +14,13 @@ export const metadata: Metadata = buildPageMetadata({
   description: 'Grace PÂTISSERIEのクリスマスケーキ。苺のクリスマスケーキ、ブッシュドノエル、苺とピスタチオのクリスマスミルフィーユ。お受け取りは12月22日〜25日、店頭のみ。',
 })
 
-function ReserveButton() {
+function ReserveButton({ onDark = false }: { onDark?: boolean }) {
   return (
     <a
       href={XMAS_RESERVE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block border border-grace-gold px-10 py-4 font-noto-serif text-sm tracking-widest text-grace-brown hover:bg-grace-gold hover:text-grace-offwhite transition-colors"
+      className={`inline-block border border-grace-gold px-10 py-4 font-noto-serif text-sm tracking-widest ${onDark ? 'text-grace-offwhite' : 'text-grace-brown'} hover:bg-grace-gold hover:text-grace-offwhite transition-colors`}
     >
       ご予約はこちら
     </a>
@@ -42,9 +42,9 @@ export default function ChristmasPage() {
             <div className="w-8 h-px bg-grace-gold mx-auto my-8" />
             <p className="font-noto-serif text-base md:text-lg text-grace-stone leading-loose">
               ご予約受付中<br />
-              お受け取り　12月22日（火）〜25日（金）・店頭のみ
+              <span className="inline-block">お受け取り　12月22日（火）〜25日（金）・</span><span className="inline-block">店頭のみ</span>
             </p>
-            <div className="mt-10"><ReserveButton /></div>
+            <div className="mt-10"><ReserveButton onDark /></div>
             <p className="font-noto-sans text-xs tracking-wide text-grace-stone mt-4">数に限りがあります</p>
           </div>
         </section>
