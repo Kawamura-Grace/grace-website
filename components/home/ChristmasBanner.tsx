@@ -13,18 +13,6 @@ const ctaStyle: React.CSSProperties = {
   textIndent: '0.24em',
 }
 
-// ヒーロー内の短い案内（ファーストビュー用）
-export function ChristmasHeroLink() {
-  if (!SHOW_XMAS_BANNER) return null
-  return (
-    <div className="rise" data-d="4" style={{ marginTop: '28px' }}>
-      <a href={XMAS_RESERVE_URL} target="_blank" rel="noopener noreferrer" style={{ ...ctaStyle, padding: '10px 24px', fontSize: '13px' }}>
-        クリスマスケーキ ご予約受付中
-      </a>
-    </div>
-  )
-}
-
 // ヒーロー直後のバナー本体
 export function ChristmasBanner() {
   if (!SHOW_XMAS_BANNER) return null
@@ -73,7 +61,11 @@ export function ChristmasBanner() {
         </ul>
 
         <div className="rise" data-d="4" style={{ marginTop: '36px' }}>
-          <a href={XMAS_RESERVE_URL} target="_blank" rel="noopener noreferrer" style={ctaStyle}>
+          <a href="/christmas" style={ctaStyle}>
+            クリスマスケーキを見る
+          </a>
+          <br />
+          <a href={XMAS_RESERVE_URL} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '16px', fontSize: '13px', letterSpacing: '0.16em', borderBottom: `1px solid ${GOLD}`, paddingBottom: '4px' }}>
             ご予約はこちら
           </a>
           <p style={{ marginTop: '14px', fontSize: '12px', letterSpacing: '0.1em', color: 'color-mix(in srgb, var(--ink) 65%, var(--bg))' }}>

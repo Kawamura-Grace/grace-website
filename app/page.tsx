@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
-import { ChristmasBanner, ChristmasHeroLink } from '@/components/home/ChristmasBanner'
+import { ChristmasBanner } from '@/components/home/ChristmasBanner'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
 // Journal記事の型（APIレスポンス用）
@@ -388,19 +388,22 @@ export default function HomePage() {
               美しい暮らしには、お菓子がある。
             </p>
 
-            {/* 開業後の表記（2026-10-15 切替） */}
-            <p className="hero-open rise" data-d="4">
-              Now Open
-              <span className="date">2026年10月15日（木）オープンしました</span>
-            </p>
+            {/* クリスマスケーキ予約の帯（2026-11-02 河村指示で「Now Open」から差し替え。紹介ページ /christmas へのリンク）
+                注意：11/7のオンラインショップ公開PRで「オープンしました」表記に戻さないこと */}
+            <a
+              className="hero-open hero-open-link rise"
+              data-d="4"
+              href="/christmas"
+            >
+              Christmas Cake
+              <span className="date">クリスマスケーキ　予約受付中</span>
+              <span className="sub">お受け取り 12月22日（火）〜25日（金）</span>
+            </a>
 
             {/* 店の種類（2026-10-14 追加） */}
             <p className="hero-descriptor rise" data-d="4">
               春日井・朝宮町のテイクアウト専門パティスリー
             </p>
-
-            {/* クリスマスケーキ予約の案内（2026-11-02 追加） */}
-            <ChristmasHeroLink />
           </div>
 
           {/* スクロールキュー */}
