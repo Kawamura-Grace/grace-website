@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { SHOW_XMAS_BANNER, XMAS_RESERVE_URL, XMAS_ITEMS } from '@/lib/christmas'
+import { SHOW_XMAS_BANNER, XMAS_RESERVE_URL, XMAS_ITEMS, XMAS_LIMIT_NOTE } from '@/lib/christmas'
 
 const GOLD = '#B8956A'
 const LINE = 'color-mix(in srgb, var(--ink) 12%, var(--bg))'
@@ -70,8 +70,8 @@ export function ChristmasBanner() {
           <a href={XMAS_RESERVE_URL} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '16px', fontSize: '13px', letterSpacing: '0.16em', borderBottom: `1px solid ${GOLD}`, paddingBottom: '4px' }}>
             ご予約はこちら
           </a>
-          <p style={{ marginTop: '14px', fontSize: '12px', letterSpacing: '0.1em', color: 'color-mix(in srgb, var(--ink) 65%, var(--bg))' }}>
-            数に限りがあります
+          <p style={{ marginTop: '14px', maxWidth: '22em', marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.8, fontSize: '12px', letterSpacing: '0.1em', color: 'color-mix(in srgb, var(--ink) 65%, var(--bg))' }}>
+            {XMAS_LIMIT_NOTE}
           </p>
         </div>
       </div>
