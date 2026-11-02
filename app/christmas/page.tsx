@@ -42,7 +42,7 @@ export default function ChristmasPage() {
             <div className="w-8 h-px bg-grace-gold mx-auto my-8" />
             <p className="font-noto-serif text-base md:text-lg text-grace-stone leading-loose">
               ご予約受付中<br />
-              <span className="inline-block">お受け取り　12月22日（火）〜25日（金）・</span><span className="inline-block">店頭のみ</span>
+              <span className="inline-block">お受け取り　12月22日（火）〜25日（金）</span><span className="inline-block">・店頭のみ</span>
             </p>
             <div className="mt-10"><ReserveButton onDark /></div>
             <p className="font-noto-sans text-xs tracking-wide text-grace-stone mt-4">数に限りがあります</p>
@@ -79,8 +79,7 @@ export default function ChristmasPage() {
           <div className="container-content max-w-2xl mx-auto">
             <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">お受け取り</h2>
             <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
-              12月22日（火）〜25日（金）の4日間、10:00〜19:00に店頭でお受け取りください。配送はしていません。
-              場所は愛知県春日井市朝宮町1-2-6です。この期間は、クリスマスケーキのみのお受け取りです。
+              12月22日（火）〜25日（金）の4日間、10:00〜19:00に店頭でお受け取りください。配送はしていません。場所は愛知県春日井市朝宮町1-2-6です。この期間は、クリスマスケーキのみのお受け取りです。
             </p>
             <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
               生菓子です。要冷蔵（10℃以下）で、消費期限はお受け取り当日です。

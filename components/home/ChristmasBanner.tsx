@@ -53,9 +53,11 @@ export function ChristmasBanner() {
           {XMAS_ITEMS.map((it) => (
             <li key={it.name}>
               <div style={{ position: 'relative', aspectRatio: '3 / 4', overflow: 'hidden' }}>
-                <Image src={it.src} alt={it.name} fill sizes="(max-width: 760px) 30vw, 240px" style={{ objectFit: 'cover' }} />
+                <Image src={it.src} alt={it.name.replace(/\|/g, '')} fill sizes="(max-width: 760px) 30vw, 240px" style={{ objectFit: 'cover' }} />
               </div>
-              <p style={{ marginTop: '10px', fontSize: '12px', letterSpacing: '0.02em', lineHeight: 1.7, textWrap: 'balance' as const }}>{it.name}</p>
+              <p style={{ marginTop: '10px', fontSize: '12px', letterSpacing: '0.02em', lineHeight: 1.7, textWrap: 'balance' as const }}>{it.name.split('|').map((seg) => (
+                  <span key={seg} style={{ display: 'inline-block' }}>{seg}</span>
+                ))}</p>
             </li>
           ))}
         </ul>

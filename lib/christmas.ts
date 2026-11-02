@@ -6,10 +6,11 @@ export const XMAS_RESERVE_URL = 'https://grace-hallcake-reserve.square.site/?loc
 export const SHOW_XMAS_BANNER = true
 
 // 掲載する3品（売価・上限数・アレルゲンは載せない：2026-10-22決裁）
+// name の「|」は、バナーで語の途中で改行しないための区切り位置（表示では消える）
 export const XMAS_ITEMS = [
-  { name: '苺のクリスマスケーキ', src: '/photos/xmas_strawberry.webp' },
+  { name: '苺の|クリスマスケーキ', src: '/photos/xmas_strawberry.webp' },
   { name: 'ブッシュドノエル', src: '/photos/xmas_buche.webp' },
-  { name: '苺とピスタチオのクリスマスミルフィーユ', src: '/photos/xmas_millefeuille.webp' },
+  { name: '苺とピスタチオの|クリスマス|ミルフィーユ', src: '/photos/xmas_millefeuille.webp' },
 ] as const
 
 // ===== 紹介ページ（/christmas）用 =====
