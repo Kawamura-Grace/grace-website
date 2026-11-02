@@ -25,7 +25,7 @@ export const XMAS_DETAILS = [
       { src: '/photos/xmas_strawberry_2.webp', alt: '苺のクリスマスケーキを真上に近い角度から見たところ' },
       { src: '/photos/xmas_strawberry_3.webp', alt: '苺のクリスマスケーキを横から近づいて見たところ' },
     ],
-    text: 'スポンジの間に5mmにスライスした苺をはさみ、クリームで仕上げました。',
+    text: '本和香糖を使った、やわらかく優しい甘さのスポンジの間に、5mmにスライスした苺をはさみ、クリームで仕上げました。',
     sizes: [
       { label: '5号（直径15cm）', price: '6,900円' },
       { label: '6号（直径18cm）', price: '7,900円' },
