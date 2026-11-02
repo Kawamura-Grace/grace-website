@@ -55,4 +55,4 @@ export const XMAS_DETAILS = [
 ] as const
 
 // 受付終了の案内（河村さん決裁 2026-11-02：お客様には日付を出さず、数量限定で数に達しだい終了とだけ書く。Square商品ページと一字一句同じ文。店頭の自由販売は今は書かない）
-export const XMAS_LIMIT_NOTE = '数量限定のため、ご用意した数に達しだい、ご予約の受付を終了します。'
+export const XMAS_LIMIT_NOTE = '数量限定のため、ご用意した数に達しだい、その時点で受付を終了します。'
