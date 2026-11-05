@@ -21,7 +21,7 @@ const ITEMS = [
   { label: '商品発送拠点所在地', value: '〒486-0846 愛知県春日井市朝宮町一丁目2番地6（Grace店舗。本店所在地とは異なります）' },
   { label: '電話番号', value: 'ご請求をいただいた場合は、遅滞なく電子メールにて電話番号をご案内いたします。お問い合わせは info@grace-foods.com までご連絡ください。' },
   { label: 'メールアドレス', value: 'info@grace-foods.com' },
-  { label: 'ウェブサイトURL', value: 'shop.grace-patisserie.jp（Square Online構築時に本稼働予定）' },
+  { label: 'ウェブサイトURL', value: 'https://grace-106312.square.site' },
   { label: '販売価格', value: 'オンラインストアの各商品ページと、ご注文の最終確認画面に表示する価格（消費税込み）。店頭の価格は店頭の表示をご覧ください。送料は別途表示（下記参照）' },
   { label: '商品代金以外の必要料金', value: '送料、消費税。上記以外の決済手数料等の請求はありません' },
   { label: '支払方法', value: 'クレジットカード（Visa／Mastercard／American Express／JCB／Diners Club／Discover）、Apple Pay、Google Pay' },

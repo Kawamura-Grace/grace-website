@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 import { buildPageMetadata } from '@/lib/seo'
+import { ONLINE_SHOP_URL, ONLINE_SHOP_LABEL } from '@/lib/onlineShop'
 
 // ビルド時フォントダウンロードタイムアウト防止
 export const dynamic = 'force-dynamic'
@@ -185,24 +186,24 @@ export default function GiftPage() {
           </div>
         </section>
 
-        {/* ─── Online Store予告 — 開業後にEC誘導へ差し替え ─── */}
+        {/* ─── Online Store — 2026-11-05 オンラインショップ公開に合わせてEC誘導へ差し替え ─── */}
         <section className="section-padding bg-grace-offwhite">
           <div className="container-content text-center">
             <p className="font-noto-sans text-[10px] tracking-widest text-grace-text-tertiary mb-6">ONLINE STORE</p>
             <h2 className="font-cormorant italic text-3xl text-grace-brown mb-6">
-              Coming Soon
+              Online Shop
             </h2>
             <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 max-w-md mx-auto">
-              オンラインストアは準備中です。<br />
-              Instagramで先行情報をお届けしています。
+              オンラインショップを始めました。<br />
+              焼き菓子をご自宅へお届けします。
             </p>
             <a
-              href="https://www.instagram.com/patisserie_grace_/"
+              href={ONLINE_SHOP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-offwhite bg-grace-brown px-8 py-4 hover:bg-grace-text-secondary transition-colors"
             >
-              Instagram をフォローする →
+              {ONLINE_SHOP_LABEL} →
             </a>
           </div>
         </section>

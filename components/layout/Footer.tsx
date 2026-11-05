@@ -3,11 +3,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
+import { ONLINE_SHOP_URL } from '@/lib/onlineShop'
 
 // フッターナビゲーション
 // 表示フラグ：オンラインショップの開店まで、準備中の案内にしか行かないリンクは出さない（2026-10-13）。
-// 開店したらリンク先を実際のショップのURLに変えて true に戻す
-const SHOW_ONLINE_SHOP_LINK = false
+// 2026-11-05 オンラインショップ公開に合わせて true に戻し、リンク先を実際のショップのURL（lib/onlineShop.ts）に変更
+const SHOW_ONLINE_SHOP_LINK = true
 
 const FNAV_ALL = [
   { label: 'Concept',     href: '/concept',                                      external: false },
@@ -15,7 +16,7 @@ const FNAV_ALL = [
   { label: 'Gift',        href: '/gift',                                        external: false },
   { label: 'Showcase',    href: '/#case',                                        external: false },
   { label: 'Shop',        href: '/shop',                                         external: false },
-  { label: 'Online Shop', href: '/#online-shop',                                 external: false },
+  { label: 'Online Shop', href: ONLINE_SHOP_URL,                                   external: true },
   { label: 'Journal',     href: '/journal',                                      external: false },
   { label: 'News',        href: '/news',                                         external: false },
   { label: 'Contact',     href: '/contact',                                      external: false },

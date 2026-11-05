@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
+import { ONLINE_SHOP_URL, ONLINE_SHOP_LABEL } from '@/lib/onlineShop'
 import { ChristmasBanner } from '@/components/home/ChristmasBanner'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
@@ -1092,8 +1093,27 @@ export default function HomePage() {
             >
               オンラインショップを始めました。焼き菓子をご自宅へお届けします。
             </p>
-            {/* メール登録欄の代わりに、公式LINEの友だち追加へ案内する */}
+            {/* オンラインショップへのリンク（リンク先は lib/onlineShop.ts） */}
             <p style={{ marginTop: '30px' }}>
+              <a
+                href={ONLINE_SHOP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  padding: '14px 34px',
+                  background: '#B8956A',
+                  border: '1px solid #B8956A',
+                  color: '#2C2421',
+                  fontSize: '12.5px',
+                  letterSpacing: '0.2em',
+                }}
+              >
+                {ONLINE_SHOP_LABEL}
+              </a>
+            </p>
+            {/* 公式LINEの友だち追加へ案内する */}
+            <p style={{ marginTop: '18px' }}>
               <a
                 href="https://lin.ee/SHBoDiLI"
                 target="_blank"
