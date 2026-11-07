@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { buildPageMetadata } from '@/lib/seo'
+import { RESERVATION_LEGAL_URL, RESERVATION_LEGAL_LABEL } from '@/lib/reservation'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,7 +35,7 @@ const ITEMS = [
   { label: '商品の引渡時期', value: '受注確定後3〜5営業日以内に発送予定' },
   { label: '送料', value: '全国一律。商品合計8,000円（税込）未満のご注文は1,500円（消費税込み）、8,000円（税込）以上のご注文は750円（消費税込み）' },
   { label: '返品・交換について（特約）', value: '食品の性質上、お客様のご都合による返品・交換はお受けできません。ただし、次のいずれかに該当する場合は、商品到着後7日以内にメール（info@grace-foods.com）よりご連絡ください。送料弊社負担にて良品との交換または返金にて対応します。(1) 注文と異なる商品が届いた場合（誤配送）(2) 商品に破損・品質不良があった場合（不良品）上記に該当しない返品・交換（お客様都合によるもの、開封後の商品、賞味期限切れによるもの等）はお受けできませんので、あらかじめご了承ください。ご注文のキャンセルは、商品の発送前にご連絡いただければ、無料でお受けします。発送後のキャンセルは、原則としてお受けできません。' },
-  { label: '申込みの有効期限', value: '予約商品・季節限定商品（クリスマス先行予約企画等）は、オンラインストアの各商品ページに記載の申込期限によります。期限の定めがない商品は在庫がある限り随時受付します' },
+  { label: '申込みの有効期限', value: '予約商品・季節限定商品は、オンラインストアの各商品ページに記載の申込期限によります。期限の定めがない商品は在庫がある限り随時受付します。クリスマスケーキ・ホールケーキのご予約の申込期限は、予約サイトの「特定商取引法に基づく表記」に記載しています' },
   { label: '動作環境', value: '本ウェブサイトの閲覧には、最新のブラウザ環境（Google Chrome、Safari、Microsoft Edge等の最新版）を推奨します' },
   { label: '販売数量の制限', value: '商品によりお一人様の購入数量を制限する場合があります（オンラインストアの各商品ページに記載）' },
   { label: '特別な販売条件', value: 'お客様のご都合による長期不在・受け取り拒否等により商品が返送された場合の再送料（1,500円〔税込〕）はお客様のご負担となります' },
@@ -65,8 +66,22 @@ export default function TermsPage() {
           <div className="container-content">
             <div className="max-w-article mx-auto">
               {/* イントロ */}
-              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 pb-8 border-b border-grace-line">
+              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-4">
                 特定商取引に関する法律（以下「特定商取引法」といいます）第11条に基づき、以下のとおり表示します。
+              </p>
+
+              {/* 予約サイトの表示への案内（2026-11-07）：この表は配送販売用。店頭受取のご予約は予約サイト側の表示を見てもらう */}
+              <p className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-10 pb-8 border-b border-grace-line">
+                この表は、オンラインストア（配送でお届けする商品）についての表示です。店頭でお受け取りいただく「ホールケーキのご予約」（クリスマスケーキなど）は、
+                <a
+                  href={RESERVATION_LEGAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-grace-brown underline underline-offset-4 hover:text-grace-gold transition-colors"
+                >
+                  予約サイトの「{RESERVATION_LEGAL_LABEL}」
+                </a>
+                をご覧ください。
               </p>
 
               {/* 表示項目 */}
