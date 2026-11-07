@@ -90,7 +90,7 @@ export default function ChristmasPage() {
             </p>
             {/* 予約サイトの特商法ページへの案内（2026-11-07）。日付・支払方法は書かない。フッターの共通リンク（/terms）は変えない */}
             <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
-              お支払い・キャンセル・お受け取りの詳しい条件は、
+              お支払い・お受け取り・返品などの詳しい条件は、
               <a
                 href={RESERVATION_LEGAL_URL}
                 target="_blank"
