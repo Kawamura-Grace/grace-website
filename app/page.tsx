@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
+import { ONLINE_SHOP_URL, ONLINE_SHOP_LABEL } from '@/lib/onlineShop'
 import { ChristmasBanner } from '@/components/home/ChristmasBanner'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
@@ -1023,7 +1024,9 @@ export default function HomePage() {
             >
               {([
                 ['店名', 'Grace PÂTISSERIE グレイス'],
+                ['開業日', '2026年10月15日開業'],
                 ['住所', '愛知県春日井市朝宮町1-2-6'],
+                ['電話番号', '0568-58-3581'],
                 ['営業時間', '9:30 - 19:30'],
                 ['営業日', '元日を除き毎日営業（臨時休業はお知らせでご案内）'],
                 ['駐車場', '台数に限りがあります'],
@@ -1088,10 +1091,29 @@ export default function HomePage() {
                 letterSpacing: '0.12em',
               }}
             >
-              焼き菓子と冷凍スイーツのお届けを準備しています。
+              オンラインショップを始めました。焼き菓子をご自宅へお届けします。
             </p>
-            {/* メール登録欄の代わりに、公式LINEの友だち追加へ案内する */}
+            {/* オンラインショップへのリンク（リンク先は lib/onlineShop.ts） */}
             <p style={{ marginTop: '30px' }}>
+              <a
+                href={ONLINE_SHOP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  padding: '14px 34px',
+                  background: '#B8956A',
+                  border: '1px solid #B8956A',
+                  color: '#2C2421',
+                  fontSize: '12.5px',
+                  letterSpacing: '0.2em',
+                }}
+              >
+                {ONLINE_SHOP_LABEL}
+              </a>
+            </p>
+            {/* 公式LINEの友だち追加へ案内する */}
+            <p style={{ marginTop: '18px' }}>
               <a
                 href="https://lin.ee/SHBoDiLI"
                 target="_blank"
