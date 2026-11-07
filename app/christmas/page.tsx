@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { buildPageMetadata } from '@/lib/seo'
 import { XMAS_RESERVE_URL, XMAS_DETAILS, XMAS_LIMIT_NOTE } from '@/lib/christmas'
+import { RESERVATION_LEGAL_URL } from '@/lib/reservation'
 
 export const dynamic = 'force-dynamic'
 
@@ -84,8 +85,21 @@ export default function ChristmasPage() {
             </p>
 
             <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">ご予約について</h2>
-            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
               {XMAS_LIMIT_NOTE}
+            </p>
+            {/* 予約サイトの特商法ページへの案内（2026-11-07）。日付・支払方法は書かない。フッターの共通リンク（/terms）は変えない */}
+            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
+              お支払い・お受け取り・返品などの詳しい条件は、
+              <a
+                href={RESERVATION_LEGAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-grace-brown underline underline-offset-4 hover:text-grace-gold transition-colors"
+              >
+                ご予約サイトの「特定商取引法に基づく表記」
+              </a>
+              でご確認いただけます。
             </p>
 
             <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">ご注意</h2>

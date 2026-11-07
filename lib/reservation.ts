@@ -10,5 +10,10 @@ export const SHOW_HALLCAKE_RESERVE: boolean =
 
 export const RESERVATION_URL = 'https://grace-hallcake-reserve.square.site'
 export const RESERVATION_LABEL = 'ホールケーキのご予約'
+// 予約サイト側の「特定商取引法に基づく表記」ページ（2026-11-07 実際に開いて確認。タイトル「特定商取引法に基づく表記 | ホールケーキのご予約」）。
+// HPの /terms はオンラインストア（配送販売）用の表のため、クリスマスケーキ・ホールケーキのご予約はこちらへ案内する（/terms と /christmas が使う）。
+// 経緯：05_法務・登記/_作業ログ/2026-11-07_クリスマス予約_特商法表示の確認.md F1-a・F1-b・F2
+export const RESERVATION_LEGAL_URL = `${RESERVATION_URL}/s/transaction-policy`
+export const RESERVATION_LEGAL_LABEL = '特定商取引法に基づく表記'
 // 受付の条件（予約サイトの特定商取引法表記「申込みの有効期限」と同じ内容）
 export const RESERVATION_NOTE = 'お受け取り希望日の3暦日前の19:30までにご予約ください（例：土曜日のお受け取りは水曜日の19:30まで）。店頭でのお受け取りです。'
