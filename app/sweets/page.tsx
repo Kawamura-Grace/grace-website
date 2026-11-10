@@ -9,7 +9,7 @@ import { getProducts } from '@/lib/notion/products'
 import type { ProductCategory } from '@/lib/notion/types'
 import { buildPageMetadata } from '@/lib/seo'
 import { WHOLE_CAKES } from '@/lib/wholecakes'
-import { RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
+import { RESERVATION_ENTRY_URL, RESERVATION_LABEL } from '@/lib/reservation'
 import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
@@ -209,7 +209,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
               {WHOLE_CAKES.map((cake) => (
                 <a
                   key={cake.id}
-                  href={RESERVATION_URL}
+                  href={RESERVATION_ENTRY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block"
@@ -233,7 +233,7 @@ export default async function SweetsPage({ searchParams }: PageProps) {
             </div>
             <div className="text-center mt-12">
               <a
-                href={RESERVATION_URL}
+                href={RESERVATION_ENTRY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-text-secondary border border-grace-line px-8 py-3 hover:border-grace-brown hover:text-grace-brown transition-colors"

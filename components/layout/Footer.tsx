@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL } from '@/lib/reservation'
 import { ONLINE_SHOP_URL } from '@/lib/onlineShop'
 
 // フッターナビゲーション
@@ -139,7 +139,7 @@ export function Footer() {
             >
               ご予約&nbsp;&nbsp;
               <a
-                href={RESERVATION_URL}
+                href={RESERVATION_ENTRY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
