@@ -17,7 +17,7 @@ const ITEMS = [
   { label: '販売業者',         value: '株式会社Grace Foods' },
   { label: '運営責任者', value: '代表取締役（公開前に実名記載）' },
   { label: '所在地',           value: '〒486-0846 愛知県春日井市（詳細住所は開業時に公開予定）' },
-  { label: '電話番号',         value: 'お問い合わせフォームよりご連絡ください（電話対応時間：9:30〜19:30）' },
+  { label: '電話番号',         value: 'ご請求をいただいた場合は、遅滞なく電子メールにて電話番号をご案内いたします。お問い合わせは info@grace-foods.com までご連絡ください。' },
   { label: 'お問い合わせ',     value: 'サイト内お問い合わせフォームをご利用ください' },
   { label: 'ウェブサイト',     value: 'https://grace-patisserie.jp' },
   {
