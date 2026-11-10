@@ -9,6 +9,13 @@ export const SHOW_HALLCAKE_RESERVE: boolean =
   process.env.NEXT_PUBLIC_SHOW_HALLCAKE_RESERVE === 'true'
 
 export const RESERVATION_URL = 'https://grace-hallcake-reserve.square.site'
+// 【クリスマス期間限定・2026-11-11 河村決定・12月末に戻す】
+// 予約サイトは、URLに店舗（ロケーション）の指定が無いと通常店舗が選ばれ、クリスマスケーキのカテゴリが出ない（2026-11-11 実機で再現）。
+// HPから予約サイトへ入るリンクは、ナビ・本文・フッターすべてこの RESERVATION_ENTRY_URL を使い、クリスマス専用店舗を選んだ状態で開く。
+// 戻すとき：RESERVATION_LOCATION_QUERY を '' （空文字）にするだけ。リンクは元の RESERVATION_URL と同じ値に戻る。
+// 注意：特商法ページ（RESERVATION_LEGAL_URL）と、トップのバナー・/christmas の XMAS_RESERVE_URL（lib/christmas.ts）はこの定数を使わない（XMAS_RESERVE_URL は最初から店舗指定付き）。
+export const RESERVATION_LOCATION_QUERY = '/?location=LJGYR5RMH5BHF'
+export const RESERVATION_ENTRY_URL = `${RESERVATION_URL}${RESERVATION_LOCATION_QUERY}`
 export const RESERVATION_LABEL = 'ホールケーキのご予約'
 // 予約サイト側の「特定商取引法に基づく表記」ページ（2026-11-07 実際に開いて確認。タイトル「特定商取引法に基づく表記 | ホールケーキのご予約」）。
 // HPの /terms はオンラインストア（配送販売）用の表のため、クリスマスケーキ・ホールケーキのご予約はこちらへ案内する（/terms と /christmas が使う）。

@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 import { buildPageMetadata } from '@/lib/seo'
-import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL, RESERVATION_NOTE } from '@/lib/reservation'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL, RESERVATION_LABEL, RESERVATION_NOTE } from '@/lib/reservation'
 
 // サーバーコンポーネント — イベントハンドラなし・Notion呼び出しなし
 // Vercelランタイムエラー(Digest: 257512637)の根本原因だったonMouseEnter/onMouseLeaveを除去
@@ -202,7 +202,7 @@ export default function ShopPage() {
                   ホールケーキは予約制です。{RESERVATION_NOTE}
                 </p>
                 <a
-                  href={RESERVATION_URL}
+                  href={RESERVATION_ENTRY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shop-link-gold"

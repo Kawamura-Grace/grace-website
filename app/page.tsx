@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL, RESERVATION_LABEL } from '@/lib/reservation'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL, RESERVATION_LABEL } from '@/lib/reservation'
 import { ONLINE_SHOP_URL, ONLINE_SHOP_LABEL } from '@/lib/onlineShop'
 import { ChristmasBanner } from '@/components/home/ChristmasBanner'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
@@ -794,7 +794,7 @@ export default function HomePage() {
                 <p style={{ marginTop: '26px', fontSize: '12.5px', letterSpacing: '0.12em', color: 'color-mix(in srgb, #F7F3EF 70%, #2C2421)' }}>
                   ホールケーキは予約制です。
                   <a
-                    href={RESERVATION_URL}
+                    href={RESERVATION_ENTRY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ color: '#B8956A', borderBottom: '1px solid rgba(184,149,106,.4)', paddingBottom: '2px', marginLeft: '4px' }}

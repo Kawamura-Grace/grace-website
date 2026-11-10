@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
-import { SHOW_HALLCAKE_RESERVE, RESERVATION_URL } from '@/lib/reservation'
+import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL } from '@/lib/reservation'
 
 // デスクトップナビゲーション項目（右端のボタンを足した分、1100px以下はハンバーガーに切り替える）
 const NAV_ITEMS = [
@@ -28,7 +28,7 @@ const DARK_HERO_PATHS = ['/sweets', '/gift', '/journal', '/news']
 // 「ご予約」はホールケーキ予約サイトへ。環境変数 NEXT_PUBLIC_SHOW_HALLCAKE_RESERVE=true のときだけ出す
 const HEADER_CTAS = [
   { label: '道順', href: 'https://maps.google.com/?q=愛知県春日井市朝宮町1-2-6', cls: 'header-cta' },
-  ...(SHOW_HALLCAKE_RESERVE ? [{ label: 'ご予約', href: RESERVATION_URL, cls: 'header-cta' }] : []),
+  ...(SHOW_HALLCAKE_RESERVE ? [{ label: 'ご予約', href: RESERVATION_ENTRY_URL, cls: 'header-cta' }] : []),
   { label: 'LINE', href: 'https://lin.ee/SHBoDiLI', cls: 'header-cta header-cta-fill' },
 ]
 
