@@ -4,13 +4,27 @@ import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoint
 
 // Notionのアイキャッチが空のとき、slugからサイト内の画像にフォールバックする
 // （NotionのファイルURLは署名付きで期限が切れるため。Notionに値があればそちらを優先）
-const JOURNAL_EYECATCH_FALLBACK: Record<string, string> = {
-  'domestic-fresh-cream': '/photos/journal/domestic-fresh-cream.jpg',
-  'fermented-butter': '/photos/journal/fermented-butter.jpg',
+// alt・caption は任意。外部素材（フリー素材）の写真は、産地の誤認を避けるため
+// 「写真はイメージです」を写真の下に出し、altにも産地名を入れない
+const JOURNAL_EYECATCH_FALLBACK: Record<string, { src: string; alt?: string; caption?: string }> = {
+  'domestic-fresh-cream': { src: '/photos/journal/domestic-fresh-cream.jpg' },
+  'fermented-butter': { src: '/photos/journal/fermented-butter.jpg' },
+  'tokushima-yuzu': {
+    src: '/photos/journal/tokushima-yuzu.jpg',
+    alt: 'ゆずの実',
+    caption: '写真はイメージです',
+  },
 }
 
 export function resolveEyecatch(notionUrl: string | undefined, slug: string): string | undefined {
-  return notionUrl ?? JOURNAL_EYECATCH_FALLBACK[slug]
+  return notionUrl ?? JOURNAL_EYECATCH_FALLBACK[slug]?.src
+}
+
+// フォールバック画像を使うときだけ、alt・キャプションを返す（Notionの画像には付けない）
+function resolveEyecatchNote(notionUrl: string | undefined, slug: string) {
+  if (notionUrl) return {}
+  const fb = JOURNAL_EYECATCH_FALLBACK[slug]
+  return { eyecatchAlt: fb?.alt, eyecatchCaption: fb?.caption }
 }
 
 function parseJournal(page: PageObjectResponse): JournalPost {
@@ -26,6 +40,7 @@ function parseJournal(page: PageObjectResponse): JournalPost {
     title:            props['タイトル']?.title?.[0]?.plain_text ?? '',
     category:         props['カテゴリ']?.select?.name ?? '素材の話',
     eyecatch:         resolveEyecatch(files(props['アイキャッチ'])[0], slug),
+    ...resolveEyecatchNote(files(props['アイキャッチ'])[0], slug),
     summary:          props['サマリー']?.rich_text?.[0]?.plain_text ?? '',
     publishedAt:      props['公開日']?.date?.start ?? '',
     status:           props['ステータス']?.select?.name ?? '下書き',
