@@ -47,6 +47,8 @@ export interface JournalPost {
   title: string
   category: JournalCategory
   eyecatch?: string
+  eyecatchAlt?: string
+  eyecatchCaption?: string
   summary: string
   publishedAt: string
   status: PublishStatus

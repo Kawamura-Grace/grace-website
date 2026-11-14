@@ -276,16 +276,23 @@ export default async function JournalDetailPage({ params }: PageProps) {
           <div className="bg-grace-offwhite">
             <div className="container-content">
               <div className="max-w-article mx-auto">
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={post.eyecatch}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 672px"
-                    priority
-                  />
-                </div>
+                <figure>
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
+                      src={post.eyecatch}
+                      alt={post.eyecatchAlt ?? post.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 672px"
+                      priority
+                    />
+                  </div>
+                  {post.eyecatchCaption && (
+                    <figcaption className="font-noto-sans text-[10px] tracking-wide text-grace-text-tertiary mt-2 text-right">
+                      {post.eyecatchCaption}
+                    </figcaption>
+                  )}
+                </figure>
               </div>
             </div>
           </div>
