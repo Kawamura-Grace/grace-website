@@ -174,14 +174,14 @@ export default function GiftPage() {
               For Corporate
             </h2>
             <p className="font-noto-serif text-lg text-grace-stone leading-loose mb-10 max-w-md mx-auto">
-              {SHOW_NOSHI_CARD ? '大量注文・のし対応・個別包装など' : '大量注文・個別包装など'}、法人様向けのギフトご相談を承ります。
-              周年記念・お歳暮・催事などにぜひご活用ください。
+              {SHOW_NOSHI_CARD ? '大量注文・のし対応・個別包装など' : '大量注文・個別包装など'}、法人・団体さま向けの焼き菓子ギフトのご相談を承ります。
+              ご挨拶や周年記念などに。お受け取りは店頭が基本です。近隣へのお届けはご相談ください。
             </p>
             <Link
               href="/contact?category=法人ギフト"
               className="inline-flex items-center gap-2 font-noto-sans text-[10px] tracking-widest text-grace-offwhite border border-grace-offwhite px-8 py-4 hover:bg-grace-offwhite hover:text-grace-brown transition-all duration-300"
             >
-              CORPORATE INQUIRY
+              法人ギフトのご相談
             </Link>
           </div>
         </section>
