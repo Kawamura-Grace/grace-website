@@ -175,7 +175,7 @@ export default function GiftPage() {
             </h2>
             <p className="font-noto-serif text-lg text-grace-stone leading-loose mb-10 max-w-md mx-auto">
               {SHOW_NOSHI_CARD ? '大量注文・のし対応・個別包装など' : '大量注文・個別包装など'}、法人・団体さま向けの焼き菓子ギフトのご相談を承ります。
-              ご挨拶や周年記念などに。お受け取りは店頭にて承ります。
+              ご挨拶や周年記念などに。お受け取りは店頭のみです。配送は送料別途で承り、オンラインショップからの配送のご予約もお受けします。
             </p>
             <Link
               href="/contact?category=法人ギフト"
