@@ -318,7 +318,7 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
             className={cn(inputBase, 'resize-none', errors.message && 'border-grace-gold')}
           />
           {isCorporateGift && (
-            <p id="corporate-gift-message-hint" className="mt-1 text-sm leading-relaxed">
+            <p id="corporate-gift-message-hint" className="mt-1 font-noto-sans text-[10px] leading-relaxed text-grace-text-tertiary">
               ご用途、ご希望の数量・ご予算、お受け取り希望日を、分かる範囲でお知らせください。
             </p>
           )}
