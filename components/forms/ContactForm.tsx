@@ -84,11 +84,14 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: { category: presetCategory ?? '取材' },
   })
+
+  const isCorporateGift = watch('category') === '法人ギフト'
 
   const onSubmit = async (data: FormData) => {
     setSubmitError(null)
@@ -308,11 +311,17 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
           </label>
           <textarea
             id="message"
+            aria-describedby={isCorporateGift ? 'corporate-gift-message-hint' : undefined}
             rows={6}
             placeholder="お問い合わせ内容をご記入ください（10文字以上）"
             {...register('message')}
             className={cn(inputBase, 'resize-none', errors.message && 'border-grace-gold')}
           />
+          {isCorporateGift && (
+            <p id="corporate-gift-message-hint" className="mt-1 text-sm leading-relaxed">
+              ご用途、ご希望の数量・ご予算、お受け取り希望日を、分かる範囲でお知らせください。
+            </p>
+          )}
           {errors.message && (
             <p className="mt-1 font-noto-sans text-[10px] text-grace-gold">{errors.message.message}</p>
           )}
