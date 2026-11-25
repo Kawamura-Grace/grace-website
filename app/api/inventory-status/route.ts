@@ -9,14 +9,33 @@ import { getInventoryStatusByNames } from '@/lib/square/inventory'
 
 export const dynamic = 'force-dynamic'
 
+// 長さはURLデコード後の文字列の長さ（UTF-16コード単位）で数える。
+const MAX_NAMES_PARAM_LENGTH = 2048
+const MAX_NAME_LENGTH = 100
+const MAX_NAMES = 20
+
 export async function GET(request: NextRequest) {
   const namesParam = request.nextUrl.searchParams.get('names') ?? ''
+  if (namesParam.length > MAX_NAMES_PARAM_LENGTH) {
+    console.warn('[inventory-status] MAX_NAMES_PARAM_LENGTH exceeded')
+    return NextResponse.json({})
+  }
+
   const names = namesParam
     .split(',')
     .map((n) => n.trim())
     .filter(Boolean)
 
-  const statusMap = await getInventoryStatusByNames(names)
+  if (names.length > MAX_NAMES) {
+    console.warn('[inventory-status] MAX_NAMES exceeded')
+    return NextResponse.json({})
+  }
+  if (names.some((name) => name.length > MAX_NAME_LENGTH)) {
+    console.warn('[inventory-status] MAX_NAME_LENGTH exceeded')
+    return NextResponse.json({})
+  }
+
+  const statusMap = await getInventoryStatusByNames([...new Set(names)])
 
   return NextResponse.json(Object.fromEntries(statusMap))
 }
