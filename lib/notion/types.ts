@@ -66,6 +66,7 @@ export interface NewsPost {
   publishedAt: string
   importance?: NewsImportance
   status: PublishStatus
+  body?: string  // コードに持つお知らせの本文（Notion の記事では使わない）
 }
 
 // ─── Contact ───

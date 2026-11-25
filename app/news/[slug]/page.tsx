@@ -202,7 +202,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
   const post = await getNewsBySlug(params.slug).catch(() => null)
   if (!post) notFound()
 
-  const rawBlocks = await getNewsBlocks(post.id).catch(() => [])
+  // コードに本文を持つお知らせは Notion を読まない
+  const rawBlocks = post.body ? [] : await getNewsBlocks(post.id).catch(() => [])
   const blocks = rawBlocks.filter(isBlockResponse) as BlockObjectResponse[]
 
   return (
@@ -246,7 +247,14 @@ export default async function NewsDetailPage({ params }: PageProps) {
         <section className="pb-16 md:pb-24 bg-grace-offwhite">
           <div className="container-content">
             <article className="max-w-article mx-auto">
-              {blocks.length > 0 ? (
+              {post.body ? (
+                // 空行で段落に分け、段落内の改行はそのまま表示する
+                post.body.split('\n\n').map((paragraph, i) => (
+                  <p key={i} className="font-noto-serif text-lg text-grace-text-secondary leading-loose mb-6 whitespace-pre-line break-words">
+                    {paragraph}
+                  </p>
+                ))
+              ) : blocks.length > 0 ? (
                 groupBlocks(blocks)
               ) : (
                 <p className="font-noto-serif text-lg text-grace-text-tertiary text-center py-12">
