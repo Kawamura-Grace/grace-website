@@ -1,5 +1,5 @@
 // お問い合わせAPIエンドポイント
-// 処理順: ハニーポット検証 → zodバリデーション → Notion記録 → 代表宛メール → 自動返信メール
+// 処理順: zodバリデーション → ハニーポット検証 → reCAPTCHA検証 → Notion記録 → 代表宛メール → 自動返信メール（検証を通った場合のみ）
 import { NextRequest, NextResponse } from 'next/server'
 import { notion, DB_IDS } from '@/lib/notion/client'
 import { Resend } from 'resend'
@@ -20,17 +20,37 @@ const schema = z.object({
   recaptchaToken: z.string().optional(),       // reCAPTCHA v3 トークン
 })
 
-// reCAPTCHA v3 スコア検証（未設定時は 1.0 として通過）
-async function verifyRecaptcha(token: string): Promise<number> {
+// reCAPTCHA v3 検証。true のときだけ自動返信を送る。
+// RECAPTCHA_SECRET_KEY 未設定時は検証しない（true）。
+// 設定時は、トークン無し・通信失敗・検証失敗・低スコア・action不一致をすべて false にする。
+const RECAPTCHA_ACTION = 'contact' // ContactForm.tsx の execute で指定する action と同じ値
+const RECAPTCHA_MIN_SCORE = 0.5
+
+async function verifyRecaptcha(token: string | undefined): Promise<boolean> {
   const secret = process.env.RECAPTCHA_SECRET_KEY
-  if (!secret) return 1.0
-  const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `secret=${secret}&response=${token}`,
-  })
-  const json = await res.json() as { success: boolean; score: number }
-  return json.success ? (json.score ?? 0) : 0
+  if (!secret) return true
+  if (!token) return false
+  try {
+    const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      body: new URLSearchParams({ secret, response: token }),
+      signal: AbortSignal.timeout(5000), // 応答が無くても問い合わせの受付を止めない
+    })
+    if (!res.ok) {
+      console.error('[Contact API] reCAPTCHA検証APIエラー:', res.status)
+      return false
+    }
+    const json = await res.json() as { success?: boolean; score?: number; action?: string }
+    return (
+      json.success === true &&
+      json.action === RECAPTCHA_ACTION &&
+      (json.score ?? 0) >= RECAPTCHA_MIN_SCORE
+    )
+  } catch (error) {
+    // 通信失敗・不正な応答でも例外にせず、要確認として受け付ける
+    console.error('[Contact API] reCAPTCHA検証エラー:', error)
+    return false
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -62,12 +82,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: true })
     }
 
-    // reCAPTCHA v3 スコア検証（スコア低くても記録・送信は通常通り、Notionにフラグのみ）
-    let recaptchaScore = 1.0
-    if (data.recaptchaToken) {
-      recaptchaScore = await verifyRecaptcha(data.recaptchaToken)
-    }
-    const isLowScore = recaptchaScore < 0.5
+    // reCAPTCHA v3 検証（通らなくても拒否はしない。Notion記録と店舗宛通知は行い、
+    // 対応状態を「要確認」にして自動返信だけ止める）
+    const isVerified = await verifyRecaptcha(data.recaptchaToken)
 
     // ─── Notion ContactDB に記録 ───
     if (process.env.NOTION_TOKEN) {
@@ -80,7 +97,7 @@ export async function POST(request: NextRequest) {
             'メール':     { email: data.email },
             '送信者名':   { rich_text: [{ text: { content: data.name } }] },
             '分類':       { select: { name: data.category } },
-            '対応状態':   { select: { name: isLowScore ? '要確認' : '未返信' } },
+            '対応状態':   { select: { name: isVerified ? '未返信' : '要確認' } },
             '本文':       { rich_text: [{ text: { content: data.message } }] },
             ...(data.company ? { '会社名': { rich_text: [{ text: { content: data.company } }] } } : {}),
             ...(data.phone   ? { '電話':   { phone_number: data.phone } } : {}),
@@ -107,10 +124,8 @@ export async function POST(request: NextRequest) {
       const logResult = (label: string) => (res: { error: unknown }) => {
         if (res.error) console.error(`[Contact API] ${label}送信エラー:`, res.error)
       }
-      const messagePreview = data.message.slice(0, 200) + (data.message.length > 200 ? '...' : '')
-
-      await Promise.all([
-        // 代表宛通知
+      // 代表宛通知
+      const sendStaffNotice = () =>
         resend.emails.send({
           from,
           to:      staffTo,
@@ -128,8 +143,11 @@ export async function POST(request: NextRequest) {
           ].filter(Boolean).join('\n'),
         }).then(logResult('代表宛メール')).catch((err: Error) => {
           console.error('[Contact API] 代表宛メール送信エラー:', err)
-        }),
-        // 送信者への自動返信
+        })
+
+      // 送信者への自動返信
+      // 宛先は入力されたアドレスのため、利用者が自由に入力した内容（氏名・本文など）は載せず定型文のみにする
+      const sendAutoReply = () =>
         resend.emails.send({
           from,
           to:      data.email,
@@ -137,13 +155,10 @@ export async function POST(request: NextRequest) {
           replyTo: staffTo,
           subject: '【Grace】お問合せを承りました',
           text: [
-            `${data.name} 様`,
+            'お客様',
             '',
             'このたびはGraceへお問合せをいただき、誠にありがとうございます。',
             'スタッフより、3営業日以内にご返信させていただきます。',
-            '',
-            'お問い合わせ内容：',
-            messagePreview,
             '',
             '──────────────────────',
             '株式会社Grace Foods',
@@ -153,7 +168,11 @@ export async function POST(request: NextRequest) {
           ].join('\n'),
         }).then(logResult('自動返信メール')).catch((err: Error) => {
           console.error('[Contact API] 自動返信メール送信エラー:', err)
-        }),
+        })
+
+      await Promise.all([
+        sendStaffNotice(),
+        ...(isVerified ? [sendAutoReply()] : []),
       ])
     } else {
       console.log('[contact] RESEND_API_KEY未設定のためメール送信スキップ')
