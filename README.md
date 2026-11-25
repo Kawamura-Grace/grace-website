@@ -12,7 +12,7 @@
 - **Tailwind CSS**（デザイントークンは `tailwind.config.ts` + `styles/globals.css` が正本）
 - **Vercel**（ホスティング・自動デプロイ）
 - **Notion API**（Journal / News / Products などのコンテンツ管理）
-- Resend（メール送信）/ Square（メール登録→顧客作成）/ reCAPTCHA v3
+- Resend（メール送信）/ Square（在庫状態の取得）/ reCAPTCHA v3
 
 ## ローカル開発
 
@@ -39,11 +39,11 @@ npm run lint        # next lint
 app/                 App Router
   page.tsx           TOP（cinematic-b・自己完結型 'use client'・時間フェーズ連動）
   concept/ contact/ gift/ journal/ news/ shop/ sweets/ privacy/ terms/
-  api/               contact / subscribe / revalidate / journal/latest
+  api/               contact / revalidate / journal/latest
 components/
   layout/            Header / Footer / MobileMenu
   ui/                Button / Section / Tag
-  forms/             ContactForm / SubscribeForm
+  forms/             ContactForm
 lib/
   notion/            client(DB_IDS) / journal / news / products / types
   hooks/             usePhase（時刻→朝昼夕夜フェーズ）/ useRise
