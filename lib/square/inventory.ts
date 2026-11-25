@@ -193,7 +193,7 @@ export async function getInventoryStatusByNames(
     const variationIds = productNames
       .map((n) => nameToVariationId.get(n.trim()))
       .filter((id): id is string => Boolean(id))
-    const variationIdToQuantity = await fetchInventoryCounts(env, variationIds)
+    const variationIdToQuantity = await fetchInventoryCounts(env, [...new Set(variationIds)])
     return buildStatusMap(productNames, nameToVariationId, variationIdToQuantity)
   } catch (err) {
     console.error('[square/inventory] 在庫取得に失敗。フォールバック（表示なし）で継続します:', err)
