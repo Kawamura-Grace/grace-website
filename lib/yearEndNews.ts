@@ -9,7 +9,8 @@ export const YEAR_END_NEWS: NewsPost = {
   slug:        'year-end-hours-2026',
   title:       '年末年始の営業時間のお知らせ',
   category:    'お知らせ',
-  publishedAt: '2026-11-25',
+  // 表示する公開日（マージ予定日）。この日付で出し分けはしないため、マージした時点で公開される
+  publishedAt: '2026-12-13',
   status:      '公開中',
   body:        `いつもGraceをご利用いただき、ありがとうございます。
 年末年始の営業時間をお知らせいたします。
