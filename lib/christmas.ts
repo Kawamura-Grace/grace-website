@@ -2,8 +2,16 @@
 // 予約サイトの直リンク（店舗選択なしでクリスマス店舗に入る）。ホールケーキ用の RESERVATION_URL とは別
 export const XMAS_RESERVE_URL = 'https://grace-hallcake-reserve.square.site/?location=LJGYR5RMH5BHF'
 
-// バナーの表示スイッチ。受付終了後は false にする（数量限定で数に達しだい終了）
+// バナーの表示スイッチ
 export const SHOW_XMAS_BANNER = true
+
+// 予定より早く受付を終了するときは false にする
+export const XMAS_RESERVATIONS_OPEN = true
+
+export function isChristmasReservationOpen(now = new Date()): boolean {
+  // 最終受取日の翌日、日本時間の12月26日0時に終了する
+  return XMAS_RESERVATIONS_OPEN && now.getTime() < Date.parse('2026-12-26T00:00:00+09:00')
+}
 
 // 掲載する3品（売価・上限数・アレルゲンは載せない：2026-10-22決裁）
 // name の「|」は、バナーで語の途中で改行しないための区切り位置（表示では消える）

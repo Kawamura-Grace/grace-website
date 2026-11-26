@@ -49,11 +49,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         inset: 0,
         background: '#2C2421',
         zIndex: 60,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '22px',
         opacity: isOpen ? 1 : 0,
         // 閉じている間はvisibility:hiddenでフォーカス・タブ移動対象から除外する。
         // opacity:0とpointer-events:noneだけだと視覚上は消えてもキーボードのTabで
@@ -110,40 +105,44 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         />
       </button>
 
-      {/* ナビゲーション項目 */}
-      {MENU_ITEMS.map(({ label, jp, href, external }) => (
-        <a
-          key={href}
-          href={href}
-          onClick={onClose}
-          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          style={{
-            fontFamily: "var(--font-cormorant), Georgia, serif",
-            fontStyle: 'italic',
-            fontWeight: 300,
-            fontSize: '22px',
-            letterSpacing: '0.2em',
-            color: '#F7F3EF',
-            textAlign: 'center',
-            display: 'block',
-          }}
-        >
-          {label}
-          <span
-            style={{
-              fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
-              fontStyle: 'normal',
-              fontSize: '10.5px',
-              letterSpacing: '0.3em',
-              color: '#B8956A',
-              display: 'block',
-              marginTop: '2px',
-            }}
-          >
-            {jp}
-          </span>
-        </a>
-      ))}
+      {/* 収まるときは上下の自動余白で中央寄せし、収まらないときは先頭からスクロールする */}
+      <nav style={{ position: 'absolute', inset: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flexShrink: 0, marginBlock: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '22px' }}>
+          {MENU_ITEMS.map(({ label, jp, href, external }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={onClose}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              style={{
+                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontStyle: 'italic',
+                fontWeight: 300,
+                fontSize: '22px',
+                letterSpacing: '0.2em',
+                color: '#F7F3EF',
+                textAlign: 'center',
+                display: 'block',
+              }}
+            >
+              {label}
+              <span
+                style={{
+                  fontFamily: "var(--font-shippori), 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+                  fontStyle: 'normal',
+                  fontSize: '10.5px',
+                  letterSpacing: '0.3em',
+                  color: '#B8956A',
+                  display: 'block',
+                  marginTop: '2px',
+                }}
+              >
+                {jp}
+              </span>
+            </a>
+          ))}
+        </div>
+      </nav>
     </div>
   )
 }

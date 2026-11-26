@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useXmasReservationOpen } from '@/lib/hooks/useXmasReservationOpen'
 import Image from 'next/image'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -297,6 +298,7 @@ function ShopDtDd({ dt, dd }: { dt: string; dd: string }) {
 // ============ メインページ ============
 export default function HomePage() {
   const { phase } = usePhase()
+  const xmasOpen = useXmasReservationOpen()
   // 開業当日（2026-10-15・日本時間）だけ朝の案内を差し替える。SSRとの不一致を避けるためクライアントで判定
   const [isOpeningDay, setIsOpeningDay] = useState(false)
   useEffect(() => {
@@ -397,7 +399,7 @@ export default function HomePage() {
               href="/christmas"
             >
               Christmas Cake
-              <span className="date">クリスマスケーキ　予約受付中</span>
+              <span className="date">{xmasOpen ? 'クリスマスケーキ　予約受付中' : 'クリスマスケーキ　予約受付は終了しました'}</span>
               <span className="sub">お受け取り 12月22日（火）〜25日（金）</span>
             </a>
 

@@ -16,6 +16,9 @@ type GrecaptchaInstance = {
   ready: (callback: () => void) => void
 }
 
+// reCAPTCHA の読込・トークン取得を待つ上限（ミリ秒）
+const RECAPTCHA_TIMEOUT_MS = 8000
+
 // ─── バリデーションスキーマ（API route と同一） ───
 const schema = z.object({
   category: z.enum(
@@ -23,9 +26,9 @@ const schema = z.object({
     { errorMap: () => ({ message: 'お問い合わせ種別を選択してください' }) }
   ),
   name:     z.string().min(1, 'お名前は必須です').max(50),
-  company:  z.string().max(100).optional(),
+  company:  z.string().max(100, '会社名・屋号は100文字以内で入力してください').optional(),
   email:    z.string().email('正しいメールアドレスを入力してください'),
-  phone:    z.string().max(20).optional(),
+  phone:    z.string().max(20, '電話番号は20文字以内で入力してください').optional(),
   message:  z.string().min(10, '10文字以上入力してください').max(2000, '2000文字以内で入力してください'),
   privacyAgreed: z.literal(true, {
     errorMap: () => ({ message: 'プライバシーポリシーへの同意が必要です' }),
@@ -74,11 +77,57 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
         const script = document.createElement('script')
         script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
         script.async = true
-        script.onload = () => resolve()
+        // 読込失敗・応答なしのときはキャッシュを捨て、次回の操作で読み込み直せるようにする
+        const fail = () => {
+          window.clearTimeout(timer)
+          script.onload = null
+          script.onerror = null
+          script.remove()
+          recaptchaPromiseRef.current = null
+          resolve()
+        }
+        const timer = window.setTimeout(fail, RECAPTCHA_TIMEOUT_MS)
+        script.onload = () => {
+          window.clearTimeout(timer)
+          resolve()
+        }
+        script.onerror = fail
         document.head.appendChild(script)
       })
     }
     return recaptchaPromiseRef.current
+  }
+
+  // reCAPTCHA v3 トークン取得。失敗・応答なしの場合は undefined を返して送信を続ける
+  // （API側はトークン無しでも拒否せず「要確認」で記録するため、問い合わせを取りこぼさない）
+  const getRecaptchaToken = async (siteKey: string): Promise<string | undefined> => {
+    const requestToken = async (): Promise<string | undefined> => {
+      // フォーカス操作を経ずに送信された場合（プログラム操作等）の保険としてここでも待機
+      await loadRecaptcha()
+      const { grecaptcha } = window as unknown as { grecaptcha?: GrecaptchaInstance }
+      if (!grecaptcha) return undefined
+      return new Promise<string>((resolve, reject) => {
+        grecaptcha.ready(() => {
+          // execute が同期的に例外を投げた場合も reject に流す
+          Promise.resolve()
+            .then(() => grecaptcha.execute(siteKey, { action: 'contact' }))
+            .then(resolve, reject)
+        })
+      })
+    }
+
+    let timer: number | undefined
+    const timeout = new Promise<undefined>((resolve) => {
+      timer = window.setTimeout(() => resolve(undefined), RECAPTCHA_TIMEOUT_MS)
+    })
+    try {
+      return await Promise.race([requestToken(), timeout])
+    } catch (error) {
+      console.error('[ContactForm] reCAPTCHAトークン取得エラー:', error)
+      return undefined
+    } finally {
+      window.clearTimeout(timer)
+    }
   }
 
   const {
@@ -101,20 +150,7 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
 
     // reCAPTCHA v3 トークン取得（サイトキー設定時のみ）
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-    let recaptchaToken: string | undefined
-    if (siteKey && typeof window !== 'undefined') {
-      // フォーカス操作を経ずに送信された場合（プログラム操作等）の保険としてここでも待機
-      await loadRecaptcha()
-      const w = window as unknown as { grecaptcha?: GrecaptchaInstance }
-      if (w.grecaptcha) {
-        recaptchaToken = await new Promise<string>((resolve) => {
-          w.grecaptcha!.ready(async () => {
-            const token = await w.grecaptcha!.execute(siteKey, { action: 'contact' })
-            resolve(token)
-          })
-        })
-      }
-    }
+    const recaptchaToken = siteKey ? await getRecaptchaToken(siteKey) : undefined
 
     try {
       const res = await fetch('/api/contact', {
@@ -266,8 +302,11 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
               placeholder="株式会社〇〇"
               autoComplete="organization"
               {...register('company')}
-              className={inputBase}
+              className={cn(inputBase, errors.company && 'border-grace-gold')}
             />
+            {errors.company && (
+              <p className="mt-1 font-noto-sans text-[10px] text-grace-gold">{errors.company.message}</p>
+            )}
           </div>
         </div>
 
@@ -299,8 +338,11 @@ export function ContactForm({ initialCategory }: { initialCategory?: string }) {
               placeholder="090-0000-0000"
               autoComplete="tel"
               {...register('phone')}
-              className={inputBase}
+              className={cn(inputBase, errors.phone && 'border-grace-gold')}
             />
+            {errors.phone && (
+              <p className="mt-1 font-noto-sans text-[10px] text-grace-gold">{errors.phone.message}</p>
+            )}
           </div>
         </div>
 
