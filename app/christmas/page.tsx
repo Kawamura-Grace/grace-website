@@ -4,7 +4,7 @@ import { PhotoCarousel } from '@/components/christmas/PhotoCarousel'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { buildPageMetadata } from '@/lib/seo'
-import { XMAS_RESERVE_URL, XMAS_DETAILS, XMAS_LIMIT_NOTE } from '@/lib/christmas'
+import { isChristmasReservationOpen, XMAS_RESERVE_URL, XMAS_DETAILS, XMAS_LIMIT_NOTE } from '@/lib/christmas'
 import { RESERVATION_LEGAL_URL } from '@/lib/reservation'
 
 export const dynamic = 'force-dynamic'
@@ -29,6 +29,8 @@ function ReserveButton({ onDark = false }: { onDark?: boolean }) {
 }
 
 export default function ChristmasPage() {
+  const reservationsOpen = isChristmasReservationOpen()
+
   return (
     <>
       <Header />
@@ -42,11 +44,15 @@ export default function ChristmasPage() {
             </h1>
             <div className="w-8 h-px bg-grace-gold mx-auto my-8" />
             <p className="font-noto-serif text-base md:text-lg text-grace-stone leading-loose">
-              ご予約受付中<br />
+              {reservationsOpen ? 'ご予約受付中' : 'ご予約の受付は終了しました'}<br />
               <span className="inline-block">お受け取り　12月22日（火）〜25日（金）　</span><span className="inline-block">店頭のみ</span>
             </p>
-            <div className="mt-10"><ReserveButton onDark /></div>
-            <p className="font-noto-sans text-xs tracking-wide text-grace-stone mt-4">{XMAS_LIMIT_NOTE}</p>
+            {reservationsOpen && (
+              <>
+                <div className="mt-10"><ReserveButton onDark /></div>
+                <p className="font-noto-sans text-xs tracking-wide text-grace-stone mt-4">{XMAS_LIMIT_NOTE}</p>
+              </>
+            )}
           </div>
         </section>
 
@@ -85,9 +91,11 @@ export default function ChristmasPage() {
             </p>
 
             <h2 className="font-noto-serif text-xl text-grace-brown mb-6 pb-2 border-b border-grace-line">ご予約について</h2>
-            <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
-              {XMAS_LIMIT_NOTE}
-            </p>
+            {reservationsOpen && (
+              <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-4">
+                {XMAS_LIMIT_NOTE}
+              </p>
+            )}
             {/* 予約サイトの特商法ページへの案内（2026-11-07）。日付・支払方法は書かない。フッターの共通リンク（/terms）は変えない */}
             <p className="font-noto-serif text-base text-grace-text-secondary leading-loose mb-8">
               お支払い・お受け取り・返品などの詳しい条件は、
@@ -110,7 +118,7 @@ export default function ChristmasPage() {
               最新の情報は、公式LINEとInstagramでお知らせします。
             </p>
 
-            <div className="text-center mt-14"><ReserveButton /></div>
+            {reservationsOpen && <div className="text-center mt-14"><ReserveButton /></div>}
           </div>
         </section>
       </main>

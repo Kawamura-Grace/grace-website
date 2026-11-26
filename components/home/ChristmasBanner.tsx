@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import { SHOW_XMAS_BANNER, XMAS_RESERVE_URL, XMAS_ITEMS, XMAS_LIMIT_NOTE } from '@/lib/christmas'
+import { useXmasReservationOpen } from '@/lib/hooks/useXmasReservationOpen'
 
 const GOLD = '#B8956A'
 const LINE = 'color-mix(in srgb, var(--ink) 12%, var(--bg))'
@@ -15,7 +18,9 @@ const ctaStyle: React.CSSProperties = {
 
 // ヒーロー直後のバナー本体
 export function ChristmasBanner() {
-  if (!SHOW_XMAS_BANNER) return null
+  // 受付終了（スイッチ false、または日本時間12/26以降）は出さない
+  const reservationsOpen = useXmasReservationOpen()
+  if (!SHOW_XMAS_BANNER || !reservationsOpen) return null
   return (
     <section
       id="christmas"
