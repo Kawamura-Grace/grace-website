@@ -11,6 +11,7 @@ import { buildPageMetadata } from '@/lib/seo'
 import { WHOLE_CAKES } from '@/lib/wholecakes'
 import { RESERVATION_ENTRY_URL, RESERVATION_LABEL } from '@/lib/reservation'
 import { SHOW_PRODUCT_DETAIL } from '@/lib/features'
+import { ONLINE_SHOP_LABEL, ONLINE_SHOP_URL } from '@/lib/onlineShop'
 
 // ビルド時のNotionタイムアウト防止: 静的生成を無効化しリクエスト時にデータ取得する
 export const dynamic = 'force-dynamic'
@@ -194,6 +195,25 @@ export default async function SweetsPage({ searchParams }: PageProps) {
             )}
           </div>
         </section>
+
+        {/* ─── オンラインショップ ─── */}
+        <section className="py-12 bg-grace-cream border-t border-grace-line">
+          <div className="container-content text-center">
+            <h2 className="font-noto-sans text-[10px] tracking-widest text-grace-gold mb-4">ONLINE SHOP</h2>
+            <p className="font-noto-serif text-lg text-grace-text-secondary mb-6">
+              焼き菓子をご自宅へお届けします。
+            </p>
+            <a
+              href={ONLINE_SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block font-noto-sans text-[10px] tracking-widest text-grace-offwhite bg-grace-brown px-8 py-3 hover:bg-grace-text-secondary transition-colors"
+            >
+              {ONLINE_SHOP_LABEL} →
+            </a>
+          </div>
+        </section>
+
         {/* ─── ホールケーキ（ご予約）：5品。各カードから予約サイトへ ─── */}
         <section id="whole-cake" className="section-padding bg-grace-offwhite border-t border-grace-line">
           <div className="container-content">

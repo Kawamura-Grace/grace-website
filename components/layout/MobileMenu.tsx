@@ -2,12 +2,14 @@
 
 import { useEffect } from 'react'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL } from '@/lib/reservation'
+import { ONLINE_SHOP_URL } from '@/lib/onlineShop'
 
 // モバイルメニューの項目（英語ラベル + 日本語サブテキスト）
 const MENU_ITEMS = [
   { label: 'Concept',  jp: 'ブランドについて', href: '/concept',                                    external: false },
   { label: 'Sweets',   jp: 'お菓子',           href: '/sweets',                                    external: false },
   { label: 'Gift',     jp: '贈りもの',          href: '/gift',                                      external: false },
+  { label: 'Online Shop', jp: '通販', href: ONLINE_SHOP_URL, external: true },
   { label: 'Showcase', jp: 'ショーケース',       href: '/#case',                                      external: false },
   { label: 'Journal',  jp: 'ジャーナル',        href: '/journal',                                    external: false },
   { label: 'News',     jp: 'お知らせ',          href: '/news',                                       external: false },
