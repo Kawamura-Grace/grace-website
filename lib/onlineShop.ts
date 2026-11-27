@@ -1,4 +1,5 @@
-// オンラインショップ（Square Online・EC TOP）への案内。トップ・フッター・/gift のリンク先はこのファイルで管理する。
+// オンラインショップ（Square Online・EC TOP）への案内。トップ・ヘッダー・モバイルメニュー・フッター・/gift・/sweets・/shop のリンク先はこのファイルで管理する。
+// 本文中の案内リンクの文言も ONLINE_SHOP_LABEL で管理する（ナビ・フッターの英字「Online Shop」は各コンポーネント側）。
 // 注意：特商法ページ app/terms/page.tsx の「ウェブサイトURL」欄にも同じURLを直書きしている。URLを変えるときは2か所を直す。
 // 公開日の記録：2026-11-07 にECを公開。公開後に実機で確認した実URLは https://grace-patisserie.square.site
 //       （公開前に管理画面の表示から推定していた別のURLは使われなかった）。

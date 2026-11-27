@@ -7,12 +7,16 @@ import { usePathname } from 'next/navigation'
 import { MobileMenu } from './MobileMenu'
 import { usePhase } from '@/lib/hooks/usePhase'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL } from '@/lib/reservation'
+import { ONLINE_SHOP_URL } from '@/lib/onlineShop'
 
-// デスクトップナビゲーション項目（右端のボタンを足した分、1100px以下はハンバーガーに切り替える）
+// デスクトップナビゲーション項目
+// ロゴ・ナビ10項目・右端の最大3ボタンが重ならず並ぶよう、1200px未満はハンバーガーに切り替える。
+// 項目や右端のボタンを足すときは、1200px幅で重ならないことを確認する（切り替え幅は下の style の2つの media query）
 const NAV_ITEMS = [
   { label: 'Concept',  href: '/concept',                                    external: false },
   { label: 'Sweets',   href: '/sweets',                                    external: false },
   { label: 'Gift',     href: '/gift',                                      external: false },
+  { label: 'Online Shop', href: ONLINE_SHOP_URL,                          external: true },
   { label: 'Showcase', href: '/#case',                                      external: false },
   { label: 'Journal',  href: '/journal',                                    external: false },
   { label: 'News',     href: '/news',                                       external: false },
@@ -147,12 +151,13 @@ export function Header() {
           </span>
         </Link>
 
-        {/* デスクトップナビ（880px以上で表示） */}
+        {/* デスクトップナビ（1200px以上で表示） */}
         <nav
           aria-label="メインナビゲーション"
           style={{
             display: 'flex',
             gap: '24px',
+            whiteSpace: 'nowrap',
           }}
           className="desktop-nav"
         >
@@ -239,12 +244,12 @@ export function Header() {
 
       {/* レスポンシブ: デスクトップナビの表示制御 */}
       <style>{`
-        @media (max-width: 1100px) {
+        @media (max-width: 1199.98px) {
           .desktop-nav { display: none !important; }
           .menu-btn-cinematic { display: block !important; }
           #header { padding-left: 16px !important; padding-right: 16px !important; }
         }
-        @media (min-width: 1101px) {
+        @media (min-width: 1200px) {
           .menu-btn-cinematic { display: none !important; }
         }
         .header-right { display: flex; align-items: center; gap: 8px; }

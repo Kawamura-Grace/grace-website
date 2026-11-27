@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 import { buildPageMetadata } from '@/lib/seo'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL, RESERVATION_LABEL, RESERVATION_NOTE } from '@/lib/reservation'
+import { ONLINE_SHOP_LABEL, ONLINE_SHOP_URL } from '@/lib/onlineShop'
 
 // サーバーコンポーネント — イベントハンドラなし・Notion呼び出しなし
 // Vercelランタイムエラー(Digest: 257512637)の根本原因だったonMouseEnter/onMouseLeaveを除去
@@ -193,6 +194,28 @@ export default function ShopPage() {
               }}
             >
               公式LINE 友だち追加
+            </a>
+            <p style={{ marginTop: '14px', fontSize: '12px', color: '#7B8B6F', letterSpacing: '0.12em' }}>
+              {/* 狭い画面では読点の位置で改行させる */}
+              <span style={{ display: 'inline-block' }}>焼き菓子の配送は、</span>
+              <span style={{ display: 'inline-block' }}>オンラインショップで承ります。</span>
+            </p>
+            <a
+              href={ONLINE_SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shop-link-gold"
+              style={{
+                display: 'inline-block',
+                marginTop: '8px',
+                fontSize: '12.5px',
+                letterSpacing: '0.18em',
+                color: '#B8956A',
+                borderBottom: '1px solid rgba(184,149,106,.4)',
+                paddingBottom: '2px',
+              }}
+            >
+              {ONLINE_SHOP_LABEL}
             </a>
 
             {/* ホールケーキ予約（予約サイト公開後に環境変数で表示） */}
