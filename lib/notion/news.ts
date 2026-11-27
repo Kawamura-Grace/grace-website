@@ -1,5 +1,6 @@
 import { notion, DB_IDS } from './client'
 import type { NewsPost } from './types'
+import { YEAR_END_NEWS } from '../yearEndNews'
 import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 function parseNews(page: PageObjectResponse): NewsPost {
@@ -15,14 +16,27 @@ function parseNews(page: PageObjectResponse): NewsPost {
   }
 }
 
+// コードに持つお知らせ（Notion の記事と合わせて一覧・詳細に出す）
+const STATIC_NEWS: NewsPost[] = [YEAR_END_NEWS]
+
 export async function getNewsPosts(limit?: number): Promise<NewsPost[]> {
-  const res = await notion.databases.query({
-    database_id: DB_IDS.NEWS,
-    filter: { property: 'ステータス', select: { equals: '公開中' } },
-    sorts: [{ property: '公開日', direction: 'descending' }],
-    page_size: limit ?? 100,
-  })
-  return res.results.map(p => parseNews(p as PageObjectResponse))
+  let posts: NewsPost[] = []
+  try {
+    const res = await notion.databases.query({
+      database_id: DB_IDS.NEWS,
+      filter: { property: 'ステータス', select: { equals: '公開中' } },
+      sorts: [{ property: '公開日', direction: 'descending' }],
+      page_size: limit ?? 100,
+    })
+    posts = res.results.map(p => parseNews(p as PageObjectResponse))
+  } catch (err) {
+    // Notion が取得できなくても、コードに持つお知らせは出す
+    console.error('[notion/news] お知らせの取得に失敗:', err)
+  }
+  // 公開日の新しい順
+  return [...STATIC_NEWS, ...posts]
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, limit ?? 100)
 }
 
 // TOPのニュースティッカー用（重要度=高の最新1件）
@@ -62,6 +76,9 @@ export async function getShopAlerts(): Promise<NewsPost[]> {
 }
 
 export async function getNewsBySlug(slug: string): Promise<NewsPost | null> {
+  const staticPost = STATIC_NEWS.find(n => n.slug === slug)
+  if (staticPost) return staticPost
+
   const res = await notion.databases.query({
     database_id: DB_IDS.NEWS,
     filter: {

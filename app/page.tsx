@@ -8,6 +8,8 @@ import { Footer } from '@/components/layout/Footer'
 import { SHOW_HALLCAKE_RESERVE, RESERVATION_ENTRY_URL, RESERVATION_LABEL } from '@/lib/reservation'
 import { ONLINE_SHOP_URL, ONLINE_SHOP_LABEL } from '@/lib/onlineShop'
 import { ChristmasBanner } from '@/components/home/ChristmasBanner'
+import { getSpecialStatus, type SpecialStatus } from '@/lib/specialHours'
+import { YEAR_END_NEWS, YEAR_END_NOTICE_LAST_DAY } from '@/lib/yearEndNews'
 import { usePhase, type Phase } from '@/lib/hooks/usePhase'
 
 // Journal記事の型（APIレスポンス用）
@@ -307,10 +309,23 @@ export default function HomePage() {
     const t = setInterval(check, 60_000)
     return () => clearInterval(t)
   }, [])
+  // 特別営業日（年末年始）の状態と、年末年始のお知らせリンクの表示。日本時間でクライアント判定
+  const [special, setSpecial] = useState<SpecialStatus | null>(null)
+  const [showYearEndNotice, setShowYearEndNotice] = useState(true)
+  useEffect(() => {
+    const check = () => {
+      setSpecial(getSpecialStatus())
+      setShowYearEndNotice(jstDateString() <= YEAR_END_NOTICE_LAST_DAY)
+    }
+    check()
+    const t = setInterval(check, 60_000)
+    return () => clearInterval(t)
+  }, [])
   const phaseData =
-    isOpeningDay && phase === 'morning'
+    special ??
+    (isOpeningDay && phase === 'morning'
       ? { ...PHASES.morning, msg: '本日オープン。9:30から営業します。' }
-      : PHASES[phase]
+      : PHASES[phase])
   const [isOpen, setIsOpen] = useState(false)
   const [journalPosts, setJournalPosts] = useState<JournalItem[]>([])
   const [inventory, setInventory] = useState<Record<string, 'in_stock' | 'sold_out'>>({})
@@ -321,6 +336,8 @@ export default function HomePage() {
     const timer = setInterval(() => setIsOpen(calcIsOpen()), 60_000)
     return () => clearInterval(timer)
   }, [])
+  // 特別営業日はその日の営業時間で判定する
+  const isOpenNow = special ? special.state === 'open' : isOpen
 
   // Journal最新3記事をAPIから取得
   useEffect(() => {
@@ -416,6 +433,18 @@ export default function HomePage() {
         {/* ===== クリスマスケーキ予約バナー（2026-11-02 追加） ===== */}
         <ChristmasBanner />
 
+        {/* ===== 年末年始のお知らせ（YEAR_END_NOTICE_LAST_DAY まで表示） ===== */}
+        {showYearEndNotice && (
+          <p style={{ padding: '24px', textAlign: 'center', fontSize: '13px', letterSpacing: '0.14em' }}>
+            <a
+              href={`/news/${YEAR_END_NEWS.slug}`}
+              style={{ color: 'var(--ink)', borderBottom: '1px solid #B8956A', paddingBottom: '4px' }}
+            >
+              {YEAR_END_NEWS.title}
+            </a>
+          </p>
+        )}
+
         {/* ===== 2. いまのGrace ステータスバー（STORE_OPEN = true で表示） ===== */}
         {STORE_OPEN && (
         <div
@@ -440,8 +469,8 @@ export default function HomePage() {
               width: '7px',
               height: '7px',
               borderRadius: '50%',
-              background: isOpen ? '#7B8B6F' : 'color-mix(in srgb, var(--ink) 38%, var(--bg))',
-              boxShadow: isOpen ? '0 0 0 4px color-mix(in srgb, #7B8B6F 18%, transparent)' : 'none',
+              background: isOpenNow ? '#7B8B6F' : 'color-mix(in srgb, var(--ink) 38%, var(--bg))',
+              boxShadow: isOpenNow ? '0 0 0 4px color-mix(in srgb, #7B8B6F 18%, transparent)' : 'none',
               flexShrink: 0,
               display: 'inline-block',
             }}
@@ -870,8 +899,14 @@ export default function HomePage() {
               // 営業時間外は在庫と無関係に「本日終了」。営業中はSquare在庫の実データのみ表示し、
               // 未連携（Square未設定・カタログ未マッチ）の商品はバッジ自体を出さない（フェイク表示を避ける）
               // 開業前（STORE_OPEN=false）は時間帯の「本日終了」を出さない（まだ営業していないため）
-              const label: ShowcaseLabel | null =
-                phase === 'night' ? (STORE_OPEN ? 'closed' : null) : inventory[name] ?? null
+              // 特別営業日は、閉店後＝「本日終了」、開店前と終日休業＝バッジなし、営業中＝在庫データ
+              const label: ShowcaseLabel | null = special
+                ? special.state === 'closed'
+                  ? 'closed'
+                  : special.state === 'open'
+                    ? inventory[name] ?? null
+                    : null
+                : phase === 'night' ? (STORE_OPEN ? 'closed' : null) : inventory[name] ?? null
               return (
                 <article
                   key={name}
